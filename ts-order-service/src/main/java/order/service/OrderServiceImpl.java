@@ -57,19 +57,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Response create(Order order, HttpHeaders headers) {
-        System.out.println("[Order Service][Create Order] Ready Create Order.");
-        ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
-        //CreateOrderResult cor = new CreateOrderResult();
-        if (accountOrders.contains(order)) {
-            System.out.println("[Order Service][Order Create] Fail.Order already exists.");
-            return new Response<>(0, "Order already exist", null);
-        } else {
-            order.setId(UUID.randomUUID());
-            orderRepository.save(order);
-            System.out.println("[Order Service][Order Create] Success.");
-            System.out.println("[Order Service][Order Create] Price:" + order.getPrice());
-            return new Response<>(1, "Success", order);
-        }
+        return createNewOrder(order, headers);
     }
 
     @Override
@@ -194,24 +182,7 @@ public class OrderServiceImpl implements OrderService {
             System.out.println("[Order Service][Modify Order] Fail.Order not found.");
             return new Response<>(0, "Order Not Found", null);
         } else {
-            oldOrder.setAccountId(order.getAccountId());
-            oldOrder.setBoughtDate(order.getBoughtDate());
-            oldOrder.setTravelDate(order.getTravelDate());
-            oldOrder.setTravelTime(order.getTravelTime());
-            oldOrder.setCoachNumber(order.getCoachNumber());
-            oldOrder.setSeatClass(order.getSeatClass());
-            oldOrder.setSeatNumber(order.getSeatNumber());
-            oldOrder.setFrom(order.getFrom());
-            oldOrder.setTo(order.getTo());
-            oldOrder.setStatus(order.getStatus());
-            oldOrder.setTrainNumber(order.getTrainNumber());
-            oldOrder.setPrice(order.getPrice());
-            oldOrder.setContactsName(order.getContactsName());
-            oldOrder.setContactsDocumentNumber(order.getContactsDocumentNumber());
-            oldOrder.setDocumentType(order.getDocumentType());
-            orderRepository.save(oldOrder);
-            System.out.println("[Order Service] Success.");
-            return new Response<>(1, "Success", oldOrder);
+            return updateChanges(order, oldOrder);
         }
     }
 
@@ -372,6 +343,22 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Response addNewOrder(Order order, HttpHeaders headers) {
+        return createNewOrder(order, headers);
+    }
+
+    @Override
+    public Response updateOrder(Order order, HttpHeaders headers) {
+        //log.info("UPDATE ORDER INFO: " +order.toString());
+        Order oldOrder = orderRepository.findById(order.getId());
+        if (oldOrder == null) {
+            System.out.println("[Order Service][Admin Update Order] Fail.Order not found.");
+            return new Response<>(0, "Order Not Found, Can't update", null);
+        } else {
+            return updateChanges(order, oldOrder);
+        }
+    }
+
+    public Response createNewOrder(Order order, HttpHeaders headers) {
         System.out.println("[Order Service][Admin Add Order] Ready Add Order.");
         ArrayList<Order> accountOrders = orderRepository.findByAccountId(order.getAccountId());
         if (accountOrders.contains(order)) {
@@ -386,34 +373,26 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    @Override
-    public Response updateOrder(Order order, HttpHeaders headers) {
-        log.info("UPDATE ORDER INFO: " +order.toString());
-        Order oldOrder = orderRepository.findById(order.getId());
-        if (oldOrder == null) {
-            System.out.println("[Order Service][Admin Update Order] Fail.Order not found.");
-            return new Response<>(0, "Order Not Found, Can't update", null);
-        } else {
-            System.out.println(oldOrder.toString());
-            oldOrder.setAccountId(order.getAccountId());
-            oldOrder.setBoughtDate(order.getBoughtDate());
-            oldOrder.setTravelDate(order.getTravelDate());
-            oldOrder.setTravelTime(order.getTravelTime());
-            oldOrder.setCoachNumber(order.getCoachNumber());
-            oldOrder.setSeatClass(order.getSeatClass());
-            oldOrder.setSeatNumber(order.getSeatNumber());
-            oldOrder.setFrom(order.getFrom());
-            oldOrder.setTo(order.getTo());
-            oldOrder.setStatus(order.getStatus());
-            oldOrder.setTrainNumber(order.getTrainNumber());
-            oldOrder.setPrice(order.getPrice());
-            oldOrder.setContactsName(order.getContactsName());
-            oldOrder.setContactsDocumentNumber(order.getContactsDocumentNumber());
-            oldOrder.setDocumentType(order.getDocumentType());
-            orderRepository.save(oldOrder);
-            System.out.println("[Order Service] [Admin Update Order] Success.");
-            return new Response<>(1, "Admin Update Order Success", oldOrder);
-        }
+    public Response updateChanges(Order order, Order oldOrder){
+        System.out.println(oldOrder.toString());
+        oldOrder.setAccountId(order.getAccountId());
+        oldOrder.setBoughtDate(order.getBoughtDate());
+        oldOrder.setTravelDate(order.getTravelDate());
+        oldOrder.setTravelTime(order.getTravelTime());
+        oldOrder.setCoachNumber(order.getCoachNumber());
+        oldOrder.setSeatClass(order.getSeatClass());
+        oldOrder.setSeatNumber(order.getSeatNumber());
+        oldOrder.setFrom(order.getFrom());
+        oldOrder.setTo(order.getTo());
+        oldOrder.setStatus(order.getStatus());
+        oldOrder.setTrainNumber(order.getTrainNumber());
+        oldOrder.setPrice(order.getPrice());
+        oldOrder.setContactsName(order.getContactsName());
+        oldOrder.setContactsDocumentNumber(order.getContactsDocumentNumber());
+        oldOrder.setDocumentType(order.getDocumentType());
+        orderRepository.save(oldOrder);
+        System.out.println("[Order Service] [Admin Update Order] Success.");
+        return new Response<>(1, "Admin Update Order Success", oldOrder);
     }
 }
 
