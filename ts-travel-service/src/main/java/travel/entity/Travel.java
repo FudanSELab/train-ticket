@@ -3,15 +3,9 @@ package travel.entity;
 import java.util.Date;
 
 
-public class Travel {
+public class Travel extends TripInfo{
 
     private Trip trip;
-
-    private String startingPlace;
-
-    private String endPlace;
-
-    private Date departureTime;
 
     public Travel(){
         //Default Constructor
@@ -24,28 +18,7 @@ public class Travel {
     public void setTrip(Trip trip) {
         this.trip = trip;
     }
+    // start
 
-    public String getStartingPlace() {
-        return startingPlace;
-    }
-
-    public void setStartingPlace(String startingPlace) {
-        this.startingPlace = startingPlace;
-    }
-
-    public String getEndPlace() {
-        return endPlace;
-    }
-
-    public void setEndPlace(String endPlace) {
-        this.endPlace = endPlace;
-    }
-
-    public Date getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(Date departureTime) {
-        this.departureTime = departureTime;
-    }
+    // end
 }

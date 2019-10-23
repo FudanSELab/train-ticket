@@ -8,20 +8,20 @@ public class TripInfo {
 
     @Valid
     @NotNull
-    private String startingPlace;
+    protected String startingPlace;
 
     @Valid
     @NotNull
-    private String endPlace;
+    protected String endPlace;
 
     @Valid
     @NotNull
-    private Date departureTime;
+    protected Date departureTime;
 
     public TripInfo(){
         //Default Constructor
     }
-
+    // start
     public String getStartingPlace() {
         return startingPlace;
     }
@@ -45,4 +45,5 @@ public class TripInfo {
     public void setDepartureTime(Date departureTime) {
         this.departureTime = departureTime;
     }
+    //end
 }
