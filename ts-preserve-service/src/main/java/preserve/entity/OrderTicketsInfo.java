@@ -2,7 +2,7 @@ package preserve.entity;
 
 import java.util.Date;
 
-public class OrderTicketsInfo {
+public class OrderTicketsInfo extends FoodOrderBase{
     private String accountId;
 
     private String contactsId;
@@ -20,13 +20,6 @@ public class OrderTicketsInfo {
     private int assurance;
 
     //food
-    private int foodType = 0;
-
-    private String stationName;
-
-    private String storeName;
-
-    private String foodName;
 
     private double foodPrice;
 
@@ -52,38 +45,6 @@ public class OrderTicketsInfo {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
-    }
-
-    public int getFoodType() {
-        return foodType;
-    }
-
-    public void setFoodType(int foodType) {
-        this.foodType = foodType;
-    }
-
-    public String getStationName() {
-        return stationName;
-    }
-
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
-    public String getFoodName() {
-        return foodName;
-    }
-
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
     }
 
     public double getFoodPrice() {

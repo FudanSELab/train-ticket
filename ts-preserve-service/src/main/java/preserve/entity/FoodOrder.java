@@ -3,7 +3,7 @@ package preserve.entity;
 import java.util.UUID;
 
 
-public class FoodOrder {
+public class FoodOrder extends FoodOrderBase{
 
     private UUID id;
 
@@ -38,38 +38,6 @@ public class FoodOrder {
 
     public void setOrderId(UUID orderId) {
         this.orderId = orderId;
-    }
-
-    public int getFoodType() {
-        return foodType;
-    }
-
-    public void setFoodType(int foodType) {
-        this.foodType = foodType;
-    }
-
-    public String getStationName() {
-        return stationName;
-    }
-
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
-    }
-
-    public String getStoreName() {
-        return storeName;
-    }
-
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
-    public String getFoodName() {
-        return foodName;
-    }
-
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
     }
 
     public double getPrice() {
