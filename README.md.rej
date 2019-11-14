@@ -1,9 +1,0 @@
-diff a/README.md b/README.md	(rejected hunks)
-@@ -76,7 +76,6 @@
-    
- #  Deploy Train Ticket with k8s
- - please follow the below steps:  
--  [k8s deploy steps](https://github.com/microcosmx/train_ticket/tree/master/Document/k8s)
-   
- # About Test Case
- - Please download "webdriver.chrome.driver".

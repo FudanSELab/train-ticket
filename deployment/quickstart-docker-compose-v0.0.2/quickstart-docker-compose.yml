@@ -33,7 +33,6 @@ services:
       - my-network
 
   ts-ui-dashboard:
-    build: ts-ui-dashboard
     image: libw521/ts-ui-dashboard
     restart: always
     ports:
@@ -42,7 +41,6 @@ services:
       - my-network
 
   ts-auth-service:
-    build: ts-auth-service
     image: libw521/ts-auth-service
     restart: always
     ports:
@@ -56,7 +54,6 @@ services:
       - my-network
 
   ts-user-service:
-    build: ts-user-service
     image: libw521/ts-user-service
     restart: always
     ports:
@@ -70,7 +67,6 @@ services:
       - my-network
 
   ts-verification-code-service:
-    build: ts-verification-code-service
     image: libw521/ts-verification-code-service
     restart: always
     ports:
@@ -85,7 +81,6 @@ services:
       - my-network
 
   ts-route-service:
-    build: ts-route-service
     image: libw521/ts-route-service
     restart: always
     ports:
@@ -99,7 +94,6 @@ services:
         - my-network
 
   ts-contacts-service:
-    build: ts-contacts-service
     image: libw521/ts-contacts-service
     restart: always
     ports:
@@ -113,7 +107,6 @@ services:
         - my-network
 
   ts-order-service:
-    build: ts-order-service
     image: libw521/ts-order-service
     restart: always
     ports:
@@ -128,7 +121,6 @@ services:
 
 
   ts-order-other-service:
-    build: ts-order-other-service
     image: libw521/ts-order-other-service
     restart: always
     ports:
@@ -143,7 +135,6 @@ services:
 
 
   ts-config-service:
-    build: ts-config-service
     image: libw521/ts-config-service
     restart: always
     ports:
@@ -157,7 +148,6 @@ services:
       - my-network
 
   ts-station-service:
-    build: ts-station-service
     image: libw521/ts-station-service
     restart: always
     ports:
@@ -171,7 +161,6 @@ services:
       - my-network
 
   ts-train-service:
-    build: ts-train-service
     image: libw521/ts-train-service
     restart: always
     ports:
@@ -185,7 +174,6 @@ services:
       - my-network
 
   ts-travel-service:
-    build: ts-travel-service
     image: libw521/ts-travel-service
     restart: always
     ports:
@@ -199,7 +187,6 @@ services:
       - my-network
 
   ts-travel2-service:
-      build: ts-travel2-service
       image: libw521/ts-travel2-service
       restart: always
       ports:
@@ -213,7 +200,6 @@ services:
         - my-network
 
   ts-preserve-service:
-    build: ts-preserve-service
     image: libw521/ts-preserve-service
     restart: always
     ports:
@@ -222,7 +208,6 @@ services:
       - my-network
 
   ts-preserve-other-service:
-    build: ts-preserve-other-service
     image: libw521/ts-preserve-other-service
     restart: always
     ports:
@@ -232,7 +217,6 @@ services:
 
 
   ts-basic-service:
-      build: ts-basic-service
       image: libw521/ts-basic-service
       restart: always
       ports:
@@ -241,7 +225,6 @@ services:
           - my-network
 
   ts-ticketinfo-service:
-        build: ts-ticketinfo-service
         image: libw521/ts-ticketinfo-service
         restart: always
         ports:
@@ -250,7 +233,6 @@ services:
           - my-network
 
   ts-price-service:
-        build: ts-price-service
         image: libw521/ts-price-service
         restart: always
         ports:
@@ -264,7 +246,6 @@ services:
           - my-network
 
   ts-notification-service:
-        build: ts-notification-service
         image: libw521/ts-notification-service
         restart: always
         ports:
@@ -273,7 +254,6 @@ services:
           - my-network
 
   ts-security-service:
-        build: ts-security-service
         image: libw521/ts-security-service
         restart: always
         ports:
@@ -287,7 +267,6 @@ services:
           - my-network
 
   ts-inside-payment-service:
-        build: ts-inside-payment-service
         image: libw521/ts-inside-payment-service
         restart: always
         ports:
@@ -301,7 +280,6 @@ services:
           - my-network
 
   ts-execute-service:
-        build: ts-execute-service
         image: libw521/ts-execute-service
         restart: always
         ports:
@@ -310,7 +288,6 @@ services:
           - my-network
 
   ts-payment-service:
-        build: ts-payment-service
         image: libw521/ts-payment-service
         restart: always
         ports:
@@ -324,7 +301,6 @@ services:
           - my-network
 
   ts-rebook-service:
-        build: ts-rebook-service
         image: libw521/ts-rebook-service
         restart: always
         ports:
@@ -338,7 +314,6 @@ services:
           - my-network
 
   ts-cancel-service:
-        build: ts-cancel-service
         image: libw521/ts-cancel-service
         restart: always
         ports:
@@ -347,7 +322,6 @@ services:
           - my-network
 
   ts-assurance-service:
-        build: ts-assurance-service
         image: libw521/ts-assurance-service
         restart: always
         ports:
@@ -361,7 +335,6 @@ services:
           - my-network
 
   ts-seat-service:
-        build: ts-seat-service
         image: libw521/ts-seat-service
         restart: always
         ports:
@@ -370,7 +343,6 @@ services:
           - my-network
 
   ts-travel-plan-service:
-        build: ts-travel-plan-service
         image: libw521/ts-travel-plan-service
         restart: always
         ports:
@@ -379,7 +351,6 @@ services:
           - my-network
 
   ts-ticket-office-service:
-        build: ts-ticket-office-service
         image: libw521/ts-ticket-office-service
         restart: always
         ports:
@@ -393,7 +364,6 @@ services:
             - my-network
 
   ts-news-service:
-    build: ts-news-service
     image: libw521/ts-news-service
     restart: always
     ports:
@@ -416,7 +386,6 @@ services:
            - my-network
 
   ts-voucher-service:
-          build: ts-voucher-service
           image: libw521/ts-voucher-service
           restart: always
           ports:
@@ -429,7 +398,6 @@ services:
             - my-network
 
   ts-food-map-service:
-        build: ts-food-map-service
         image: libw521/ts-food-map-service
         restart: always
         ports:
@@ -443,7 +411,6 @@ services:
             - my-network
 
   ts-route-plan-service:
-          build: ts-route-plan-service
           image: libw521/ts-route-plan-service
           restart: always
           ports:
@@ -452,7 +419,6 @@ services:
             - my-network
 
   ts-food-service:
-      build: ts-food-service
       image: libw521/ts-food-service
       restart: always
       ports:
@@ -461,7 +427,6 @@ services:
         - my-network
 
   ts-consign-service:
-            build: ts-consign-service
             image: libw521/ts-consign-service
             restart: always
             ports:
@@ -475,7 +440,6 @@ services:
               - my-network
 
   ts-consign-price-service:
-            build: ts-consign-price-service
             image: libw521/ts-consign-price-service
             restart: always
             ports:
@@ -494,7 +458,6 @@ services:
               - my-network
 
   ts-admin-basic-info-service:
-        build: ts-admin-basic-info-service
         image: libw521/ts-admin-basic-info-service
         restart: always
         ports:
@@ -503,7 +466,6 @@ services:
           - my-network
 
   ts-admin-order-service:
-            build: ts-admin-order-service
             image: libw521/ts-admin-order-service
             restart: always
             ports:
@@ -512,7 +474,6 @@ services:
               - my-network
 
   ts-admin-route-service:
-              build: ts-admin-route-service
               image: libw521/ts-admin-route-service
               restart: always
               ports:
@@ -525,7 +486,6 @@ services:
                 - my-network
 
   ts-admin-travel-service:
-                build: ts-admin-travel-service
                 image: libw521/ts-admin-travel-service
                 restart: always
                 ports:
@@ -538,7 +498,6 @@ services:
                   - my-network
 
   ts-admin-user-service:
-    build: ts-admin-user-service
     image: libw521/ts-admin-user-service
     restart: always
     ports:
