@@ -50,7 +50,7 @@ public class PaymentServiceImpl implements PaymentService{
     @Override
     public Response query(HttpHeaders headers){
         List<Payment> payments = paymentRepository.findAll();
-        if(payments!= null && payments.size() >0){
+        if(payments!= null && !payments.isEmpty()){
             return new Response<>(1,"Query Success",  payments);
         }else {
             return new Response<>(0, "No Content", null);

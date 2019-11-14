@@ -6,10 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="addMoney")
 public class Money {
     private String userId;
-    private String money;
+    private String moneyAmount;
 
 
-    public Money(){}
+    public Money(){
+        setMoney(String.valueOf(0));
+    }
 
     public String getUserId() {
         return userId;
@@ -20,10 +22,10 @@ public class Money {
     }
 
     public String getMoney() {
-        return money;
+        return moneyAmount;
     }
 
     public void setMoney(String money) {
-        this.money = money;
+        this.moneyAmount = money;
     }
 }

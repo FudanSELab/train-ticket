@@ -29,6 +29,9 @@ public class Payment {
 
     public Payment(){
         this.id = UUID.randomUUID().toString().replace("-", "").toUpperCase();
+        this.orderId = "0";
+        this.userId = "null";
+        this.price = "5";
     }
 
     public String getId() {
