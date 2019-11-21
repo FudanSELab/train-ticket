@@ -1,5 +1,7 @@
 package plan;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,9 +18,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @IntegrationComponentScan
 @EnableSwagger2
 public class RoutePlanApplication {
+    private static Logger logger = LoggerFactory.getLogger(RoutePlanApplication.class);
 
-    public static void main(String[] args) throws Exception {
-        SpringApplication.run(RoutePlanApplication.class, args);
+    public static void main(String[] args) {
+        try {
+            SpringApplication.run(RoutePlanApplication.class, args);
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
     }
 
     @Bean

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class RoutePlanInfo {
 
-    private String formStationName;
+    private String fromStationName;
 
     private String toStationName;
 
@@ -17,18 +17,18 @@ public class RoutePlanInfo {
     }
 
     public RoutePlanInfo(String formStationName, String toStationName, Date travelDate, int num) {
-        this.formStationName = formStationName;
+        this.fromStationName = formStationName;
         this.toStationName = toStationName;
         this.travelDate = travelDate;
         this.num = num;
     }
 
-    public String getFormStationName() {
-        return formStationName;
+    public String getFromStationName() {
+        return fromStationName;
     }
 
-    public void setFormStationName(String formStationName) {
-        this.formStationName = formStationName;
+    public void setFromStationName(String fromStationName) {
+        this.fromStationName = fromStationName;
     }
 
     public String getToStationName() {
