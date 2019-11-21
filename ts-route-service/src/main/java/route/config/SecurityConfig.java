@@ -18,24 +18,31 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import static org.springframework.web.cors.CorsConfiguration.ALL;
 
+/**
+ * @author cw
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // load password encoder
+    /**
+     * load password encoder
+     *
+     * @return password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     /**
-     *  allow cors domain
+     * allow cors domain
      * header 在默认的情况下只能从头部取出6个字段，想要其他字段只能自己在头里指定
      * credentials 默认不发送Cookie, 如果需要Cookie,这个值只能为true
      * 本次请求检查的有效期
      *
-     * @return
+     * @return null
      */
     @Bean
     public WebMvcConfigurer corsConfigurer() {

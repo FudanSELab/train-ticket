@@ -1,36 +1,41 @@
 package route.service;
 
 import edu.fudan.common.util.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import route.entity.*;
+import route.entity.Route;
+import route.entity.RouteInfo;
 import route.repository.RouteRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.springframework.http.ResponseEntity.ok;
-
+/**
+ * @author cw
+ */
 @Service
+@Configuration
 public class RouteServiceImpl implements RouteService {
 
     @Autowired
     private RouteRepository routeRepository;
+    private static final Logger LOG = LoggerFactory.getLogger(RouteServiceImpl.class);
 
     @Override
     public Response createAndModify(RouteInfo info, HttpHeaders headers) {
-        System.out.println("[Route Service] Create And Modify Start:" + info.getStartStation() + " End:" + info.getEndStation());
+        LOG.info("Create And Modify Start: {} End: {}", info.getStartStation(), info.getEndStation());
 
         String[] stations = info.getStationList().split(",");
         String[] distances = info.getDistanceList().split(",");
         List<String> stationList = new ArrayList<>();
         List<Integer> distanceList = new ArrayList<>();
         if (stations.length != distances.length) {
-            System.out.println("Station Number Not Equal To Distance Number");
+            LOG.info("Station Number Not Equal To Distance Number");
 
             return new Response<>(0, "Station Number Not Equal To Distance Number", null);
         }
@@ -38,7 +43,8 @@ public class RouteServiceImpl implements RouteService {
             stationList.add(stations[i]);
             distanceList.add(Integer.parseInt(distances[i]));
         }
-        if (info.getId() == null || info.getId().length() < 10) {
+        int maxIdArrayLen = 10;
+        if (info.getId() == null || info.getId().length() < maxIdArrayLen) {
             Route route = new Route();
             route.setId(UUID.randomUUID().toString());
             route.setStartStationId(info.getStartStation());
@@ -46,7 +52,7 @@ public class RouteServiceImpl implements RouteService {
             route.setStations(stationList);
             route.setDistances(distanceList);
             routeRepository.save(route);
-            System.out.println("Save success");
+            LOG.info("Save success");
 
             return new Response<>(1, "Save Success", route);
         } else {
@@ -61,7 +67,7 @@ public class RouteServiceImpl implements RouteService {
             route.setStations(stationList);
             route.setDistances(distanceList);
             routeRepository.save(route);
-            System.out.println("Modify success");
+            LOG.info("Modify success");
             return new Response<>(1, "Modify success", route);
         }
     }
@@ -90,9 +96,8 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public Response getRouteByStartAndTerminal(String startId, String terminalId, HttpHeaders headers) {
-//        ArrayList<Route> routes = routeRepository.findByStartStationIdAndTerminalStationId(info.getStartId(),info.getTerminalId());
         ArrayList<Route> routes = routeRepository.findAll();
-        System.out.println("[Route Service] Find All:" + routes.size());
+        LOG.info("[Route Service] Find All: {}", routes.size());
         List<Route> resultList = new ArrayList<>();
         for (Route route : routes) {
             if (route.getStations().contains(startId) &&
@@ -101,7 +106,7 @@ public class RouteServiceImpl implements RouteService {
                 resultList.add(route);
             }
         }
-        if (resultList.size() > 0) {
+        if (!resultList.isEmpty()) {
             return new Response<>(1, "Success", resultList);
         } else {
             return new Response<>(0, "No routes with the startId and terminalId", startId + " -- " + terminalId);
@@ -111,7 +116,7 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public Response getAllRoutes(HttpHeaders headers) {
         ArrayList<Route> routes = routeRepository.findAll();
-        if (routes != null && routes.size() > 0) {
+        if (routes != null && !routes.isEmpty()) {
             return new Response<>(1, "Success", routes);
         } else {
             return new Response<>(0, "No Content", routes);

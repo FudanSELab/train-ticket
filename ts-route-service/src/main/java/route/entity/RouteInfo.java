@@ -1,5 +1,8 @@
 package route.entity;
 
+/**
+ * @author cw
+ */
 public class RouteInfo {
     private String id;
 
@@ -13,6 +16,14 @@ public class RouteInfo {
 
     public RouteInfo() {
         //Default Constructor
+    }
+
+    public RouteInfo(String id, String startStation, String endStation, String stationList, String distanceList) {
+        this.id = id;
+        this.startStation = startStation;
+        this.endStation = endStation;
+        this.stationList = stationList;
+        this.distanceList = distanceList;
     }
 
     public String getStartStation() {

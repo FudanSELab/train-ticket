@@ -1,47 +1,50 @@
 package route.controller;
 
 import edu.fudan.common.util.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.integration.dsl.http.Http;
 import org.springframework.web.bind.annotation.*;
-import route.entity.*;
+import route.entity.RouteInfo;
 import route.service.RouteService;
-
-import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 
+/**
+ * @author cw
+ */
 @RestController
 @RequestMapping("/api/v1/routeservice")
+@Configuration
 public class RouteController {
-
+    private static final Logger LOG = LoggerFactory.getLogger(RouteController.class);
     @Autowired
     private RouteService routeService;
 
-    @RequestMapping(path = "/welcome", method = RequestMethod.GET)
+    @GetMapping(path = "/welcome")
     public String home() {
         return "Welcome to [ Route Service ] !";
     }
 
     @PostMapping(path = "/routes")
     public ResponseEntity<Response> createAndModifyRoute(@RequestBody RouteInfo createAndModifyRouteInfo, @RequestHeader HttpHeaders headers) {
-        System.out.println("Create Route id: " + createAndModifyRouteInfo.getId());
+        LOG.info("Create Route id: {}", createAndModifyRouteInfo.getId());
         return ok(routeService.createAndModify(createAndModifyRouteInfo, headers));
     }
 
     @DeleteMapping(path = "/routes/{routeId}")
     public HttpEntity deleteRoute(@PathVariable String routeId, @RequestHeader HttpHeaders headers) {
-        System.out.println("Route id: " + routeId);
+        LOG.info("Route id: {}", routeId);
         return ok(routeService.deleteRoute(routeId, headers));
     }
 
     @GetMapping(path = "/routes/{routeId}")
     public HttpEntity queryById(@PathVariable String routeId, @RequestHeader HttpHeaders headers) {
-        System.out.println("Route id: " + routeId);
+        LOG.info("Route id: {}", routeId);
         return ok(routeService.getRouteById(routeId, headers));
     }
 
@@ -54,7 +57,7 @@ public class RouteController {
     public HttpEntity queryByStartAndTerminal(@PathVariable String startId,
                                               @PathVariable String terminalId,
                                               @RequestHeader HttpHeaders headers) {
-        System.out.println("startId : " + startId + ",  terminalId： " +terminalId );
+        LOG.info("startId : {}, terminalId: {}", startId, terminalId);
         return ok(routeService.getRouteByStartAndTerminal(startId, terminalId, headers));
     }
 
