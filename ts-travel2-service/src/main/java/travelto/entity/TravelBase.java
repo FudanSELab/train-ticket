@@ -1,36 +1,40 @@
-package travel2.entity;
+package travelto.entity;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-public class TravelInfo {
+/**
+ * @author QiaoJim
+ * Date:  2019/11/19
+ * Desc:
+ */
 
-    private String tripId;
+public class TravelBase {
+    @Valid
+    @NotNull
+    protected String trainTypeId;
 
-    private String trainTypeId;
+    protected String routeId;
 
-    private String routeId;
+    @Valid
+    @NotNull
+    protected String startingStationId;
 
-    private String startingStationId;
+    @Valid
+    protected String stationsId;
 
-    private String stationsId;
+    @Valid
+    @NotNull
+    protected String terminalStationId;
 
-    private String terminalStationId;
+    @Valid
+    @NotNull
+    protected Date startingTime;
 
-    private Date startingTime;
-
-    private Date endTime;
-
-    public TravelInfo() {
-        //Default Constructor
-    }
-
-    public String getTripId() {
-        return tripId;
-    }
-
-    public void setTripId(String tripId) {
-        this.tripId = tripId;
-    }
+    @Valid
+    @NotNull
+    protected Date endTime;
 
     public String getTrainTypeId() {
         return trainTypeId;

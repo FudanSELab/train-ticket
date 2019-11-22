@@ -1,8 +1,13 @@
-package travel2.entity;
+package travelto.entity;
 
-import java.util.HashMap;
+import java.util.Map;
 
-
+/**
+ * TravelResult class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 public class TravelResult {
 
     private boolean status;
@@ -11,9 +16,9 @@ public class TravelResult {
 
     private TrainType trainType;
 
-    private HashMap<String,String> prices;
+    private Map<String, String> prices;
 
-    public TravelResult(){
+    public TravelResult() {
         //Default Constructor
     }
 
@@ -29,7 +34,7 @@ public class TravelResult {
         return percent;
     }
 
-    public void setPercent(double percent){
+    public void setPercent(double percent) {
         this.percent = percent;
     }
 
@@ -41,11 +46,11 @@ public class TravelResult {
         this.trainType = trainType;
     }
 
-    public HashMap<String, String> getPrices() {
+    public Map<String, String> getPrices() {
         return prices;
     }
 
-    public void setPrices(HashMap<String, String> prices) {
+    public void setPrices(Map<String, String> prices) {
         this.prices = prices;
     }
 }

@@ -1,9 +1,14 @@
-package travel2.entity;
+package travelto.entity;
 
 import lombok.ToString;
 
 import java.util.Date;
-
+/**
+ * TripAllDetailInfo class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 @ToString
 public class TripAllDetailInfo {
 

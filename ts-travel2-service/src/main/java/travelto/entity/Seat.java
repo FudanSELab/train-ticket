@@ -1,9 +1,15 @@
-package travel2.entity;
+package travelto.entity;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * Seat class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 public class Seat {
     @Valid
     @NotNull
@@ -26,8 +32,12 @@ public class Seat {
     @NotNull
     private int seatType;
 
-    public Seat(){
-
+    public Seat() {
+        travelDate = new Date();
+        trainNumber = "";
+        startStation = "";
+        destStation = "";
+        seatType = 0;
     }
 
     public Date getTravelDate() {

@@ -1,7 +1,12 @@
-package travel2.entity;
+package travelto.entity;
 
 import java.util.Date;
-
+/**
+ * SoldTicket class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 public class SoldTicket {
 
     private Date travelDate;

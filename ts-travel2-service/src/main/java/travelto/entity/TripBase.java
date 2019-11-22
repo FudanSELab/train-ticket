@@ -1,29 +1,20 @@
-package travel2.entity;
+package travelto.entity;
 
 import java.util.Date;
 
+/**
+ * @author: QiaoJim
+ * Date:  2019/11/19
+ * Desc:
+ */
 
-public class Travel {
+public class TripBase {
 
-    private Trip trip;
+    protected String startingPlace;
 
-    private String startingPlace;
+    protected String endPlace;
 
-    private String endPlace;
-
-    private Date departureTime;
-
-    public Travel(){
-        //Default Constructor
-    }
-
-    public Trip getTrip() {
-        return trip;
-    }
-
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
+    protected Date departureTime;
 
     public String getStartingPlace() {
         return startingPlace;

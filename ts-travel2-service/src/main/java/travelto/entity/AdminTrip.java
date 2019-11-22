@@ -1,12 +1,19 @@
-package travel2.entity;
+package travelto.entity;
+
+/**
+ * AdminTrip class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 
 public class AdminTrip {
     private Trip trip;
     private TrainType trainType;
     private Route route;
 
-    public AdminTrip(){
-
+    public AdminTrip() {
+        //default constructor
     }
 
     public Trip getTrip() {

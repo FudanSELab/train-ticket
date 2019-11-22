@@ -1,4 +1,4 @@
-package travel2.entity;
+package travelto.entity;
 
 import org.springframework.data.annotation.Id;
 
@@ -6,7 +6,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-
+/**
+ * TripResponse class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 public class TripResponse {
     @Valid
     @Id
@@ -31,14 +36,20 @@ public class TripResponse {
     @Valid
     @NotNull
     private Date endTime;
+    @Valid
+    @NotNull
+    /**
+     * 普通座的座位数量
+     */
+    private int economyClass;
+
 
     @Valid
     @NotNull
-    private int economyClass;   //普通座的座位数量
-
-    @Valid
-    @NotNull
-    private int confortClass;   //商务座的座位数量
+    /**
+     * 商务座的座位数量
+     */
+    private int confortClass;
 
     @Valid
     @NotNull
@@ -48,8 +59,17 @@ public class TripResponse {
     @NotNull
     private String priceForConfortClass;
 
-    public TripResponse(){
+    public TripResponse() {
         //Default Constructor
+        trainTypeId = "";
+        startingStation = "";
+        terminalStation = "";
+        startingTime = new Date();
+        endTime = new Date();
+        economyClass = 0;
+        confortClass = 0;
+        priceForEconomyClass = "";
+        priceForConfortClass = "";
     }
 
     public TripId getTripId() {

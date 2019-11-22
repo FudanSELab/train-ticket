@@ -1,13 +1,26 @@
-package travel2.entity;
+package travelto.entity;
 
 import java.io.Serializable;
 
-
-public enum Type implements Serializable{
-
-
-    //G("G", 1), D("D", 2);
-    Z("Z",3), T("T", 4), K("K", 5);
+/**
+ * Type class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
+public enum Type implements Serializable {
+    /**
+     * 特快
+     */
+    Z("Z", 3),
+    /**
+     * 特快
+     */
+    T("T", 4),
+    /**
+     * 快速
+     */
+    K("K", 5);
 
     private String name;
     private int index;
@@ -30,15 +43,7 @@ public enum Type implements Serializable{
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getIndex() {
         return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
     }
 }

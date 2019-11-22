@@ -1,12 +1,16 @@
-package travel2.entity;
+package travelto.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Route class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 @Document(collection = "routes")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Route {

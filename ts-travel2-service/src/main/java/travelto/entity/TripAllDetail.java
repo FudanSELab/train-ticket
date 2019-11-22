@@ -1,5 +1,10 @@
-package travel2.entity;
-
+package travelto.entity;
+/**
+ * TripAllDetail class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 public class TripAllDetail {
 
     private boolean status;

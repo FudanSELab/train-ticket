@@ -13,4 +13,4 @@ spring:
       database: ts
       port: 27017
 swagger:
-  controllerPackage: travel2.controller
+  controllerPackage: travelto.controller

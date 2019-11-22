@@ -1,11 +1,16 @@
-package travel2.entity;
+package travelto.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
 
-
+/**
+ * TrainType class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 @Document(collection="trainType")
 public class TrainType {
     @Valid

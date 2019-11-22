@@ -1,28 +1,25 @@
-package travel2.entity;
+package travelto.entity;
 
 import java.io.Serializable;
 
-
+/**
+ * TripId class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 public class TripId implements Serializable{
     private Type type;
     private String number;
 
-//    public TripId(Type type, String number){
-//        this.type = type;
-//        this.number = number;
-//    }
 
     public TripId(){
         //Default Constructor
     }
 
     public TripId(String trainNumber){
-        char type = trainNumber.charAt(0);
-        switch(type){
-//            case 'G': this.type = Type.G;
-//                break;
-//            case 'D': this.type = Type.D;
-//                break;
+        char typeChar = trainNumber.charAt(0);
+        switch(typeChar){
             case 'Z': this.type = Type.Z;
                 break;
             case 'T': this.type = Type.T;

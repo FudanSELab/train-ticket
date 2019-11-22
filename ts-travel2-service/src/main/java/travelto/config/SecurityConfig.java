@@ -1,4 +1,4 @@
-package travel2.config;
+package travelto.config;
 
 import edu.fudan.common.security.jwt.JWTFilter;
 import org.springframework.context.annotation.Bean;
@@ -18,12 +18,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import static org.springframework.web.cors.CorsConfiguration.ALL;
 
+/**
+ * SecurityConfig class
+ *
+ * @author fdu
+ * @date 2019/11/10
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // load password encoder
+    public static final String ANT_PATTERNS = "/api/v1/travel2service/trips";
+    public static final String ADMIN = "ADMIN";
+
+    /**
+     * load password encoder
+     *
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -63,9 +76,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/travel2service/**").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/v1/travel2service/trips").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/v1/travel2service/trips").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/travel2service/trips").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, ANT_PATTERNS).hasAnyRole(ADMIN)
+                .antMatchers(HttpMethod.POST, ANT_PATTERNS).hasAnyRole(ADMIN)
+                .antMatchers(HttpMethod.DELETE, ANT_PATTERNS).hasAnyRole(ADMIN)
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
                 .anyRequest().authenticated()
