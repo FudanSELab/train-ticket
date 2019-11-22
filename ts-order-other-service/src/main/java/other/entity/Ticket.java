@@ -8,8 +8,8 @@ public class Ticket {
 
     private String destStation;
 
-    public Ticket(){
-
+    public Ticket() {
+        //it it default constructor
     }
 
     public int getSeatNo() {

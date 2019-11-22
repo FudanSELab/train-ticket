@@ -7,7 +7,7 @@ import java.util.Date;
 public class Seat {
     @Valid
     @NotNull
-    private Date travelDate;
+    private Date travelDate ;
 
     @Valid
     @NotNull
@@ -25,8 +25,14 @@ public class Seat {
     @NotNull
     private int seatType;
 
-    public Seat(){
 
+
+    public Seat(Date travelDate,String trainNumber,String startStation, String destStation,int seatType){
+        this.travelDate = travelDate;
+        this.trainNumber = trainNumber;
+        this.startStation = startStation;
+        this.destStation = destStation;
+        this.seatType = seatType;
     }
 
     public Date getTravelDate() {
