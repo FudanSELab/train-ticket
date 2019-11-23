@@ -148,7 +148,13 @@ public void testGetBusinessSeat() throws Exception {
 */ 
 @Test
 public void testSetBusinessSeat() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setBusinessSeat(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getBusinessSeat(),num);
 } 
 
 /** 
@@ -158,7 +164,13 @@ public void testSetBusinessSeat() throws Exception {
 */ 
 @Test
 public void testGetFirstClassSeat() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setFirstClassSeat(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getFirstClassSeat(),num);
 } 
 
 /** 
@@ -168,7 +180,13 @@ public void testGetFirstClassSeat() throws Exception {
 */ 
 @Test
 public void testSetFirstClassSeat() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setFirstClassSeat(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getFirstClassSeat(),num);
 } 
 
 /** 
@@ -178,7 +196,13 @@ public void testSetFirstClassSeat() throws Exception {
 */ 
 @Test
 public void testGetSecondClassSeat() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setSecondClassSeat(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getSecondClassSeat(),num);
 } 
 
 /** 
@@ -188,7 +212,13 @@ public void testGetSecondClassSeat() throws Exception {
 */ 
 @Test
 public void testSetSecondClassSeat() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setSecondClassSeat(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getSecondClassSeat(),num);
 } 
 
 /** 
@@ -198,7 +228,13 @@ public void testSetSecondClassSeat() throws Exception {
 */ 
 @Test
 public void testGetHardSeat() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setHardSeat(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getHardSeat(),num);
 } 
 
 /** 
@@ -208,7 +244,13 @@ public void testGetHardSeat() throws Exception {
 */ 
 @Test
 public void testSetHardSeat() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setHardSeat(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getHardSeat(),num);
 } 
 
 /** 
@@ -218,7 +260,13 @@ public void testSetHardSeat() throws Exception {
 */ 
 @Test
 public void testGetSoftSeat() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setSoftSeat(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getSoftSeat(),num);
 } 
 
 /** 
@@ -228,7 +276,13 @@ public void testGetSoftSeat() throws Exception {
 */ 
 @Test
 public void testSetSoftSeat() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setSoftSeat(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getSoftSeat(),num);
 } 
 
 /** 
@@ -238,7 +292,13 @@ public void testSetSoftSeat() throws Exception {
 */ 
 @Test
 public void testGetHardBed() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setHardBed(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getHardBed(),num);
 } 
 
 /** 
@@ -248,7 +308,13 @@ public void testGetHardBed() throws Exception {
 */ 
 @Test
 public void testSetHardBed() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setHardBed(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getHardBed(),num);
 } 
 
 /** 
@@ -258,7 +324,13 @@ public void testSetHardBed() throws Exception {
 */ 
 @Test
 public void testGetSoftBed() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setSoftBed(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getSoftBed(),num);
 } 
 
 /** 
@@ -268,7 +340,13 @@ public void testGetSoftBed() throws Exception {
 */ 
 @Test
 public void testSetSoftBed() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 0;
+    st.setSoftBed(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getSoftBed(),num);
 } 
 
 /** 
@@ -278,7 +356,13 @@ public void testSetSoftBed() throws Exception {
 */ 
 @Test
 public void testGetHighSoftBed() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 1;
+    st.setHighSoftBed(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getHighSoftBed(),num);
 } 
 
 /** 
@@ -288,7 +372,13 @@ public void testGetHighSoftBed() throws Exception {
 */ 
 @Test
 public void testSetHighSoftBed() throws Exception { 
-//TODO: Test goes here... 
+//TODO: Test goes here...
+    SoldTicket st;
+    st = new SoldTicket();
+    int  num= 1;
+    st.setHighSoftBed(num);
+    //∂œ—‘”Ô∑®
+    Assert.assertEquals(st.getHighSoftBed(),num);
 } 
 
 
