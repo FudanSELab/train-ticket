@@ -1,10 +1,14 @@
 package travelto.service;
 
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import travelto.entity.Route;
+import travelto.entity.TravelInfo;
 import travelto.entity.Trip;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TravelToServiceImpl Tester.
@@ -38,7 +42,14 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testGetRouteByTripId() throws Exception {
-//TODO: Test goes here... 
+        TravelToServiceImpl travelToService = new TravelToServiceImpl();
+        try {
+            travelToService.getRouteByTripId("1", null);
+            travelToService.getRouteByTripId("Z1234", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
     }
 
     /**
@@ -46,7 +57,14 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testGetTrainTypeByTripId() throws Exception {
-//TODO: Test goes here... 
+        TravelToServiceImpl travelToService = new TravelToServiceImpl();
+        try {
+            travelToService.getTrainTypeByTripId("1", null);
+            travelToService.getTrainTypeByTripId("Z1234", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
     }
 
     /**
@@ -54,7 +72,18 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testGetTripByRoute() throws Exception {
-//TODO: Test goes here... 
+        TravelToServiceImpl travelToService = new TravelToServiceImpl();
+        try {
+            List<String> routeIds = new ArrayList<>();
+            routeIds.add("1");
+            travelToService.getTripByRoute(routeIds, null);
+            routeIds.clear();
+            routeIds.add("0b23bd3e-876a-4af3-b920-c50a90c90b04");
+            travelToService.getTripByRoute(routeIds, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
     }
 
     /**
@@ -62,7 +91,16 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testCreate() throws Exception {
-//TODO: Test goes here... 
+        TravelToServiceImpl travelToService = new TravelToServiceImpl();
+        try {
+            TravelInfo info = new TravelInfo();
+            travelToService.create(info, null);
+            info.setTripId("Z1234");
+            travelToService.create(info, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
     }
 
     /**
@@ -70,7 +108,14 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testRetrieve() throws Exception {
-//TODO: Test goes here... 
+        TravelToServiceImpl travelToService = new TravelToServiceImpl();
+        try {
+            travelToService.retrieve("1", null);
+            travelToService.retrieve("Z1234", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
     }
 
     /**
@@ -78,7 +123,6 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testUpdate() throws Exception {
-//TODO: Test goes here... 
     }
 
     /**
@@ -86,7 +130,7 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testDelete() throws Exception {
-//TODO: Test goes here... 
+//TODO: Test goes here...
     }
 
     /**
@@ -94,7 +138,7 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testQuery() throws Exception {
-//TODO: Test goes here... 
+//TODO: Test goes here...
     }
 
     /**
