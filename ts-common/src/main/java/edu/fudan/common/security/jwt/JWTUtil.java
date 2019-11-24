@@ -95,19 +95,19 @@ public class JWTUtil {
             }
             return true;
         } catch (ExpiredJwtException e) {
-            log.error("Token已过期: {} " + e);
+            System.out.println("Token已过期: {} " + e);
             throw new TokenException("Token已过期");
         } catch (UnsupportedJwtException e) {
-            log.error("Token格式错误: {} " + e);
+            System.out.println("Token格式错误: {} " + e);
             throw new TokenException("Token格式错误");
         } catch (MalformedJwtException e) {
-            log.error("Token没有被正确构造: {} " + e);
+            System.out.println("Token没有被正确构造: {} " + e);
             throw new TokenException("Token没有被正确构造");
         } catch (SignatureException e) {
-            log.error("签名失败: {} " + e);
+            System.out.println("签名失败: {} " + e);
             throw new TokenException("签名失败");
         } catch (IllegalArgumentException e) {
-            log.error("非法参数异常: {} " + e);
+            System.out.println("非法参数异常: {} " + e);
             throw new TokenException("非法参数异常");
         }
     }

@@ -1,38 +1,24 @@
-package other.entity;
+package preserveother.entity;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * @author fdu
+ */
 public class Seat {
-    @Valid
-    @NotNull
-    private Date travelDate ;
 
-    @Valid
-    @NotNull
+    private Date travelDate;
+
     private String trainNumber;
 
-    @Valid
-    @NotNull
     private String startStation;
 
-    @Valid
-    @NotNull
     private String destStation;
 
-    @Valid
-    @NotNull
     private int seatType;
 
-
-
-    public Seat(Date travelDate,String trainNumber,String startStation, String destStation,int seatType){
-        this.travelDate = travelDate;
-        this.trainNumber = trainNumber;
-        this.startStation = startStation;
-        this.destStation = destStation;
-        this.seatType = seatType;
+    public Seat() {
+        //Default Constructor
     }
 
     public Date getTravelDate() {

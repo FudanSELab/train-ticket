@@ -1,18 +1,17 @@
-package other.entity;
+package preserveother.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
-@Document(collection = "orders")
+/**
+ * @author fdu
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
 
-    @Id
     private UUID id;
 
     private Date boughtDate;
@@ -21,10 +20,14 @@ public class Order {
 
     private Date travelTime;
 
-    //Which Account Bought it
+    /**
+     * Which Account Bought it
+     */
     private UUID accountId;
 
-    //Tickets bought for whom....
+    /**
+     * Tickets bought for whom....
+     */
     private String contactsName;
 
     private int documentType;
@@ -47,7 +50,7 @@ public class Order {
 
     private String price;
 
-    public Order(){
+    public Order() {
         boughtDate = new Date(System.currentTimeMillis());
         travelDate = new Date(123456789);
         trainNumber = "G1235";
@@ -58,6 +61,35 @@ public class Order {
         to = "taiyuan";
         status = OrderStatus.PAID.getCode();
         price = "0.0";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Order other = (Order) obj;
+        return boughtDate.equals(other.getBoughtDate())
+                && travelDate.equals(other.getTravelDate())
+                && travelTime.equals(other.getTravelTime())
+                && accountId.equals(other.getAccountId())
+                && contactsName.equals(other.getContactsName())
+                && contactsDocumentNumber.equals(other.getContactsDocumentNumber())
+                && documentType == other.getDocumentType()
+                && trainNumber.equals(other.getTrainNumber())
+                && coachNumber == other.getCoachNumber()
+                && seatClass == other.getSeatClass()
+                && seatNumber.equals(other.getSeatNumber())
+                && from.equals(other.getFrom())
+                && to.equals(other.getTo())
+                && status == other.getStatus()
+                && price == other.price;
     }
 
     @Override
@@ -85,37 +117,6 @@ public class Order {
         }
         return hash;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Order other = (Order) obj;
-        return boughtDate.equals(other.getBoughtDate())
-                && travelDate.equals(other.getTravelDate())
-                && travelTime.equals(other.getTravelTime())
-                && accountId .equals( other.getAccountId() )
-                && contactsName.equals(other.getContactsName())
-                && contactsDocumentNumber.equals(other.getContactsDocumentNumber())
-                && documentType == other.getDocumentType()
-                && trainNumber.equals(other.getTrainNumber())
-                && coachNumber == other.getCoachNumber()
-                && seatClass == other.getSeatClass()
-                && seatNumber .equals(other.getSeatNumber())
-                && from.equals(other.getFrom())
-                && to.equals(other.getTo())
-                && status == other.getStatus()
-                && price.equals(other.price);
-    }
-
-
 
     public UUID getId() {
         return id;
@@ -149,12 +150,10 @@ public class Order {
         this.travelDate = travelDate;
     }
 
-    public void setTravelDate(int year,int month,int day){
+    public void setTravelDate(int year, int month, int day) {
         Calendar cld = Calendar.getInstance();
-        cld.set(year,month-1,day,0,0,0);
-        Date date = cld.getTime();
-
-        this.travelDate = date;
+        cld.set(year, month - 1, day, 0, 0, 0);
+        this.travelDate = cld.getTime();
     }
 
     public Date getTravelTime() {
@@ -165,8 +164,10 @@ public class Order {
         this.travelTime = travelTime;
     }
 
-    public void setTravelTime(int hour,int minute){
-        //default consturctors
+    public void setTravelTime(int hour, int minute) {
+        Calendar cld = Calendar.getInstance();
+        cld.set(1970, 0, 1, hour, minute, 0);
+        this.travelTime = cld.getTime();
     }
 
     public String getTrainNumber() {
