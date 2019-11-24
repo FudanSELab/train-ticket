@@ -437,7 +437,7 @@ public class TravelToServiceImpl implements Travel2Service {
         }
     }
 
-    private class PlaceInfoWrapper {
+    public static class PlaceInfoWrapper {
         Trip trip;
         Route route;
         String startingPlaceId;
