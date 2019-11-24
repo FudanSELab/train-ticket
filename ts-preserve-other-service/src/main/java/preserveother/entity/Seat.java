@@ -21,6 +21,14 @@ public class Seat {
         //Default Constructor
     }
 
+    public Seat(Date travelDate, String trainNumber, String startStation, String destStation, int seatType) {
+        this.travelDate = travelDate;
+        this.trainNumber = trainNumber;
+        this.startStation = startStation;
+        this.destStation = destStation;
+        this.seatType = seatType;
+    }
+
     public Date getTravelDate() {
         return travelDate;
     }

@@ -12,7 +12,7 @@ public class Account {
 
     private UUID id;
 
-    private String password;
+    private String pw;
 
     private int gender;
 
@@ -26,7 +26,7 @@ public class Account {
 
     public Account() {
         gender = Gender.OTHER.getCode();
-        password = "defaultPassword";
+        pw = "defaultPassword";
         name = "None";
         documentType = DocumentType.NONE.getCode();
         documentNum = "0123456789";
@@ -42,11 +42,11 @@ public class Account {
     }
 
     public String getPassword() {
-        return password;
+        return pw;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String pw) {
+        this.pw = pw;
     }
 
     public int getGender() {

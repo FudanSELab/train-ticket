@@ -26,6 +26,15 @@ public class Contacts {
         //Default Constructor
     }
 
+    public Contacts(UUID id, UUID accountId, String name, int documentType, String documentNumber, String phoneNumber) {
+        this.id = id;
+        this.accountId = accountId;
+        this.name = name;
+        this.documentType = documentType;
+        this.documentNumber = documentNumber;
+        this.phoneNumber = phoneNumber;
+    }
+
     public UUID getId() {
         return id;
     }

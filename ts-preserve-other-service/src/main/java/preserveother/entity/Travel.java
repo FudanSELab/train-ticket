@@ -19,6 +19,13 @@ public class Travel {
         //Default Constructor
     }
 
+    public Travel(Trip trip, String startingPlace, String endPlace, Date departureTime) {
+        this.trip = trip;
+        this.startingPlace = startingPlace;
+        this.endPlace = endPlace;
+        this.departureTime = departureTime;
+    }
+
     public Trip getTrip() {
         return trip;
     }

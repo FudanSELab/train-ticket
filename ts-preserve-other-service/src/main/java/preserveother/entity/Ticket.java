@@ -15,6 +15,12 @@ public class Ticket {
         //Default Constructor.
     }
 
+    public Ticket(int seatNo, String startStation, String destStation) {
+        this.seatNo = seatNo;
+        this.startStation = startStation;
+        this.destStation = destStation;
+    }
+
     public int getSeatNo() {
         return seatNo;
     }

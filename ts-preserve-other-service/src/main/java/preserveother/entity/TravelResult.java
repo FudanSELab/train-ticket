@@ -19,6 +19,13 @@ public class TravelResult {
         //Default Constructor
     }
 
+    public TravelResult(boolean status, double percent, TrainType trainType, Map<String, String> prices) {
+        this.status = status;
+        this.percent = percent;
+        this.trainType = trainType;
+        this.prices = prices;
+    }
+
     public boolean isStatus() {
         return status;
     }

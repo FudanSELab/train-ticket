@@ -53,6 +53,27 @@ public class OrderTicketsInfo {
         //Default Constructor
     }
 
+    public OrderTicketsInfo(String accountId, String contactsId, String tripId, int seatType, Date date, String from, String to, int assurance, int foodType, String stationName, String storeName, String foodName, double foodPrice, String handleDate, String consigneeName, String consigneePhone, double consigneeWeight, boolean isWithin) {
+        this.accountId = accountId;
+        this.contactsId = contactsId;
+        this.tripId = tripId;
+        this.seatType = seatType;
+        this.date = date;
+        this.from = from;
+        this.to = to;
+        this.assurance = assurance;
+        this.foodType = foodType;
+        this.stationName = stationName;
+        this.storeName = storeName;
+        this.foodName = foodName;
+        this.foodPrice = foodPrice;
+        this.handleDate = handleDate;
+        this.consigneeName = consigneeName;
+        this.consigneePhone = consigneePhone;
+        this.consigneeWeight = consigneeWeight;
+        this.isWithin = isWithin;
+    }
+
     public String getAccountId() {
         return accountId;
     }

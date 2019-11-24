@@ -27,6 +27,16 @@ public class FoodOrder {
         // default constructor
     }
 
+    public FoodOrder(UUID id, UUID orderId, int foodType, String stationName, String storeName, String foodName, double price) {
+        this.id = id;
+        this.orderId = orderId;
+        this.foodType = foodType;
+        this.stationName = stationName;
+        this.storeName = storeName;
+        this.foodName = foodName;
+        this.price = price;
+    }
+
     public UUID getId() {
         return id;
     }

@@ -44,6 +44,16 @@ public class TripResponse {
     @NotNull
     private int confortClass;
 
+    public TripResponse(TripId tripId, String startingStation, String terminalStation, Date startingTime, Date endTime, int economyClass, int confortClass) {
+        this.tripId = tripId;
+        this.startingStation = startingStation;
+        this.terminalStation = terminalStation;
+        this.startingTime = startingTime;
+        this.endTime = endTime;
+        this.economyClass = economyClass;
+        this.confortClass = confortClass;
+    }
+
     public TripId getTripId() {
         return tripId;
     }

@@ -6,7 +6,6 @@ import java.util.Date;
  * @author fdu
  */
 public class TripAllDetailInfo {
-
     private String tripId;
 
     private Date travelDate;
@@ -17,6 +16,13 @@ public class TripAllDetailInfo {
 
     public TripAllDetailInfo() {
         //Default Constructor
+    }
+
+    public TripAllDetailInfo(String tripId, Date travelDate, String from, String to) {
+        this.tripId = tripId;
+        this.travelDate = travelDate;
+        this.from = from;
+        this.to = to;
     }
 
     public String getTripId() {

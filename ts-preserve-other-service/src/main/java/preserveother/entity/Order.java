@@ -63,6 +63,27 @@ public class Order {
         price = "0.0";
     }
 
+    public Order(UUID id, Date boughtDate, Date travelDate, Date travelTime, UUID accountId, String contactsName,
+                 int documentType, String contactsDocumentNumber, String trainNumber, int coachNumber,
+                 int seatClass, String seatNumber, String from, String to, int status, String price) {
+        this.id = id;
+        this.boughtDate = boughtDate;
+        this.travelDate = travelDate;
+        this.travelTime = travelTime;
+        this.accountId = accountId;
+        this.contactsName = contactsName;
+        this.documentType = documentType;
+        this.contactsDocumentNumber = contactsDocumentNumber;
+        this.trainNumber = trainNumber;
+        this.coachNumber = coachNumber;
+        this.seatClass = seatClass;
+        this.seatNumber = seatNumber;
+        this.from = from;
+        this.to = to;
+        this.status = status;
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -89,7 +110,7 @@ public class Order {
                 && from.equals(other.getFrom())
                 && to.equals(other.getTo())
                 && status == other.getStatus()
-                && price == other.price;
+                && price.equals(other.price);
     }
 
     @Override
