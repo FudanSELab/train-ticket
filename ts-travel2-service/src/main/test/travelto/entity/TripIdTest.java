@@ -16,6 +16,9 @@ public class TripIdTest {
 
     @Before
     public void before() throws Exception {
+        TripId ti =new TripId("Z220");
+        TripId ti2 =new TripId("T220");
+        TripId ti3 =new TripId("K220");
     }
 
     @After

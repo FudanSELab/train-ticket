@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 
+import java.util.Date;
+
 /**
  * Trip Tester.
  *
@@ -16,6 +18,8 @@ public class TripTest {
 
     @Before
     public void before() throws Exception {
+        Trip trip = new Trip(new TripId(),"myid","myid","myid","myid",new Date(),new Date());
+        Trip trip2 =new Trip(new TripId(), "myid","myid");
     }
 
     @After
