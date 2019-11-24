@@ -1,67 +1,66 @@
-package travelto.init; 
+package travelto.init;
 
-import org.junit.Test; 
-import org.junit.Before; 
-import org.junit.After; 
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
 
-/** 
-* InitData Tester. 
-* 
-* @author <Authors name> 
-* @since <pre>11ÔÂ 24, 2019</pre> 
-* @version 1.0 
-*/ 
-public class InitDataTest { 
+import java.util.Date;
 
-@Before
-public void before() throws Exception { 
-} 
+import static travelto.init.InitData.BJ;
+import static travelto.init.InitData.SH;
 
-@After
-public void after() throws Exception { 
-} 
+/**
+ * InitData Tester.
+ *
+ * @author <Authors name>
+ * @version 1.0
+ * @since <pre>11ÔÂ 24, 2019</pre>
+ */
+public class InitDataTest {
 
-/** 
-* 
-* Method: buildTravelInfo(String... args) 
-* 
-*/ 
-@Test
-public void testBuildTravelInfo() throws Exception { 
-//TODO: Test goes here...
-    InitData id =new InitData();
-    //InitData.str2Date("EEE MMM ddHH:mm:ss 'GMT+0800' yyyy");
-} 
+    @Before
+    public void before() throws Exception {
+    }
 
-/** 
-* 
-* Method: run(String... args) 
-* 
-*/ 
-@Test
-public void testRun() throws Exception { 
-//TODO: Test goes here... 
-} 
+    @After
+    public void after() throws Exception {
+    }
+
+    /**
+     * Method: buildTravelInfo(String... args)
+     */
+    @Test
+    public void testBuildTravelInfo() throws Exception {
+        InitData initData = new InitData();
+        initData.buildTravelInfo("Z1234", "ZhiDa", "0b23bd3e-876a-4af3-b920-c50a90c90b04",
+                SH, SH, BJ, "Mon 5 04 09:51:52 GMT+0800 2013", "Mon 5 04 15:51:52 GMT+0800 2013", null);
+    }
+
+    /**
+     * Method: run(String... args)
+     */
+    @Test
+    public void testRun() throws Exception {
+        InitData initData = new InitData();
+        String[] args = new String[]{""};
+        try {
+            initData.run(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
+    }
 
 
-/** 
-* 
-* Method: str2Date(String s) 
-* 
-*/ 
-@Test
-public void testStr2Date() throws Exception { 
-//TODO: Test goes here... 
-/* 
-try { 
-   Method method = InitData.getClass().getMethod("str2Date", String.class); 
-   method.setAccessible(true); 
-   method.invoke(<Object>, <Parameters>); 
-} catch(NoSuchMethodException e) { 
-} catch(IllegalAccessException e) { 
-} catch(InvocationTargetException e) { 
-} 
-*/ 
-} 
+    /**
+     * Method: str2Date(String s)
+     */
+    @Test
+    public void testStr2Date() throws Exception {
+        String str = "Mon 5 04 15:51:52 GMT+0800 2013";
+        Date date1 = InitData.str2Date(str);
+        String str1 = "Mon 5 04 15:51 GMT+08 2013";
+        Date date2 = InitData.str2Date(str1);
+    }
 
 } 
