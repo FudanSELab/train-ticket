@@ -19,6 +19,8 @@ public class TripAllDetailInfoTest {
 
     @Before
     public void before() throws Exception {
+        TripAllDetailInfo val=new TripAllDetailInfo();
+        Assert.assertEquals(val.toString(), "TripAllDetailInfo(tripId=null, travelDate=null, from=null, to=null)");
     }
 
     @After

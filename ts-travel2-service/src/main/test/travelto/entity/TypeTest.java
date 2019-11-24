@@ -29,6 +29,7 @@ public class TypeTest {
     public void testGetNameIndex() throws Exception {
 //TODO: Test goes here...
         Assert.assertEquals(Type.getName(3), "Z");
+        Assert.assertEquals(Type.getName(0), null);
     }
 
     /**
