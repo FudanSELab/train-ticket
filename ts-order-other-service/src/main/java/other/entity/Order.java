@@ -166,7 +166,7 @@ public class Order {
     }
 
     public void setTravelTime(int hour,int minute){
-        //default consturctor
+        //default consturctors
     }
 
     public String getTrainNumber() {

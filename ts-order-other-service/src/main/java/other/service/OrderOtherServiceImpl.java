@@ -17,6 +17,8 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
 @Service
 @Slf4j
 public class OrderOtherServiceImpl implements OrderOtherService {
@@ -37,7 +39,7 @@ public class OrderOtherServiceImpl implements OrderOtherService {
     public Response getSoldTickets(Seat seatRequest, HttpHeaders headers) {
         ArrayList<Order> list = orderOtherRepository.findByTravelDateAndTrainNumber(seatRequest.getTravelDate(),
                 seatRequest.getTrainNumber());
-        if (list != null && isEmpty(list.size()) ) {
+        if (list != null && list.size() > 0 ) {
             Set ticketSet = new HashSet();
             for (Order tempOrder : list) {
                 Ticket ticket = new Ticket();
@@ -52,7 +54,7 @@ public class OrderOtherServiceImpl implements OrderOtherService {
 
             mylogger.log(Level.INFO , () -> "Left ticket info is: " + leftTicketInfo.toString());
 
-            return new Response<>(1, SUC2, leftTicketInfo);
+            return new Response<>(1, SUC2,leftTicketInfo);
         } else {
             return new Response<>(0, "Seat is Null.", null);
         }
@@ -63,9 +65,9 @@ public class OrderOtherServiceImpl implements OrderOtherService {
     public Response findOrderById(UUID id, HttpHeaders headers) {
         Order order = orderOtherRepository.findById(id);
         if (order == null) {
-            return new Response<>(0, "No Content by this id", id);
+            return new Response<UUID>(0, "No Content by this id", id);
         } else {
-            return new Response<>(1, SUC2, order);
+            return new Response<Order>(1, SUC2, order);
         }
     }
 
@@ -78,7 +80,7 @@ public class OrderOtherServiceImpl implements OrderOtherService {
         if (accountOrders.contains(order)) {
             mylogger.log(Level.INFO , () -> "[Order Other Service][Order Create] Fail.Order already exists.");
 
-            return new Response<>(0, "Order already exist", order);
+            return new Response<Order>(0, "Order already exist", order);
         } else {
             order.setId(UUID.randomUUID());
             orderOtherRepository.save(order);
@@ -250,7 +252,7 @@ public class OrderOtherServiceImpl implements OrderOtherService {
     }
 
     @Override
-    public Response saveChanges(Order order, HttpHeaders headers) {
+    public  Response saveChanges(Order order, HttpHeaders headers) {
         Order oldOrder = orderOtherRepository.findById(order.getId());
 
         if (oldOrder == null) {
@@ -278,7 +280,7 @@ public class OrderOtherServiceImpl implements OrderOtherService {
             orderOtherRepository.save(oldOrder);
 
             mylogger.log(Level.INFO , () ->  "[Order Other Service] Success."  );
-            return new Response<>(1, SUC2, oldOrder);
+            return new Response(1, SUC2, oldOrder);
         }
     }
 
@@ -289,13 +291,13 @@ public class OrderOtherServiceImpl implements OrderOtherService {
         if (oldOrder == null) {
 
             mylogger.log(Level.INFO , () ->  "[Order Other Service][Cancel Order] Fail.Order not found."  );
-            return new Response<>(0, NFOUND, null);
+            return new Response(0, NFOUND, null);
         } else {
             oldOrder.setStatus(OrderStatus.CANCEL.getCode());
             orderOtherRepository.save(oldOrder);
             mylogger.log(Level.INFO , () ->  "[Order Other Service][Cancel Order] Success." );
 
-            return new Response<>(1, SUC2, oldOrder);
+            return new Response<Order>(1, SUC2, oldOrder);
         }
     }
 
@@ -343,7 +345,7 @@ public class OrderOtherServiceImpl implements OrderOtherService {
         if (orders == null) {
             return new Response<>(0, "No Content", null);
         } else {
-            return new Response<>(1, S, orders);
+            return new Response<ArrayList<Order>>(1, SUC, orders);
         }
     }
 
@@ -453,12 +455,12 @@ public class OrderOtherServiceImpl implements OrderOtherService {
 
     @Override
     public Response updateOrder(Order order, HttpHeaders headers) {
-        log.info("UPDATE ORDER INFO :" + order.toString());
+        System.out.println("UPDATE ORDER INFO :" + order.toString());
         Order oldOrder = orderOtherRepository.findById(order.getId());
         if (oldOrder == null) {
-
+            String a = null;
             mylogger.log(Level.INFO , () -> "[Order Service][Admin Update Order] Fail.Order not found.");
-            return new Response<>(0,NFOUND, null);
+            return new Response<>(0, NFOUND, null);
         } else {
 
             mylogger.log(Level.INFO , () -> oldOrder.toString());

@@ -10,9 +10,8 @@ public class LeftTicketInfo {
     private Set<Ticket> soldTickets;
 
 
-    public LeftTicketInfo(Set<Ticket> soldTickets)  {
-        //it is default constructor
-        this.soldTickets = soldTickets;
+    public LeftTicketInfo()  {
+        //dafault constructor
     }
 
     public Set<Ticket> getSoldTickets() {
