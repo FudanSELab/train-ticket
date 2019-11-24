@@ -1,9 +1,9 @@
-package travelto.entity; 
+package travelto.entity;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before; 
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Date;
 * TravelBase Tester. 
 * 
 * @author <Authors name> 
-* @since <pre>11ÔÂ 23, 2019</pre> 
+* @since <pre>11ï¿½ï¿½ 23, 2019</pre> 
 * @version 1.0 
 */ 
 public class TravelBaseTest { 
@@ -36,7 +36,7 @@ public void testGetTrainTypeId() throws Exception {
     TravelBase tb=new TravelBase();
     String var="myid";
     tb.setTrainTypeId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getTrainTypeId(),var);
 } 
 
@@ -51,7 +51,7 @@ public void testSetTrainTypeId() throws Exception {
     TravelBase tb=new TravelBase();
     String var="myid";
     tb.setTrainTypeId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getTrainTypeId(),var);
 } 
 
@@ -66,7 +66,7 @@ public void testGetStartingStationId() throws Exception {
     TravelBase tb=new TravelBase();
     String var="myid";
     tb.setStartingStationId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getStartingStationId(),var);
 } 
 
@@ -81,7 +81,7 @@ public void testSetStartingStationId() throws Exception {
     TravelBase tb=new TravelBase();
     String var="myid";
     tb.setStartingStationId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getStartingStationId(),var);
 } 
 
@@ -96,7 +96,7 @@ public void testGetStationsId() throws Exception {
     TravelBase tb=new TravelBase();
     String var="myid";
     tb.setStationsId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getStationsId(),var);
 } 
 
@@ -111,7 +111,7 @@ public void testSetStationsId() throws Exception {
     TravelBase tb=new TravelBase();
     String var="myid";
     tb.setStationsId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getStationsId(),var);
 } 
 
@@ -126,7 +126,7 @@ public void testGetTerminalStationId() throws Exception {
     TravelBase tb=new TravelBase();
     String var="myid";
     tb.setTerminalStationId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getTerminalStationId(),var);
 } 
 
@@ -141,7 +141,7 @@ public void testSetTerminalStationId() throws Exception {
     TravelBase tb=new TravelBase();
     String var="myid";
     tb.setTerminalStationId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getTerminalStationId(),var);
 } 
 

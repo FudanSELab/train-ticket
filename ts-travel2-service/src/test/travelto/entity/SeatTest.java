@@ -1,9 +1,9 @@
-package travelto.entity; 
+package travelto.entity;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before; 
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Date;
 * Seat Tester. 
 * 
 * @author <Authors name> 
-* @since <pre>11ÔÂ 22, 2019</pre> 
+* @since <pre>11ï¿½ï¿½ 22, 2019</pre> 
 * @version 1.0 
 */ 
 public class SeatTest { 
@@ -37,7 +37,7 @@ public void testGetTravelDate() throws Exception {
     se = new Seat();
     Date val = Calendar.getInstance().getTime();
     se.setTravelDate(val);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(se.getTravelDate(),val);
 } 
 
@@ -53,7 +53,7 @@ public void testSetTravelDate() throws Exception {
     se = new Seat();
     Date val = Calendar.getInstance().getTime();
     se.setTravelDate(val);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(se.getTravelDate(),val);
 } 
 
@@ -69,7 +69,7 @@ public void testGetTrainNumber() throws Exception {
     se = new Seat();
     String trainNumber="myTrainNum";
     se.setTrainNumber(trainNumber);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(trainNumber,se.getTrainNumber());
 
 } 
@@ -86,7 +86,7 @@ public void testSetTrainNumber() throws Exception {
     se = new Seat();
     String trainNumber="myTrainNum";
     se.setTrainNumber(trainNumber);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(trainNumber,se.getTrainNumber());
 } 
 
@@ -102,7 +102,7 @@ public void testGetStartStation() throws Exception {
     se = new Seat();
     String station="shanghai";
     se.setStartStation(station);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(station,se.getStartStation());
 } 
 
@@ -118,7 +118,7 @@ public void testSetStartStation() throws Exception {
     se = new Seat();
     String station="shanghai";
     se.setStartStation(station);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(station,se.getStartStation());
 } 
 
@@ -134,7 +134,7 @@ public void testGetDestStation() throws Exception {
     se = new Seat();
     String station="shanghai";
     se.setDestStation(station);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(station,se.getDestStation());
 } 
 
@@ -150,7 +150,7 @@ public void testSetDestStation() throws Exception {
     se = new Seat();
     String station="shanghai";
     se.setDestStation(station);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(station,se.getDestStation());
 } 
 
@@ -166,7 +166,7 @@ public void testGetSeatType() throws Exception {
     se = new Seat();
     int t=1;
     se.setSeatType(t);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(t,se.getSeatType());
 
 } 

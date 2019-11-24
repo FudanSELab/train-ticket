@@ -1,9 +1,9 @@
 package travelto.entity;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>十一月 22, 2019</pre>
+ * @since <pre>十一锟斤拷 22, 2019</pre>
  */
 public class TravelResultTest {
 

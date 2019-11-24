@@ -1,8 +1,8 @@
 package travelto.init;
 
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import static travelto.init.InitData.SH;
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>11ÔÂ 24, 2019</pre>
+ * @since <pre>11ï¿½ï¿½ 24, 2019</pre>
  */
 public class InitDataTest {
 

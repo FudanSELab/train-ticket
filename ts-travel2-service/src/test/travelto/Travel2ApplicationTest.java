@@ -1,8 +1,8 @@
 package travelto;
 
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 
 /**
@@ -10,7 +10,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>十一月 24, 2019</pre>
+ * @since <pre>十一锟斤拷 24, 2019</pre>
  */
 public class Travel2ApplicationTest {
 

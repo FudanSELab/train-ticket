@@ -1,9 +1,9 @@
-package travelto.entity; 
+package travelto.entity;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before; 
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +12,7 @@ import java.util.Date;
 * SoldTicket Tester. 
 * 
 * @author <Authors name> 
-* @since <pre>11ÔÂ 22, 2019</pre> 
+* @since <pre>11ï¿½ï¿½ 22, 2019</pre> 
 * @version 1.0 
 */ 
 public class SoldTicketTest { 
@@ -37,7 +37,7 @@ public void testGetTravelDate() throws Exception {
     st = new SoldTicket();
     Date val = Calendar.getInstance().getTime();
     st.setTravelDate(val);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getTravelDate(),val);
 
 } 
@@ -54,7 +54,7 @@ public void testSetTravelDate() throws Exception {
     st = new SoldTicket();
     Date val = Calendar.getInstance().getTime();
     st.setTravelDate(val);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getTravelDate(),val);
 } 
 
@@ -70,7 +70,7 @@ public void testGetTrainNumber() throws Exception {
     st = new SoldTicket();
     String trainNumber= "myNum";
     st.setTrainNumber(trainNumber);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getTrainNumber(),trainNumber);
 
 } 
@@ -87,7 +87,7 @@ public void testSetTrainNumber() throws Exception {
     st = new SoldTicket();
     String trainNumber= "myNum";
     st.setTrainNumber(trainNumber);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getTrainNumber(),trainNumber);
 } 
 
@@ -103,7 +103,7 @@ public void testGetNoSeat() throws Exception {
     st = new SoldTicket();
     int  noseat= 0;
     st.setNoSeat(noseat);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getNoSeat(),noseat);
 
 } 
@@ -120,7 +120,7 @@ public void testSetNoSeat() throws Exception {
     st = new SoldTicket();
     int  noseat= 0;
     st.setNoSeat(noseat);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getNoSeat(),noseat);
 } 
 
@@ -136,7 +136,7 @@ public void testGetBusinessSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setBusinessSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getBusinessSeat(),num);
 
 } 
@@ -153,7 +153,7 @@ public void testSetBusinessSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setBusinessSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getBusinessSeat(),num);
 } 
 
@@ -169,7 +169,7 @@ public void testGetFirstClassSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setFirstClassSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getFirstClassSeat(),num);
 } 
 
@@ -185,7 +185,7 @@ public void testSetFirstClassSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setFirstClassSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getFirstClassSeat(),num);
 } 
 
@@ -201,7 +201,7 @@ public void testGetSecondClassSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setSecondClassSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getSecondClassSeat(),num);
 } 
 
@@ -217,7 +217,7 @@ public void testSetSecondClassSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setSecondClassSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getSecondClassSeat(),num);
 } 
 
@@ -233,7 +233,7 @@ public void testGetHardSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setHardSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getHardSeat(),num);
 } 
 
@@ -249,7 +249,7 @@ public void testSetHardSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setHardSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getHardSeat(),num);
 } 
 
@@ -265,7 +265,7 @@ public void testGetSoftSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setSoftSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getSoftSeat(),num);
 } 
 
@@ -281,7 +281,7 @@ public void testSetSoftSeat() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setSoftSeat(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getSoftSeat(),num);
 } 
 
@@ -297,7 +297,7 @@ public void testGetHardBed() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setHardBed(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getHardBed(),num);
 } 
 
@@ -313,7 +313,7 @@ public void testSetHardBed() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setHardBed(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getHardBed(),num);
 } 
 
@@ -329,7 +329,7 @@ public void testGetSoftBed() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setSoftBed(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getSoftBed(),num);
 } 
 
@@ -345,7 +345,7 @@ public void testSetSoftBed() throws Exception {
     st = new SoldTicket();
     int  num= 0;
     st.setSoftBed(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getSoftBed(),num);
 } 
 
@@ -361,7 +361,7 @@ public void testGetHighSoftBed() throws Exception {
     st = new SoldTicket();
     int  num= 1;
     st.setHighSoftBed(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getHighSoftBed(),num);
 } 
 
@@ -377,7 +377,7 @@ public void testSetHighSoftBed() throws Exception {
     st = new SoldTicket();
     int  num= 1;
     st.setHighSoftBed(num);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(st.getHighSoftBed(),num);
 } 
 

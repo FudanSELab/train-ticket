@@ -1,17 +1,15 @@
-package travelto.config; 
+package travelto.config;
 
-import org.junit.Test; 
-import org.junit.Before; 
 import org.junit.After;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 /** 
 * SecurityConfig Tester. 
 * 
 * @author <Authors name> 
-* @since <pre>11ÔÂ 24, 2019</pre> 
+* @since <pre>11ï¿½ï¿½ 24, 2019</pre> 
 * @version 1.0 
 */ 
 public class SecurityConfigTest { 
@@ -60,7 +58,7 @@ public void testCorsConfigurer() throws Exception {
 public void testConfigure() throws Exception { 
 //TODO: Test goes here...
     SecurityConfig sc =new SecurityConfig();
-    //sc.configure(new HttpSecurity());//²ÎÊý¸ø²»³ö
+    //sc.configure(new HttpSecurity());//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 /** 

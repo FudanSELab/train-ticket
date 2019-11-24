@@ -1,8 +1,8 @@
 package travelto.controller;
 
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import travelto.entity.TravelInfo;
 import travelto.entity.TripInfo;
 
@@ -14,7 +14,7 @@ import java.util.Calendar;
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>十一月 24, 2019</pre>
+ * @since <pre>十一锟斤拷 24, 2019</pre>
  */
 public class Travel2ControllerTest {
 

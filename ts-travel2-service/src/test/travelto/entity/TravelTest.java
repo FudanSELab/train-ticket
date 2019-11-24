@@ -1,15 +1,15 @@
-package travelto.entity; 
+package travelto.entity;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.Before; 
-import org.junit.After; 
 
 /** 
 * Travel Tester. 
 * 
 * @author <Authors name> 
-* @since <pre>11ÔÂ 23, 2019</pre> 
+* @since <pre>11ï¿½ï¿½ 23, 2019</pre> 
 * @version 1.0 
 */ 
 public class TravelTest { 
@@ -33,7 +33,7 @@ public void testGetTrip() throws Exception {
     Travel tr=new Travel();
     Trip t=new Trip();
     tr.setTrip(t);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tr.getTrip(),t);
 } 
 
@@ -48,7 +48,7 @@ public void testSetTrip() throws Exception {
     Travel tr=new Travel();
     Trip t=new Trip();
     tr.setTrip(t);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tr.getTrip(),t);
 } 
 

@@ -1,15 +1,15 @@
-package travelto.entity; 
+package travelto.entity;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.Before; 
-import org.junit.After; 
 
 /** 
 * TravelInfo Tester. 
 * 
 * @author <Authors name> 
-* @since <pre>11ÔÂ 23, 2019</pre> 
+* @since <pre>11ï¿½ï¿½ 23, 2019</pre> 
 * @version 1.0 
 */ 
 public class TravelInfoTest { 
@@ -33,7 +33,7 @@ public void testGetTripId() throws Exception {
     TravelInfo tb=new TravelInfo();
     String var="myid";
     tb.setTripId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getTripId(),var);
 } 
 
@@ -48,7 +48,7 @@ public void testSetTripId() throws Exception {
     TravelInfo tb=new TravelInfo();
     String var="myid";
     tb.setTripId(var);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(tb.getTripId(),var);
 } 
 

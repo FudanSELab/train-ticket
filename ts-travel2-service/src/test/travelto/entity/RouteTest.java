@@ -1,9 +1,9 @@
-package travelto.entity; 
+package travelto.entity;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before; 
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 * Route Tester. 
 * 
 * @author <Authors name> 
-* @since <pre>11ÔÂ 22, 2019</pre> 
+* @since <pre>11ï¿½ï¿½ 22, 2019</pre> 
 * @version 1.0 
 */ 
 public class RouteTest { 
@@ -37,7 +37,7 @@ public void testGetId() throws Exception {
     ro = new Route();
     String myid="myid";
     ro.setId(myid);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getId(),myid);
 } 
 
@@ -53,7 +53,7 @@ public void testSetId() throws Exception {
     ro = new Route();
     String myid="myid";
     ro.setId(myid);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getId(),myid);
 } 
 
@@ -71,7 +71,7 @@ public void testGetStations() throws Exception {
     list.add("shanghai");
     list.add("guangzhou");
     ro.setStations(list);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getStations(),list);
 } 
 
@@ -89,7 +89,7 @@ public void testSetStations() throws Exception {
     list.add("shanghai");
     list.add("guangzhou");
     ro.setStations(list);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getStations(),list);
 } 
 
@@ -107,7 +107,7 @@ public void testGetDistances() throws Exception {
     list.add(101);
     list.add(102);
     ro.setDistances(list);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getDistances(),list);
 } 
 
@@ -125,7 +125,7 @@ public void testSetDistances() throws Exception {
     list.add(101);
     list.add(102);
     ro.setDistances(list);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getDistances(),list);
 } 
 
@@ -141,7 +141,7 @@ public void testGetStartStationId() throws Exception {
     ro = new Route();
     String myid="myid";
     ro.setStartStationId(myid);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getStartStationId(),myid);
 
 } 
@@ -158,7 +158,7 @@ public void testSetStartStationId() throws Exception {
     ro = new Route();
     String myid="myid";
     ro.setStartStationId(myid);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getStartStationId(),myid);
 } 
 
@@ -174,7 +174,7 @@ public void testGetTerminalStationId() throws Exception {
     ro = new Route();
     String myid="myid";
     ro.setTerminalStationId(myid);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getTerminalStationId(),myid);
 } 
 
@@ -190,7 +190,7 @@ public void testSetTerminalStationId() throws Exception {
     ro = new Route();
     String myid="myid";
     ro.setTerminalStationId(myid);
-    //¶ÏÑÔÓï·¨
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
     Assert.assertEquals(ro.getTerminalStationId(),myid);
 } 
 

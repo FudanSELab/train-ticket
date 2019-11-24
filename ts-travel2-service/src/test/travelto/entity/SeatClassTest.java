@@ -1,16 +1,16 @@
 package travelto.entity;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * SeatClass Tester.
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>11ÔÂ 22, 2019</pre>
+ * @since <pre>11ï¿½ï¿½ 22, 2019</pre>
  */
 public class SeatClassTest {
 
@@ -30,7 +30,7 @@ public class SeatClassTest {
     public void testGetCode() throws Exception {
 //TODO: Test goes here...
         SeatClass sc = SeatClass.FIRSTCLASS;
-        //¶ÏÑÔÓï·¨
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
         Assert.assertEquals(2, sc.getCode());
 
     }
@@ -42,7 +42,7 @@ public class SeatClassTest {
     public void testGetName() throws Exception {
 //TODO: Test goes here...
         SeatClass sc = SeatClass.FIRSTCLASS;
-        //¶ÏÑÔÓï·¨
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
         Assert.assertEquals("FirstClassSeat", sc.getName());
     }
 
@@ -52,7 +52,7 @@ public class SeatClassTest {
     @Test
     public void testGetNameByCode() throws Exception {
 //TODO: Test goes here...
-        //¶ÏÑÔÓï·¨
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï·¨
         Assert.assertEquals("FirstClassSeat", SeatClass.getNameByCode(2));
     }
 
