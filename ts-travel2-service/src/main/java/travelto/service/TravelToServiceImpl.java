@@ -13,7 +13,10 @@ import org.springframework.web.client.RestTemplate;
 import travelto.entity.*;
 import travelto.repository.TripRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -98,7 +101,7 @@ public class TravelToServiceImpl implements Travel2Service {
             repository.save(trip);
             return new Response<>(1, "Create trip info:" + ti.toString() + ".", null);
         } else {
-            return new Response<>(1, "Trip " + info.getTripId().toString() + " already exists", null);
+            return new Response<>(1, "Trip " + info.getTripId() + " already exists", null);
         }
     }
 
@@ -123,7 +126,7 @@ public class TravelToServiceImpl implements Travel2Service {
             repository.save(trip);
             return new Response<>(1, "Update trip info:" + ti.toString(), trip);
         } else {
-            return new Response<>(1, "Trip" + info.getTripId().toString() + "doesn 't exists", null);
+            return new Response<>(1, "Trip" + info.getTripId() + "doesn 't exists", null);
         }
     }
 
@@ -157,6 +160,9 @@ public class TravelToServiceImpl implements Travel2Service {
             Route tempRoute = getRouteByRouteId(tempTrip.getRouteId(), headers);
             //检查这个车次的路线表。检查要求的起始站和到达站在不在车次路线的停靠站列表中
             //并检查起始站的位置在到达站之前。满足以上条件的车次被加入返回列表
+            if (tempRoute == null) {
+                return new Response<>(0, NO_CONTENT, null);
+            }
             if (tempRoute.getStations().contains(startingPlaceId) &&
                     tempRoute.getStations().contains(endPlaceId) &&
                     tempRoute.getStations().indexOf(startingPlaceId) < tempRoute.getStations().indexOf(endPlaceId)) {
