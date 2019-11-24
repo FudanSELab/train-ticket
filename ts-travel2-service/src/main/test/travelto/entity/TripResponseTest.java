@@ -201,8 +201,8 @@ public class TripResponseTest {
 //TODO: Test goes here...
         TripResponse tripResponse = new TripResponse();
         int val = 234;
-        tripResponse.setEconomyClass(val);
-        Assert.assertEquals(val, tripResponse.getEconomyClass());
+        tripResponse.setConfortClass(val);
+        Assert.assertEquals(val, tripResponse.getConfortClass());
     }
 
     /**
@@ -213,8 +213,8 @@ public class TripResponseTest {
 //TODO: Test goes here...
         TripResponse tripResponse = new TripResponse();
         int val = 234;
-        tripResponse.setEconomyClass(val);
-        Assert.assertEquals(val, tripResponse.getEconomyClass());
+        tripResponse.setConfortClass(val);
+        Assert.assertEquals(val, tripResponse.getConfortClass());
     }
 
     /**

@@ -8,7 +8,7 @@ public class Ticket {
 
     private String destStation;
 
-    public Ticket(){
+    public Ticket() {
 
     }
 

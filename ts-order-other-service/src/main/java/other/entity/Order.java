@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -60,6 +61,32 @@ public class Order {
     }
 
     @Override
+    public int hashCode() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(boughtDate);
+        sb.append(travelDate);
+        sb.append(accountId);
+        sb.append(contactsName);
+        sb.append(contactsDocumentNumber);
+        sb.append(documentType);
+        sb.append(trainNumber);
+        sb.append(coachNumber);
+        sb.append(seatClass);
+        sb.append(seatNumber);
+        sb.append(from);
+        sb.append(to);
+        sb.append(status);
+        sb.append(price);
+        char[] charArr = sb.toString().toCharArray();
+        int hash = 0;
+
+        for (char c : charArr) {
+            hash = hash * 131 + c;
+        }
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -87,6 +114,8 @@ public class Order {
                 && status == other.getStatus()
                 && price.equals(other.price);
     }
+
+
 
     public UUID getId() {
         return id;
@@ -121,7 +150,10 @@ public class Order {
     }
 
     public void setTravelDate(int year,int month,int day){
-        Date date = new Date(year,month,day,0,0,0);
+        Calendar cld = Calendar.getInstance();
+        cld.set(year,month-1,day,0,0,0);
+        Date date = cld.getTime();
+
         this.travelDate = date;
     }
 
@@ -134,7 +166,7 @@ public class Order {
     }
 
     public void setTravelTime(int hour,int minute){
-        Date date = new Date(1970,1,1,hour,minute,0);
+        //default consturctors
     }
 
     public String getTrainNumber() {

@@ -9,8 +9,9 @@ public class LeftTicketInfo {
     @NotNull
     private Set<Ticket> soldTickets;
 
-    public LeftTicketInfo(){
 
+    public LeftTicketInfo()  {
+        //dafault constructor
     }
 
     public Set<Ticket> getSoldTickets() {

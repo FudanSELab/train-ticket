@@ -10,6 +10,24 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Response<T> {
+//    public Response(Integer status, String msg, T data) {
+//        this.status = status;
+//        this.msg = msg;
+//        this.data = data;
+//    }
+
+    public T getData() {
+        return data;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
     Integer status; // 1 true, 0 false
     String msg;
     T data;

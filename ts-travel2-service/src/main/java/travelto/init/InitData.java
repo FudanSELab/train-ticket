@@ -28,7 +28,7 @@ public class InitData implements CommandLineRunner {
     @Autowired
     Travel2Service service;
 
-    private static Date str2Date(String s) {
+    public static Date str2Date(String s) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM ddHH:mm:ss 'GMT+0800' yyyy", Locale.US);
         Date date = null;
         try {

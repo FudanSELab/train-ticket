@@ -26,6 +26,7 @@ public class TripId implements Serializable{
                 break;
             case 'K': this.type = Type.K;
                 break;
+
             default:break;
         }
 
