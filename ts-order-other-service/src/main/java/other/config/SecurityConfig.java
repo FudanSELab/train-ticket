@@ -1,3 +1,7 @@
+/**
+ * @author shenxinyao
+ * @date 2019/11/19
+ */
 package other.config;
 
 import edu.fudan.common.security.jwt.JWTFilter;
@@ -23,7 +27,11 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // load password encoder
+    /**
+     * load password encoder
+     *
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -55,6 +63,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        String base = "/api/v1/orderOtherService/";
+        String allPath = base + "orderOther";
+        String adminPath = base + "admin";
+        String admin = "ADMIN";
+        String user = "USER";
         httpSecurity.httpBasic().disable()
                 // close default csrf
                 .csrf().disable()
@@ -63,11 +76,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/orderOtherService/orderOther/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/orderOtherService/orderOther").hasAnyRole("ADMIN", "USER")
-                .antMatchers(HttpMethod.PUT, "/api/v1/orderOtherService/orderOther").hasAnyRole("ADMIN", "USER")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/orderOtherService/orderOther").hasAnyRole("ADMIN", "USER")
-                .antMatchers(HttpMethod.POST, "/api/v1/orderOtherService/orderOther/admin").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/v1/orderOtherService/orderOther/admin").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, allPath).hasAnyRole(admin, user)
+                .antMatchers(HttpMethod.PUT, allPath).hasAnyRole(admin, user)
+                .antMatchers(HttpMethod.DELETE, allPath).hasAnyRole(admin, user)
+                .antMatchers(HttpMethod.POST, adminPath).hasAnyRole(admin)
+                .antMatchers(HttpMethod.PUT, adminPath).hasAnyRole(admin)
 
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()

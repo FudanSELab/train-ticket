@@ -41,7 +41,7 @@ public class OrderOtherServiceImpl implements OrderOtherService {
 
         list = orderOtherRepository.findByTravelDateAndTrainNumber(seatRequest.getTravelDate(), seatRequest.getTrainNumber());
 
-        if (list != null && list.size() > 0 ) {
+        if (list != null && list.isEmpty()) {
             Set ticketSet = new HashSet();
             for (Order tempOrder : list) {
                 Ticket ticket = new Ticket();
@@ -462,10 +462,9 @@ public class OrderOtherServiceImpl implements OrderOtherService {
 
     @Override
     public Response updateOrder(Order order, HttpHeaders headers) {
-        System.out.println("UPDATE ORDER INFO :" + order.toString());
+        mylogger.log(Level.INFO,() -> "UPDATE ORDER INFO :" + order.toString());
         Order oldOrder = orderOtherRepository.findById(order.getId());
         if (oldOrder == null) {
-            String a = null;
             mylogger.log(Level.INFO , () -> "[Order Service][Admin Update Order] Fail.Order not found.");
             return new Response<>(0, NFOUND, null);
         } else {
