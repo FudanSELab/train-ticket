@@ -39,6 +39,11 @@ public class TravelToServiceImpl implements Travel2Service {
     @Autowired
     private RestTemplate restTemplate;
 
+    public void testInit(TripRepository repository, RestTemplate restTemplate) {
+        this.repository = repository;
+        this.restTemplate = restTemplate;
+    }
+
     @Override
     public Response getRouteByTripId(String tripId, HttpHeaders headers) {
         TripId tripId1 = new TripId(tripId);

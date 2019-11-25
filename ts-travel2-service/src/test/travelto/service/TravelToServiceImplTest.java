@@ -3,12 +3,12 @@ package travelto.service;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.web.client.RestTemplate;
 import travelto.entity.Route;
-import travelto.entity.TravelInfo;
 import travelto.entity.Trip;
+import travelto.repository.TripRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import static org.mockito.Mockito.mock;
 
 /**
  * TravelToServiceImpl Tester.
@@ -18,10 +18,30 @@ import java.util.List;
  * @since <pre>11ÔÂ 22, 2019</pre>
  */
 public class TravelToServiceImplTest {
+    //for all null return cases
+    RestTemplate restTemplate1;
+    TravelToServiceImpl travelToService1;
+    TripRepository tripRepository1;
+
+    //for all completed entity return cases
+    TripRepository tripRepository2;
+    RestTemplate restTemplate2;
+    TravelToServiceImpl travelToService2;
+
 
     @Before
     public void before() throws Exception {
         testPlaceInfoWrapper();
+
+        travelToService1 = new TravelToServiceImpl();
+        tripRepository1 = mock(TripRepository.class);
+        restTemplate1 = mock(RestTemplate.class);
+        travelToService1.testInit(tripRepository1, restTemplate1);
+
+        travelToService2 = new TravelToServiceImpl();
+        tripRepository2 = mock(TripRepository.class);
+        restTemplate2 = mock(RestTemplate.class);
+        travelToService2.testInit(tripRepository2, restTemplate2);
     }
 
     @After
@@ -42,14 +62,17 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testGetRouteByTripId() throws Exception {
-        TravelToServiceImpl travelToService = new TravelToServiceImpl();
+        testGetRouteByTripIdRules();
         try {
-            travelToService.getRouteByTripId("1", null);
-            travelToService.getRouteByTripId("Z1234", null);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
         }
+    }
+
+    private void testGetRouteByTripIdRules() {
+
     }
 
     /**
@@ -57,14 +80,17 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testGetTrainTypeByTripId() throws Exception {
-        TravelToServiceImpl travelToService = new TravelToServiceImpl();
+        testGetTrainTypeByTripIdRules();
         try {
-            travelToService.getTrainTypeByTripId("1", null);
-            travelToService.getTrainTypeByTripId("Z1234", null);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
         }
+    }
+
+    private void testGetTrainTypeByTripIdRules() {
+
     }
 
     /**
@@ -72,14 +98,8 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testGetTripByRoute() throws Exception {
-        TravelToServiceImpl travelToService = new TravelToServiceImpl();
         try {
-            List<String> routeIds = new ArrayList<>();
-            routeIds.add("1");
-            travelToService.getTripByRoute(routeIds, null);
-            routeIds.clear();
-            routeIds.add("0b23bd3e-876a-4af3-b920-c50a90c90b04");
-            travelToService.getTripByRoute(routeIds, null);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -91,12 +111,8 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testCreate() throws Exception {
-        TravelToServiceImpl travelToService = new TravelToServiceImpl();
         try {
-            TravelInfo info = new TravelInfo();
-            travelToService.create(info, null);
-            info.setTripId("Z1234");
-            travelToService.create(info, null);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
