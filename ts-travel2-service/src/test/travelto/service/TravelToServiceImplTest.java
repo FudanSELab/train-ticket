@@ -3,12 +3,18 @@ package travelto.service;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.web.client.RestTemplate;
 import travelto.entity.Route;
 import travelto.entity.TravelInfo;
 import travelto.entity.Trip;
+import travelto.entity.TripId;
+import travelto.repository.TripRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * TravelToServiceImpl Tester.
@@ -19,9 +25,20 @@ import java.util.List;
  */
 public class TravelToServiceImplTest {
 
+    TripRepository tripRepository;
+    RestTemplate restTemplate;
+    TravelToServiceImpl travelToService;
+
     @Before
     public void before() throws Exception {
         testPlaceInfoWrapper();
+
+        travelToService = new TravelToServiceImpl();
+        tripRepository = mock(TripRepository.class);
+        restTemplate = mock(RestTemplate.class);
+        travelToService.testInit(tripRepository, restTemplate);
+
+        when(tripRepository.findByTripId(new TripId())).thenReturn(null);
     }
 
     @After
@@ -42,7 +59,6 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testGetRouteByTripId() throws Exception {
-        TravelToServiceImpl travelToService = new TravelToServiceImpl();
         try {
             travelToService.getRouteByTripId("1", null);
             travelToService.getRouteByTripId("Z1234", null);
