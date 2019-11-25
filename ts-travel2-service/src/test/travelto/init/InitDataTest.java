@@ -3,9 +3,17 @@ package travelto.init;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.web.client.RestTemplate;
+import travelto.entity.Trip;
+import travelto.entity.TripId;
+import travelto.repository.TripRepository;
+import travelto.service.TravelToServiceImpl;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static travelto.init.InitData.BJ;
 import static travelto.init.InitData.SH;
 
@@ -18,8 +26,23 @@ import static travelto.init.InitData.SH;
  */
 public class InitDataTest {
 
+    TripRepository tripRepository;
+    InitData initData;
+    RestTemplate restTemplate;
+
     @Before
     public void before() throws Exception {
+        initData = new InitData();
+        initData.service = new TravelToServiceImpl();
+        tripRepository = mock(TripRepository.class);
+        restTemplate = mock(RestTemplate.class);
+        ((TravelToServiceImpl) initData.service).testInit(tripRepository, restTemplate);
+
+        ArrayList<Trip> data = new ArrayList<>();
+        Trip trip = new Trip();
+        trip.setTripId(new TripId("Z88"));
+        data.add(trip);
+        when(tripRepository.findByRouteId("1")).thenReturn(data);
     }
 
     @After
@@ -31,7 +54,6 @@ public class InitDataTest {
      */
     @Test
     public void testBuildTravelInfo() throws Exception {
-        InitData initData = new InitData();
         initData.buildTravelInfo("Z1234", "ZhiDa", "0b23bd3e-876a-4af3-b920-c50a90c90b04",
                 SH, SH, BJ, "Mon 5 04 09:51:52 GMT+0800 2013", "Mon 5 04 15:51:52 GMT+0800 2013", null);
     }
@@ -41,10 +63,8 @@ public class InitDataTest {
      */
     @Test
     public void testRun() throws Exception {
-        InitData initData = new InitData();
-        String[] args = new String[]{""};
         try {
-            initData.run(args);
+            initData.run();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
