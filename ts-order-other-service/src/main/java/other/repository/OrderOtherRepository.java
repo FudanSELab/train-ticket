@@ -1,3 +1,7 @@
+/**
+ * @author shenxinyao
+ * @date 2019/11/19
+ */
 package other.repository;
 
 import other.entity.Order;
@@ -12,15 +16,40 @@ import java.util.UUID;
 public interface OrderOtherRepository extends MongoRepository<Order, String> {
 
     @Query("{ 'id': ?0 }")
+    /**
+     * findById
+     * @param id:
+     * @return :
+     */
     Order findById(UUID id);
 
+    /**
+     * findAll
+     * @return :
+     */
     ArrayList<Order> findAll();
 
+    /**
+     * findByAccountId
+     * @param accountId:
+     * @return :
+     */
     @Query("{ 'accountId' : ?0 }")
     ArrayList<Order> findByAccountId(UUID accountId);
 
+    /**
+     * findByTravelDateAndTrainNumber
+     * @param travelDate:
+     * @param trainNumber:
+     * @return :
+     */
     @Query("{ 'travelDate' : ?0 , trainNumber : ?1 }")
     ArrayList<Order> findByTravelDateAndTrainNumber(Date travelDate, String trainNumber);
 
+    /**
+     * deleteById
+     * @param id:
+     * @return :
+     */
     void deleteById(UUID id);
 }

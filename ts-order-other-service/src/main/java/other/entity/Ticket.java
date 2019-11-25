@@ -9,7 +9,8 @@ public class Ticket {
     private String destStation;
 
     public Ticket() {
-        //consturctor
+        //default
+
     }
 
     public int getSeatNo() {

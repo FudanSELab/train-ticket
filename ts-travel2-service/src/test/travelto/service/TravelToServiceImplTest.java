@@ -27,6 +27,9 @@ public class TravelToServiceImplTest {
     RestTemplate restTemplate;
     TravelToServiceImpl travelToService;
 
+    TripRepository tripRepository2;
+    RestTemplate restTemplate2;
+    TravelToServiceImpl travelToService2;
 
 
     @Before
@@ -39,10 +42,22 @@ public class TravelToServiceImplTest {
         travelToService.testInit(tripRepository, restTemplate);
 
         when(tripRepository.findByTripId(new TripId())).thenReturn(null);
+        when(tripRepository.findByTripId(new TripId("1"))).thenReturn(null);
         when(tripRepository.findAll()).thenReturn(null);
 
 
 
+        //list
+        Trip trip =new Trip();
+        travelToService2 = new TravelToServiceImpl();
+        tripRepository2 = mock(TripRepository.class);
+        restTemplate2 = mock(RestTemplate.class);
+        travelToService2.testInit(tripRepository2, restTemplate2);
+        ArrayList<Trip> allTripList =new ArrayList<>();
+        Trip t=new Trip();
+        allTripList.add(t);
+        when(tripRepository.findByTripId(new TripId())).thenReturn(trip);
+        when(tripRepository2.findAll()).thenReturn(allTripList);
     }
 
     @After
@@ -77,7 +92,6 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testGetTrainTypeByTripId() throws Exception {
-        TravelToServiceImpl travelToService = new TravelToServiceImpl();
         try {
             travelToService.getTrainTypeByTripId("1", null);
             travelToService.getTrainTypeByTripId("Z1234", null);
@@ -92,10 +106,10 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testGetTripByRoute() throws Exception {
-        TravelToServiceImpl travelToService = new TravelToServiceImpl();
         try {
             List<String> routeIds = new ArrayList<>();
             routeIds.add("1");
+            routeIds.add("2");
             travelToService.getTripByRoute(routeIds, null);
             routeIds.clear();
             routeIds.add("0b23bd3e-876a-4af3-b920-c50a90c90b04");
@@ -111,7 +125,6 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testCreate() throws Exception {
-        TravelToServiceImpl travelToService = new TravelToServiceImpl();
         try {
             TravelInfo info = new TravelInfo();
             travelToService.create(info, null);
@@ -128,7 +141,6 @@ public class TravelToServiceImplTest {
      */
     @Test
     public void testRetrieve() throws Exception {
-        TravelToServiceImpl travelToService = new TravelToServiceImpl();
         try {
             travelToService.retrieve("1", null);
             travelToService.retrieve("Z1234", null);
@@ -179,7 +191,7 @@ public class TravelToServiceImplTest {
             ti.setEndPlace("beijing");
             ti.setStartingPlace("shanghai");
             travelToService.query(ti,null);
-
+            travelToService2.query(ti,null);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -200,7 +212,7 @@ public class TravelToServiceImplTest {
             ta.setTravelDate(new Date());
             ta.setTo("beijing");
             travelToService.getTripAllDetailInfo(ta,null);
-
+            travelToService2.getTripAllDetailInfo(ta,null);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
