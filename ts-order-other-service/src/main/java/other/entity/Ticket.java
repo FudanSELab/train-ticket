@@ -9,7 +9,7 @@ public class Ticket {
     private String destStation;
 
     public Ticket() {
-
+        //default
     }
 
     public int getSeatNo() {
