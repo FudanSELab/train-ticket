@@ -1,6 +1,7 @@
 package preserveother.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.UUID;
  * @author fdu
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@AllArgsConstructor
 public class Order {
 
     private UUID id;
@@ -61,27 +63,6 @@ public class Order {
         to = "taiyuan";
         status = OrderStatus.PAID.getCode();
         price = "0.0";
-    }
-
-    public Order(UUID id, Date boughtDate, Date travelDate, Date travelTime, UUID accountId, String contactsName,
-                 int documentType, String contactsDocumentNumber, String trainNumber, int coachNumber,
-                 int seatClass, String seatNumber, String from, String to, int status, String price) {
-        this.id = id;
-        this.boughtDate = boughtDate;
-        this.travelDate = travelDate;
-        this.travelTime = travelTime;
-        this.accountId = accountId;
-        this.contactsName = contactsName;
-        this.documentType = documentType;
-        this.contactsDocumentNumber = contactsDocumentNumber;
-        this.trainNumber = trainNumber;
-        this.coachNumber = coachNumber;
-        this.seatClass = seatClass;
-        this.seatNumber = seatNumber;
-        this.from = from;
-        this.to = to;
-        this.status = status;
-        this.price = price;
     }
 
     @Override
