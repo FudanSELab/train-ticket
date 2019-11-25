@@ -130,6 +130,8 @@
                 <configuration>
                     <includes>
                         <include>preserveother/**/*</include>
+                        <include>travelto/**/*</include>
+                        <include>other/**/*</include>
                     </includes>
                 </configuration>
                 <executions>

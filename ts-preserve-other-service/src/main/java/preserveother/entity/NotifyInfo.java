@@ -1,8 +1,11 @@
 package preserveother.entity;
 
+import lombok.AllArgsConstructor;
+
 /**
  * @author fdu
  */
+@AllArgsConstructor
 public class NotifyInfo {
 
     private String email;
@@ -18,19 +21,6 @@ public class NotifyInfo {
 
     public NotifyInfo() {
         //default constructor
-    }
-
-    public NotifyInfo(String email, String orderNumber, String username, String startingPlace, String endPlace, String startingTime, String date, String seatClass, String seatNumber, String price) {
-        this.email = email;
-        this.orderNumber = orderNumber;
-        this.username = username;
-        this.startingPlace = startingPlace;
-        this.endPlace = endPlace;
-        this.startingTime = startingTime;
-        this.date = date;
-        this.seatClass = seatClass;
-        this.seatNumber = seatNumber;
-        this.price = price;
     }
 
     public String getEmail() {
