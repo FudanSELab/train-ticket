@@ -2,7 +2,6 @@ package preserveother.service;
 
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
-import preserveother.entity.Consign;
 import preserveother.entity.OrderTicketsInfo;
 
 /**
