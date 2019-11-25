@@ -42,6 +42,7 @@ public class TravelToServiceImpl implements Travel2Service {
     public void testInit(TripRepository repository, RestTemplate restTemplate) {
         this.repository = repository;
         this.restTemplate = restTemplate;
+        this.
     }
 
     @Override
