@@ -212,14 +212,14 @@ class OrderTest {
     void getContactsName() {
         Order order = new Order();
         order.setContactsName("test");
-        Assert.assertEquals(order.getContactsName(),"test");
+        Assert.assertEquals(order.getContactsName(), "test");
     }
 
     @Test
     void setContactsName() {
         Order order = new Order();
         order.setContactsName("test");
-        Assert.assertEquals(order.getContactsName(),"test");
+        Assert.assertEquals(order.getContactsName(), "test");
     }
 
     @Test
@@ -240,7 +240,7 @@ class OrderTest {
     void getContactsDocumentNumber() {
         Order order = new Order();
         order.setContactsDocumentNumber("test");
-        Assert.assertEquals(order.getContactsDocumentNumber(),"test");
+        Assert.assertEquals(order.getContactsDocumentNumber(), "test");
 
     }
 
@@ -248,6 +248,6 @@ class OrderTest {
     void setContactsDocumentNumber() {
         Order order = new Order();
         order.setContactsDocumentNumber("test");
-        Assert.assertEquals(order.getContactsDocumentNumber(),"test");
+        Assert.assertEquals(order.getContactsDocumentNumber(), "test");
     }
 }

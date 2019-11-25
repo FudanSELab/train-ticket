@@ -37,8 +37,10 @@ public class OrderOtherServiceImpl implements OrderOtherService {
 
     @Override
     public Response getSoldTickets(Seat seatRequest, HttpHeaders headers) {
-        ArrayList<Order> list = orderOtherRepository.findByTravelDateAndTrainNumber(seatRequest.getTravelDate(),
-                seatRequest.getTrainNumber());
+        ArrayList<Order> list;
+
+        list = orderOtherRepository.findByTravelDateAndTrainNumber(seatRequest.getTravelDate(), seatRequest.getTrainNumber());
+
         if (list != null && list.size() > 0 ) {
             Set ticketSet = new HashSet();
             for (Order tempOrder : list) {
@@ -58,6 +60,11 @@ public class OrderOtherServiceImpl implements OrderOtherService {
         } else {
             return new Response<>(0, "Seat is Null.", null);
         }
+    }
+
+    public void testInit(OrderOtherRepository repository, RestTemplate restTemplate) {
+        this.orderOtherRepository = repository;
+        this.restTemplate = restTemplate;
     }
 
 

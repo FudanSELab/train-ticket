@@ -14,12 +14,13 @@ public class InitData implements CommandLineRunner {
     @Autowired
     OrderOtherService service;
 
+    @Override
     public void run(String... args)throws Exception{
 
         Order order1 = new Order();
 
         order1.setAccountId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f"));
-        order1.setBoughtDate(new Date(System.currentTimeMillis()));
+        order1.setBoughtDate(new Date(123456799));
         order1.setCoachNumber(5);
         order1.setContactsDocumentNumber("Test");
         order1.setContactsName("Test");

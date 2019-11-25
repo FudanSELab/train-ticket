@@ -10,11 +10,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Response<T> {
-//    public Response(Integer status, String msg, T data) {
-//        this.status = status;
-//        this.msg = msg;
-//        this.data = data;
-//    }
+    public Response(Integer status, String msg, T data) {
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
+    }
 
     public T getData() {
         return data;
