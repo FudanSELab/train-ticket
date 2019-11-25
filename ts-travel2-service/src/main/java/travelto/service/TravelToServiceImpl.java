@@ -47,7 +47,6 @@ public class TravelToServiceImpl implements Travel2Service {
     @Override
     public Response getRouteByTripId(String tripId, HttpHeaders headers) {
         TripId tripId1 = new TripId(tripId);
-
         Trip trip = repository.findByTripId(tripId1);
         if (trip == null) {
             logger.log(Level.INFO, () -> "[Get Route By Trip ID] Trip Not Found:" + tripId);

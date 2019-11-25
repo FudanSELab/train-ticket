@@ -10,7 +10,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>ʮһ�� 24, 2019</pre>
+ * @since <pre>???? 24, 2019</pre>
  */
 public class Travel2ApplicationTest {
 
