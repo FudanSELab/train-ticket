@@ -30,7 +30,7 @@ class SeatTest {
         Date set = cld.getTime();
         Seat seat = new Seat(set,"test1","shenzhen","shanghai",1);
 
-
+        seat.setTravelDate(set);
         Assert.assertEquals("Tue Dec 02 01:01:01 CST 2014",seat.getTravelDate().toString());
 
     }

@@ -2,6 +2,7 @@ package other.entitytest;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.method.P;
 import other.entity.Order;
 
@@ -154,6 +155,35 @@ class OrderTest {
         Assert.assertEquals(order.getSeatNumber(),"6A");
     }
 
+
+
+    @Test
+    void hashcode(){
+        Order order = new Order();
+        int i = order.hashCode();
+
+        Assert.assertNotEquals(i,1);
+    }
+
+    @Test
+    void equals(){
+        Order order = new Order();
+        Order order2 = new Order();
+        Calendar cld = Calendar.getInstance();
+        cld.set(2014,11,2,1,1,1);
+        Date starttime = cld.getTime();
+        Order order3 = new Order();
+        order.setTravelTime(starttime);
+        boolean test1 = order.equals(null);
+        boolean test2 = order.equals(order);
+        boolean test3 = order.equals(order3);
+        boolean test4 = order.equals(new HttpHeaders());
+        Assert.assertNotEquals(true,test1);
+        Assert.assertEquals(true,test2);
+        Assert.assertNotEquals(true,test3);
+
+        Assert.assertNotEquals(true,test4);
+    }
     @Test
     void getFrom() {
         Order order = new Order();

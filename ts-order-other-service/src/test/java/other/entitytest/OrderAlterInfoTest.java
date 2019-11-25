@@ -69,14 +69,25 @@ class OrderAlterInfoTest {
         OrderAlterInfo qaalert = new OrderAlterInfo();
         Order orders = new Order();
         orders.setStatus(1);
-        Assert.assertEquals(1,orders.getStatus());
-//        qaalert.setPreviousOrderId(orders);
-//        Assert.assertEquals();
+        qaalert.setNewOrderInfo(orders);
+        Order neworder =qaalert.getNewOrderInfo();
+        Assert.assertEquals(1,neworder.getStatus());
 
     }
 
     @Test
     void setNewOrderInfo() {
+        OrderAlterInfo qaalert = new OrderAlterInfo();
+        Order orders = new Order();
+        orders.setStatus(1);
+        qaalert.setNewOrderInfo(orders);
+        Order neworder =qaalert.getNewOrderInfo();
+        Assert.assertEquals(1,neworder.getStatus());
+//        Assert.assertEquals();
+    }
+
+    @Test
+    void OrderAlertInfo() {
         OrderAlterInfo qaalert = new OrderAlterInfo();
         Order orders = new Order();
         orders.setStatus(1);

@@ -174,6 +174,7 @@ class QueryInfoTest {
     void isEnableTravelDateQuery() {
         QueryInfo quertI = new QueryInfo();
         quertI.disableTravelDateQuery();
+
         Calendar cld = Calendar.getInstance();
         cld.set(2014,11,2,1,1,1);
         Date starttime = cld.getTime();
@@ -181,21 +182,22 @@ class QueryInfoTest {
         Date endtime = cld.getTime();
         quertI.disableTravelDateQuery();
         quertI.enableTravelDateQuery(starttime,endtime);
-        Assert.assertEquals("Tue Dec 02 01:01:01 CST 2014",quertI.getTravelDateStart().toString());
+        Assert.assertEquals(true,quertI.isEnableTravelDateQuery());
     }
 
     @Test
     void isEnableBoughtDateQuery() {
         QueryInfo quertI = new QueryInfo();
         quertI.disableTravelDateQuery();
+
         Calendar cld = Calendar.getInstance();
         cld.set(2014,11,2,1,1,1);
         Date starttime = cld.getTime();
         cld.set(2014,11,2,4,1,1);
         Date endtime = cld.getTime();
-        quertI.disableTravelDateQuery();
-        quertI.enableTravelDateQuery(starttime,endtime);
-        Assert.assertEquals("Tue Dec 02 01:01:01 CST 2014",quertI.getTravelDateStart().toString());
+        quertI.disableBoughtDateQuery();
+        quertI.enableBoughtDateQuery(starttime,endtime);
+        Assert.assertEquals(true,quertI.isEnableBoughtDateQuery());
     }
 
     @Test
@@ -203,6 +205,6 @@ class QueryInfoTest {
         QueryInfo test = new QueryInfo();
         test.disableStateQuery();
         test.enableStateQuery(1);
-        Assert.assertEquals(1,test.getState());
+        Assert.assertEquals(true,test.isEnableStateQuery());
     }
 }

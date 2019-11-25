@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class OrderOtherApplication {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
 
         SpringApplication.run(OrderOtherApplication.class, args);
     }

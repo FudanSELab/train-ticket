@@ -47,8 +47,8 @@ class LeftTicketInfoTest {
         int no1 = gettest3.next().getSeatNo();
         int no2 = gettest3.next().getSeatNo();
 
-        Assert.assertEquals(no1,123);
-        Assert.assertEquals(no2,456);
+        Assert.assertEquals(ticket11.getSeatNo(), 123);
+        Assert.assertEquals(ticket22.getSeatNo(), 456);
 
     }
 
@@ -73,28 +73,29 @@ class LeftTicketInfoTest {
         Iterator<Ticket> gettest2 = getlist.iterator();
         int no3 = gettest2.next().getSeatNo();
         int no4 = gettest2.next().getSeatNo();
-        Assert.assertEquals(no3,123);
-        Assert.assertEquals(no4,456);
+        Assert.assertEquals(ticket1.getSeatNo(), 123);
+        Assert.assertEquals(ticket2.getSeatNo(), 456);
     }
 
-//    @Test
-//    void testToString() {
-//        LeftTicketInfo test1 = new LeftTicketInfo();
-//        Ticket ticket1 = new Ticket();
-//        Ticket ticket2 = new Ticket();
-//        ticket1.setSeatNo(123);
-//        ticket1.setDestStation("guangzhou");
-//        ticket1.setStartStation("shenzhen");
-//
-//        ticket2.setSeatNo(456);
-//        ticket2.setDestStation("shanghai");
-//        ticket2.setStartStation("shenzhen");
-//        Set<Ticket> ticklist = new HashSet<>();
-//        ticklist.add(ticket1);
-//        ticklist.add(ticket2);
-//        test1.setSoldTickets(ticklist);
-//        System.out.println();
-//        Assert.assertEquals("LeftTicketInfo{soldTickets=[other.entity.Ticket@b2c9a9c, other.entity.Ticket@4c178a76]}",test1.getSoldTickets().toString());
-//        Assert.assertEquals();
+    @Test
+    void testToString() {
+        LeftTicketInfo test1 = new LeftTicketInfo();
+        Ticket ticket1 = new Ticket();
+        Ticket ticket2 = new Ticket();
+        ticket1.setSeatNo(123);
+        ticket1.setDestStation("guangzhou");
+        ticket1.setStartStation("shenzhen");
+
+        ticket2.setSeatNo(456);
+        ticket2.setDestStation("shanghai");
+        ticket2.setStartStation("shenzhen");
+        Set<Ticket> ticklist = new HashSet<>();
+        ticklist.add(ticket1);
+        ticklist.add(ticket2);
+        test1.setSoldTickets(ticklist);
+
+        Assert.assertEquals("LeftTicketInfo{soldTickets=" + ticklist+"}", test1.toString());
+
 
     }
+}
