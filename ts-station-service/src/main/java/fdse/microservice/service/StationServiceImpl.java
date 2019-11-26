@@ -5,8 +5,6 @@ import fdse.microservice.entity.*;
 import fdse.microservice.repository.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +17,7 @@ public class StationServiceImpl implements StationService {
 
     @Autowired
     private StationRepository repository;
+    public static final String SUCCESS_STR="Success";
 
     @Override
     public Response create(Station station, HttpHeaders headers) {
@@ -67,7 +66,7 @@ public class StationServiceImpl implements StationService {
     @Override
     public Response query(HttpHeaders headers) {
         List<Station> stations = repository.findAll();
-        if (stations != null && stations.size() > 0) {
+        if (stations != null && stations.isEmpty()) {
             return new Response<>(1, "Find all content", stations);
         } else {
             return new Response<>(0, "No content", null);
@@ -79,7 +78,7 @@ public class StationServiceImpl implements StationService {
         Station station = repository.findByName(stationName);
 
         if (station  != null) {
-            return new Response<>(1, "Success", station.getId());
+            return new Response<>(1, StationServiceImpl.SUCCESS_STR, station.getId());
         } else {
             return new Response<>(0, "Not exists", stationName);
         }
@@ -98,8 +97,8 @@ public class StationServiceImpl implements StationService {
             }
         }
 
-        if (result.size() > 0) {
-            return new Response<>(1, "Success", result);
+        if (result.isEmpty()) {
+            return new Response<>(1, StationServiceImpl.SUCCESS_STR, result);
         } else {
             return new Response<>(0, "No content according to name list", nameList);
         }
@@ -110,7 +109,7 @@ public class StationServiceImpl implements StationService {
     public Response queryById(String stationId, HttpHeaders headers) {
         Station station = repository.findById(stationId);
         if (station != null) {
-            return new Response<>(1, "Success", station.getName());
+            return new Response<>(1, StationServiceImpl.SUCCESS_STR, station.getName());
         } else {
             return new Response<>(0, "No that stationId", stationId);
         }
@@ -126,8 +125,8 @@ public class StationServiceImpl implements StationService {
             }
         }
 
-        if (result.size() > 0) {
-            return new Response<>(1, "Success", result);
+        if (result.isEmpty()) {
+            return new Response<>(1, StationServiceImpl.SUCCESS_STR, result);
         } else {
             return new Response<>(0, "No stationNamelist according to stationIdList", result);
         }

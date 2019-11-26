@@ -9,6 +9,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -19,9 +21,8 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/api/v1/stationservice")
 public class StationController {
 
+    private final static Logger logger = LoggerFactory.getLogger(StationController.class);
 
-
-    //private static final Logger log = LoggerFactory.getLogger(Application.class);
     @Autowired
     private StationService stationService;
 
@@ -51,11 +52,7 @@ public class StationController {
     }
 
 
-    // 根据车站名 ---> 查询 车站是否存在
-//    @GetMapping(value="/stations/{stationName}")
-//    public HttpEntity exist(@PathVariable String stationName,@RequestHeader HttpHeaders headers){
-//        return ok(stationService.exist(stationName,headers));
-//    }
+
 
     // 根据车站名 ---> 查询 车站 id
     @GetMapping(value = "/stations/id/{stationNameForId}")
@@ -77,7 +74,7 @@ public class StationController {
     @GetMapping(value = "/stations/name/{stationIdForName}")
     public HttpEntity queryById(@PathVariable(value = "stationIdForName")
                                         String stationId, @RequestHeader HttpHeaders headers) {
-        System.out.println("[Station Service] Query By Id:" + stationId);
+        logger.info("[Station Service] Query By Id:" + stationId);
         // string
         return ok(stationService.queryById(stationId, headers));
     }
@@ -89,11 +86,5 @@ public class StationController {
         return ok(stationService.queryByIdBatch(stationIdList, headers));
     }
 
-    //  根据stationId  ----> 查询 车站名
-//    @CrossOrigin(origins = "*")
-//    @RequestMapping(value = "/station/queryByIdForName",method = RequestMethod.POST)
-//    public String queryByIdForName(@RequestBody QueryById queryById,@RequestHeader HttpHeaders headers){
-//        System.out.println("[Station Service] Query By Id For Name:" + queryById.getStationId());
-//        return stationService.queryById(queryById.getStationId(),headers).getName();
-//    }
+
 }

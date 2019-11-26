@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class InitData implements CommandLineRunner {
 
@@ -16,71 +17,17 @@ public class InitData implements CommandLineRunner {
     public void run(String... args) throws Exception{
         Station info = new Station();
 
-        info.setId("shanghai");
-        info.setName("Shang Hai");
-        info.setStayTime(10);
-        service.create(info,null);
-
-        info.setId("shanghaihongqiao");
-        info.setName("Shang Hai Hong Qiao");
-        info.setStayTime(10);
-        service.create(info,null);
-
-        info.setId("taiyuan");
-        info.setName("Tai Yuan");
-        info.setStayTime(5);
-        service.create(info,null);
-
-        info.setId("beijing");
-        info.setName("Bei Jing");
-        info.setStayTime(10);
-        service.create(info,null);
-
-        info.setId("nanjing");
-        info.setName("Nan Jing");
-        info.setStayTime(8);
-        service.create(info,null);
-
-        info.setId("shijiazhuang");
-        info.setName("Shi Jia Zhuang");
-        info.setStayTime(8);
-        service.create(info,null);
-
-        info.setId("xuzhou");
-        info.setName("Xu Zhou");
-        info.setStayTime(7);
-        service.create(info,null);
+        String[] IDList={"shanghai","shanghaihongqiao","taiyuan","beijing","nanjing","shijiazhuang","xuzhou","jinan","hangzhou","jiaxingnan","zhenjiang","wuxi","suzhou"};
+        String[] NameList={"Shang Hai","Shang Hai Hong Qiao","Tai Yuan","Bei Jing","Nan Jing","Shi Jia Zhuang","Xu Zhou","Ji Nan","Hang Zhou","Jia Xing Nan","Zhen Jiang","Wu Xi","Su Zhou"};
+        int[] STList={10,10,5,10,8,8,7,5,9,2,2,3,3};
+        for(int i=0;i<13;i++){
+            info.setId(IDList[i]);
+            info.setName(NameList[i]);
+            info.setStayTime(STList[i]);
+            service.create(info,null);
+        }
 
 
-        info.setId("jinan");
-        info.setName("Ji Nan");
-        info.setStayTime(5);
-        service.create(info,null);
-
-        info.setId("hangzhou");
-        info.setName("Hang Zhou");
-        info.setStayTime(9);
-        service.create(info,null);
-
-        info.setId("jiaxingnan");
-        info.setName("Jia Xing Nan");
-        info.setStayTime(2);
-        service.create(info,null);
-
-        info.setId("zhenjiang");
-        info.setName("Zhen Jiang");
-        info.setStayTime(2);
-        service.create(info,null);
-
-        info.setId("wuxi");
-        info.setName("Wu Xi");
-        info.setStayTime(3);
-        service.create(info,null);
-
-        info.setId("suzhou");
-        info.setName("Su Zhou");
-        info.setStayTime(3);
-        service.create(info,null);
 
     }
 }

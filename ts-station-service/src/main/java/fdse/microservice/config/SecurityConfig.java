@@ -1,6 +1,8 @@
 package fdse.microservice.config;
 
 import edu.fudan.common.security.jwt.JWTFilter;
+import fdse.microservice.service.StationService;
+import fdse.microservice.service.StationServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,6 +24,8 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    public static final String PATH_STR="/api/v1/stationservice/stations";
+    public static final String ADMIN_STR="ADMIN";
 
     // load password encoder
     @Bean
@@ -62,9 +66,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/v1/stationservice/stations").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/v1/stationservice/stations").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/stationservice/stations").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, SecurityConfig.PATH_STR).hasAnyRole(SecurityConfig.ADMIN_STR)
+                .antMatchers(HttpMethod.PUT, SecurityConfig.PATH_STR).hasAnyRole(SecurityConfig.ADMIN_STR)
+                .antMatchers(HttpMethod.DELETE, SecurityConfig.PATH_STR).hasAnyRole(SecurityConfig.ADMIN_STR)
                 .antMatchers("/api/v1/stationservice/**").permitAll()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
