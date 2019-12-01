@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/root/lxm/train-ticket/ts-ticket-office-service/test/db.test.js">
+    <testCase name="init initMongo" duration="31"/>
+    <testCase name="init initMongo-find&amp;err" duration="15"/>
+    <testCase name="getAll getAll" duration="7"/>
+    <testCase name="getAll getAll-err" duration="8"/>
+    <testCase name="getSpecific getSpecific" duration="7"/>
+    <testCase name="getSpecific getSpecific-err" duration="5"/>
+    <testCase name="addOffice addOffice" duration="3"/>
+    <testCase name="addOffice addOffice-err" duration="5"/>
+    <testCase name="deleteOffice deleteOffice" duration="3"/>
+    <testCase name="deleteOffice deleteOffice-err" duration="10"/>
+    <testCase name="updateOffice updateOffice" duration="3"/>
+    <testCase name="updateOffice updateOffice-err" duration="5"/>
+  </file>
+  <file path="/root/lxm/train-ticket/ts-ticket-office-service/test/router.test.js">
+    <testCase name="office 404" duration="35"/>
+    <testCase name="office /" duration="6"/>
+    <testCase name="office /getRegionList" duration="11"/>
+    <testCase name="office /getAll" duration="7"/>
+    <testCase name="office /getSpecificOffices" duration="18"/>
+    <testCase name="office /addOffice" duration="5"/>
+    <testCase name="office /deleteOffice" duration="6"/>
+    <testCase name="office /updateOffice" duration="5"/>
+    <testCase name="ok-&gt;flase branch /" duration="3"/>
+  </file>
+</testExecutions>

@@ -4,7 +4,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var fs = require('fs');
 var path = require('path');
-// var DB_CONN_STR = 'mongodb://localhost:27017/test';
+//var DB_CONN_STR = 'mongodb://localhost:27017/test';
 var DB_CONN_STR = 'mongodb://ts-ticket-office-mongo/ticket-office';
 
 var initData = function(db, callback){
@@ -15,10 +15,11 @@ var initData = function(db, callback){
     /*读取已存在的数据*/
     fs.readFile(path.join(__dirname, "./office.json"), 'utf8', function (err, data) {
         data = JSON.parse( data );
-        collection.insertMany(data, function(err, result){
-            if(err){
-                console.log('Error: ' + err);
-                return;
+        collection.insertMany(data, function(err2, result){
+            if(err2){
+                console.log('Error: ' + err2);
+                callback();
+                return;                
             }
             callback(result);
         });
@@ -30,6 +31,7 @@ var getAllOffices = function(db, callback){
     collection.find().toArray(function(err, result){
         if(err){
             console.log("Error:" + err);
+            callback();
             return;
         }
         callback(result);
@@ -45,6 +47,7 @@ var getSpecificOffices = function(province, city, region, db, callback){
     collection.find(findString).toArray(function(err, result){
         if(err){
             console.log("Error:" + err);
+            callback();
             return;
         }
         callback(result);
@@ -68,6 +71,7 @@ var addOffice = function(province, city, region, office, db, callback){
     collection.update(findString, updateString, function(err, result){
         if(err){
             console.log("Update Error:" + err);
+            callback()
             return;
         }
         callback(result);
@@ -92,6 +96,7 @@ var deleteOffice = function(province, city, region, officeName, db, callback){
     collection.update(findString, updateString, function(err, result){
         if(err){
             console.log("Error:" + err);
+            callback();
             return;
         }
         callback(result);
@@ -119,6 +124,7 @@ var updateOffice = function(province, city, region, oldOfficeName, newOffice, db
     collection.update(findString, updateString, function(err, result){
         if(err){
             console.log("Error:" + err);
+            callback()
             return;
         }
         callback(result);
@@ -186,6 +192,5 @@ exports.updateOffice = function(province, city, region, oldOfficeName, newOffice
         });
     })
 };
-
 
 
