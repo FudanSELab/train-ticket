@@ -27,7 +27,7 @@ public class FoodOrder {
     private double price;
 
     public FoodOrder(){
-
+        //do nothing
     }
 
     public UUID getId() {

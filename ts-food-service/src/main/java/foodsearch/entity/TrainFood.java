@@ -8,7 +8,7 @@ import java.util.UUID;
 public class TrainFood implements Serializable{
 
     public TrainFood(){
-
+        //do nothing
     }
 
     private UUID id;

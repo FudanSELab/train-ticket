@@ -4,7 +4,6 @@ import edu.fudan.common.util.Response;
 import foodsearch.entity.*;
 import org.springframework.http.HttpHeaders;
 
-import java.util.List;
 
 public interface FoodService {
 
