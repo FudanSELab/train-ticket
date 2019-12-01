@@ -21,7 +21,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/api/v1/stationservice")
 public class StationController {
 
-    private final static Logger logger = LoggerFactory.getLogger(StationController.class);
+    private static final Logger logger = LoggerFactory.getLogger(StationController.class);
 
     @Autowired
     private StationService stationService;
@@ -74,7 +74,7 @@ public class StationController {
     @GetMapping(value = "/stations/name/{stationIdForName}")
     public HttpEntity queryById(@PathVariable(value = "stationIdForName")
                                         String stationId, @RequestHeader HttpHeaders headers) {
-        logger.info("[Station Service] Query By Id:" + stationId);
+        logger.info("[Station Service] Query By Id:{}",stationId);
         // string
         return ok(stationService.queryById(stationId, headers));
     }

@@ -22,6 +22,7 @@ public class Station {
 
     public Station(){
         this.id="";
+        this.name="";
         //Default Constructor
     }
 

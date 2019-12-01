@@ -17,13 +17,13 @@ public class InitData implements CommandLineRunner {
     public void run(String... args) throws Exception{
         Station info = new Station();
 
-        String[] IDList={"shanghai","shanghaihongqiao","taiyuan","beijing","nanjing","shijiazhuang","xuzhou","jinan","hangzhou","jiaxingnan","zhenjiang","wuxi","suzhou"};
-        String[] NameList={"Shang Hai","Shang Hai Hong Qiao","Tai Yuan","Bei Jing","Nan Jing","Shi Jia Zhuang","Xu Zhou","Ji Nan","Hang Zhou","Jia Xing Nan","Zhen Jiang","Wu Xi","Su Zhou"};
-        int[] STList={10,10,5,10,8,8,7,5,9,2,2,3,3};
+        String[] iDList={"shanghai","shanghaihongqiao","taiyuan","beijing","nanjing","shijiazhuang","xuzhou","jinan","hangzhou","jiaxingnan","zhenjiang","wuxi","suzhou"};
+        String[] nameList={"Shang Hai","Shang Hai Hong Qiao","Tai Yuan","Bei Jing","Nan Jing","Shi Jia Zhuang","Xu Zhou","Ji Nan","Hang Zhou","Jia Xing Nan","Zhen Jiang","Wu Xi","Su Zhou"};
+        int[] sTList={10,10,5,10,8,8,7,5,9,2,2,3,3};
         for(int i=0;i<13;i++){
-            info.setId(IDList[i]);
-            info.setName(NameList[i]);
-            info.setStayTime(STList[i]);
+            info.setId(iDList[i]);
+            info.setName(nameList[i]);
+            info.setStayTime(sTList[i]);
             service.create(info,null);
         }
 

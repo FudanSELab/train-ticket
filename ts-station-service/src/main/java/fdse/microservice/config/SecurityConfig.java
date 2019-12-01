@@ -1,8 +1,6 @@
 package fdse.microservice.config;
 
 import edu.fudan.common.security.jwt.JWTFilter;
-import fdse.microservice.service.StationService;
-import fdse.microservice.service.StationServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,13 +16,18 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+
+import java.util.ResourceBundle;
+
 import static org.springframework.web.cors.CorsConfiguration.ALL;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    public static final String PATH_STR="/api/v1/stationservice/stations";
+
+    public static final ResourceBundle resourceBundle= ResourceBundle.getBundle("tsss");
+    public static final String PATH_STR=resourceBundle.getString("path");
     public static final String ADMIN_STR="ADMIN";
 
     // load password encoder
