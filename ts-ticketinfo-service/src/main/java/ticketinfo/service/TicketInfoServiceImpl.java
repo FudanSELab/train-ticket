@@ -38,8 +38,6 @@ public class TicketInfoServiceImpl implements TicketInfoService {
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);
-        Response idResponse = re.getBody();
-
-        return idResponse;
+        return re.getBody();
     }
 }

@@ -39,6 +39,7 @@ public class Trip {
     public Trip(TripId tripId, String trainTypeId, String startingStationId, String stationsId, String terminalStationId, Date startingTime, Date endTime) {
         this.tripId = tripId;
         this.trainTypeId = trainTypeId;
+        this.routeId = ""; 
         this.startingStationId = startingStationId;
         this.stationsId = stationsId;
         this.terminalStationId = terminalStationId;
@@ -50,9 +51,22 @@ public class Trip {
         this.tripId = tripId;
         this.trainTypeId = trainTypeId;
         this.routeId = routeId;
+        this.startingStationId = "";
+        this.stationsId = "";
+        this.terminalStationId = "";
+        this.startingTime = new Date();
+        this.endTime = new Date();
     }
 
     public Trip(){
+        this.tripId = new TripId("G000");
+        this.trainTypeId = "";
+        this.routeId = "";
+        this.startingStationId = "";
+        this.stationsId = "";
+        this.terminalStationId = "";
+        this.startingTime = new Date();
+        this.endTime = new Date();
         //Default Constructor
     }
 
