@@ -13,44 +13,23 @@ public class InitData implements CommandLineRunner {
     @Autowired
     TrainService service;
 
+    void serInfoCreate(TrainType info, String id, int confortClass, int economyClass, int averageSpeed){
+        info.setId(id);
+        info.setConfortClass(confortClass);
+        info.setEconomyClass(economyClass);
+        info.setAverageSpeed(averageSpeed);
+        service.create(info, null);
+    }
+
     @Override
     public void run(String... args) throws Exception {
         TrainType info = new TrainType();
-
-        info.setId("GaoTieOne");
-        info.setConfortClass(Integer.MAX_VALUE);
-        info.setEconomyClass(Integer.MAX_VALUE);
-        info.setAverageSpeed(250);
-        service.create(info, null);
-
-        info.setId("GaoTieTwo");
-        info.setConfortClass(Integer.MAX_VALUE);
-        info.setEconomyClass(Integer.MAX_VALUE);
-        info.setAverageSpeed(200);
-        service.create(info, null);
-
-        info.setId("DongCheOne");
-        info.setConfortClass(Integer.MAX_VALUE);
-        info.setEconomyClass(Integer.MAX_VALUE);
-        info.setAverageSpeed(180);
-        service.create(info, null);
-
-        info.setId("ZhiDa");
-        info.setConfortClass(Integer.MAX_VALUE);
-        info.setEconomyClass(Integer.MAX_VALUE);
-        info.setAverageSpeed(120);
-        service.create(info, null);
-
-        info.setId("TeKuai");
-        info.setConfortClass(Integer.MAX_VALUE);
-        info.setEconomyClass(Integer.MAX_VALUE);
-        info.setAverageSpeed(120);
-        service.create(info, null);
-
-        info.setId("KuaiSu");
-        info.setConfortClass(Integer.MAX_VALUE);
-        info.setEconomyClass(Integer.MAX_VALUE);
-        info.setAverageSpeed(90);
-        service.create(info, null);
+    
+        serInfoCreate(info, "GaoTieOne", Integer.MAX_VALUE, Integer.MAX_VALUE, 250);
+        serInfoCreate(info, "GaoTieTwo", Integer.MAX_VALUE, Integer.MAX_VALUE, 200);
+        serInfoCreate(info, "DongCheOne", Integer.MAX_VALUE, Integer.MAX_VALUE, 180);
+        serInfoCreate(info, "ZhiDa", Integer.MAX_VALUE, Integer.MAX_VALUE, 120);
+        serInfoCreate(info, "TeKuai", Integer.MAX_VALUE, Integer.MAX_VALUE, 120);
+        serInfoCreate(info, "KuaiSu", Integer.MAX_VALUE, Integer.MAX_VALUE, 90);
     }
 }

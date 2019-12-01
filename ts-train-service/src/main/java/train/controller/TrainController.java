@@ -4,8 +4,6 @@ import edu.fudan.common.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import train.entity.TrainType;
 import train.service.TrainService;
@@ -17,9 +15,8 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/api/v1/trainservice")
-public class TrainController {
 
-    //private static final Logger log = LoggerFactory.getLogger(Application.class);
+public class TrainController {
 
     @Autowired
     private TrainService trainService;
@@ -31,7 +28,8 @@ public class TrainController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/trains")
-    public HttpEntity create(@RequestBody TrainType trainType, @RequestHeader HttpHeaders headers) {
+    public HttpEntity create(@RequestBody TrainTypeDTO trainTypeDTO, @RequestHeader HttpHeaders headers) {
+        TrainType trainType = new TrainType(trainTypeDTO.id, trainTypeDTO.economyClass, trainTypeDTO.confortClass, trainTypeDTO.averageSpeed);
         boolean isCreateSuccess = trainService.create(trainType, headers);
         if (isCreateSuccess) {
             return ok(new Response(1, "create success", isCreateSuccess));
@@ -53,7 +51,8 @@ public class TrainController {
 
     @CrossOrigin(origins = "*")
     @PutMapping(value = "/trains")
-    public HttpEntity update(@RequestBody TrainType trainType, @RequestHeader HttpHeaders headers) {
+    public HttpEntity update(@RequestBody TrainTypeDTO trainTypeDTO, @RequestHeader HttpHeaders headers) {
+        TrainType trainType = new TrainType(trainTypeDTO.id, trainTypeDTO.economyClass, trainTypeDTO.confortClass, trainTypeDTO.averageSpeed);
         boolean isUpdateSuccess = trainService.update(trainType, headers);
         if (isUpdateSuccess) {
             return ok(new Response(1, "update success", isUpdateSuccess));
@@ -77,7 +76,7 @@ public class TrainController {
     @GetMapping(value = "/trains")
     public HttpEntity query(@RequestHeader HttpHeaders headers) {
         List<TrainType> trainTypes = trainService.query(headers);
-        if (trainTypes != null && trainTypes.size() > 0) {
+        if (trainTypes != null && !trainTypes.isEmpty()) {
             return ok(new Response(1, "success", trainTypes));
         } else {
             return ok(new Response(0, "no content", trainTypes));

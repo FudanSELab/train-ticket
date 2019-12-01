@@ -55,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        String roleTemp = "ADMIN";
         httpSecurity.httpBasic().disable()
                 // close default csrf
                 .csrf().disable()
@@ -63,9 +64,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/trainservice/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/trainservice/trains").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/v1/trainservice/trains").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/trainservice/trains/*").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/v1/trainservice/trains").hasAnyRole(roleTemp)
+                .antMatchers(HttpMethod.PUT, "/api/v1/trainservice/trains").hasAnyRole(roleTemp)
+                .antMatchers(HttpMethod.DELETE, "/api/v1/trainservice/trains/*").hasAnyRole(roleTemp)
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
                 .anyRequest().authenticated()
