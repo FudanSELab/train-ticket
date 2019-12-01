@@ -13,9 +13,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 @Component
 public class InitData implements CommandLineRunner{
+	
+	private static final Logger log = Logger.getLogger("test");
 
     @Autowired
     FoodMapService service;
@@ -26,8 +29,6 @@ public class InitData implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
 
-//        File foodStores = new File(foodStoresPath);
-//        FileReader fr1 = new FileReader(foodStores);
         BufferedReader br1 = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(foodStoresPath)));
         try{
             String line = br1.readLine();
@@ -37,21 +38,21 @@ public class InitData implements CommandLineRunner{
                     fs.setId(UUID.randomUUID());
                     String[] lineTemp = line.trim().split("=");
                     fs.setStationId(lineTemp[1]);
-//                    System.out.println("stationId=" + lineTemp[1]);
+
                     lineTemp = br1.readLine().trim().split("=");
                     fs.setStoreName(lineTemp[1]);
-//                    System.out.println("storeName=" + lineTemp[1]);
+
                     lineTemp = br1.readLine().trim().split("=");
                     fs.setTelephone(lineTemp[1]);
-//                    System.out.println("teltphone=" + lineTemp[1]);
+
                     lineTemp = br1.readLine().trim().split("=");
                     fs.setBusinessTime(lineTemp[1]);
-//                    System.out.println("businessTime=" + lineTemp[1]);
+
                     lineTemp = br1.readLine().trim().split("=");
                     fs.setDeliveryFee( Double.parseDouble(lineTemp[1]) );
-//                    System.out.println("deliveryFee=" + lineTemp[1]);
+
                     lineTemp = br1.readLine().trim().split("=");
-//                    System.out.println("foodList=" + lineTemp[1]);
+
                     fs.setFoodList(toFoodList(lineTemp[1]));
                     service.createFoodStore(fs,null);
                 }
@@ -59,13 +60,12 @@ public class InitData implements CommandLineRunner{
             }
 
         } catch(Exception e){
-            System.out.println("the foodstores.txt has format error!");
-            e.printStackTrace();
+			log.info("the foodstores.txt has format error!");
+			log.info(e.getMessage());
             System.exit(1);
         }
 
-//        File trainFood = new File(trainFoodPath);
-//        FileReader fr2 = new FileReader(trainFood);
+
         BufferedReader br2 = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(trainFoodPath)));
         try{
             String line2 = br2.readLine();
@@ -83,23 +83,23 @@ public class InitData implements CommandLineRunner{
             }
 
         } catch(Exception e){
-            System.out.println("the trainfood.txt has format error!");
-            e.printStackTrace();
+			log.info("the trainfood.txt has format error!");
+			log.info(e.getMessage());
             System.exit(1);
         }
     }
 
     private List<Food> toFoodList(String s){
-        System.out.println("s=" + s);
+		log.info("s=" + s);
         String[] foodstring = s.split("_");
-        List<Food> foodList = new ArrayList<Food>();
+        List<Food> foodList = new ArrayList<>();
         for(int i = 0; i< foodstring.length; i++){
             String[] foodTemp = foodstring[i].split(",");
             Food food = new Food();
             food.setFoodName(foodTemp[0]);
-//            System.out.println("foodTemp[0]=" + foodTemp[0]);
+
             food.setPrice(Double.parseDouble(foodTemp[1]));
-//            System.out.println("foodTemp[0]=" + foodTemp[1]);
+
             foodList.add(food);
         }
         return foodList;

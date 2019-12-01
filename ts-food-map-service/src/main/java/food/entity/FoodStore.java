@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Document(collection = "stores")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FoodStore {
+public class FoodStore{
 
     @Id
     private UUID id;
@@ -27,9 +27,11 @@ public class FoodStore {
     private double deliveryFee;
 
     private List<Food> foodList;
-
+	
+	
     public FoodStore(){
-
+		// do nothing
+		this.stationId = " ";
     }
 
     public UUID getId() {

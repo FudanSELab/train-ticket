@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Document(collection = "trainfoods")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TrainFood {
+public class TrainFood{
 
     @Id
     private UUID id;
@@ -19,9 +19,10 @@ public class TrainFood {
     private String tripId;
 
     private List<Food> foodList;
-
+	
     public TrainFood(){
-
+		// do nothing
+		this.tripId = " " ;
     }
 
     public UUID getId() {

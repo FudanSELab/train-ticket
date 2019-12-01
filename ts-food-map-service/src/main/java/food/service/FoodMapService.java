@@ -1,6 +1,5 @@
 package food.service;
 
-import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
 import edu.fudan.common.util.Response;
 import food.entity.*;
 import org.springframework.http.HttpHeaders;

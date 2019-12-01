@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/v1/foodmapservice")
 public class FoodStoreController {
-
+	
+	private static final Logger log = Logger.getLogger("test");
+	
     @Autowired
     FoodMapService foodMapService;
 
@@ -26,14 +29,14 @@ public class FoodStoreController {
     @CrossOrigin(origins = "*")
     @GetMapping("/foodstores")
     public HttpEntity getAllFoodStores(@RequestHeader HttpHeaders headers) {
-        System.out.println("[Food Map Service][Get All FoodStores]");
+		log.info("[Food Map Service][Get All FoodStores]");
         return ok(foodMapService.listFoodStores(headers));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/foodstores/{stationId}")
     public HttpEntity getFoodStoresOfStation(@PathVariable String stationId, @RequestHeader HttpHeaders headers) {
-        System.out.println("[Food Map Service][Get FoodStores By StationId]");
+		log.info("[Food Map Service][Get FoodStores By StationId]");
         return ok(foodMapService.listFoodStoresByStationId(stationId, headers));
     }
 
