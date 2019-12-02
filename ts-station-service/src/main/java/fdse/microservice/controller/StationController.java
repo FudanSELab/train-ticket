@@ -37,17 +37,20 @@ public class StationController {
     }
 
     @PostMapping(value = "/stations")
-    public ResponseEntity<Response> create(@RequestBody Station station, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Response> create(@RequestBody StationDTO stationDTO, @RequestHeader HttpHeaders headers) {
+        Station station = new Station(stationDTO.id, stationDTO.name, stationDTO.stayTime);
         return new ResponseEntity<>(stationService.create(station, headers), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/stations")
-    public HttpEntity update(@RequestBody Station station, @RequestHeader HttpHeaders headers) {
+    public HttpEntity update(@RequestBody StationDTO stationDTO, @RequestHeader HttpHeaders headers) {
+        Station station = new Station(stationDTO.id, stationDTO.name, stationDTO.stayTime);
         return ok(stationService.update(station, headers));
     }
 
     @DeleteMapping(value = "/stations")
-    public ResponseEntity<Response> delete(@RequestBody Station station, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Response> delete(@RequestBody StationDTO stationDTO, @RequestHeader HttpHeaders headers) {
+        Station station = new Station(stationDTO.id, stationDTO.name, stationDTO.stayTime);
         return ok(stationService.delete(station, headers));
     }
 
