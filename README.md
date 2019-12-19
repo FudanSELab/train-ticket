@@ -13,6 +13,7 @@ You can get more details at [Wiki Pages](https://github.com/FudanSELab/train-tic
 ## Service Architecture Graph
 ![architecture](./image/2.png)
 
+
 ## Quick Start
 We provide two options to quickly deploy our application: [Using Docker Compose](#Using-Docker-Compose) and [Using Kubernetes](#Using-Kubernetes).
 
