@@ -11,7 +11,7 @@ import javax.validation.Valid;
  * @author fdu
  * @date 2019/11/10
  */
-@Document(collection="trainType")
+@Document(collection = "trainType")
 public class TrainType {
     @Valid
     @Id
@@ -26,6 +26,37 @@ public class TrainType {
 
     public TrainType(){
         //Default Constructor
+    }
+
+    public TrainType(String id) {
+        int economyCnt = Integer.MAX_VALUE;
+        int confortCnt = Integer.MAX_VALUE;
+        if (id.startsWith("G")) {
+            this.id = "GaoTieOne";
+            this.economyClass = economyCnt;
+            this.confortClass = confortCnt;
+            this.averageSpeed = 250;
+        } else if (id.startsWith("D")) {
+            this.id = "DongCheOne";
+            this.economyClass = economyCnt;
+            this.confortClass = confortCnt;
+            this.averageSpeed = 180;
+        } else if (id.startsWith("Z")) {
+            this.id = "ZhiDa";
+            this.economyClass = economyCnt;
+            this.confortClass = confortCnt;
+            this.averageSpeed = 120;
+        } else if (id.startsWith("T")) {
+            this.id = "TeKuai";
+            this.economyClass = economyCnt;
+            this.confortClass = confortCnt;
+            this.averageSpeed = 120;
+        } else if (id.startsWith("K")) {
+            this.id = "KuaiSu";
+            this.economyClass = economyCnt;
+            this.confortClass = confortCnt;
+            this.averageSpeed = 90;
+        }
     }
 
     public TrainType(String id, int economyClass, int confortClass) {

@@ -35,12 +35,13 @@ public class InitData implements CommandLineRunner {
             date = sdf.parse(s);
         } catch (ParseException e) {
             //error handle
+            e.printStackTrace();
         }
         return date;
     }
 
 
-    public TravelInfo buildTravelInfo(String... args) {
+    public static TravelInfo buildTravelInfo(String... args) {
         TravelInfo info = new TravelInfo();
         info.setTripId(args[0]);
         info.setTrainTypeId(args[1]);
@@ -58,18 +59,18 @@ public class InitData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         service.create(buildTravelInfo("Z1234", "ZhiDa", "0b23bd3e-876a-4af3-b920-c50a90c90b04",
-                SH, SH, BJ, "Mon 5 04 09:51:52 GMT+0800 2013", "Mon 5 04 15:51:52 GMT+0800 2013"), null);
+                SH, SH, BJ, "Mon May 04 09:51:52 GMT+0800 2013", "Mon May 04 15:51:52 GMT+0800 2013"), null);
 
         service.create(buildTravelInfo("Z1235", "Z1235", "9fc9c261-3263-4bfa-82f8-bb44e06b2f52",
-                SH, NJ, BJ, "Mon 5 04 11:31:52 GMT+0800 2013", "Mon 5 04 17:51:52 GMT+0800 2013"), null);
+                SH, NJ, BJ, "Mon May 04 11:31:52 GMT+0800 2020", "Mon May 04 17:51:52 GMT+0800 2020"), null);
 
         service.create(buildTravelInfo("Z1236", "ZhiDa", "d693a2c5-ef87-4a3c-bef8-600b43f62c68",
-                SH, NJ, BJ, "Mon 5 04 7:05:52 GMT+0800 2013", "Mon 5 04 12:51:52 GMT+0800 2013"), null);
+                SH, NJ, BJ, "Mon May 04 7:05:52 GMT+0800 2013", "Mon May 04 12:51:52 GMT+0800 2013"), null);
 
         service.create(buildTravelInfo("T1235", "TeKuai", "20eb7122-3a11-423f-b10a-be0dc5bce7db",
-                SH, NJ, BJ, "Mon 5 04 08:31:52 GMT+0800 2013", "Mon 5 04 17:21:52 GMT+0800 2013"), null);
+                SH, NJ, BJ, "Mon May 04 08:31:52 GMT+0800 2013", "Mon May 04 17:21:52 GMT+0800 2013"), null);
 
         service.create(buildTravelInfo("K1345", "KuaiSu", "1367db1f-461e-4ab7-87ad-2bcc05fd9cb7",
-                SH, NJ, BJ, "Mon 5 04 07:51:52 GMT+0800 2013", "Mon 5 04 19:59:52 GMT+0800 2013"), null);
+                SH, NJ, BJ, "Mon May 04 07:51:52 GMT+0800 2013", "Mon May 04 19:59:52 GMT+0800 2013"), null);
     }
 }
