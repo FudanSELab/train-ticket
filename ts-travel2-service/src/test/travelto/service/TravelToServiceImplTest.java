@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>11ÔÂ 22, 2019</pre>
+ * @since <pre>11ï¿½ï¿½ 22, 2019</pre>
  */
 public class TravelToServiceImplTest {
 
@@ -39,7 +39,6 @@ public class TravelToServiceImplTest {
         travelToService = new TravelToServiceImpl();
         tripRepository = mock(TripRepository.class);
         restTemplate = mock(RestTemplate.class);
-        travelToService.testInit(tripRepository, restTemplate);
 
         when(tripRepository.findByTripId(new TripId())).thenReturn(null);
         when(tripRepository.findByTripId(new TripId("1"))).thenReturn(null);
@@ -52,7 +51,6 @@ public class TravelToServiceImplTest {
         travelToService2 = new TravelToServiceImpl();
         tripRepository2 = mock(TripRepository.class);
         restTemplate2 = mock(RestTemplate.class);
-        travelToService2.testInit(tripRepository2, restTemplate2);
         ArrayList<Trip> allTripList =new ArrayList<>();
         Trip t=new Trip();
         allTripList.add(t);

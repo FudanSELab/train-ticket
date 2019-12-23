@@ -20,6 +20,7 @@ import travelto.entity.TripInfo;
 import travelto.init.InitData;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -181,8 +182,10 @@ public class Travel2ControllerTest {
 
         TripInfo info2 = new TripInfo();
         info2.setStartingPlace("Shang Hai");
-        info2.setEndPlace("Bei Jing");
-        info2.setDepartureTime(str2Date("Mon May 01 09:51:52 GMT+0800 2020"));
+        info2.setEndPlace("Tai Yuan");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2020,Calendar.JANUARY,1);
+        info2.setDepartureTime(calendar.getTime());
         mvc.perform(post("/api/v1/travel2service/trips/left")
                 .param("header", JSON.toJSONString(headers))
                 .content(JSON.toJSONString(info2))

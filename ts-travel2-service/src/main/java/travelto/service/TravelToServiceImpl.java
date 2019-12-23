@@ -165,6 +165,8 @@ public class TravelToServiceImpl implements Travel2Service {
             if (tempRoute.getStations().contains(startingPlaceId) &&
                     tempRoute.getStations().contains(endPlaceId) &&
                     tempRoute.getStations().indexOf(startingPlaceId) < tempRoute.getStations().indexOf(endPlaceId)) {
+                System.out.println("===========================");
+                System.out.println(info.getDepartureTime());
                 TripResponse response = getTickets(new PlaceInfoWrapper(tempTrip, tempRoute, startingPlaceId, endPlaceId, startingPlaceName, endPlaceName), info.getDepartureTime(), headers);
                 if (response == null) {
                     return new Response<>(0, NO_CONTENT, null);
@@ -338,6 +340,9 @@ public class TravelToServiceImpl implements Travel2Service {
         Calendar calendarOther = Calendar.getInstance();
         calendarOther.setTime(date);
 
+        System.out.println("===============================================");
+        System.out.println(calendarToday.get(Calendar.YEAR));
+        System.out.println(calendarOther.get(Calendar.YEAR));
         if (calendarToday.get(Calendar.YEAR) > calendarOther.get(Calendar.YEAR)) {
             return false;
         } else if (calendarToday.get(Calendar.YEAR) == calendarOther.get(Calendar.YEAR)) {
