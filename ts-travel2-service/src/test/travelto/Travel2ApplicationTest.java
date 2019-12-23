@@ -3,6 +3,7 @@ package travelto;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 
 /**
  * Travel2Application Tester.
@@ -26,9 +27,9 @@ public class Travel2ApplicationTest {
      */
     @Test
     public void testRestTemplate() throws Exception {
-//        Travel2Application travel2Application = new Travel2Application();
-//        RestTemplateBuilder builder = new RestTemplateBuilder();
-//        travel2Application.restTemplate(builder);
+        Travel2Application travel2Application = new Travel2Application();
+        RestTemplateBuilder builder = new RestTemplateBuilder();
+        travel2Application.restTemplate(builder);
     }
 
     /**
@@ -36,12 +37,12 @@ public class Travel2ApplicationTest {
      */
     @Test
     public void testMain() throws Exception {
-//        String[] args = new String[0];
-//        try {
-//            Travel2Application.main(args);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//        }
+        String[] args = new String[0];
+        try {
+            Travel2Application.main(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        }
     }
 } 
