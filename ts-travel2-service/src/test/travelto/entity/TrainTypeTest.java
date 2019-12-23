@@ -18,6 +18,10 @@ public class TrainTypeTest {
 public void before() throws Exception {
     TrainType tt= new TrainType("myid",1,1,200);
     TrainType tt2= new TrainType("myid",1,1);
+    TrainType tt3= new TrainType("Gmyid");
+    TrainType tt4= new TrainType("Dmyid");
+    TrainType tt5= new TrainType("Tmyid");
+    TrainType tt6= new TrainType("Kmyid");
 } 
 
 @After
