@@ -20,7 +20,6 @@ import travelto.entity.TripInfo;
 import travelto.init.InitData;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -175,7 +174,7 @@ public class Travel2ControllerTest {
     public void testQueryInfo() throws Exception {
         TripInfo info1 = new TripInfo();
         mvc.perform(post("/api/v1/travel2service/trips/left")
-                .param("header", JSON.toJSONString(headers))
+                .param("header", JSON.toJSONString(new HttpHeaders()))
                 .content(JSON.toJSONString(info1))
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
@@ -183,11 +182,9 @@ public class Travel2ControllerTest {
         TripInfo info2 = new TripInfo();
         info2.setStartingPlace("Shang Hai");
         info2.setEndPlace("Tai Yuan");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2020,Calendar.JANUARY,1);
-        info2.setDepartureTime(calendar.getTime());
+        info2.setDepartureTime(str2Date("Mon May 01 09:51:52 GMT+0800 2020"));
         mvc.perform(post("/api/v1/travel2service/trips/left")
-                .param("header", JSON.toJSONString(headers))
+                .param("header", JSON.toJSONString(new HttpHeaders()))
                 .content(JSON.toJSONString(info2))
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
@@ -197,7 +194,7 @@ public class Travel2ControllerTest {
         info3.setEndPlace("Tai Yuan");
         info3.setDepartureTime(str2Date("Mon May 01 09:51:52 GMT+0800 2013"));
         mvc.perform(post("/api/v1/travel2service/trips/left")
-                .param("header", JSON.toJSONString(headers))
+                .param("header", JSON.toJSONString(new HttpHeaders()))
                 .content(JSON.toJSONString(info3))
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());

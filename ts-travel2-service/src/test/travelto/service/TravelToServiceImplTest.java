@@ -63,12 +63,12 @@ public class TravelToServiceImplTest {
     }
 
     private void testPlaceInfoWrapper() {
-        TravelToServiceImpl.PlaceInfoWrapper val = new TravelToServiceImpl.PlaceInfoWrapper(
-                new Trip(), new Route(), "1", "2", "s", "e");
-        TravelToServiceImpl.PlaceInfoWrapper val2 = new TravelToServiceImpl.PlaceInfoWrapper(
-                new Trip(), new Route(), "1", "2");
-        TravelToServiceImpl.PlaceInfoWrapper val3 = new TravelToServiceImpl.PlaceInfoWrapper(
-                new Trip(), "s", "e");
+//        TravelToServiceImpl.PlaceInfoWrapper val = new TravelToServiceImpl.PlaceInfoWrapper(
+//                new Trip(), new Route(), "1", "2", "s", "e");
+//        TravelToServiceImpl.PlaceInfoWrapper val2 = new TravelToServiceImpl.PlaceInfoWrapper(
+//                new Trip(), new Route(), "1", "2");
+//        TravelToServiceImpl.PlaceInfoWrapper val3 = new TravelToServiceImpl.PlaceInfoWrapper(
+//                new Trip(), "s", "e");
     }
 
     /**

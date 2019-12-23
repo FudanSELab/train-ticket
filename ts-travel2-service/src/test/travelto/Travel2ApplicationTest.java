@@ -3,7 +3,6 @@ package travelto;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 
 /**
  * Travel2Application Tester.
