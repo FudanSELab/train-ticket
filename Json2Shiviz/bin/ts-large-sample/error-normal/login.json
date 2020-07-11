@@ -2,7 +2,7 @@
   {
     "traceId": "60047538b66136a9",
     "id": "60047538b66136a9",
-    "name": "http:/login",
+    "name": "https:/login",
     "timestamp": 1516255237778000,
     "duration": 36710,
     "annotations": [
@@ -58,7 +58,7 @@
   {
     "traceId": "60047538b66136a9",
     "id": "d4ef8a6243860da0",
-    "name": "http:/verification/verify",
+    "name": "https:/verification/verify",
     "parentId": "60047538b66136a9",
     "timestamp": 1516255237784000,
     "duration": 10000,
@@ -130,7 +130,7 @@
       },
       {
         "key": "http.url",
-        "value": "http://ts-verification-code-service:15678/verification/verify",
+        "value": "https://ts-verification-code-service:15678/verification/verify",
         "endpoint": {
           "serviceName": "ts-login-service",
           "ipv4": "172.19.0.24",
@@ -178,7 +178,7 @@
   {
     "traceId": "60047538b66136a9",
     "id": "b7c0344b2a7441b7",
-    "name": "http:/account/login",
+    "name": "https:/account/login",
     "parentId": "60047538b66136a9",
     "timestamp": 1516255237796000,
     "duration": 15000,
@@ -250,7 +250,7 @@
       },
       {
         "key": "http.url",
-        "value": "http://ts-sso-service:12349/account/login",
+        "value": "https://ts-sso-service:12349/account/login",
         "endpoint": {
           "serviceName": "ts-login-service",
           "ipv4": "172.19.0.24",
