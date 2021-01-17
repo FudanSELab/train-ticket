@@ -114,7 +114,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         query.setDepartureTime(new Date());
 
 
-        HttpEntity requestEntity = new HttpEntity(query, httpHeaders);
+        HttpEntity requestEntity = new HttpEntity(query, null);
         ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
                 "http://ts-ticketinfo-service:15681/api/v1/ticketinfoservice/ticketinfo",
                 HttpMethod.POST,
@@ -248,7 +248,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         seatRequest.setSeatType(seatType);
         seatRequest.setDestStation(endStataionId);
 
-        HttpEntity requestEntityTicket = new HttpEntity(seatRequest, httpHeaders);
+        HttpEntity requestEntityTicket = new HttpEntity(seatRequest, null);
         ResponseEntity<Response<Ticket>> reTicket = restTemplate.exchange(
                 "http://ts-seat-service:18898/api/v1/seatservice/seats",
                 HttpMethod.POST,
@@ -262,7 +262,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     public boolean sendEmail(NotifyInfo notifyInfo, HttpHeaders httpHeaders) {
 
         PreserveOtherServiceImpl.LOGGER.info("[Preserve Service][Send Email]");
-        HttpEntity requestEntitySendEmail = new HttpEntity(notifyInfo, httpHeaders);
+        HttpEntity requestEntitySendEmail = new HttpEntity(notifyInfo, null);
         ResponseEntity<Boolean> reSendEmail = restTemplate.exchange(
                 "http://ts-notification-service:17853/api/v1/notifyservice/notification/preserve_success",
                 HttpMethod.POST,
@@ -275,7 +275,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     public User getAccount(String accountId, HttpHeaders httpHeaders) {
         PreserveOtherServiceImpl.LOGGER.info("[Cancel Order Service][Get Order By Id]");
 
-        HttpEntity requestEntitySendEmail = new HttpEntity(httpHeaders);
+        HttpEntity requestEntitySendEmail = new HttpEntity(null);
         ResponseEntity<Response<User>> getAccount = restTemplate.exchange(
                 "http://ts-user-service:12342/api/v1/userservice/users/id/" + accountId,
                 HttpMethod.GET,
@@ -290,7 +290,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
 
     private Response<Assurance> addAssuranceForOrder(int assuranceType, String orderId, HttpHeaders httpHeaders) {
         PreserveOtherServiceImpl.LOGGER.info("[Preserve Service][Add Assurance Type For Order]");
-        HttpEntity requestAddAssuranceResult = new HttpEntity(httpHeaders);
+        HttpEntity requestAddAssuranceResult = new HttpEntity(null);
         ResponseEntity<Response<Assurance>> reAddAssuranceResult = restTemplate.exchange(
                 "http://ts-assurance-service:18888/api/v1/assuranceservice/assurances/" + assuranceType + "/" + orderId,
                 HttpMethod.GET,
@@ -306,7 +306,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         PreserveOtherServiceImpl.LOGGER.info("[Preserve Other Service][Get Station By  Name]");
 
 
-        HttpEntity requestQueryForStationId = new HttpEntity(httpHeaders);
+        HttpEntity requestQueryForStationId = new HttpEntity(null);
         ResponseEntity<Response<String>> reQueryForStationId = restTemplate.exchange(
                 "http://ts-station-service:12345/api/v1/stationservice/stations/id/" + stationName,
                 HttpMethod.GET,
@@ -319,7 +319,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     private Response checkSecurity(String accountId, HttpHeaders httpHeaders) {
         PreserveOtherServiceImpl.LOGGER.info("[Preserve Other Service][Check Account Security] Checking....");
 
-        HttpEntity requestCheckResult = new HttpEntity(httpHeaders);
+        HttpEntity requestCheckResult = new HttpEntity(null);
         ResponseEntity<Response> reCheckResult = restTemplate.exchange(
                 "http://ts-security-service:11188/api/v1/securityservice/securityConfigs/" + accountId,
                 HttpMethod.GET,
@@ -333,7 +333,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     private Response<TripAllDetail> getTripAllDetailInformation(TripAllDetailInfo gtdi, HttpHeaders httpHeaders) {
         PreserveOtherServiceImpl.LOGGER.info("[Preserve Other Service][Get Trip All Detail Information] Getting....");
 
-        HttpEntity requestGetTripAllDetailResult = new HttpEntity(gtdi, httpHeaders);
+        HttpEntity requestGetTripAllDetailResult = new HttpEntity(gtdi, null);
         ResponseEntity<Response<TripAllDetail>> reGetTripAllDetailResult = restTemplate.exchange(
                 "http://ts-travel2-service:16346/api/v1/travel2service/trip_detail",
                 HttpMethod.POST,
@@ -347,7 +347,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     private Response<Contacts> getContactsById(String contactsId, HttpHeaders httpHeaders) {
         PreserveOtherServiceImpl.LOGGER.info("[Preserve Other Service][Get Contacts By Id is] Getting....");
 
-        HttpEntity requestGetContactsResult = new HttpEntity(httpHeaders);
+        HttpEntity requestGetContactsResult = new HttpEntity(null);
         ResponseEntity<Response<Contacts>> reGetContactsResult = restTemplate.exchange(
                 "http://ts-contacts-service:12347/api/v1/contactservice/contacts/" + contactsId,
                 HttpMethod.GET,
@@ -361,7 +361,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     private Response<Order> createOrder(Order coi, HttpHeaders httpHeaders) {
         PreserveOtherServiceImpl.LOGGER.info("[Preserve Other Service][Get Contacts By Id] Creating....");
 
-        HttpEntity requestEntityCreateOrderResult = new HttpEntity(coi, httpHeaders);
+        HttpEntity requestEntityCreateOrderResult = new HttpEntity(coi, null);
         ResponseEntity<Response<Order>> reCreateOrderResult = restTemplate.exchange(
                 "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther",
                 HttpMethod.POST,
@@ -376,7 +376,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     private Response createFoodOrder(FoodOrder afi, HttpHeaders httpHeaders) {
         PreserveOtherServiceImpl.LOGGER.info("[Preserve Service][Add Preserve food Order] Creating....");
 
-        HttpEntity requestEntityAddFoodOrderResult = new HttpEntity(afi, httpHeaders);
+        HttpEntity requestEntityAddFoodOrderResult = new HttpEntity(afi, null);
         ResponseEntity<Response> reAddFoodOrderResult = restTemplate.exchange(
                 "http://ts-food-service:18856/api/v1/foodservice/orders",
                 HttpMethod.POST,
@@ -389,7 +389,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     private Response createConsign(Consign cr, HttpHeaders httpHeaders) {
         PreserveOtherServiceImpl.LOGGER.info("[Preserve Service][Add Condign] Creating Consign...");
 
-        HttpEntity requestEntityResultForTravel = new HttpEntity(cr, httpHeaders);
+        HttpEntity requestEntityResultForTravel = new HttpEntity(cr, null);
         ResponseEntity<Response> reResultForTravel = restTemplate.exchange(
                 "http://ts-consign-service:16111/api/v1/consignservice/consigns",
                 HttpMethod.POST,
