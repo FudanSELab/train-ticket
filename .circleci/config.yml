@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      - run:
+        name: Installing the Akita CLI
+        command: 'bash -c "$(curl -L https://releases.akita.software/scripts/install_akita.sh)"'
+      - run:
+        name: Running tests
+        command: 'akita --domain staging.akita.software apispec --traces ./sample.har --service train-ticket'
