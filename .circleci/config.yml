@@ -8,7 +8,7 @@ jobs:
       - run:
           name: Installing the Akita CLI
           command: |
-            bash -c "$(curl -L https://releases.akita.software/scripts/install_akita.sh)"
+            bash ./install_akita_cli.sh 
       - run:
           name: Running tests
           command: |
