@@ -6,8 +6,10 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Installing the Akita CLI
-        command: 'bash -c "$(curl -L https://releases.akita.software/scripts/install_akita.sh)"'
+          name: Installing the Akita CLI
+          command: |
+            bash -c "$(curl -L https://releases.akita.software/scripts/install_akita.sh)"
       - run:
-        name: Running tests
-        command: 'akita --domain staging.akita.software apispec --traces ./sample.har --service train-ticket'
+          name: Running tests
+          command: |
+            akita --domain staging.akita.software apispec --traces ./sample.har --service train-ticket
