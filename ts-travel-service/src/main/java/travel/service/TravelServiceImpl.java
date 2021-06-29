@@ -393,4 +393,33 @@ public class TravelServiceImpl implements TravelService {
             return new Response<>(0, noContent, null);
         }
     }
+
+    @Override
+    public Response addPassengers(PassengersInfo info, HttpHeaders headers) {
+        /* TODO: Uncomment me!
+        TripId ti = new TripId(info.tripInfo.getTripId());
+        if (repository.findByTripId(ti) != null) {
+            Trip trip = new Trip(ti, info.getTrainTypeId(), info.getStartingStationId(),
+                    info.getStationsId(), info.getTerminalStationId(), info.getStartingTime(), info.getEndTime());
+            trip.setRouteId(info.getRouteId());
+
+            // Add new passengers, each with a unique ID.
+            Random rand = new Random();
+            for (int i = 0; i < info.passengers.length; i++) {
+
+                // XXX: We should really use a UUID here...
+                long id = rand.nextLong();
+
+                trip.addPassenger(id, info.passengers[i]);
+            }
+
+            repository.save(trip);
+            return new Response<>(1, "Update trip:" + ti.toString(), trip);
+        } else {
+            return new Response<>(1, "Trip" + info.getTripId().toString() + "doesn 't exists", null);
+        }
+        */
+
+        return new Response<>(1, "Added passengers", null);
+    }
 }

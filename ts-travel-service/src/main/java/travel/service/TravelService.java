@@ -33,4 +33,6 @@ public interface TravelService {
     Response  getTripByRoute(ArrayList<String> routeIds, HttpHeaders headers);
 
     Response adminQueryAll(HttpHeaders headers);
+
+    Response addPassengers(PassengersInfo info, HttpHeaders headers);
 }

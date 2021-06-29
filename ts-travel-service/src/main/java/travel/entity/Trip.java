@@ -68,4 +68,5 @@ public class Trip {
         this.endTime = new Date();
     }
 
+    public void addPassenger(long id, PassengerInfo info) { }
 }
