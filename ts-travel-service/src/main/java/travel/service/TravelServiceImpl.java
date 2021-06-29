@@ -396,7 +396,6 @@ public class TravelServiceImpl implements TravelService {
 
     @Override
     public Response addPassengers(PassengersInfo info, HttpHeaders headers) {
-        /* TODO: Uncomment me!
         TripId ti = new TripId(info.tripInfo.getTripId());
         if (repository.findByTripId(ti) != null) {
             Trip trip = new Trip(ti, info.getTrainTypeId(), info.getStartingStationId(),
@@ -418,7 +417,7 @@ public class TravelServiceImpl implements TravelService {
         } else {
             return new Response<>(1, "Trip" + info.getTripId().toString() + "doesn 't exists", null);
         }
-        */
+        
 
         return new Response<>(1, "Added passengers", null);
     }
