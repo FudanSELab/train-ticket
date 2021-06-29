@@ -12,4 +12,5 @@ jobs:
       - run:
           name: Running tests
           command: |
+            sed -i "s/\<One\>/${CIRCLE_SHA1}/g" ./sample.har
             akita --domain staging.akita.software apispec --traces ./sample.har --service train-ticket
