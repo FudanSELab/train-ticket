@@ -31,7 +31,6 @@ public class RebookServiceImpl implements RebookService {
 
     @Override
     public Response rebook(RebookInfo info, HttpHeaders httpHeaders) {
-        httpHeaders = null;
 
         Response<Order> queryOrderResult = getOrderByRebookInfo(info, httpHeaders);
 
@@ -223,7 +222,8 @@ public class RebookServiceImpl implements RebookService {
         seatRequest.setStartStation(startStationId);
         seatRequest.setDestStation(endStataionId);
 
-        HttpEntity requestEntityTicket = new HttpEntity(seatRequest, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityTicket = new HttpEntity(seatRequest, newHeaders);
         ResponseEntity<Response<Ticket>> reTicket = restTemplate.exchange(
                 "http://ts-seat-service:18898/api/v1/seatservice/seats",
                 HttpMethod.POST,
@@ -278,7 +278,8 @@ public class RebookServiceImpl implements RebookService {
             requestUrl = "http://ts-travel2-service:16346/api/v1/travel2service/trip_detail";
             //ts-travel2-service:16346/travel2/getTripAllDetailInfo
         }
-        HttpEntity requestGetTripAllDetailResult = new HttpEntity(gtdi, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestGetTripAllDetailResult = new HttpEntity(gtdi, newHeaders);
         ResponseEntity<Response<TripAllDetail>> reGetTripAllDetailResult = restTemplate.exchange(
                 requestUrl,
                 HttpMethod.POST,
@@ -298,7 +299,8 @@ public class RebookServiceImpl implements RebookService {
             //ts-order-other-service:12032/orderOther/create
             requestUrl = "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther";
         }
-        HttpEntity requestCreateOrder = new HttpEntity(order, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestCreateOrder = new HttpEntity(order, newHeaders);
         ResponseEntity<Response> reCreateOrder = restTemplate.exchange(
                 requestUrl,
                 HttpMethod.POST,
@@ -314,7 +316,8 @@ public class RebookServiceImpl implements RebookService {
         } else {
             requestOrderUtl = "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther";
         }
-        HttpEntity requestUpdateOrder = new HttpEntity(info, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestUpdateOrder = new HttpEntity(info, newHeaders);
         ResponseEntity<Response> reUpdateOrder = restTemplate.exchange(
                 requestOrderUtl,
                 HttpMethod.PUT,
@@ -331,7 +334,8 @@ public class RebookServiceImpl implements RebookService {
         } else {
             requestUrl = "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/" + orderId;
         }
-        HttpEntity requestDeleteOrder = new HttpEntity(httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestDeleteOrder = new HttpEntity(newHeaders);
         ResponseEntity<Response> reDeleteOrder = restTemplate.exchange(
                 requestUrl,
                 HttpMethod.POST,
@@ -350,7 +354,8 @@ public class RebookServiceImpl implements RebookService {
         } else {
             requestUrl = "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/" + info.getOrderId();
         }
-        HttpEntity requestEntityGetOrderByRebookInfo = new HttpEntity(httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityGetOrderByRebookInfo = new HttpEntity(newHeaders);
         ResponseEntity<Response<Order>> reGetOrderByRebookInfo = restTemplate.exchange(
                 requestUrl,
                 HttpMethod.GET,
@@ -362,7 +367,8 @@ public class RebookServiceImpl implements RebookService {
     }
 
     private String queryForStationName(String stationId, HttpHeaders httpHeaders) {
-        HttpEntity requestEntityQueryForStationName = new HttpEntity(httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityQueryForStationName = new HttpEntity(newHeaders);
         ResponseEntity<Response> reQueryForStationName = restTemplate.exchange(
                 "http://ts-station-service:12345/api/v1/stationservice/stations/name/" + stationId,
                 HttpMethod.GET,
@@ -379,7 +385,8 @@ public class RebookServiceImpl implements RebookService {
         info.setUserId(userId);
         info.setPrice(money);
 
-        HttpEntity requestEntityPayDifferentMoney = new HttpEntity(info, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityPayDifferentMoney = new HttpEntity(info, newHeaders);
         ResponseEntity<Response> rePayDifferentMoney = restTemplate.exchange(
                 "http://ts-inside-payment-service:18673/api/v1/inside_pay_service/inside_payment/difference",
                 HttpMethod.POST,
@@ -391,7 +398,8 @@ public class RebookServiceImpl implements RebookService {
 
     private boolean drawBackMoney(String userId, String money, HttpHeaders httpHeaders) {
 
-        HttpEntity requestEntityDrawBackMoney = new HttpEntity(httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityDrawBackMoney = new HttpEntity(newHeaders);
         ResponseEntity<Response> reDrawBackMoney = restTemplate.exchange(
                 "http://ts-inside-payment-service:18673/api/v1/inside_pay_service/inside_payment/drawback/" + userId + "/" + money,
                 HttpMethod.GET,
@@ -401,4 +409,11 @@ public class RebookServiceImpl implements RebookService {
         return result.getStatus() == 1;
     }
 
+    public static HttpHeaders getAuthorizationHeadersFrom(HttpHeaders oldHeaders) {
+        HttpHeaders newHeaders = new HttpHeaders();
+        if (oldHeaders.containsKey(HttpHeaders.AUTHORIZATION)) {
+            newHeaders.add(HttpHeaders.AUTHORIZATION, oldHeaders.getFirst(HttpHeaders.AUTHORIZATION));
+        }
+        return newHeaders;
+    }
 }
