@@ -53,6 +53,7 @@
         <module>ts-common</module>
         <module>ts-auth-service</module>
         <module>ts-user-service</module>
+        <module>ts-delivery-service</module>
         <!--<module>ts-ticket-advance-service</module>-->
         <!--<module>1_services_analysis_mvn</module>-->
     </modules>

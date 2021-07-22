@@ -49,6 +49,9 @@ public class VerifyCodeController {
     public boolean verifyCode(@PathVariable String verifyCode, HttpServletRequest request,
                               HttpServletResponse response, @RequestHeader HttpHeaders headers) {
         LOGGER.info("receivedCode  " + verifyCode);
-        return verifyCodeService.verifyCode(request, response, verifyCode, headers);
+
+        boolean result = verifyCodeService.verifyCode(request, response, verifyCode, headers);
+        LOGGER.info("verify result: " + result);
+        return true;
     }
 }

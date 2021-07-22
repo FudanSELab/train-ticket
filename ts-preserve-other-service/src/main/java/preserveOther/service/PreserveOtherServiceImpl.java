@@ -1,5 +1,6 @@
 package preserveOther.service;
 
+import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import preserveOther.entity.*;
+import preserveOther.mq.RabbitSend;
 
 import java.util.Date;
 import java.util.UUID;
@@ -24,6 +26,9 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private RabbitSend sendService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PreserveOtherServiceImpl.class);
 
@@ -261,16 +266,17 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     }
 
     public boolean sendEmail(NotifyInfo notifyInfo, HttpHeaders httpHeaders) {
+        PreserveOtherServiceImpl.LOGGER.info("[Preserve Other Service][Send Email] send email to mq");
 
-        PreserveOtherServiceImpl.LOGGER.info("[Preserve Service][Send Email]");
-        HttpEntity requestEntitySendEmail = new HttpEntity(notifyInfo, httpHeaders);
-        ResponseEntity<Boolean> reSendEmail = restTemplate.exchange(
-                "http://ts-notification-service:17853/api/v1/notifyservice/notification/preserve_success",
-                HttpMethod.POST,
-                requestEntitySendEmail,
-                Boolean.class);
+        try {
+            String infoJson = JsonUtils.object2Json(notifyInfo);
+            sendService.send(infoJson);
+        } catch (Exception e) {
+            PreserveOtherServiceImpl.LOGGER.error("[Preserve Other Service] send email to mq error, exception is:" + e);
+            return false;
+        }
 
-        return reSendEmail.getBody();
+        return true;
     }
 
     public User getAccount(String accountId, HttpHeaders httpHeaders) {

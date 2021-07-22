@@ -14,6 +14,9 @@ server:
 spring:
   application:
     name: ts-preserve-other-service
+  rabbitmq:
+    host: ${rabbitmq_host:localhost}
+    port: ${rabbitmq_port:5672}
 
 swagger:
   controllerPackage: preserveOther.controller

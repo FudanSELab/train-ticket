@@ -2,23 +2,14 @@
 server:
   port: 17853  # HTTP (Tomcat) port
 
-#spring:
-#  data:
-#    mongodb:
-#      host: ts-notification-mongo
-##      username: user
-##      password: ${MONGODB_PASSWORD}
-##      database: piggymetrics
-#      port: 27017
-
 spring:
   application:
     name: ts-notification-service
   mail:
     host: smtp.163.com
     port: 465
-    username: fdse_microservices@163.com
-    password: fdse1234
+    username: ${email_address:trainticket_notify@163.com}
+    password: ${email_password:GZKSCXHBOLKMCLDQ}
     properties:
       mail:
         smtp:
@@ -28,12 +19,16 @@ spring:
           starttls:
             enable: true
             required: true
+  data:
+    mongodb:
+      host: ${mongohost:ts-notification-mongo}
+      database: ts
+      port: 27017
+
+  rabbitmq:
+    host: ${rabbitmq_host:localhost}
+    port: ${rabbitmq_port:5672}
+
 
 swagger:
   controllerPackage: notification.controller
-#  main:
-#    banner-mode: off
-
-#  velocity:
-#    resource-loader-path: classpath:/templates/
-#    check-template-location: true

@@ -36,7 +36,7 @@ public class InitUser implements CommandLineRunner {
                 .gender(1)
                 .documentType(1)
                 .documentNum("2135488099312X")
-                .email("fdse_microservice@163.com").build();
+                .email("trainticket_notify@163.com").build();
         if (whetherExistUser == null) {
             userRepository.save(user);
         }
