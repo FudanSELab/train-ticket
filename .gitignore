@@ -4,6 +4,7 @@
 *.lst
 *.iml
 *.class
+.gradle
 .settings/
 .project
 */.project
