@@ -235,7 +235,8 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));
         notifyInfo.setStartingTime(order.getTravelTime().toString());
 
-        sendEmail(notifyInfo, httpHeaders);
+        // TODO: change to async message serivce
+        // sendEmail(notifyInfo, httpHeaders);
 
         return returnResponse;
     }

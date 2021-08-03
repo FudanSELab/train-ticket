@@ -9,14 +9,14 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="stylesheet" href="assets/css/client.css">
@@ -28,188 +28,200 @@
 </head>
 
 <body data-type="generalComponents">
-<header class="am-topbar am-topbar-inverse admin-header">
-    <div class="am-topbar-brand">
-        <a href="javascript:;" class="tpl-logo">
-            <img src="assets/img/logo.png" alt="">
-        </a>
-    </div>
-    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
-
-    </div>
-
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-            class="am-icon-bars"></span></button>
-
-    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-            <li id="goto_admin">
-                <a href="adminlogin.html" class="tpl-header-list-link">
-                    <span>admin-panel</span>
-                </a>
-            </li>
-
-            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
-                    class="am-icon-arrows-alt"></span> <span class="admin-fullText">FullScreen</span></a></li>
-
-            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                    <span class="tpl-header-list-user-nick" id="client_name">Not Login</span><span
-                        class="tpl-header-list-user-ico"> <img src="assets/img/user01.png"></span>
-                </a>
-            </li>
-            <li id="logout_button"><a href="#" class="tpl-header-list-link"><span
-                    class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
-        </ul>
-    </div>
-</header>
-
-<div class="tpl-page-container tpl-page-header-fixed" ng-controller="indexCtrl">
-    <div class="tpl-left-nav tpl-left-nav-hover">
-        <div class="tpl-left-nav-title">
-            Management
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <a href="javascript:;" class="tpl-logo">
+                <img src="assets/img/logo.png" alt="">
+            </a>
         </div>
-        <div class="tpl-left-nav-list">
-            <ul class="tpl-left-nav-menu">
-                <li class="tpl-left-nav-item">
-                    <a href="index.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-list-alt"></i>
-                        <span>Ticket Reserve</span>
+        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+                <li id="goto_admin">
+                    <a href="adminlogin.html" class="tpl-header-list-link">
+                        <span>admin-panel</span>
                     </a>
                 </li>
 
-                <li class="tpl-left-nav-item">
-                    <a href="client_order_list.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-line-chart"></i>
-                        <span>Order List</span>
+                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"
+                        class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span
+                            class="admin-fullText">FullScreen</span></a></li>
+
+                <li id="name-wrap" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                    <a>
+                        <span class="tpl-header-list-user-nick" id="client_name">Not Login</span>
                     </a>
                 </li>
 
-                <li class="tpl-left-nav-item">
-                    <a href="client_consign_list.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-globe"></i>
-                        <span>Consign List</span>
+                <li id="upload-avatar">
+                    <a>
+                        <span class="tpl-header-list-user-ico">
+                            <img id="avatar_img">
+                        </span>
                     </a>
                 </li>
-
-                <li class="tpl-left-nav-item">
-                    <a href="client_adsearch.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-users"></i>
-                        <span> Advanced Search</span>
-                    </a>
-                </li>
-
-
-                <li class="tpl-left-nav-item">
-                    <!-- 打开状态 a 标签添加 active 即可   -->
-                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list  active">
-                        <i class="am-icon-table"></i>
-                        <span>Execute Flow</span>
-                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
-                    </a>
-                    <ul class="tpl-left-nav-sub-menu" style="display:block">
-                        <li>
-                            <!-- 打开状态 a 标签添加 active 即可   -->
-                            <a href="client_ticket_collect.html" class="active">
-                                <i class="am-icon-user"></i>
-                                <span>Ticket Collect</span>
-                                <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
-                            </a>
-
-                            <a href="client_enter_station.html">
-                                <i class="am-icon-institution"></i>
-                                <span>Enter Station</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
+                <li id="logout_button"><a href="#" class="tpl-header-list-link"><span
+                            class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
             </ul>
         </div>
-    </div>
+    </header>
 
-    <div class="tpl-content-wrapper" id="collectTicket">
-        <div class="tpl-portlet-components">
-            <div class="portlet-title">
-                <div class="caption font-green bold">
-                    Ticket Collect
-                </div>
-
+    <div class="tpl-page-container tpl-page-header-fixed" ng-controller="indexCtrl">
+        <div class="tpl-left-nav tpl-left-nav-hover">
+            <div class="tpl-left-nav-title">
+                Management
             </div>
-            <div class="tpl-block">
-                <div class="am-g">
-                    <div class="am-u-sm-12">
-                        <div class="panel-body">
+            <div class="tpl-left-nav-list">
+                <ul class="tpl-left-nav-menu">
+                    <li class="tpl-left-nav-item">
+                        <a href="index.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-list-alt"></i>
+                            <span>Ticket Reserve</span>
+                        </a>
+                    </li>
+
+                    <li class="tpl-left-nav-item">
+                        <a href="client_order_list.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-line-chart"></i>
+                            <span>Order List</span>
+                        </a>
+                    </li>
+
+                    <li class="tpl-left-nav-item">
+                        <a href="client_consign_list.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-globe"></i>
+                            <span>Consign List</span>
+                        </a>
+                    </li>
+
+                    <li class="tpl-left-nav-item">
+                        <a href="client_adsearch.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-users"></i>
+                            <span> Advanced Search</span>
+                        </a>
+                    </li>
 
 
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        Ticket Collect
-                                    </h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="input-box">
-                                        <form role="form" class="form-horizontal">
+                    <li class="tpl-left-nav-item">
+                        <!-- 打开状态 a 标签添加 active 即可   -->
+                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list  active">
+                            <i class="am-icon-table"></i>
+                            <span>Execute Flow</span>
+                            <i
+                                class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                        </a>
+                        <ul class="tpl-left-nav-sub-menu" style="display:block">
+                            <li>
+                                <!-- 打开状态 a 标签添加 active 即可   -->
+                                <a href="client_ticket_collect.html" class="active">
+                                    <i class="am-icon-user"></i>
+                                    <span>Ticket Collect</span>
+                                    <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                                </a>
+
+                                <a href="client_enter_station.html">
+                                    <i class="am-icon-institution"></i>
+                                    <span>Enter Station</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="tpl-content-wrapper" id="collectTicket">
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        Ticket Collect
+                    </div>
+
+                </div>
+                <div class="tpl-block">
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <div class="panel-body">
 
 
-                                            <table class="am-table am-table-striped am-table-hover table-main">
-                                                <thead>
-                                                <tr>
-                                                    <th class="table-title">No.</th>
-                                                    <th class="table-set">Order Id</th>
-                                                    <th class="table-title">From</th>
-                                                    <th class="table-title">To</th>
-                                                    <th class="table-date">Bought Date</th>
-                                                    <th class="table-date">Trip Id</th>
-                                                    <th class="table-title">Seat Number</th>
-                                                    <th class="table-title">Price</th>
-                                                    <th class="table-title">ContactsName</th>
-                                                    <th class="table-title">Operation</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr ng-repeat=" record in records" v-for="(item, index) in myOrderList">
-                                                    <td>{{index}}</td>
-                                                    <td>{{item.id}}</td>
-                                                    <td>{{item.from}}</td>
-                                                    <td>{{item.to}}</td>
-                                                    <td>{{item.boughtDate}}</td>
-                                                    <td>{{item.trainNumber}}</td>
-                                                    <td>{{item.seatNumber}}</td>
-                                                    <td>{{item.price}}</td>
-                                                    <td>{{item.contactsName}}</td>
-                                                    <td>
-                                                        <button  id="reserve_collect_button"  v-on:click="collectTicket(item.id)"
-                                                                data-am-modal="{target: '#doc-modal-vancher', closeViaDimmer: 0, width: 560, height: 450}"
-                                                                class="am-btn am-btn-default am-btn-xs am-text-secondary am-btn">
-                                                            <span class="am-icon-pencil-square-o"></span> Collect
-                                                        </button>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            Ticket Collect
+                                        </h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="input-box">
+                                            <form role="form" class="form-horizontal">
 
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </form>
+
+                                                <table class="am-table am-table-striped am-table-hover table-main">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="table-title">No.</th>
+                                                            <th class="table-set">Order Id</th>
+                                                            <th class="table-title">From</th>
+                                                            <th class="table-title">To</th>
+                                                            <th class="table-date">Bought Date</th>
+                                                            <th class="table-date">Trip Id</th>
+                                                            <th class="table-title">Seat Number</th>
+                                                            <th class="table-title">Price</th>
+                                                            <th class="table-title">ContactsName</th>
+                                                            <th class="table-title">Operation</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat=" record in records"
+                                                            v-for="(item, index) in myOrderList">
+                                                            <td>{{index}}</td>
+                                                            <td>{{item.id}}</td>
+                                                            <td>{{item.from}}</td>
+                                                            <td>{{item.to}}</td>
+                                                            <td>{{item.boughtDate}}</td>
+                                                            <td>{{item.trainNumber}}</td>
+                                                            <td>{{item.seatNumber}}</td>
+                                                            <td>{{item.price}}</td>
+                                                            <td>{{item.contactsName}}</td>
+                                                            <td>
+                                                                <button id="reserve_collect_button"
+                                                                    v-on:click="collectTicket(item.id)"
+                                                                    data-am-modal="{target: '#doc-modal-vancher', closeViaDimmer: 0, width: 560, height: 450}"
+                                                                    class="am-btn am-btn-default am-btn-xs am-text-secondary am-btn">
+                                                                    <span class="am-icon-pencil-square-o"></span>
+                                                                    Collect
+                                                                </button>
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+
+
                             </div>
-
-
                         </div>
                     </div>
                 </div>
+                <div class="tpl-alert"></div>
             </div>
-            <div class="tpl-alert"></div>
         </div>
     </div>
-</div>
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/app.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

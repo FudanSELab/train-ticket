@@ -1,20 +1,13 @@
-version: '3'
-
-# push image
-# ! /bin/bash
-# for i in $(docker images | grep kagaya85 | awk 'BEGIN{OFS=":"}{print $1,$2}'); do
-# docker push $i;
-# done
+version: "3"
 
 services:
-
-#  rabbitmq:
-#    image: rabbitmq:management
-#    ports:
-#      - 5672:5672
-#      - 15672:15672
-#    networks:
-#      - my-network
+  #  rabbitmq:
+  #    image: rabbitmq:management
+  #    ports:
+  #      - 5672:5672
+  #      - 15672:15672
+  #    networks:
+  #      - my-network
 
   # kafka:
   #   container_name: kafka
@@ -25,12 +18,12 @@ services:
   #   networks:
   #     - my-network
 
-#  zipkin:
-#    image: openzipkin/zipkin
-#    ports:
-#      - 9411:9411
-#    networks:
-#      - my-network
+  #  zipkin:
+  #    image: openzipkin/zipkin
+  #    ports:
+  #      - 9411:9411
+  #    networks:
+  #      - my-network
 
   redis:
     image: redis
@@ -85,7 +78,6 @@ services:
     networks:
       - my-network
 
-
   ts-account-mongo:
     image: mongo
     networks:
@@ -96,14 +88,14 @@ services:
     image: ${IMG_REPO}/ts-route-service:${IMG_TAG}
     restart: always
     ports:
-         - 11178:11178
+      - 11178:11178
     networks:
       - my-network
 
   ts-route-mongo:
     image: mongo
     networks:
-        - my-network
+      - my-network
 
   ts-contacts-service:
     build: ts-contacts-service
@@ -115,9 +107,9 @@ services:
       - my-network
 
   ts-contacts-mongo:
-      image: mongo
-      networks:
-        - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-order-service:
     build: ts-order-service
@@ -133,7 +125,6 @@ services:
     networks:
       - my-network
 
-
   ts-order-other-service:
     build: ts-order-other-service
     image: ${IMG_REPO}/ts-order-other-service:${IMG_TAG}
@@ -147,7 +138,6 @@ services:
     image: mongo
     networks:
       - my-network
-
 
   ts-config-service:
     build: ts-config-service
@@ -215,9 +205,9 @@ services:
         - my-network
 
   ts-travel2-mongo:
-      image: mongo
-      networks:
-        - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-preserve-service:
     build: ts-preserve-service
@@ -236,7 +226,6 @@ services:
       - 14569:14569
     networks:
       - my-network
-
 
   ts-basic-service:
       build: ts-basic-service
@@ -265,10 +254,11 @@ services:
         networks:
           - my-network
 
+
   ts-price-mongo:
-        image: mongo
-        networks:
-          - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-notification-service:
         build: ts-notification-service
@@ -289,9 +279,9 @@ services:
           - my-network
 
   ts-security-mongo:
-        image: mongo
-        networks:
-          - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-inside-payment-service:
         build: ts-inside-payment-service
@@ -303,9 +293,9 @@ services:
           - my-network
 
   ts-inside-payment-mongo:
-        image: mongo
-        networks:
-          - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-execute-service:
         build: ts-execute-service
@@ -326,9 +316,9 @@ services:
           - my-network
 
   ts-payment-mongo:
-        image: mongo
-        networks:
-          - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-rebook-service:
         build: ts-rebook-service
@@ -340,9 +330,9 @@ services:
           - my-network
 
   ts-rebook-mongo:
-        image: mongo
-        networks:
-          - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-cancel-service:
         build: ts-cancel-service
@@ -363,9 +353,9 @@ services:
           - my-network
 
   ts-assurance-mongo:
-        image: mongo
-        networks:
-          - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-seat-service:
         build: ts-seat-service
@@ -395,9 +385,9 @@ services:
           - my-network
 
   ts-ticket-office-mongo:
-          image: mongo
-          networks:
-            - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-news-service:
     build: ts-news-service
@@ -409,18 +399,18 @@ services:
       - my-network
 
   ts-news-mongo:
-        image: mongo
-        networks:
-          - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-voucher-mysql:
-         image: mysql
-         expose:
-            - "3306"
-         environment:
-           MYSQL_ROOT_PASSWORD: root
-         networks:
-           - my-network
+    image: mysql
+    expose:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - my-network
 
   ts-voucher-service:
           build: ts-voucher-service
@@ -445,9 +435,9 @@ services:
           - my-network
 
   ts-food-map-mongo:
-          image: mongo
-          networks:
-            - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-route-plan-service:
           build: ts-route-plan-service
@@ -477,9 +467,9 @@ services:
               - my-network
 
   ts-consign-mongo:
-            image: mongo
-            networks:
-              - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-consign-price-service:
             build: ts-consign-price-service
@@ -491,14 +481,14 @@ services:
               - my-network
 
   ts-consign-price-mongo:
-            image: mongo
-            networks:
-              - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-food-mongo:
-            image: mongo
-            networks:
-              - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-admin-basic-info-service:
         build: ts-admin-basic-info-service
@@ -557,13 +547,15 @@ services:
     networks:
       - my-network
 
+  ts-avatar-service:
+    image: ${NAMESPACE}/ts-avatar-service:${TAG}
+    restart: always
+    ports:
+      - 17001:17001
+    networks:
+      - my-network
 
 networks:
-    my-network:
-      # driver: overlay
-      driver: bridge
-
-
-
-
-
+  my-network:
+    # driver: overlay
+    driver: bridge

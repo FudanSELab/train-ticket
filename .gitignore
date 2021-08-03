@@ -1,4 +1,5 @@
 .idea
+*.dat
 *.original
 *.lst
 *.iml
@@ -18,3 +19,16 @@
 1-services/rest-service-end/target/
 
 .DS_Store
+
+# Python
+__pycache__/
+dist/
+*.pyc
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+

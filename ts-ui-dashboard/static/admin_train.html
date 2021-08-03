@@ -22,279 +22,301 @@
 </head>
 
 <!--<body data-type="generalComponents" onload="loadBody()">-->
-<body data-type="generalComponents" >
 
-<header class="am-topbar am-topbar-inverse admin-header">
-    <div class="am-topbar-brand">
-        <a href="javascript:;" class="tpl-logo">
-            <img src="assets/img/logo.png" alt="">
-        </a>
-    </div>
-    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+<body data-type="generalComponents">
 
-    </div>
-
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
-
-    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">FullScreen</span></a></li>
-
-            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                    <span class="tpl-header-list-user-nick" id="admin_name">Default admin</span><span class="tpl-header-list-user-ico"> <img src="assets/img/user01.png"></span>
-                </a>
-            </li>
-            <li><a href="javascript:logout()" class="tpl-header-list-link"><span class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
-        </ul>
-    </div>
-</header>
-
-<div class="tpl-page-container tpl-page-header-fixed" ng-controller="trainCtrl">
-    <div class="tpl-left-nav tpl-left-nav-hover">
-        <div class="tpl-left-nav-title">
-            Management
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <a href="javascript:;" class="tpl-logo">
+                <img src="assets/img/logo.png" alt="">
+            </a>
         </div>
-        <div class="tpl-left-nav-list">
-            <ul class="tpl-left-nav-menu">
-                <li class="tpl-left-nav-item">
-                    <a href="admin.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-list-alt"></i>
-                        <span>Order</span>
+        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"
+                        class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span
+                            class="admin-fullText">FullScreen</span></a></li>
+
+                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                        <span class="tpl-header-list-user-nick" id="admin_name">Default admin</span><span
+                            class="tpl-header-list-user-ico"> <img id="avatar_img"></span>
                     </a>
                 </li>
-                <li class="tpl-left-nav-item">
-                    <a href="admin_route.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-line-chart"></i>
-                        <span>Route</span>
-                    </a>
-                </li>
-
-                <li class="tpl-left-nav-item">
-                    <a href="admin_travel.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-globe"></i>
-                        <span>Travel</span>
-                    </a>
-                </li>
-
-                <li class="tpl-left-nav-item">
-                    <a href="admin_user.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-users"></i>
-                        <span>User</span>
-                    </a>
-                </li>
-
-                <li class="tpl-left-nav-item">
-                    <!-- 打开状态 a 标签添加 active 即可   -->
-                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-table"></i>
-                        <span>Basic</span>
-                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
-                    </a>
-                    <ul class="tpl-left-nav-sub-menu" style="display:block">
-                        <li>
-                            <!-- 打开状态 a 标签添加 active 即可   -->
-                            <a  href="admin_contacts.html">
-                                <i class="am-icon-user"></i>
-                                <span>Contact</span>
-                            </a>
-
-                            <a href="admin_station.html">
-                                <i class="am-icon-institution"></i>
-                                <span>Station</span>
-                            </a>
-
-                            <a class="active">
-                                <i class="am-icon-train"></i>
-                                <span>Train</span>
-                            </a>
-
-                            <a href="admin_price.html">
-                                <i class="am-icon-dollar"></i>
-                                <span>Price</span>
-                            </a>
-
-                            <a href="admin_config.html">
-                                <i class="am-icon-cog"></i>
-                                <span>Config</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
+                <li><a href="javascript:logout()" class="tpl-header-list-link"><span
+                            class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
             </ul>
         </div>
-    </div>
+    </header>
 
-    <div class="tpl-content-wrapper">
-        <div class="tpl-portlet-components">
-            <div class="portlet-title">
-                <div class="caption font-green bold">
-                    Train List
-                </div>
-
+    <div class="tpl-page-container tpl-page-header-fixed" ng-controller="trainCtrl">
+        <div class="tpl-left-nav tpl-left-nav-hover">
+            <div class="tpl-left-nav-title">
+                Management
             </div>
-            <div class="tpl-block">
-                <div class="am-g">
-                    <div class="am-u-sm-12 am-u-md-6">
-                        <div class="am-btn-toolbar">
-                            <div class="am-btn-group am-btn-group-xs">
-                                <button type="button" ng-click="addTrain()" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> Add</button>
+            <div class="tpl-left-nav-list">
+                <ul class="tpl-left-nav-menu">
+                    <li class="tpl-left-nav-item">
+                        <a href="admin.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-list-alt"></i>
+                            <span>Order</span>
+                        </a>
+                    </li>
+                    <li class="tpl-left-nav-item">
+                        <a href="admin_route.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-line-chart"></i>
+                            <span>Route</span>
+                        </a>
+                    </li>
+
+                    <li class="tpl-left-nav-item">
+                        <a href="admin_travel.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-globe"></i>
+                            <span>Travel</span>
+                        </a>
+                    </li>
+
+                    <li class="tpl-left-nav-item">
+                        <a href="admin_user.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-users"></i>
+                            <span>User</span>
+                        </a>
+                    </li>
+
+                    <li class="tpl-left-nav-item">
+                        <!-- 打开状态 a 标签添加 active 即可   -->
+                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-table"></i>
+                            <span>Basic</span>
+                            <i
+                                class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                        </a>
+                        <ul class="tpl-left-nav-sub-menu" style="display:block">
+                            <li>
+                                <!-- 打开状态 a 标签添加 active 即可   -->
+                                <a href="admin_contacts.html">
+                                    <i class="am-icon-user"></i>
+                                    <span>Contact</span>
+                                </a>
+
+                                <a href="admin_station.html">
+                                    <i class="am-icon-institution"></i>
+                                    <span>Station</span>
+                                </a>
+
+                                <a class="active">
+                                    <i class="am-icon-train"></i>
+                                    <span>Train</span>
+                                </a>
+
+                                <a href="admin_price.html">
+                                    <i class="am-icon-dollar"></i>
+                                    <span>Price</span>
+                                </a>
+
+                                <a href="admin_config.html">
+                                    <i class="am-icon-cog"></i>
+                                    <span>Config</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="tpl-content-wrapper">
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        Train List
+                    </div>
+
+                </div>
+                <div class="tpl-block">
+                    <div class="am-g">
+                        <div class="am-u-sm-12 am-u-md-6">
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <button type="button" ng-click="addTrain()"
+                                        class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span>
+                                        Add</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="am-g">
-                    <div class="am-u-sm-12">
-                        <form class="am-form">
-                            <table class="am-table am-table-striped table-main">
-                                <thead>
-                                <tr>
-                                    <th class="table-title">Id</th>
-                                    <th class="table-title">EconomyClass</th>
-                                    <th class="table-date">ConfortClass</th>
-                                    <th class="table-date">AverageSpeed</th>
-                                    <th class="table-set">Operation</th>
-                                </tr>
-                                </thead>
-                                <tbody >
-                                    <tr  ng-repeat=" train in trains">
-                                        <td>{{train.id}}</td>
-                                        <td>{{train.economyClass}}</td>
-                                        <td>{{train.confortClass}}</td>
-                                        <td>{{train.averageSpeed}}</td>
-                                        <td>
-                                            <div class="am-btn-toolbar">
-                                                <div class="am-btn-group am-btn-group-xs">
-                                                    <button ng-click="updateTrain(train)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> Update</button>
-                                                    <button ng-click="deleteTrain(train)" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> Delete</button>
+                    </div>
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <form class="am-form">
+                                <table class="am-table am-table-striped table-main">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-title">Id</th>
+                                            <th class="table-title">EconomyClass</th>
+                                            <th class="table-date">ConfortClass</th>
+                                            <th class="table-date">AverageSpeed</th>
+                                            <th class="table-set">Operation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat=" train in trains">
+                                            <td>{{train.id}}</td>
+                                            <td>{{train.economyClass}}</td>
+                                            <td>{{train.confortClass}}</td>
+                                            <td>{{train.averageSpeed}}</td>
+                                            <td>
+                                                <div class="am-btn-toolbar">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                        <button ng-click="updateTrain(train)"
+                                                            class="am-btn am-btn-default am-btn-xs am-text-secondary"><span
+                                                                class="am-icon-pencil-square-o"></span> Update</button>
+                                                        <button ng-click="deleteTrain(train)"
+                                                            class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span
+                                                                class="am-icon-trash-o"></span> Delete</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
 
-                        </form>
+                            </form>
+                        </div>
+
                     </div>
+                </div>
+                <div class="tpl-alert"></div>
+            </div>
 
+
+        </div>
+
+    </div>
+
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="delete-train-confirm">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">Delete Train Confirm</div>
+            <div class="am-modal-bd">
+                Are you sure to delete this train?
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
+                <span class="am-modal-btn" data-am-modal-confirm>Delete</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="update-train-table">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">Update Train</div>
+            <div class="am-g">
+                <div class="am-form-group am-u-sm-5">
+                    <label>Id:</label>
+                </div>
+                <div class="am-form-group am-u-sm-7">
+                    <input type="text" id="update-train-id" class="am-form-field am-modal-prompt-input"
+                        placeholder="Train Id">
                 </div>
             </div>
-            <div class="tpl-alert"></div>
+            <div class="am-g">
+                <div class="am-form-group am-u-sm-5">
+                    <label>EconomyClass:</label>
+                </div>
+                <div class="am-form-group am-u-sm-7">
+                    <input type="text" id="update-train-economy-class" class="am-form-field am-modal-prompt-input"
+                        placeholder="Train economy class">
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-form-group am-u-sm-5">
+                    <label>ConfortClass:</label>
+                </div>
+                <div class="am-form-group am-u-sm-7">
+                    <input type="text" id="update-train-confort-class" class="am-form-field am-modal-prompt-input"
+                        placeholder="Train confort class">
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-form-group am-u-sm-5">
+                    <label> Average Speed:</label>
+                </div>
+                <div class="am-form-group am-u-sm-7">
+                    <input type="text" id="update-train-average-speed" class="am-form-field am-modal-prompt-input"
+                        placeholder="Train average speed">
+                </div>
+            </div>
+
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
+                <span class="am-modal-btn" data-am-modal-confirm>Submit</span>
+            </div>
         </div>
-
-
     </div>
 
-</div>
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="add-train-table">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">Add Train</div>
+            <div class="am-g">
+                <div class="am-form-group am-u-sm-5">
+                    <label>Id:</label>
+                </div>
+                <div class="am-form-group am-u-sm-7">
+                    <input type="text" id="add-train-id" class="am-form-field am-modal-prompt-input"
+                        placeholder="Train Id">
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-form-group am-u-sm-5">
+                    <label>EconomyClass:</label>
+                </div>
+                <div class="am-form-group am-u-sm-7">
+                    <input type="text" id="add-train-economy-class" class="am-form-field am-modal-prompt-input"
+                        placeholder="Train economy class">
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-form-group am-u-sm-5">
+                    <label>ConfortClass:</label>
+                </div>
+                <div class="am-form-group am-u-sm-7">
+                    <input type="text" id="add-train-confort-class" class="am-form-field am-modal-prompt-input"
+                        placeholder="Train confort class">
+                </div>
+            </div>
+            <div class="am-g">
+                <div class="am-form-group am-u-sm-5">
+                    <label> Average Speed:</label>
+                </div>
+                <div class="am-form-group am-u-sm-7">
+                    <input type="text" id="add-train-average-speed" class="am-form-field am-modal-prompt-input"
+                        placeholder="Train average speed">
+                </div>
+            </div>
 
-<div class="am-modal am-modal-confirm" tabindex="-1" id="delete-train-confirm">
-    <div class="am-modal-dialog">
-        <div class="am-modal-hd">Delete Train Confirm</div>
-        <div class="am-modal-bd">
-            Are you sure to delete this train?
-        </div>
-        <div class="am-modal-footer">
-            <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
-            <span class="am-modal-btn" data-am-modal-confirm>Delete</span>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
+                <span class="am-modal-btn" data-am-modal-confirm>Submit</span>
+            </div>
         </div>
     </div>
-</div>
 
 
-<div class="am-modal am-modal-prompt" tabindex="-1" id="update-train-table">
-    <div class="am-modal-dialog">
-        <div class="am-modal-hd">Update Train</div>
-        <div class="am-g">
-            <div class="am-form-group am-u-sm-5">
-                <label >Id:</label>
-            </div>
-            <div class="am-form-group am-u-sm-7">
-                <input type="text" id="update-train-id" class="am-form-field am-modal-prompt-input" placeholder="Train Id">
-            </div>
-        </div>
-        <div class="am-g">
-            <div class="am-form-group am-u-sm-5">
-                <label >EconomyClass:</label>
-            </div>
-            <div class="am-form-group am-u-sm-7">
-                <input type="text" id="update-train-economy-class" class="am-form-field am-modal-prompt-input" placeholder="Train economy class">
-            </div>
-        </div>
-        <div class="am-g">
-            <div class="am-form-group am-u-sm-5">
-                <label >ConfortClass:</label>
-            </div>
-            <div class="am-form-group am-u-sm-7">
-                <input type="text" id="update-train-confort-class" class="am-form-field am-modal-prompt-input" placeholder="Train confort class">
-            </div>
-        </div>
-        <div class="am-g">
-            <div class="am-form-group am-u-sm-5">
-                <label > Average Speed:</label>
-            </div>
-            <div class="am-form-group am-u-sm-7">
-                <input type="text" id="update-train-average-speed" class="am-form-field am-modal-prompt-input" placeholder="Train average speed">
-            </div>
-        </div>
-
-        <div class="am-modal-footer">
-            <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
-            <span class="am-modal-btn" data-am-modal-confirm>Submit</span>
-        </div>
-    </div>
-</div>
-
-<div class="am-modal am-modal-prompt" tabindex="-1" id="add-train-table">
-    <div class="am-modal-dialog">
-        <div class="am-modal-hd">Add Train</div>
-        <div class="am-g">
-            <div class="am-form-group am-u-sm-5">
-                <label >Id:</label>
-            </div>
-            <div class="am-form-group am-u-sm-7">
-                <input type="text" id="add-train-id" class="am-form-field am-modal-prompt-input" placeholder="Train Id">
-            </div>
-        </div>
-        <div class="am-g">
-            <div class="am-form-group am-u-sm-5">
-                <label >EconomyClass:</label>
-            </div>
-            <div class="am-form-group am-u-sm-7">
-                <input type="text" id="add-train-economy-class" class="am-form-field am-modal-prompt-input" placeholder="Train economy class">
-            </div>
-        </div>
-        <div class="am-g">
-            <div class="am-form-group am-u-sm-5">
-                <label >ConfortClass:</label>
-            </div>
-            <div class="am-form-group am-u-sm-7">
-                <input type="text" id="add-train-confort-class" class="am-form-field am-modal-prompt-input" placeholder="Train confort class">
-            </div>
-        </div>
-        <div class="am-g">
-            <div class="am-form-group am-u-sm-5">
-                <label > Average Speed:</label>
-            </div>
-            <div class="am-form-group am-u-sm-7">
-                <input type="text" id="add-train-average-speed" class="am-form-field am-modal-prompt-input" placeholder="Train average speed">
-            </div>
-        </div>
-
-        <div class="am-modal-footer">
-            <span class="am-modal-btn" data-am-modal-cancel>Cancel</span>
-            <span class="am-modal-btn" data-am-modal-confirm>Submit</span>
-        </div>
-    </div>
-</div>
-
-
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/app.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

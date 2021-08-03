@@ -9,14 +9,14 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/app.css">
 
@@ -28,191 +28,199 @@
 
 <body data-type="generalComponents">
 
-<div id="loginApp">
-    <header class="am-topbar am-topbar-inverse admin-header">
-        <div class="am-topbar-brand">
-            <a href="javascript:;" class="tpl-logo">
-                <img src="assets/img/logo.png" alt="">
-            </a>
-        </div>
-        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
-
-        </div>
-
-        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-                data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-                class="am-icon-bars"></span></button>
-
-        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-                <li id="goto_admin">
-                    <a href="adminlogin.html" class="tpl-header-list-link">
-                        <span>admin-panel</span>
-                    </a>
-                </li>
-
-                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"
-                                               class="tpl-header-list-link"><span
-                        class="am-icon-arrows-alt"></span> <span class="admin-fullText">FullScreen</span></a></li>
-
-                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="tpl-header-list-user-nick" id="client_name">Not Login</span><span
-                            class="tpl-header-list-user-ico"> <img src="assets/img/user01.png"></span>
-                    </a>
-                </li>
-                <li id="logout_button"><a href="#" class="tpl-header-list-link"><span
-                        class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
-            </ul>
-        </div>
-    </header>
-
-    <div class="tpl-page-container tpl-page-header-fixed" ng-controller="indexCtrl">
-        <div class="tpl-left-nav tpl-left-nav-hover">
-            <div class="tpl-left-nav-title">
-                Management
+    <div id="loginApp">
+        <header class="am-topbar am-topbar-inverse admin-header">
+            <div class="am-topbar-brand">
+                <a href="javascript:;" class="tpl-logo">
+                    <img src="assets/img/logo.png" alt="">
+                </a>
             </div>
-            <div class="tpl-left-nav-list">
-                <ul class="tpl-left-nav-menu">
-                    <li class="tpl-left-nav-item">
-                        <a href="index.html" class="nav-link tpl-left-nav-link-list" class="active">
-                            <i class="am-icon-list-alt"></i>
-                            <span>Ticket Reserve</span>
-                            <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+            <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+            </div>
+
+            <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                    class="am-icon-bars"></span></button>
+
+            <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+                <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+                    <li id="goto_admin">
+                        <a href="adminlogin.html" class="tpl-header-list-link">
+                            <span>admin-panel</span>
                         </a>
                     </li>
 
-                    <li class="tpl-left-nav-item">
-                        <a href="client_order_list.html" class="nav-link tpl-left-nav-link-list">
-                            <i class="am-icon-line-chart"></i>
-                            <span>Order List</span>
+                    <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"
+                            class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span
+                                class="admin-fullText">FullScreen</span></a></li>
+
+                    <li id="name-wrap" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                        <a>
+                            <span class="tpl-header-list-user-nick" id="client_name">Not Login</span>
                         </a>
                     </li>
 
-                    <li class="tpl-left-nav-item">
-                        <a href="client_consign_list.html" class="nav-link tpl-left-nav-link-list">
-                            <i class="am-icon-globe"></i>
-                            <span>Consign List</span>
+                    <li id="upload-avatar">
+                        <a>
+                            <span class="tpl-header-list-user-ico">
+                                <img id="avatar_img">
+                            </span>
                         </a>
                     </li>
-
-                    <li class="tpl-left-nav-item">
-                        <a href="client_adsearch.html" class="nav-link tpl-left-nav-link-list">
-                            <i class="am-icon-users"></i>
-                            <span>Advanced Search</span>
-                        </a>
-                    </li>
-
-
-                    <li class="tpl-left-nav-item">
-                        <!-- 打开状态 a 标签添加 active 即可   -->
-                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                            <i class="am-icon-table"></i>
-                            <span>Execute Flow</span>
-                            <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
-                        </a>
-                        <ul class="tpl-left-nav-sub-menu">
-                            <li>
-                                <!-- 打开状态 a 标签添加 active 即可   -->
-                                <a href="client_ticket_collect.html" class="active">
-                                    <i class="am-icon-user"></i>
-                                    <span>Ticket Collect</span>
-                                </a>
-
-                                <a href="client_enter_station.html">
-                                    <i class="am-icon-institution"></i>
-                                    <span>Enter Station</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
+                    <li id="logout_button"><a href="#" class="tpl-header-list-link"><span
+                                class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
                 </ul>
             </div>
-        </div>
+        </header>
 
-        <div class="tpl-content-wrapper">
-            <div class="tpl-portlet-components">
-                <div class="portlet-title">
-                    <div class="caption font-green bold">
-                        Login
-                    </div>
-
+        <div class="tpl-page-container tpl-page-header-fixed" ng-controller="indexCtrl">
+            <div class="tpl-left-nav tpl-left-nav-hover">
+                <div class="tpl-left-nav-title">
+                    Management
                 </div>
-                <div class="tpl-block">
-                    <div class="am-g">
-                        <div class="am-u-sm-12">
-                            <div class="panel-body">
+                <div class="tpl-left-nav-list">
+                    <ul class="tpl-left-nav-menu">
+                        <li class="tpl-left-nav-item">
+                            <a href="index.html" class="nav-link tpl-left-nav-link-list" class="active">
+                                <i class="am-icon-list-alt"></i>
+                                <span>Ticket Reserve</span>
+                                <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                            </a>
+                        </li>
 
-                                <!-------------------------Flow Preserve Login------------------->
-                                <a name="anchor_flow_preserve_login"></a>
-                                <div class="flow_preserve panel panel-default">
-                                    <div class="group panel-body">
-                                        <div class="input-box">
-                                            <form role="form" class="form-horizontal">
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">UserName: </label>
-                                                    <div class="col-sm-10">
-                                                        <input id="flow_preserve_login_email" class="form-control"
-                                                               v-model="userName">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Password: </label>
-                                                    <div class="col-sm-10">
-                                                        <input id="flow_preserve_login_password" type="password" class="form-control"
-                                                             v-model="password">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group ">
-                                                    <label class="col-sm-2 control-label">Verification Code: </label>
-                                                    <div class="col-sm-10">
-                                                        <input id="flow_preserve_login_verification_code"
-                                                               class="form-control" type="text" v-model="verifiCode"/>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group ">
-                                                    <div class="col-sm-offset-2 col-sm-10" v-on:click="reloadYZM()">
-                                                        <img id="flow_preserve_login_verification_code_img"
-                                                             class="captcha_img" src="/api/v1/verifycode/generate">
+                        <li class="tpl-left-nav-item">
+                            <a href="client_order_list.html" class="nav-link tpl-left-nav-link-list">
+                                <i class="am-icon-line-chart"></i>
+                                <span>Order List</span>
+                            </a>
+                        </li>
 
+                        <li class="tpl-left-nav-item">
+                            <a href="client_consign_list.html" class="nav-link tpl-left-nav-link-list">
+                                <i class="am-icon-globe"></i>
+                                <span>Consign List</span>
+                            </a>
+                        </li>
+
+                        <li class="tpl-left-nav-item">
+                            <a href="client_adsearch.html" class="nav-link tpl-left-nav-link-list">
+                                <i class="am-icon-users"></i>
+                                <span>Advanced Search</span>
+                            </a>
+                        </li>
+
+
+                        <li class="tpl-left-nav-item">
+                            <!-- 打开状态 a 标签添加 active 即可   -->
+                            <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                                <i class="am-icon-table"></i>
+                                <span>Execute Flow</span>
+                                <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+                            </a>
+                            <ul class="tpl-left-nav-sub-menu">
+                                <li>
+                                    <!-- 打开状态 a 标签添加 active 即可   -->
+                                    <a href="client_ticket_collect.html" class="active">
+                                        <i class="am-icon-user"></i>
+                                        <span>Ticket Collect</span>
+                                    </a>
+
+                                    <a href="client_enter_station.html">
+                                        <i class="am-icon-institution"></i>
+                                        <span>Enter Station</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tpl-content-wrapper">
+                <div class="tpl-portlet-components">
+                    <div class="portlet-title">
+                        <div class="caption font-green bold">
+                            Login
+                        </div>
+
+                    </div>
+                    <div class="tpl-block">
+                        <div class="am-g">
+                            <div class="am-u-sm-12">
+                                <div class="panel-body">
+
+                                    <!-------------------------Flow Preserve Login------------------->
+                                    <a name="anchor_flow_preserve_login"></a>
+                                    <div class="flow_preserve panel panel-default">
+                                        <div class="group panel-body">
+                                            <div class="input-box">
+                                                <form role="form" class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">UserName: </label>
+                                                        <div class="col-sm-10">
+                                                            <input id="flow_preserve_login_email" class="form-control"
+                                                                v-model="userName">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-sm-offset-2 col-sm-10">
-                                                        <button id="client_login_button" type="button"
+                                                    <div class="form-group">
+                                                        <label class="col-sm-2 control-label">Password: </label>
+                                                        <div class="col-sm-10">
+                                                            <input id="flow_preserve_login_password" type="password"
+                                                                class="form-control" v-model="password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label class="col-sm-2 control-label">Verification Code:
+                                                        </label>
+                                                        <div class="col-sm-10">
+                                                            <input id="flow_preserve_login_verification_code"
+                                                                class="form-control" type="text" v-model="verifiCode" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <div class="col-sm-offset-2 col-sm-10" v-on:click="reloadYZM()">
+                                                            <img id="flow_preserve_login_verification_code_img"
+                                                                class="captcha_img" src="/api/v1/verifycode/generate">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-2 col-sm-10">
+                                                            <button id="client_login_button" type="button"
                                                                 class="btn btn-primary" v-on:click="login()">Login
-                                                        </button>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-sm-offset-2">
-                                                        <label class="control-label">Login Status:</label>
-                                                        <span id="flow_preserve_login_status "
-                                                              class="noshow_component"></span>
-                                                        <span id="flow_preserve_login_msg"></span>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-offset-2">
+                                                            <label class="control-label">Login Status:</label>
+                                                            <span id="flow_preserve_login_status "
+                                                                class="noshow_component"></span>
+                                                            <span id="flow_preserve_login_msg"></span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </form>
+                                                </form>
+                                            </div>
+                                            <br>
                                         </div>
-                                        <br>
                                     </div>
+
+
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
+                    <div class="tpl-alert"></div>
                 </div>
-                <div class="tpl-alert"></div>
             </div>
         </div>
     </div>
-</div>
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/app.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

@@ -9,14 +9,14 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-    <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/app.css">
 
@@ -30,480 +30,501 @@
 </head>
 
 <!--<body data-type="generalComponents" onload="parseURL();bookingPage();">-->
+
 <body data-type="generalComponents" onload="parseURL(); ">
 
-<header class="am-topbar am-topbar-inverse admin-header">
-    <div class="am-topbar-brand">
-        <a href="javascript:;" class="tpl-logo">
-            <img src="assets/img/logo.png" alt="">
-        </a>
-    </div>
-    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
-
-    </div>
-
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
-            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
-            class="am-icon-bars"></span></button>
-
-    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-            <li id="goto_admin">
-                <a href="adminlogin.html" class="tpl-header-list-link">
-                    <span>admin-panel</span>
-                </a>
-            </li>
-
-            <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span
-                    class="am-icon-arrows-alt"></span> <span class="admin-fullText">FullScreen</span></a></li>
-
-            <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                    <span class="tpl-header-list-user-nick" id="client_name">Not Login</span><span
-                        class="tpl-header-list-user-ico"> <img src="assets/img/user01.png"></span>
-                </a>
-            </li>
-            <li id="logout_button"><a class="tpl-header-list-link"><span
-                    class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
-        </ul>
-    </div>
-</header>
-
-<div class="tpl-page-container tpl-page-header-fixed" ng-controller="indexCtrl">
-    <div class="tpl-left-nav tpl-left-nav-hover">
-        <div class="tpl-left-nav-title">
-            Management
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <a href="javascript:;" class="tpl-logo">
+                <img src="assets/img/logo.png" alt="">
+            </a>
         </div>
-        <div class="tpl-left-nav-list">
-            <ul class="tpl-left-nav-menu">
-                <li class="tpl-left-nav-item">
-                    <a href="index.html" class="nav-link active">
-                        <i class="am-icon-list-alt"></i>
-                        <span>Ticket Reserve</span>
-                        <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+                <li id="goto_admin">
+                    <a href="adminlogin.html" class="tpl-header-list-link">
+                        <span>admin-panel</span>
                     </a>
                 </li>
 
-                <li class="tpl-left-nav-item">
-                    <a href="client_order_list.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-line-chart"></i>
-                        <span>Order List</span>
+                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"
+                        class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span
+                            class="admin-fullText">FullScreen</span></a></li>
+
+                <li id="name-wrap" class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                    <a>
+                        <span class="tpl-header-list-user-nick" id="client_name">Not Login</span>
                     </a>
                 </li>
 
-                <li class="tpl-left-nav-item">
-                    <a href="client_consign_list.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-globe"></i>
-                        <span>Consign List</span>
+                <li id="upload-avatar">
+                    <a>
+                        <span class="tpl-header-list-user-ico">
+                            <img id="avatar_img">
+                        </span>
                     </a>
                 </li>
-
-                <li class="tpl-left-nav-item">
-                    <a href="client_adsearch.html" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-users"></i>
-                        <span> Advanced Search</span>
-                    </a>
-                </li>
-
-
-                <li class="tpl-left-nav-item">
-                    <!-- 打开状态 a 标签添加 active 即可   -->
-                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-table"></i>
-                        <span>Execute Flow</span>
-                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
-                    </a>
-                    <ul class="tpl-left-nav-sub-menu">
-                        <li>
-                            <!-- 打开状态 a 标签添加 active 即可   -->
-                            <a href="client_ticket_collect.html" class="active">
-                                <i class="am-icon-user"></i>
-                                <span>Ticket Collect</span>
-                            </a>
-
-                            <a href="client_enter_station.html">
-                                <i class="am-icon-institution"></i>
-                                <span>Enter Station</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
+                <li id="logout_button"><a class="tpl-header-list-link"><span
+                            class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
             </ul>
         </div>
-    </div>
+    </header>
 
-    <div class="tpl-content-wrapper">
-        <div class="tpl-portlet-components">
-            <div class="portlet-title">
-                <div class="caption font-green bold">
-                    Ticket Booking
-                </div>
-
+    <div class="tpl-page-container tpl-page-header-fixed" ng-controller="indexCtrl">
+        <div class="tpl-left-nav tpl-left-nav-hover">
+            <div class="tpl-left-nav-title">
+                Management
             </div>
-            <div class="tpl-block">
-                <div class="am-g">
-                    <div class="am-u-sm-12">
-                        <div class="panel-body">
+            <div class="tpl-left-nav-list">
+                <ul class="tpl-left-nav-menu">
+                    <li class="tpl-left-nav-item">
+                        <a href="index.html" class="nav-link active">
+                            <i class="am-icon-list-alt"></i>
+                            <span>Ticket Reserve</span>
+                            <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                        </a>
+                    </li>
 
-                            <!-------------------------Flow Preserve Login------------------->
-                            <a name="anchor_flow_preserve_login"></a>
-                            <div class="flow_preserve panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">
-                                        Ticket Selected <div id="my-svg"></div>
-                                    </h3>
-                                </div>
-                                <div class="group panel-body">
-                                    <form role='form' class='form-horizontal'>
-                                        <table id="tickets_booking_list_table" class="table table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>Trip Id</th>
-                                                <th>From</th>
-                                                <th>To</th>
-                                                <th>Seat Type</th>
-                                                <th>Seat Price</th>
-                                                <th>date</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <!--This is an empty table body-->
-                                            <!--<tr>-->
-                                                <!--<td class='booking_tripId'> tripId </td>-->
-                                                <!--<td class='booking_from'> from </td>-->
-                                                <!--<td class='booking_to'> to </td>-->
-                                                <!--<td class='booking_seatType'>seatType </td>-->
-                                                <!--<td class='booking_seatPrice'> seatPrice </td>-->
-                                                <!--<td class='booking_date'>  date </td>-->
-                                                <!--</tr>-->
+                    <li class="tpl-left-nav-item">
+                        <a href="client_order_list.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-line-chart"></i>
+                            <span>Order List</span>
+                        </a>
+                    </li>
 
-                                            </tbody>
-                                        </table>
+                    <li class="tpl-left-nav-item">
+                        <a href="client_consign_list.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-globe"></i>
+                            <span>Consign List</span>
+                        </a>
+                    </li>
 
-                                        <div id="preserve_select_contacts_panel"
-                                             class="flow_preserve panel panel-default">
-                                            <div class="panel-heading">
-                                                <h3 class="panel-title">
-                                                    Select Contacts
-                                                    <button id="refresh_booking_contacts_button" type="button"
+                    <li class="tpl-left-nav-item">
+                        <a href="client_adsearch.html" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-users"></i>
+                            <span> Advanced Search</span>
+                        </a>
+                    </li>
+
+
+                    <li class="tpl-left-nav-item">
+                        <!-- 打开状态 a 标签添加 active 即可   -->
+                        <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-table"></i>
+                            <span>Execute Flow</span>
+                            <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+                        </a>
+                        <ul class="tpl-left-nav-sub-menu">
+                            <li>
+                                <!-- 打开状态 a 标签添加 active 即可   -->
+                                <a href="client_ticket_collect.html" class="active">
+                                    <i class="am-icon-user"></i>
+                                    <span>Ticket Collect</span>
+                                </a>
+
+                                <a href="client_enter_station.html">
+                                    <i class="am-icon-institution"></i>
+                                    <span>Enter Station</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="tpl-content-wrapper">
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        Ticket Booking
+                    </div>
+
+                </div>
+                <div class="tpl-block">
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <div class="panel-body">
+
+                                <!-------------------------Flow Preserve Login------------------->
+                                <a name="anchor_flow_preserve_login"></a>
+                                <div class="flow_preserve panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">
+                                            Ticket Selected <div id="my-svg"></div>
+                                        </h3>
+                                    </div>
+                                    <div class="group panel-body">
+                                        <form role='form' class='form-horizontal'>
+                                            <table id="tickets_booking_list_table" class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Trip Id</th>
+                                                        <th>From</th>
+                                                        <th>To</th>
+                                                        <th>Seat Type</th>
+                                                        <th>Seat Price</th>
+                                                        <th>date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!--This is an empty table body-->
+                                                    <!--<tr>-->
+                                                    <!--<td class='booking_tripId'> tripId </td>-->
+                                                    <!--<td class='booking_from'> from </td>-->
+                                                    <!--<td class='booking_to'> to </td>-->
+                                                    <!--<td class='booking_seatType'>seatType </td>-->
+                                                    <!--<td class='booking_seatPrice'> seatPrice </td>-->
+                                                    <!--<td class='booking_date'>  date </td>-->
+                                                    <!--</tr>-->
+
+                                                </tbody>
+                                            </table>
+
+                                            <div id="preserve_select_contacts_panel"
+                                                class="flow_preserve panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">
+                                                        Select Contacts
+                                                        <button id="refresh_booking_contacts_button" type="button"
                                                             class="btn btn-default btn-sm">Refresh Contacts
-                                                    </button>
-                                                </h3>
-                                            </div>
-                                            <div class="panel-body booking">
-                                                <form role='form' class='form-horizontal'>
-                                                    <table id="contacts_booking_list_table" class="table table-striped">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>No.</th>
-                                                            <th>Name</th>
-                                                            <th>Document Type</th>
-                                                            <th>Document Number</th>
-                                                            <th>Phone Number</th>
-                                                            <th>Operation</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <!----An empty table----->
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="form-group control_label_ssurance">
-                                                        <label class="col-sm-3 control-label">Assurance:</label>
-                                                        <div class="col-sm-4">
-                                                            <select id="assurance_type" name="assurance_type"
+                                                        </button>
+                                                    </h3>
+                                                </div>
+                                                <div class="panel-body booking">
+                                                    <form role='form' class='form-horizontal'>
+                                                        <table id="contacts_booking_list_table"
+                                                            class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No.</th>
+                                                                    <th>Name</th>
+                                                                    <th>Document Type</th>
+                                                                    <th>Document Number</th>
+                                                                    <th>Phone Number</th>
+                                                                    <th>Operation</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <!----An empty table----->
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="form-group control_label_ssurance">
+                                                            <label class="col-sm-3 control-label">Assurance:</label>
+                                                            <div class="col-sm-4">
+                                                                <select id="assurance_type" name="assurance_type"
                                                                     class="form-control">
-                                                            </select>
+                                                                </select>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="checkbox col-sm-4">
-                                                            <label  class="need_food">
-                                                                <input id="need-food-or-not" type="checkbox"
-                                                                       class="control-label" onclick="needFoodOrNot()">Need
-                                                                Food
-                                                            </label>
-                                                        </div>
-                                                        <div id="food-preserve-select" class="checkbox col-sm-4"
-                                                             style="display: none">
-                                                            <label>
-                                                                <select id="preserve_food_type"
+                                                        <div class="form-group">
+                                                            <div class="checkbox col-sm-4">
+                                                                <label class="need_food">
+                                                                    <input id="need-food-or-not" type="checkbox"
+                                                                        class="control-label"
+                                                                        onclick="needFoodOrNot()">Need
+                                                                    Food
+                                                                </label>
+                                                            </div>
+                                                            <div id="food-preserve-select" class="checkbox col-sm-4"
+                                                                style="display: none">
+                                                                <label>
+                                                                    <select id="preserve_food_type"
                                                                         name="preserve_food_type" class="form-control"
                                                                         onchange="changeFoodType()">
-                                                                    <option value="0" id="no-food">-- --</option>
-                                                                    <option value="1" id="train-food-option">Train
-                                                                        Food
-                                                                    </option>
-                                                                    <option value="2" id="station-food-option">Station
-                                                                        Food Stores
-                                                                    </option>
-                                                                </select>
-                                                            </label>
+                                                                        <option value="0" id="no-food">-- --</option>
+                                                                        <option value="1" id="train-food-option">Train
+                                                                            Food
+                                                                        </option>
+                                                                        <option value="2" id="station-food-option">
+                                                                            Station
+                                                                            Food Stores
+                                                                        </option>
+                                                                    </select>
+                                                                </label>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div id="train-food-selected" class="form-group"
-                                                         style="display: none">
-                                                        <select id="train-food-type-list" name="train-food-type-list"
-                                                                class="form-control">
-                                                        </select>
-                                                    </div>
-                                                    <div id="food-store-selected" class="form-group"
-                                                         style="display: none">
-                                                        <div class="col-sm-3">
-                                                            <select id="food-station-list" name="food-station-list"
+                                                        <div id="train-food-selected" class="form-group"
+                                                            style="display: none">
+                                                            <select id="train-food-type-list"
+                                                                name="train-food-type-list" class="form-control">
+                                                            </select>
+                                                        </div>
+                                                        <div id="food-store-selected" class="form-group"
+                                                            style="display: none">
+                                                            <div class="col-sm-3">
+                                                                <select id="food-station-list" name="food-station-list"
                                                                     class="form-control"
                                                                     onchange="preserveChangeFoodStation()">
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <select id="food-stores-list" name="food-stores-list"
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <select id="food-stores-list" name="food-stores-list"
                                                                     class="form-control"
                                                                     onchange="preserveChangeFoodStore()">
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <select id="food-store-food-list"
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <select id="food-store-food-list"
                                                                     name="food-store-food-list" class="form-control">
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Consign Panel -->
-                                                    <div class="form-group">
-                                                        <div class="col-sm-2 consign_ornot" >
-                                                            <label>
-                                                                <input id="need-consign-or-not" type="checkbox"
-                                                                       class="control-label"
-                                                                       onclick="needConsignOrNot()">&nbsp;&nbsp;Consign
-                                                            </label>
+                                                                </select>
+                                                            </div>
                                                         </div>
 
-                                                        <div class="col-sm-3 consign_input" style="display: none">
-                                                            <input id="name_of_consignee" class="form-control" name=''
-                                                                   placeholder="Consignee">
+                                                        <!-- Consign Panel -->
+                                                        <div class="form-group">
+                                                            <div class="col-sm-2 consign_ornot">
+                                                                <label>
+                                                                    <input id="need-consign-or-not" type="checkbox"
+                                                                        class="control-label"
+                                                                        onclick="needConsignOrNot()">&nbsp;&nbsp;Consign
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="col-sm-3 consign_input" style="display: none">
+                                                                <input id="name_of_consignee" class="form-control"
+                                                                    name='' placeholder="Consignee">
+                                                            </div>
+
+                                                            <div class="col-sm-3 consign_input" style="display: none">
+                                                                <input id="phone_of_consignee" class="form-control"
+                                                                    name='' placeholder="Phone">
+                                                            </div>
+
+                                                            <div class="col-sm-3 consign_input" style="display: none">
+                                                                <input id="weight_of_consign" class="form-control"
+                                                                    name='' placeholder="Weight">
+                                                            </div>
                                                         </div>
 
-                                                        <div class="col-sm-3 consign_input" style="display: none">
-                                                            <input id="phone_of_consignee" class="form-control" name=''
-                                                                   placeholder="Phone">
-                                                        </div>
-
-                                                        <div class="col-sm-3 consign_input" style="display: none">
-                                                            <input id="weight_of_consign" class="form-control" name=''
-                                                                   placeholder="Weight">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class='form-group'>
-                                                        <label class='col-sm-2 control-label'></label>
-                                                        <div class='col-sm-10'>
-                                                            <button id='ticket_select_contacts_cancel_btn' type='button'
-                                                                    class='btn btn-default'> Cancel
-                                                            </button>
-                                                            <button id='ticket_select_contacts_confirm_btn'
+                                                        <div class='form-group'>
+                                                            <label class='col-sm-2 control-label'></label>
+                                                            <div class='col-sm-10'>
+                                                                <button id='ticket_select_contacts_cancel_btn'
+                                                                    type='button' class='btn btn-default'> Cancel
+                                                                </button>
+                                                                <button id='ticket_select_contacts_confirm_btn'
                                                                     type='button' class='btn btn-primary'> Select
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <!--Prompt  Confirm-->
-                                                    <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
-                                                        <div class="am-modal-dialog" style="width:600px; font-size: 10px;padding-left: 15px;padding-right: 15px;margin-top:80px;">
-                                                            <div class="am-modal-hd">confirm ticket</div>
-
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>From:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                     <p id="sub_startP">Shang Hai</p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>To:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id = "sub_endP"> Su Zhou</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Trip Id:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_tripId">D1345</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Price:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_price">50.0</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Date:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_date">2018-07-19</p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Name:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_name">Contacts_One</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Seat Type:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_setType">confort seat</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Document Type:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_docType">ID Card</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>DocumentNumber:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_docNumber">DocumentNumber_One</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="am-g ticket-from-confirm">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>ContactsId:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_consNum">DocumentNumber_One</p>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="am-g ticket-from-confirm" id="sub_assurance_h" style="display:none">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Assurance:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_assurance">Traffic Accident Assurance $3</p>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="am-g ticket-from-confirm" id="sub_foodType_h" style="display:none">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Food Type:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                   <p id="sub_foodType">Station Food Stores</p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="am-g ticket-from-confirm" id="sub_foodName_h" style="display:none">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Food Name:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_foodName">Bone Soup</p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="am-g  ticket-from-confirm" id="sub_foodPrice_h" style="display:none">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Food Price:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_foodPrice">$2.5</p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="am-g ticket-from-confirm" id="sub_foodStation_h" style="display:none">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Food Station:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_foodStation">suzhou</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="am-g ticket-from-confirm" id="sub_storeName_h" style="display:none">
-                                                                <div class="am-form-group am-u-sm-5">
-                                                                    <label>Store Name:</label>
-                                                                </div>
-                                                                <div class="am-form-group am-u-sm-7">
-                                                                    <p id="sub_storeName">Roman Holiday</p>
-                                                                </div>
-                                                            </div>
-                                                            <div  style="display: none"  id="sub_consignse_h">
-                                                                <div class="am-g ticket-from-confirm">
-                                                                    <div class="am-form-group am-u-sm-5">
-                                                                        <label>Consignee Name:</label>
-                                                                    </div>
-                                                                    <div class="am-form-group am-u-sm-7">
-                                                                        <p id="sub_consName">12121212</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="am-g ticket-from-confirm">
-                                                                    <div class="am-form-group am-u-sm-5">
-                                                                        <label>Consignee Phone:</label>
-                                                                    </div>
-                                                                    <div class="am-form-group am-u-sm-7">
-                                                                        <p id="sub_consPhone">12344354454</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="am-g ticket-from-confirm">
-                                                                    <div class="am-form-group am-u-sm-5">
-                                                                        <label>Consign Weight:</label>
-                                                                    </div>
-                                                                    <div class="am-form-group am-u-sm-7">
-                                                                        <p id="sub_consWeight">12.3kg</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="am-modal-footer">
-                                                                <span class="am-modal-btn"
-                                                                      data-am-modal-cancel>Cancel</span>
-                                                                <span class="am-modal-btn"
-                                                                      data-am-modal-confirm>Submit</span>
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                </form>
+
+                                                        <!--Prompt  Confirm-->
+                                                        <div class="am-modal am-modal-prompt" tabindex="-1"
+                                                            id="my-prompt">
+                                                            <div class="am-modal-dialog"
+                                                                style="width:600px; font-size: 10px;padding-left: 15px;padding-right: 15px;margin-top:80px;">
+                                                                <div class="am-modal-hd">confirm ticket</div>
+
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>From:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_startP">Shang Hai</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>To:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_endP"> Su Zhou</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Trip Id:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_tripId">D1345</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Price:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_price">50.0</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Date:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_date">2018-07-19</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Name:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_name">Contacts_One</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Seat Type:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_setType">confort seat</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Document Type:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_docType">ID Card</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>DocumentNumber:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_docNumber">DocumentNumber_One</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="am-g ticket-from-confirm">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>ContactsId:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_consNum">DocumentNumber_One</p>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="am-g ticket-from-confirm"
+                                                                    id="sub_assurance_h" style="display:none">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Assurance:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_assurance">Traffic Accident Assurance
+                                                                            $3</p>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="am-g ticket-from-confirm"
+                                                                    id="sub_foodType_h" style="display:none">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Food Type:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_foodType">Station Food Stores</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="am-g ticket-from-confirm"
+                                                                    id="sub_foodName_h" style="display:none">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Food Name:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_foodName">Bone Soup</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="am-g  ticket-from-confirm"
+                                                                    id="sub_foodPrice_h" style="display:none">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Food Price:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_foodPrice">$2.5</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="am-g ticket-from-confirm"
+                                                                    id="sub_foodStation_h" style="display:none">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Food Station:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_foodStation">suzhou</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="am-g ticket-from-confirm"
+                                                                    id="sub_storeName_h" style="display:none">
+                                                                    <div class="am-form-group am-u-sm-5">
+                                                                        <label>Store Name:</label>
+                                                                    </div>
+                                                                    <div class="am-form-group am-u-sm-7">
+                                                                        <p id="sub_storeName">Roman Holiday</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="display: none" id="sub_consignse_h">
+                                                                    <div class="am-g ticket-from-confirm">
+                                                                        <div class="am-form-group am-u-sm-5">
+                                                                            <label>Consignee Name:</label>
+                                                                        </div>
+                                                                        <div class="am-form-group am-u-sm-7">
+                                                                            <p id="sub_consName">12121212</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="am-g ticket-from-confirm">
+                                                                        <div class="am-form-group am-u-sm-5">
+                                                                            <label>Consignee Phone:</label>
+                                                                        </div>
+                                                                        <div class="am-form-group am-u-sm-7">
+                                                                            <p id="sub_consPhone">12344354454</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="am-g ticket-from-confirm">
+                                                                        <div class="am-form-group am-u-sm-5">
+                                                                            <label>Consign Weight:</label>
+                                                                        </div>
+                                                                        <div class="am-form-group am-u-sm-7">
+                                                                            <p id="sub_consWeight">12.3kg</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="am-modal-footer">
+                                                                    <span class="am-modal-btn"
+                                                                        data-am-modal-cancel>Cancel</span>
+                                                                    <span class="am-modal-btn"
+                                                                        data-am-modal-confirm>Submit</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="tpl-alert"></div>
             </div>
-            <div class="tpl-alert"></div>
         </div>
     </div>
-</div>
 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/amazeui.min.js"></script>
-<script src="assets/js/app.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 
 </html>

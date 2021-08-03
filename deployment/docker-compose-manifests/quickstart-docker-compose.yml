@@ -33,7 +33,7 @@ services:
       - my-network
 
   ts-ui-dashboard:
-    image: codewisdom/ts-ui-dashboard:0.0.4
+    image: ${NAMESPACE}/ts-ui-dashboard:${TAG}
     restart: always
     ports:
       - 8080:8080
@@ -41,7 +41,7 @@ services:
       - my-network
 
   ts-auth-service:
-    image: codewisdom/ts-auth-service:0.0.4
+    image: ${NAMESPACE}/ts-auth-service:${TAG}
     restart: always
     ports:
       - 12340:12340
@@ -54,7 +54,7 @@ services:
       - my-network
 
   ts-user-service:
-    image: codewisdom/ts-user-service:0.0.4
+    image: ${NAMESPACE}/ts-user-service:${TAG}
     restart: always
     ports:
       - 12342:12342
@@ -67,7 +67,7 @@ services:
       - my-network
 
   ts-verification-code-service:
-    image: codewisdom/ts-verification-code-service:0.0.4
+    image: ${NAMESPACE}/ts-verification-code-service:${TAG}
     restart: always
     ports:
       - 15678:15678
@@ -81,7 +81,7 @@ services:
       - my-network
 
   ts-route-service:
-    image: codewisdom/ts-route-service:0.0.4
+    image: ${NAMESPACE}/ts-route-service:${TAG}
     restart: always
     ports:
          - 11178:11178
@@ -94,7 +94,7 @@ services:
         - my-network
 
   ts-contacts-service:
-    image: codewisdom/ts-contacts-service:0.0.4
+    image: ${NAMESPACE}/ts-contacts-service:${TAG}
     restart: always
     ports:
       - 12347:12347
@@ -107,7 +107,7 @@ services:
         - my-network
 
   ts-order-service:
-    image: codewisdom/ts-order-service:0.0.4
+    image: ${NAMESPACE}/ts-order-service:${TAG}
     restart: always
     ports:
       - 12031:12031
@@ -121,7 +121,7 @@ services:
 
 
   ts-order-other-service:
-    image: codewisdom/ts-order-other-service:0.0.4
+    image: ${NAMESPACE}/ts-order-other-service:${TAG}
     restart: always
     ports:
       - 12032:12032
@@ -135,7 +135,7 @@ services:
 
 
   ts-config-service:
-    image: codewisdom/ts-config-service:0.0.4
+    image: ${NAMESPACE}/ts-config-service:${TAG}
     restart: always
     ports:
       - 15679:15679
@@ -148,7 +148,7 @@ services:
       - my-network
 
   ts-station-service:
-    image: codewisdom/ts-station-service:0.0.4
+    image: ${NAMESPACE}/ts-station-service:${TAG}
     restart: always
     ports:
       - 12345:12345
@@ -161,7 +161,7 @@ services:
       - my-network
 
   ts-train-service:
-    image: codewisdom/ts-train-service:0.0.4
+    image: ${NAMESPACE}/ts-train-service:${TAG}
     restart: always
     ports:
       - 14567:14567
@@ -174,7 +174,7 @@ services:
       - my-network
 
   ts-travel-service:
-    image: codewisdom/ts-travel-service:0.0.4
+    image: ${NAMESPACE}/ts-travel-service:${TAG}
     restart: always
     ports:
       - 12346:12346
@@ -187,7 +187,7 @@ services:
       - my-network
 
   ts-travel2-service:
-      image: codewisdom/ts-travel2-service:0.0.4
+      image: ${NAMESPACE}/ts-travel2-service:${TAG}
       restart: always
       ports:
         - 16346:16346
@@ -200,7 +200,7 @@ services:
         - my-network
 
   ts-preserve-service:
-    image: codewisdom/ts-preserve-service:0.0.4
+    image: ${NAMESPACE}/ts-preserve-service:${TAG}
     restart: always
     ports:
       - 14568:14568
@@ -208,7 +208,7 @@ services:
       - my-network
 
   ts-preserve-other-service:
-    image: codewisdom/ts-preserve-other-service:0.0.4
+    image: ${NAMESPACE}/ts-preserve-other-service:${TAG}
     restart: always
     ports:
       - 14569:14569
@@ -217,7 +217,7 @@ services:
 
 
   ts-basic-service:
-      image: codewisdom/ts-basic-service:0.0.4
+      image: ${NAMESPACE}/ts-basic-service:${TAG}
       restart: always
       ports:
         - 15680:15680
@@ -225,7 +225,7 @@ services:
           - my-network
 
   ts-ticketinfo-service:
-        image: codewisdom/ts-ticketinfo-service:0.0.4
+        image: ${NAMESPACE}/ts-ticketinfo-service:${TAG}
         restart: always
         ports:
           - 15681:15681
@@ -233,7 +233,7 @@ services:
           - my-network
 
   ts-price-service:
-        image: codewisdom/ts-price-service:0.0.4
+        image: ${NAMESPACE}/ts-price-service:${TAG}
         restart: always
         ports:
           - 16579:16579
@@ -246,7 +246,7 @@ services:
           - my-network
 
   ts-notification-service:
-        image: codewisdom/ts-notification-service:0.0.4
+        image: ${NAMESPACE}/ts-notification-service:${TAG}
         restart: always
         ports:
           - 17853:17853
@@ -254,7 +254,7 @@ services:
           - my-network
 
   ts-security-service:
-        image: codewisdom/ts-security-service:0.0.4
+        image: ${NAMESPACE}/ts-security-service:${TAG}
         restart: always
         ports:
           - 11188:11188
@@ -267,7 +267,7 @@ services:
           - my-network
 
   ts-inside-payment-service:
-        image: codewisdom/ts-inside-payment-service:0.0.4
+        image: ${NAMESPACE}/ts-inside-payment-service:${TAG}
         restart: always
         ports:
           - 18673:18673
@@ -280,7 +280,7 @@ services:
           - my-network
 
   ts-execute-service:
-        image: codewisdom/ts-execute-service:0.0.4
+        image: ${NAMESPACE}/ts-execute-service:${TAG}
         restart: always
         ports:
           - 12386:12386
@@ -288,7 +288,7 @@ services:
           - my-network
 
   ts-payment-service:
-        image: codewisdom/ts-payment-service:0.0.4
+        image: ${NAMESPACE}/ts-payment-service:${TAG}
         restart: always
         ports:
           - 19001:19001
@@ -301,7 +301,7 @@ services:
           - my-network
 
   ts-rebook-service:
-        image: codewisdom/ts-rebook-service:0.0.4
+        image: ${NAMESPACE}/ts-rebook-service:${TAG}
         restart: always
         ports:
           - 18886:18886
@@ -314,7 +314,7 @@ services:
           - my-network
 
   ts-cancel-service:
-        image: codewisdom/ts-cancel-service:0.0.4
+        image: ${NAMESPACE}/ts-cancel-service:${TAG}
         restart: always
         ports:
           - 18885:18885
@@ -322,7 +322,7 @@ services:
           - my-network
 
   ts-assurance-service:
-        image: codewisdom/ts-assurance-service:0.0.4
+        image: ${NAMESPACE}/ts-assurance-service:${TAG}
         restart: always
         ports:
           - 18888:18888
@@ -335,7 +335,7 @@ services:
           - my-network
 
   ts-seat-service:
-        image: codewisdom/ts-seat-service:0.0.4
+        image: ${NAMESPACE}/ts-seat-service:${TAG}
         restart: always
         ports:
           - 18898:18898
@@ -343,7 +343,7 @@ services:
           - my-network
 
   ts-travel-plan-service:
-        image: codewisdom/ts-travel-plan-service:0.0.4
+        image: ${NAMESPACE}/ts-travel-plan-service:${TAG}
         restart: always
         ports:
           - 14322:14322
@@ -351,7 +351,7 @@ services:
           - my-network
 
   ts-ticket-office-service:
-        image: codewisdom/ts-ticket-office-service:0.0.4
+        image: ${NAMESPACE}/ts-ticket-office-service:${TAG}
         restart: always
         ports:
           - 16108:16108
@@ -364,7 +364,7 @@ services:
             - my-network
 
   ts-news-service:
-    image: codewisdom/ts-news-service:0.0.4
+    image: ${NAMESPACE}/ts-news-service:${TAG}
     restart: always
     ports:
       - 12862:12862
@@ -386,7 +386,7 @@ services:
            - my-network
 
   ts-voucher-service:
-          image: codewisdom/ts-voucher-service:0.0.4
+          image: ${NAMESPACE}/ts-voucher-service:${TAG}
           restart: always
           ports:
             - 16101:16101
@@ -398,7 +398,7 @@ services:
             - my-network
 
   ts-food-map-service:
-        image: codewisdom/ts-food-map-service:0.0.4
+        image: ${NAMESPACE}/ts-food-map-service:${TAG}
         restart: always
         ports:
           - 18855:18855
@@ -411,7 +411,7 @@ services:
             - my-network
 
   ts-route-plan-service:
-          image: codewisdom/ts-route-plan-service:0.0.4
+          image: ${NAMESPACE}/ts-route-plan-service:${TAG}
           restart: always
           ports:
             - 14578:14578
@@ -419,86 +419,86 @@ services:
             - my-network
 
   ts-food-service:
-      image: codewisdom/ts-food-service:0.0.4
-      restart: always
-      ports:
-        - 18856:18856
-      networks:
-        - my-network
+    image: ${NAMESPACE}/ts-food-service:${TAG}
+    restart: always
+    ports:
+      - 18856:18856
+    networks:
+      - my-network
 
   ts-consign-service:
-            image: codewisdom/ts-consign-service:0.0.4
-            restart: always
-            ports:
-              - 16111:16111
-            networks:
-              - my-network
+    image: ${NAMESPACE}/ts-consign-service:${TAG}
+    restart: always
+    ports:
+      - 16111:16111
+    networks:
+      - my-network
 
   ts-consign-mongo:
-            image: mongo
-            networks:
-              - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-consign-price-service:
-            image: codewisdom/ts-consign-price-service:0.0.4
-            restart: always
-            ports:
-              - 16110:16110
-            networks:
-              - my-network
+    image: ${NAMESPACE}/ts-consign-price-service:${TAG}
+    restart: always
+    ports:
+      - 16110:16110
+    networks:
+      - my-network
 
   ts-consign-price-mongo:
-            image: mongo
-            networks:
-              - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-food-mongo:
-            image: mongo
-            networks:
-              - my-network
+    image: mongo
+    networks:
+      - my-network
 
   ts-admin-basic-info-service:
-        image: codewisdom/ts-admin-basic-info-service:0.0.4
-        restart: always
-        ports:
-          - 18767:18767
-        networks:
-          - my-network
+    image: ${NAMESPACE}/ts-admin-basic-info-service:${TAG}
+    restart: always
+    ports:
+      - 18767:18767
+    networks:
+      - my-network
 
   ts-admin-order-service:
-            image: codewisdom/ts-admin-order-service:0.0.4
-            restart: always
-            ports:
-              - 16112:16112
-            networks:
-              - my-network
+    image: ${NAMESPACE}/ts-admin-order-service:${TAG}
+    restart: always
+    ports:
+      - 16112:16112
+    networks:
+      - my-network
 
   ts-admin-route-service:
-              image: codewisdom/ts-admin-route-service:0.0.4
-              restart: always
-              ports:
-                - 16113:16113
-              deploy:
-                replicas: 1
-                restart_policy:
-                  condition: on-failure
-              networks:
-                - my-network
+    image: ${NAMESPACE}/ts-admin-route-service:${TAG}
+    restart: always
+    ports:
+      - 16113:16113
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - my-network
 
   ts-admin-travel-service:
-                image: codewisdom/ts-admin-travel-service:0.0.4
-                restart: always
-                ports:
-                  - 16114:16114
-                deploy:
-                  replicas: 1
-                  restart_policy:
-                    condition: on-failure
-                networks:
-                  - my-network
+    image: ${NAMESPACE}/ts-admin-travel-service:${TAG}
+    restart: always
+    ports:
+      - 16114:16114
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - my-network
 
   ts-admin-user-service:
-    image: codewisdom/ts-admin-user-service:0.0.4
+    image: ${NAMESPACE}/ts-admin-user-service:${TAG}
     restart: always
     ports:
       - 16115:16115
@@ -509,6 +509,13 @@ services:
     networks:
       - my-network
 
+  ts-avatar-service:
+    image: ${NAMESPACE}/ts-avatar-service:${TAG}
+    restart: always
+    ports:
+      - 17001:17001
+    networks:
+      - my-network
 
 networks:
     my-network:

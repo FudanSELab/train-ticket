@@ -8,7 +8,7 @@ $("#logout_button").click(function () {
     }
     logoutInfo.token = sessionStorage.getItem("client_token");
     if (logoutInfo.token == null || logoutInfo.token == "") {
-         // alert("No cookie named 'loginToken' exist.  please login");
+        // alert("No cookie named 'loginToken' exist.  please login");
         location.href = "client_login.html";
         return;
     }
@@ -48,6 +48,28 @@ $("#logout_button").click(function () {
     //     }
     // });
 });
+
+$("#name-wrap").click(function () {
+
+    var logoutInfo = new Object();
+    logoutInfo.id = sessionStorage.getItem("client_id");
+    if (logoutInfo.id == null || logoutInfo.id == "") {
+        //alert("No cookie named 'loginId' exist. please login");
+        location.href = "client_login.html";
+        return;
+    }
+    logoutInfo.token = sessionStorage.getItem("client_token");
+    if (logoutInfo.token == null || logoutInfo.token == "") {
+        // alert("No cookie named 'loginToken' exist.  please login");
+        location.href = "client_login.html";
+        return;
+    }
+
+})
+
+$("#upload-avatar").click(function () {
+    location.href = "upload_avatar.html"
+})
 
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();

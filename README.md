@@ -88,6 +88,12 @@ In order to know how to use the application, you can refer to [the User Guide](h
 
 * [Release Note](https://github.com/FudanSELab/train-ticket/wiki/Release-Note)
 
+## Serverless Train Ticket
+
+We have released a serverless version of Train Ticket.
+
+* [serverless-trainticket](https://github.com/FudanSELab/serverless-trainticket)
+
 ## Paper Reference
 
 
