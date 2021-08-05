@@ -1,7 +1,7 @@
 # Codewisdom Train-Ticket system
 
 Username=codewisdom
-Tag=0.1.0
+Tag=$$(cat version)
 
 # build image
 .PHONY: build
@@ -9,7 +9,7 @@ build: clean-image package build-image
 
 .PHONY: package
 package:
-	mvn clean package
+	@mvn clean package
 
 .PHONY: build-image
 build-image:
