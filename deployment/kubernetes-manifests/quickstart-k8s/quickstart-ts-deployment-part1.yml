@@ -684,7 +684,7 @@ spec:
     spec:
       containers:
         - name: rabbitmq
-          image: registry.cn-hangzhou.aliyuncs.com/h10g/rabbitmq:3
+          image: rabbitmq:3
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5672
