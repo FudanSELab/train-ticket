@@ -31,5 +31,4 @@ jobs:
             ${{ runner.os }}-buildx-
 
       - run: |
-          make build-image
-          make push-image
+          make build push-image
