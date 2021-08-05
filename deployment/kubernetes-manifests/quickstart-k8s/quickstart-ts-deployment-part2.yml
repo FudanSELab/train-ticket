@@ -14,19 +14,13 @@ spec:
     spec:
       containers:
         - name: ts-admin-basic-info-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-admin-basic-info-service:sw1.6
+          image: codewisdom/ts-admin-basic-info-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 18767
           resources:
@@ -61,19 +55,13 @@ spec:
     spec:
       containers:
         - name: ts-admin-order-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-admin-order-service:sw1.6
+          image: codewisdom/ts-admin-order-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16112
           resources:
@@ -107,19 +95,13 @@ spec:
     spec:
       containers:
         - name: ts-admin-route-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-admin-route-service:sw1.6
+          image: codewisdom/ts-admin-route-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16113
           resources:
@@ -153,19 +135,13 @@ spec:
     spec:
       containers:
         - name: ts-admin-travel-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-admin-travel-service:sw1.6
+          image: codewisdom/ts-admin-travel-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16114
           resources:
@@ -199,19 +175,13 @@ spec:
     spec:
       containers:
         - name: ts-admin-user-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-admin-user-service:sw1.6
+          image: codewisdom/ts-admin-user-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16115
           resources:
@@ -245,19 +215,13 @@ spec:
     spec:
       containers:
         - name: ts-assurance-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-assurance-service:sw1.6
+          image: codewisdom/ts-assurance-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 18888
           resources:
@@ -291,19 +255,13 @@ spec:
     spec:
       containers:
         - name: ts-basic-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-basic-service:sw1.6
+          image: codewisdom/ts-basic-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 15680
           resources:
@@ -337,19 +295,13 @@ spec:
     spec:
       containers:
         - name: ts-cancel-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-cancel-service:sw1.6
+          image: codewisdom/ts-cancel-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 18885
           resources:
@@ -383,19 +335,13 @@ spec:
     spec:
       containers:
         - name: ts-config-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-config-service:sw1.6
+          image: codewisdom/ts-config-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 15679
           resources:
@@ -429,19 +375,13 @@ spec:
     spec:
       containers:
         - name: ts-consign-price-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-consign-price-service:sw1.6
+          image: codewisdom/ts-consign-price-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16110
           resources:
@@ -475,19 +415,13 @@ spec:
     spec:
       containers:
         - name: ts-consign-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-consign-service:sw1.6
+          image: codewisdom/ts-consign-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16111
           resources:
@@ -521,19 +455,13 @@ spec:
     spec:
       containers:
         - name: ts-contacts-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-contacts-service:sw1.6
+          image: codewisdom/ts-contacts-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 12347
           resources:
@@ -567,19 +495,13 @@ spec:
     spec:
       containers:
         - name: ts-execute-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-execute-service:sw1.6
+          image: codewisdom/ts-execute-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 12386
           resources:
@@ -613,19 +535,13 @@ spec:
     spec:
       containers:
         - name: ts-food-map-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-food-map-service:sw1.6
+          image: codewisdom/ts-food-map-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 18855
           resources:
@@ -659,19 +575,13 @@ spec:
     spec:
       containers:
         - name: ts-food-service
-          image: registry.cn-hangzhou.aliyuncs.com/h10g/mq-ts-food-service:0.1
+          image: codewisdom/ts-food-service:0.1
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
             - name: rabbitmq_host
               value: "rabbitmq"
             - name: rabbitmq_port
@@ -709,19 +619,13 @@ spec:
     spec:
       containers:
         - name: ts-inside-payment-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-inside-payment-service:sw1.6
+          image: codewisdom/ts-inside-payment-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 18673
           resources:
@@ -755,19 +659,13 @@ spec:
     spec:
       containers:
         - name: ts-auth-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-auth-service:sw1.6
+          image: codewisdom/ts-auth-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 12340
           resources:
@@ -801,19 +699,13 @@ spec:
     spec:
       containers:
         - name: ts-news-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-news-service:sw1.6
+          image: codewisdom/ts-news-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 12862
           resources:
@@ -847,19 +739,13 @@ spec:
     spec:
       containers:
         - name: ts-notification-service
-          image: registry.cn-hangzhou.aliyuncs.com/h10g/ts-notification-service:1.0
+          image: codewisdom/ts-notification-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
             - name: email_address
               value: "trainticket_notify@163.com"
             - name: email_password
@@ -901,19 +787,13 @@ spec:
     spec:
       containers:
         - name: ts-order-other-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-order-other-service:sw1.6
+          image: codewisdom/ts-order-other-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 12032
           resources:
@@ -947,19 +827,13 @@ spec:
     spec:
       containers:
         - name: ts-order-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-order-service:sw1.6
+          image: codewisdom/ts-order-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 12031
           resources:
@@ -993,19 +867,13 @@ spec:
     spec:
       containers:
         - name: ts-payment-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-payment-service:sw1.6
+          image: codewisdom/ts-payment-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 19001
           resources:
@@ -1039,19 +907,13 @@ spec:
     spec:
       containers:
         - name: ts-preserve-other-service
-          image: registry.cn-hangzhou.aliyuncs.com/h10g/mq-ts-preserve-other-service:1.0
+          image: codewisdom/ts-preserve-other-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
             - name: rabbitmq_host
               value: "rabbitmq"
             - name: rabbitmq_port
@@ -1089,19 +951,13 @@ spec:
     spec:
       containers:
         - name: ts-preserve-service
-          image: registry.cn-hangzhou.aliyuncs.com/h10g/mq-ts-preserve-service:1.0
+          image: codewisdom/ts-preserve-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
             - name: rabbitmq_host
               value: "rabbitmq"
             - name: rabbitmq_port
@@ -1139,19 +995,13 @@ spec:
     spec:
       containers:
         - name: ts-price-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-price-service:sw1.6
+          image: codewisdom/ts-price-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16579
           resources:
@@ -1185,19 +1035,13 @@ spec:
     spec:
       containers:
         - name: ts-rebook-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-rebook-service:sw1.6
+          image: codewisdom/ts-rebook-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 18886
           resources:
@@ -1231,19 +1075,13 @@ spec:
     spec:
       containers:
         - name: ts-route-plan-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-route-plan-service:sw1.6
+          image: codewisdom/ts-route-plan-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 14578
           resources:
@@ -1277,19 +1115,13 @@ spec:
     spec:
       containers:
         - name: ts-route-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-route-service:sw1.6
+          image: codewisdom/ts-route-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 11178
           resources:
@@ -1323,19 +1155,13 @@ spec:
     spec:
       containers:
         - name: ts-seat-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-seat-service:sw1.6
+          image: codewisdom/ts-seat-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 18898
           resources:
@@ -1369,19 +1195,13 @@ spec:
     spec:
       containers:
         - name: ts-security-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-security-service:sw1.6
+          image: codewisdom/ts-security-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 11188
           resources:
@@ -1415,19 +1235,13 @@ spec:
     spec:
       containers:
         - name: ts-user-service
-          image: registry.cn-hangzhou.aliyuncs.com/h10g/ts-user-service:1.0
+          image: codewisdom/ts-user-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 12342
           resources:
@@ -1461,19 +1275,13 @@ spec:
     spec:
       containers:
         - name: ts-station-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-station-service:sw1.6
+          image: codewisdom/ts-station-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 12345
           resources:
@@ -1507,19 +1315,13 @@ spec:
     spec:
       containers:
         - name: ts-ticket-office-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-ticket-office-service:sw1.6
+          image: codewisdom/ts-ticket-office-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16108
           resources:
@@ -1553,19 +1355,13 @@ spec:
     spec:
       containers:
         - name: ts-ticketinfo-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-ticketinfo-service:sw1.6
+          image: codewisdom/ts-ticketinfo-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 15681
           resources:
@@ -1599,19 +1395,13 @@ spec:
     spec:
       containers:
         - name: ts-train-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-train-service:sw1.6
+          image: codewisdom/ts-train-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 14567
           resources:
@@ -1645,19 +1435,13 @@ spec:
     spec:
       containers:
         - name: ts-travel2-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-travel2-service:sw1.6
+          image: codewisdom/ts-travel2-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16346
           resources:
@@ -1691,19 +1475,13 @@ spec:
     spec:
       containers:
         - name: ts-travel-plan-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-travel-plan-service:sw1.6
+          image: codewisdom/ts-travel-plan-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 14322
           resources:
@@ -1737,19 +1515,13 @@ spec:
     spec:
       containers:
         - name: ts-travel-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-travel-service:sw1.6
+          image: codewisdom/ts-travel-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 12346
           resources:
@@ -1783,19 +1555,13 @@ spec:
     spec:
       containers:
         - name: ts-delivery-service
-          image: registry.cn-hangzhou.aliyuncs.com/h10g/ts-delivery-service:1.0
+          image: codewisdom/ts-delivery-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
             - name: rabbitmq_host
               value: "rabbitmq"
             - name: rabbitmq_port
@@ -1834,19 +1600,13 @@ spec:
     spec:
       containers:
         - name: ts-verification-code-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-verification-code-service:sw1.6
+          image: codewisdom/ts-verification-code-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 15678
           resources:
@@ -1880,19 +1640,13 @@ spec:
     spec:
       containers:
         - name: ts-voucher-service
-          image: registry.cn-hangzhou.aliyuncs.com/lavenpok/ts-voucher-service:sw1.6
+          image: codewisdom/ts-voucher-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "172.19.109.144:11800"
-            - name: SW_GRPC_LOG_SERVER_HOST
-              value: "172.19.109.144"
-            - name: SW_GRPC_LOG_SERVER_PORT
-              value: "11800"
           ports:
             - containerPort: 16101
           resources:
