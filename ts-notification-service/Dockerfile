@@ -1,4 +1,4 @@
-FROM registry.cn-hangzhou.aliyuncs.com/h10g/skywalking-agent-rabbit-enhance:1.0
+FROM java:8-jre
 
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
