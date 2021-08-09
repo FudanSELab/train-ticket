@@ -29,3 +29,15 @@ clean:
 .PHONY: clean-image
 clean-image:
 	@hack/clean-image.sh $(Username)
+
+# license-check: Check source codes for Apache License
+.PHONY: license-check clean-license-checker
+license-check:
+ifeq ("$(wildcard .actions/openwhisk-utilities/scancode/scanCode.py)", "")
+	git clone https://github.com/apache/openwhisk-utilities.git .actions/openwhisk-utilities
+	cp .actions/ASF* .actions/openwhisk-utilities/scancode/
+endif
+	.actions/openwhisk-utilities/scancode/scanCode.py ./
+
+clean-license-checker:
+	@rm -rf .actions/openwhisk-utilities
