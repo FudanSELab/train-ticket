@@ -31,35 +31,35 @@ public class SecurityController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/securityConfigs")
     public HttpEntity findAllSecurityConfig(@RequestHeader HttpHeaders headers) {
-        SecurityController.LOGGER.info("[Security Service][Find All]");
+        SecurityController.LOGGER.info("[Find All]");
         return ok(securityService.findAllSecurityConfig(headers));
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/securityConfigs")
     public HttpEntity create(@RequestBody SecurityConfig info, @RequestHeader HttpHeaders headers) {
-        SecurityController.LOGGER.info("[Security Service][Create] Name: {}", info.getName());
+        SecurityController.LOGGER.info("[Create] SecurityConfig Name: {}", info.getName());
         return ok(securityService.addNewSecurityConfig(info, headers));
     }
 
     @CrossOrigin(origins = "*")
     @PutMapping(path = "/securityConfigs")
     public HttpEntity update(@RequestBody SecurityConfig info, @RequestHeader HttpHeaders headers) {
-        SecurityController.LOGGER.info("[Security Service][Update] Name: {}", info.getName());
+        SecurityController.LOGGER.info("[Update] SecurityConfig Name: {}", info.getName());
         return ok(securityService.modifySecurityConfig(info, headers));
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping(path = "/securityConfigs/{id}")
     public HttpEntity delete(@PathVariable String id, @RequestHeader HttpHeaders headers) {
-        SecurityController.LOGGER.info("[Security Service][Delete] Id: {}", id);
+        SecurityController.LOGGER.info("[Delete] SecurityConfig Id: {}", id);
         return ok(securityService.deleteSecurityConfig(id, headers));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/securityConfigs/{accountId}")
     public HttpEntity check(@PathVariable String accountId, @RequestHeader HttpHeaders headers) {
-        SecurityController.LOGGER.info("[Security Service][Check Security] Check Account Id: {}", accountId);
+        SecurityController.LOGGER.info("[Check Security] Check Account Id: {}", accountId);
         return ok(securityService.check(accountId, headers));
     }
 

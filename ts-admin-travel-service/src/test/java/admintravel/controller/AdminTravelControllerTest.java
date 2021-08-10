@@ -39,8 +39,7 @@ public class AdminTravelControllerTest {
     @Test
     public void testHome() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/admintravelservice/welcome"))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.content().string("Welcome to [ AdminTravel Service ] !"));
+            .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test

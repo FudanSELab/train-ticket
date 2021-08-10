@@ -1,73 +1,74 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.services</groupId>
-	<artifactId>ts-service</artifactId>
-	<version>0.1.0</version>
-	<packaging>pom</packaging>
-	<name>ts-service-cluster</name>
+    <groupId>org.services</groupId>
+    <artifactId>ts-service</artifactId>
+    <version>0.1.0</version>
+    <packaging>pom</packaging>
+    <name>ts-service-cluster</name>
 
-	<parent>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.22.RELEASE</version>
     </parent>
 
-	<modules>
-		<module>ts-verification-code-service</module>
-		<module>ts-contacts-service</module>
-		<module>ts-order-service</module>
-		<module>ts-order-other-service</module>
-		<module>ts-config-service</module>
-		<module>ts-station-service</module>
-		<module>ts-train-service</module>
-		<module>ts-travel-service</module>
-		<module>ts-travel2-service</module>
-		<module>ts-preserve-service</module>
-		<module>ts-preserve-other-service</module>
-		<module>ts-basic-service</module>
-		<module>ts-ticketinfo-service</module>
-		<module>ts-price-service</module>
-		<module>ts-notification-service</module>
-		<module>ts-security-service</module>
-		<module>ts-inside-payment-service</module>
-		<module>ts-execute-service</module>
-		<module>ts-payment-service</module>
-		<module>ts-rebook-service</module>
-		<module>ts-cancel-service</module>
+    <modules>
+        <module>ts-verification-code-service</module>
+        <module>ts-contacts-service</module>
+        <module>ts-order-service</module>
+        <module>ts-order-other-service</module>
+        <module>ts-config-service</module>
+        <module>ts-station-service</module>
+        <module>ts-train-service</module>
+        <module>ts-travel-service</module>
+        <module>ts-travel2-service</module>
+        <module>ts-preserve-service</module>
+        <module>ts-preserve-other-service</module>
+        <module>ts-basic-service</module>
+        <module>ts-ticketinfo-service</module>
+        <module>ts-price-service</module>
+        <module>ts-notification-service</module>
+        <module>ts-security-service</module>
+        <module>ts-inside-payment-service</module>
+        <module>ts-execute-service</module>
+        <module>ts-payment-service</module>
+        <module>ts-rebook-service</module>
+        <module>ts-cancel-service</module>
         <module>ts-route-service</module>
-		<module>ts-assurance-service</module>
-		<module>ts-seat-service</module>
-		<module>ts-travel-plan-service</module>
-		<module>ts-route-plan-service</module>
-		<module>ts-food-map-service</module>
+        <module>ts-assurance-service</module>
+        <module>ts-seat-service</module>
+        <module>ts-travel-plan-service</module>
+        <module>ts-route-plan-service</module>
+        <module>ts-food-map-service</module>
         <module>ts-food-service</module>
-		<module>ts-consign-price-service</module>
+        <module>ts-consign-price-service</module>
         <module>ts-consign-service</module>
-		<module>ts-admin-order-service</module>
-		<module>ts-admin-basic-info-service</module>
+        <module>ts-admin-order-service</module>
+        <module>ts-admin-basic-info-service</module>
         <module>ts-admin-route-service</module>
         <module>ts-admin-travel-service</module>
-		<module>ts-admin-user-service</module>
+        <module>ts-admin-user-service</module>
         <module>ts-common</module>
         <module>ts-auth-service</module>
-		<module>ts-user-service</module>
-		<!--<module>ts-ticket-advance-service</module>-->
-		<!--<module>1_services_analysis_mvn</module>-->
+        <module>ts-user-service</module>
+        <module>ts-delivery-service</module>
+        <!--<module>ts-ticket-advance-service</module>-->
+        <!--<module>1_services_analysis_mvn</module>-->
     </modules>
 
 
-	<dependencies>
+    <dependencies>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-integration</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-integration</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -76,131 +77,145 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>2.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>2.4.0</version>
-		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.4.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<version>1.2.31</version>
-		</dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.31</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+            <version>8.6.0</version>
+        </dependency>
     </dependencies>
 
-	<!--<repositories>-->
-		<!--<repository>-->
-			<!--<id>spring-snapshots</id>-->
-			<!--<name>Spring Snapshots</name>-->
-			<!--<url>https://repo.spring.io/libs-snapshot</url>-->
-			<!--<snapshots>-->
-				<!--<enabled>true</enabled>-->
-			<!--</snapshots>-->
-		<!--</repository>-->
-	<!--</repositories>-->
-	
+    <!--<repositories>-->
+    <!--<repository>-->
+    <!--<id>spring-snapshots</id>-->
+    <!--<name>Spring Snapshots</name>-->
+    <!--<url>https://repo.spring.io/libs-snapshot</url>-->
+    <!--<snapshots>-->
+    <!--<enabled>true</enabled>-->
+    <!--</snapshots>-->
+    <!--</repository>-->
+    <!--</repositories>-->
+
     <build>
-       <plugins>
-	  <plugin>
-	    <groupId>org.apache.maven.plugins</groupId>
-	    <artifactId>maven-pmd-plugin</artifactId>
-	    <version>3.8</version>
-	    <configuration>
-		<rulesets>
-		    <ruleset>rulesets/java/ali-comment.xml</ruleset>
-		    <ruleset>rulesets/java/ali-concurrent.xml</ruleset>
-		    <ruleset>rulesets/java/ali-constant.xml</ruleset>
-		    <ruleset>rulesets/java/ali-exception.xml</ruleset>
-		    <ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>
-		    <ruleset>rulesets/java/ali-naming.xml</ruleset>
-		    <ruleset>rulesets/java/ali-oop.xml</ruleset>
-		    <ruleset>rulesets/java/ali-orm.xml</ruleset>
-		    <ruleset>rulesets/java/ali-other.xml</ruleset>
-		    <ruleset>rulesets/java/ali-set.xml</ruleset>
-		</rulesets>
-		<printFailingErrors>true</printFailingErrors>
-	    </configuration>
-	    <executions>
-		<execution>
-		    <goals>
-			<goal>check</goal>
-		    </goals>
-		</execution>
-	    </executions>
-	    <dependencies>
-		<dependency>
-		    <groupId>com.alibaba.p3c</groupId>
-		    <artifactId>p3c-pmd</artifactId>
-		    <version>1.3.5</version>
-		</dependency>
-	    </dependencies>
-	  </plugin>
-	       
-       <plugin>
-	    <groupId>org.jacoco</groupId>
-	    <artifactId>jacoco-maven-plugin</artifactId>
-	    <version>0.8.2</version>
-	    <executions>
-		<execution>
-		    <id>prepare-agent</id>
-		    <goals>
-			<goal>prepare-agent</goal>
-		    </goals>
-		</execution>
-		<execution>
-		    <id>report</id>
-		    <phase>prepare-package</phase>
-		    <goals>
-			<goal>report</goal>
-		    </goals>
-		</execution>
-		<execution>
-		    <id>post-unit-test</id>
-		    <phase>test</phase>
-		    <goals>
-			<goal>report</goal>
-		    </goals>
-		    <configuration>
-			<dataFile>target/jacoco.exec</dataFile>
-			<outputDirectory>target/jacoco-ut</outputDirectory>
-		    </configuration>
-		</execution>
-	    </executions>
-	    <configuration>
-		<systemPropertyVariables>
-		    <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
-		</systemPropertyVariables>
-	    </configuration>
-	</plugin>
-	       
-     </plugins>
-  </build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.8</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>rulesets/java/ali-comment.xml</ruleset>
+                        <ruleset>rulesets/java/ali-concurrent.xml</ruleset>
+                        <ruleset>rulesets/java/ali-constant.xml</ruleset>
+                        <ruleset>rulesets/java/ali-exception.xml</ruleset>
+                        <ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>
+                        <ruleset>rulesets/java/ali-naming.xml</ruleset>
+                        <ruleset>rulesets/java/ali-oop.xml</ruleset>
+                        <ruleset>rulesets/java/ali-orm.xml</ruleset>
+                        <ruleset>rulesets/java/ali-other.xml</ruleset>
+                        <ruleset>rulesets/java/ali-set.xml</ruleset>
+                    </rulesets>
+                    <printFailingErrors>true</printFailingErrors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.alibaba.p3c</groupId>
+                        <artifactId>p3c-pmd</artifactId>
+                        <version>1.3.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>target/jacoco.exec</dataFile>
+                            <outputDirectory>target/jacoco-ut</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <systemPropertyVariables>
+                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>

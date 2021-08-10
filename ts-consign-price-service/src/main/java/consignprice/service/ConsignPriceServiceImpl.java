@@ -58,7 +58,7 @@ public class ConsignPriceServiceImpl implements ConsignPriceService {
 
     @Override
     public Response createAndModifyPrice(ConsignPrice config, HttpHeaders headers) {
-        ConsignPriceServiceImpl.LOGGER.info("[Consign Price Service][Create New Price Config]");
+        ConsignPriceServiceImpl.LOGGER.info("[Create New Price Config]");
         //update price
         ConsignPrice originalConfig;
         if (repository.findByIndex(0) != null) {

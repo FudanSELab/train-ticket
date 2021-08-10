@@ -83,7 +83,7 @@ public class FoodMapServiceImplTest {
     public void testListFoodStores2() {
         Mockito.when(foodStoreRepository.findAll()).thenReturn(null);
         Response result = foodMapServiceImpl.listFoodStores(headers);
-        Assert.assertEquals(new Response<>(0, "Foodstore is empty", null), result);
+        Assert.assertEquals(new Response<>(0, "Food store is empty", null), result);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class FoodMapServiceImplTest {
     public void testListFoodStoresByStationId2() {
         Mockito.when(foodStoreRepository.findByStationId(Mockito.anyString())).thenReturn(null);
         Response result = foodMapServiceImpl.listFoodStoresByStationId("station_id", headers);
-        Assert.assertEquals(new Response<>(0, "FoodStore is empty", null), result);
+        Assert.assertEquals(new Response<>(0, "Food store is empty", null), result);
     }
 
     @Test

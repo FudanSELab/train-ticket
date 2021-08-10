@@ -29,7 +29,7 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public Response createNewPriceConfig(PriceConfig createAndModifyPriceConfig, HttpHeaders headers) {
-        PriceServiceImpl.LOGGER.info("[Price Service][Create New Price Config]");
+        PriceServiceImpl.LOGGER.info("[Create New Price Config]");
         PriceConfig priceConfig = null;
         // create
         if (createAndModifyPriceConfig.getId() == null || createAndModifyPriceConfig.getId().toString().length() < 10) {
@@ -58,17 +58,18 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public PriceConfig findById(String id, HttpHeaders headers) {
-        PriceServiceImpl.LOGGER.info("[Price Service][Find By Id] ID: {}", id);
+        PriceServiceImpl.LOGGER.info("[Find By Id] ID: {}", id);
         return priceConfigRepository.findById(UUID.fromString(id));
     }
 
     @Override
     public Response findByRouteIdAndTrainType(String routeId, String trainType, HttpHeaders headers) {
-        PriceServiceImpl.LOGGER.info("[Price Service][Find By Route And Train Type] Rote: {}   Train Type: {}", routeId, trainType);
+        PriceServiceImpl.LOGGER.info("[Find By Route And Train Type] Rote: {}   Train Type: {}", routeId, trainType);
         PriceConfig priceConfig = priceConfigRepository.findByRouteIdAndTrainType(routeId, trainType);
-        PriceServiceImpl.LOGGER.info("[Price Service][Find By Route Id And Train Type]");
+        PriceServiceImpl.LOGGER.info("[Find By Route Id And Train Type]");
 
         if (priceConfig == null) {
+            PriceServiceImpl.LOGGER.warn("Find by route and train type warn. PricrConfig not found, RouteId: {}, TrainType: {}",routeId,trainType);
             return new Response<>(0, noThatConfig, null);
         } else {
             return new Response<>(1, "Success", priceConfig);
@@ -84,6 +85,7 @@ public class PriceServiceImpl implements PriceService {
         }
 
         if (!list.isEmpty()) {
+            PriceServiceImpl.LOGGER.warn("Find all price config warn,{}","No Content");
             return new Response<>(1, "Success", list);
         } else {
             return new Response<>(0, "No price config", null);
@@ -95,6 +97,7 @@ public class PriceServiceImpl implements PriceService {
     public Response deletePriceConfig(PriceConfig c, HttpHeaders headers) {
         PriceConfig priceConfig = priceConfigRepository.findById(c.getId());
         if (priceConfig == null) {
+            PriceServiceImpl.LOGGER.error("Delete price config error. Price config not found, PriceConfigId: {}",c.getId());
             return new Response<>(0, noThatConfig, null);
         } else {
             PriceConfig pc = new PriceConfig();
@@ -112,6 +115,7 @@ public class PriceServiceImpl implements PriceService {
     public Response updatePriceConfig(PriceConfig c, HttpHeaders headers) {
         PriceConfig priceConfig = priceConfigRepository.findById(c.getId());
         if (priceConfig == null) {
+            PriceServiceImpl.LOGGER.error("Update price config error. Price config not found, PriceConfigId: {}",c.getId());
             return new Response<>(0, noThatConfig, null);
         } else {
             priceConfig.setId(c.getId());

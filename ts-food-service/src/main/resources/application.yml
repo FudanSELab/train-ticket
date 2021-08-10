@@ -11,5 +11,8 @@ spring:
 #      password: ${MONGODB_PASSWORD}
       database: ts
       port: 27017
+  rabbitmq:
+    host: ${rabbitmq_host:localhost}
+    port: ${rabbitmq_port:5672}
 swagger:
   controllerPackage: foodsearch.controller

@@ -184,7 +184,7 @@ public class InsidePaymentServiceImplTest {
     public void testQueryAddMoney2() {
         Mockito.when(addMoneyRepository.findAll()).thenReturn(null);
         Response result = insidePaymentServiceImpl.queryAddMoney(headers);
-        Assert.assertEquals(new Response<>(0, "", null), result);
+        Assert.assertEquals(new Response<>(0, "Query money failed", null), result);
     }
 
     @Test

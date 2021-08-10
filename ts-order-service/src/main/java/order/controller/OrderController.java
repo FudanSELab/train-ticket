@@ -34,15 +34,15 @@ public class OrderController {
 
     @PostMapping(value = "/order/tickets")
     public HttpEntity getTicketListByDateAndTripId(@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Service][Get Sold Ticket] Date: {}", seatRequest.getTravelDate().toString());
+        OrderController.LOGGER.info("[Get Sold Ticket] Date: {}", seatRequest.getTravelDate().toString());
         return ok(orderService.getSoldTickets(seatRequest, headers));
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/order")
     public HttpEntity createNewOrder(@RequestBody Order createOrder, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Service][Create Order] Create Order form {} ---> {} at {}", createOrder.getFrom(), createOrder.getTo(), createOrder.getTravelDate());
-        OrderController.LOGGER.info("[Order Service][Verify Login] Success");
+        OrderController.LOGGER.info("[Create Order] Create Order form {} ---> {} at {}", createOrder.getFrom(), createOrder.getTo(), createOrder.getTravelDate());
+        OrderController.LOGGER.info("[Verify Login] Success");
         return ok(orderService.create(createOrder, headers));
     }
 
@@ -56,8 +56,8 @@ public class OrderController {
     @PostMapping(path = "/order/query")
     public HttpEntity queryOrders(@RequestBody OrderInfo qi,
                                   @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Query Orders] Query Orders for {}", qi.getLoginId());
-        OrderController.LOGGER.info("[Order Other Service][Verify Login] Success");
+        OrderController.LOGGER.info("[Query Orders] Query Orders for {}", qi.getLoginId());
+        OrderController.LOGGER.info("[Verify Login] Success");
         return ok(orderService.queryOrders(qi, qi.getLoginId(), headers));
     }
 
@@ -65,7 +65,7 @@ public class OrderController {
     @PostMapping(path = "/order/refresh")
     public HttpEntity queryOrdersForRefresh(@RequestBody OrderInfo qi,
                                             @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Query Orders] Query Orders for {}", qi.getLoginId());
+        OrderController.LOGGER.info("[Query Orders] Query Orders for {}", qi.getLoginId());
         return ok(orderService.queryOrdersForRefresh(qi, qi.getLoginId(), headers));
     }
 
@@ -73,14 +73,14 @@ public class OrderController {
     @GetMapping(path = "/order/{travelDate}/{trainNumber}")
     public HttpEntity calculateSoldTicket(@PathVariable Date travelDate, @PathVariable String trainNumber,
                                           @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Calculate Sold Tickets] Date: {} TrainNumber: {}", travelDate, trainNumber);
+        OrderController.LOGGER.info("[Calculate Sold Tickets] Date: {} TrainNumber: {}", travelDate, trainNumber);
         return ok(orderService.queryAlreadySoldOrders(travelDate, trainNumber, headers));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/order/price/{orderId}")
     public HttpEntity getOrderPrice(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Get Order Price] Order Id: {}", orderId);
+        OrderController.LOGGER.info("[Get Order Price] Order Id: {}", orderId);
         // String
         return ok(orderService.getOrderPrice(orderId, headers));
     }
@@ -89,7 +89,7 @@ public class OrderController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/order/orderPay/{orderId}")
     public HttpEntity payOrder(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Pay Order] Order Id: {}", orderId);
+        OrderController.LOGGER.info("[Pay Order] Order Id: {}", orderId);
         // Order
         return ok(orderService.payOrder(orderId, headers));
     }
@@ -97,7 +97,7 @@ public class OrderController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/order/{orderId}")
     public HttpEntity getOrderById(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Get Order By Id] Order Id: {}", orderId);
+        OrderController.LOGGER.info("[Get Order By Id] Order Id: {}", orderId);
         // Order
         return ok(orderService.getOrderById(orderId, headers));
     }
@@ -105,7 +105,7 @@ public class OrderController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/order/status/{orderId}/{status}")
     public HttpEntity modifyOrder(@PathVariable String orderId, @PathVariable int status, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Modify Order Status] Order Id: {}", orderId);
+        OrderController.LOGGER.info("[Modify Order Status] Order Id: {}", orderId);
         // Order
         return ok(orderService.modifyOrder(orderId, status, headers));
     }
@@ -115,7 +115,7 @@ public class OrderController {
     @GetMapping(path = "/order/security/{checkDate}/{accountId}")
     public HttpEntity securityInfoCheck(@PathVariable Date checkDate, @PathVariable String accountId,
                                         @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Security Info Get] {}", accountId);
+        OrderController.LOGGER.info("[Security Info Get] {}", accountId);
         return ok(orderService.checkSecurityAboutOrder(checkDate, accountId, headers));
     }
 
@@ -125,7 +125,7 @@ public class OrderController {
     public HttpEntity saveOrderInfo(@RequestBody Order orderInfo,
                                     @RequestHeader HttpHeaders headers) {
 
-        OrderController.LOGGER.info("[Order Other Service][Verify Login] Success");
+        OrderController.LOGGER.info("[Verify Login] Success");
         return ok(orderService.saveChanges(orderInfo, headers));
     }
 
@@ -133,6 +133,7 @@ public class OrderController {
     @PutMapping(path = "/order/admin")
     public HttpEntity updateOrder(@RequestBody Order order, @RequestHeader HttpHeaders headers) {
         // Order
+        OrderController.LOGGER.info("Update Order, OrderId: {}", order.getId());
         return ok(orderService.updateOrder(order, headers));
     }
 
@@ -140,7 +141,7 @@ public class OrderController {
     @CrossOrigin(origins = "*")
     @DeleteMapping(path = "/order/{orderId}")
     public HttpEntity deleteOrder(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Delete Order] Order Id: {}", orderId);
+        OrderController.LOGGER.info("[Delete Order] Order Id: {}", orderId);
         // Order
         return ok(orderService.deleteOrder(orderId, headers));
     }
@@ -150,7 +151,7 @@ public class OrderController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/order")
     public HttpEntity findAllOrder(@RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[Order Other Service][Find All Order]");
+        OrderController.LOGGER.info("[Find All Order]");
         // ArrayList<Order>
         return ok(orderService.getAllOrders(headers));
     }

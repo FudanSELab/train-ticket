@@ -36,7 +36,9 @@
             <version>18.0</version>
         </dependency>
 
-    </dependencies>
+
+
+	</dependencies>
 
 	<build>
 		<plugins>

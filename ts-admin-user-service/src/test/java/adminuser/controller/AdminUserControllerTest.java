@@ -39,8 +39,7 @@ public class AdminUserControllerTest {
     @Test
     public void testHome() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/adminuserservice/users/welcome"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Welcome to [ AdminUser Service ] !"));
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test

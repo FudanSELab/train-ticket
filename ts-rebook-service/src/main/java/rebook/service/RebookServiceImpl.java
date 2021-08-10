@@ -1,6 +1,8 @@
 package rebook.service;
 
 import edu.fudan.common.util.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -25,6 +27,8 @@ public class RebookServiceImpl implements RebookService {
     @Autowired
     private RestTemplate restTemplate;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(RebookServiceImpl.class);
+
     @Override
     public Response rebook(RebookInfo info, HttpHeaders httpHeaders) {
 
@@ -32,28 +36,35 @@ public class RebookServiceImpl implements RebookService {
 
         if (queryOrderResult.getStatus() == 1) {
             if (queryOrderResult.getData().getStatus() != 1) {
+                RebookServiceImpl.LOGGER.warn("Rebook warn.Order not suitable to rebook,OrderId: {}",info.getOrderId());
                 return new Response<>(0, "you order not suitable to rebook!", null);
             }
         } else {
+            RebookServiceImpl.LOGGER.warn("Rebook warn.Order not found,OrderId: {}",info.getOrderId());
             return new Response(0, "order not found", null);
         }
 
         Order order = queryOrderResult.getData();
         int status = order.getStatus();
         if (status == OrderStatus.NOTPAID.getCode()) {
+            RebookServiceImpl.LOGGER.warn("Rebook warn.Order not paid, OrderId: {}",info.getOrderId());
             return new Response<>(0, "You haven't paid the original ticket!", null);
         } else if (status == OrderStatus.PAID.getCode()) {
             // do nothing
         } else if (status == OrderStatus.CHANGE.getCode()) {
+            RebookServiceImpl.LOGGER.warn("Rebook warn.Order can't change twice,OrderId: {}",info.getOrderId());
             return new Response<>(0, "You have already changed your ticket and you can only change one time.", null);
         } else if (status == OrderStatus.COLLECTED.getCode()) {
+            RebookServiceImpl.LOGGER.warn("Rebook warn.Order already collected,OrderId: {}",info.getOrderId());
             return new Response<>(0, "You have already collected your ticket and you can change it now.", null);
         } else {
+            RebookServiceImpl.LOGGER.warn("Rebook warn.Order can't change,OrderId: {}",info.getOrderId());
             return new Response<>(0, "You can't change your ticket.", null);
         }
 
         //Check the current time and the bus time of the old order, and judge whether the ticket can be changed according to the time. The ticket cannot be changed after two hours.
         if (!checkTime(order.getTravelDate(), order.getTravelTime())) {
+            RebookServiceImpl.LOGGER.warn("Rebook warn.Order beyond change time,OrderId: {}",info.getOrderId());
             return new Response<>(0, "You can only change the ticket before the train start or within 2 hours after the train start.", null);
         }
 
@@ -66,15 +77,18 @@ public class RebookServiceImpl implements RebookService {
         gtdi.setTripId(info.getTripId());
         Response<TripAllDetail> gtdr = getTripAllDetailInformation(gtdi, info.getTripId(), httpHeaders);
         if (gtdr.getStatus() == 0) {
+            RebookServiceImpl.LOGGER.warn("Rebook warn.Trip detail not found,OrderId: {}",info.getOrderId());
             return new Response<>(0, gtdr.getMsg(), null);
         } else {
             TripResponse tripResponse = gtdr.getData().getTripResponse();
             if (info.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {
                 if (tripResponse.getConfortClass() <= 0) {
+                    RebookServiceImpl.LOGGER.warn("Rebook warn.Seat Not Enough,OrderId: {},SeatType: {}",info.getOrderId(),info.getSeatType());
                     return new Response<>(0, "Seat Not Enough", null);
                 }
             } else {
                 if (tripResponse.getEconomyClass() == SeatClass.SECONDCLASS.getCode() && tripResponse.getConfortClass() <= 0) {
+                    RebookServiceImpl.LOGGER.warn("Rebook warn.Seat Not Enough,OrderId: {},SeatType: {}",info.getOrderId(),info.getSeatType());
                     return new Response<>(0, "Seat Not Enough", null);
                 }
             }
@@ -96,6 +110,7 @@ public class RebookServiceImpl implements RebookService {
             //Refund the difference
             String difference = priceOld.subtract(priceNew).toString();
             if (!drawBackMoney(info.getLoginId(), difference, httpHeaders)) {
+                RebookServiceImpl.LOGGER.warn("Rebook warn.Can't draw back the difference money,OrderId: {},LoginId: {},difference: {}",info.getOrderId(),info.getLoginId(),difference);
                 return new Response<>(0, "Can't draw back the difference money, please try again!", null);
             }
             return updateOrder(order, info, (TripAllDetail) gtdr.getData(), ticketPrice, httpHeaders);
@@ -114,6 +129,7 @@ public class RebookServiceImpl implements RebookService {
 
     @Override
     public Response payDifference(RebookInfo info, HttpHeaders httpHeaders) {
+        httpHeaders = null;
 
         Response queryOrderResult = getOrderByRebookInfo(info, httpHeaders);
 
@@ -144,6 +160,7 @@ public class RebookServiceImpl implements RebookService {
         if (payDifferentMoney(info.getOrderId(), info.getTripId(), info.getLoginId(), priceNew.subtract(priceOld).toString(), httpHeaders)) {
             return updateOrder(order, info, gtdr, ticketPrice, httpHeaders);
         } else {
+            RebookServiceImpl.LOGGER.warn("Pay difference warn.Can't pay the difference money,OrderId: {},LoginId: {},TripId: {}",info.getOrderId(),info.getLoginId(),info.getTripId());
             return new Response<>(0, "Can't pay the difference,please try again", null);
         }
     }
@@ -185,6 +202,7 @@ public class RebookServiceImpl implements RebookService {
             if (changeOrderResult.getStatus() == 1) {
                 return new Response<>(1, "Success!", order);
             } else {
+                RebookServiceImpl.LOGGER.error("Update order error,OrderId: {},TripId: {}",info.getOrderId(),info.getTripId());
                 return new Response<>(0, "Can't update Order!", null);
             }
         } else {
@@ -204,7 +222,8 @@ public class RebookServiceImpl implements RebookService {
         seatRequest.setStartStation(startStationId);
         seatRequest.setDestStation(endStataionId);
 
-        HttpEntity requestEntityTicket = new HttpEntity(seatRequest, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityTicket = new HttpEntity(seatRequest, newHeaders);
         ResponseEntity<Response<Ticket>> reTicket = restTemplate.exchange(
                 "http://ts-seat-service:18898/api/v1/seatservice/seats",
                 HttpMethod.POST,
@@ -259,7 +278,8 @@ public class RebookServiceImpl implements RebookService {
             requestUrl = "http://ts-travel2-service:16346/api/v1/travel2service/trip_detail";
             //ts-travel2-service:16346/travel2/getTripAllDetailInfo
         }
-        HttpEntity requestGetTripAllDetailResult = new HttpEntity(gtdi, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestGetTripAllDetailResult = new HttpEntity(gtdi, newHeaders);
         ResponseEntity<Response<TripAllDetail>> reGetTripAllDetailResult = restTemplate.exchange(
                 requestUrl,
                 HttpMethod.POST,
@@ -279,7 +299,8 @@ public class RebookServiceImpl implements RebookService {
             //ts-order-other-service:12032/orderOther/create
             requestUrl = "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther";
         }
-        HttpEntity requestCreateOrder = new HttpEntity(order, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestCreateOrder = new HttpEntity(order, newHeaders);
         ResponseEntity<Response> reCreateOrder = restTemplate.exchange(
                 requestUrl,
                 HttpMethod.POST,
@@ -295,7 +316,8 @@ public class RebookServiceImpl implements RebookService {
         } else {
             requestOrderUtl = "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther";
         }
-        HttpEntity requestUpdateOrder = new HttpEntity(info, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestUpdateOrder = new HttpEntity(info, newHeaders);
         ResponseEntity<Response> reUpdateOrder = restTemplate.exchange(
                 requestOrderUtl,
                 HttpMethod.PUT,
@@ -312,7 +334,8 @@ public class RebookServiceImpl implements RebookService {
         } else {
             requestUrl = "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/" + orderId;
         }
-        HttpEntity requestDeleteOrder = new HttpEntity(httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestDeleteOrder = new HttpEntity(newHeaders);
         ResponseEntity<Response> reDeleteOrder = restTemplate.exchange(
                 requestUrl,
                 HttpMethod.POST,
@@ -331,7 +354,8 @@ public class RebookServiceImpl implements RebookService {
         } else {
             requestUrl = "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/" + info.getOrderId();
         }
-        HttpEntity requestEntityGetOrderByRebookInfo = new HttpEntity(httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityGetOrderByRebookInfo = new HttpEntity(newHeaders);
         ResponseEntity<Response<Order>> reGetOrderByRebookInfo = restTemplate.exchange(
                 requestUrl,
                 HttpMethod.GET,
@@ -343,7 +367,8 @@ public class RebookServiceImpl implements RebookService {
     }
 
     private String queryForStationName(String stationId, HttpHeaders httpHeaders) {
-        HttpEntity requestEntityQueryForStationName = new HttpEntity(httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityQueryForStationName = new HttpEntity(newHeaders);
         ResponseEntity<Response> reQueryForStationName = restTemplate.exchange(
                 "http://ts-station-service:12345/api/v1/stationservice/stations/name/" + stationId,
                 HttpMethod.GET,
@@ -360,7 +385,8 @@ public class RebookServiceImpl implements RebookService {
         info.setUserId(userId);
         info.setPrice(money);
 
-        HttpEntity requestEntityPayDifferentMoney = new HttpEntity(info, httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityPayDifferentMoney = new HttpEntity(info, newHeaders);
         ResponseEntity<Response> rePayDifferentMoney = restTemplate.exchange(
                 "http://ts-inside-payment-service:18673/api/v1/inside_pay_service/inside_payment/difference",
                 HttpMethod.POST,
@@ -372,7 +398,8 @@ public class RebookServiceImpl implements RebookService {
 
     private boolean drawBackMoney(String userId, String money, HttpHeaders httpHeaders) {
 
-        HttpEntity requestEntityDrawBackMoney = new HttpEntity(httpHeaders);
+        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
+        HttpEntity requestEntityDrawBackMoney = new HttpEntity(newHeaders);
         ResponseEntity<Response> reDrawBackMoney = restTemplate.exchange(
                 "http://ts-inside-payment-service:18673/api/v1/inside_pay_service/inside_payment/drawback/" + userId + "/" + money,
                 HttpMethod.GET,
@@ -382,4 +409,11 @@ public class RebookServiceImpl implements RebookService {
         return result.getStatus() == 1;
     }
 
+    public static HttpHeaders getAuthorizationHeadersFrom(HttpHeaders oldHeaders) {
+        HttpHeaders newHeaders = new HttpHeaders();
+        if (oldHeaders.containsKey(HttpHeaders.AUTHORIZATION)) {
+            newHeaders.add(HttpHeaders.AUTHORIZATION, oldHeaders.getFirst(HttpHeaders.AUTHORIZATION));
+        }
+        return newHeaders;
+    }
 }

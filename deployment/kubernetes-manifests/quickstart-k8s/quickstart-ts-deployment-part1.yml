@@ -13,15 +13,15 @@ spec:
         app: ts-user-mongo
     spec:
       containers:
-      - name: ts-user-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-user-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 ---
 
 apiVersion: apps/v1
@@ -39,15 +39,15 @@ spec:
         app: ts-auth-mongo
     spec:
       containers:
-      - name: ts-auth-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-auth-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 ---
 
 apiVersion: apps/v1
@@ -65,15 +65,15 @@ spec:
         app: ts-route-mongo
     spec:
       containers:
-      - name: ts-route-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-route-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -92,15 +92,15 @@ spec:
         app: ts-contacts-mongo
     spec:
       containers:
-      - name: ts-contacts-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-contacts-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -119,15 +119,15 @@ spec:
         app: ts-order-mongo
     spec:
       containers:
-      - name: ts-order-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-order-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -146,15 +146,15 @@ spec:
         app: ts-order-other-mongo
     spec:
       containers:
-      - name: ts-order-other-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-order-other-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -173,15 +173,15 @@ spec:
         app: ts-config-mongo
     spec:
       containers:
-      - name: ts-config-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-config-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -200,15 +200,15 @@ spec:
         app: ts-station-mongo
     spec:
       containers:
-      - name: ts-station-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-station-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -227,15 +227,15 @@ spec:
         app: ts-train-mongo
     spec:
       containers:
-      - name: ts-train-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-train-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -254,15 +254,15 @@ spec:
         app: ts-travel-mongo
     spec:
       containers:
-      - name: ts-travel-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-travel-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -281,15 +281,15 @@ spec:
         app: ts-travel2-mongo
     spec:
       containers:
-      - name: ts-travel2-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-travel2-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -308,15 +308,15 @@ spec:
         app: ts-price-mongo
     spec:
       containers:
-      - name: ts-price-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-price-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -335,15 +335,15 @@ spec:
         app: ts-security-mongo
     spec:
       containers:
-      - name: ts-security-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-security-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -362,15 +362,15 @@ spec:
         app: ts-inside-payment-mongo
     spec:
       containers:
-      - name: ts-inside-payment-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-inside-payment-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -389,15 +389,15 @@ spec:
         app: ts-payment-mongo
     spec:
       containers:
-      - name: ts-payment-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-payment-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -416,15 +416,15 @@ spec:
         app: ts-assurance-mongo
     spec:
       containers:
-      - name: ts-assurance-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-assurance-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -443,15 +443,15 @@ spec:
         app: ts-ticket-office-mongo
     spec:
       containers:
-      - name: ts-ticket-office-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-ticket-office-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 
 ---
@@ -471,19 +471,19 @@ spec:
         app: ts-voucher-mysql
     spec:
       containers:
-      - name: ts-voucher-mysql
-        image: mysql:5.6.35
-        imagePullPolicy: IfNotPresent
-        env:
-        # Use secret in real usage
-        - name: MYSQL_ROOT_PASSWORD
-          value: root
-        ports:
-        - containerPort: 3306
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-voucher-mysql
+          image: mysql:5.6.35
+          imagePullPolicy: IfNotPresent
+          env:
+            # Use secret in real usage
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+          ports:
+            - containerPort: 3306
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -502,15 +502,15 @@ spec:
         app: ts-food-map-mongo
     spec:
       containers:
-      - name: ts-food-map-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-food-map-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -529,15 +529,15 @@ spec:
         app: ts-consign-mongo
     spec:
       containers:
-      - name: ts-consign-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-consign-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -556,15 +556,15 @@ spec:
         app: ts-consign-price-mongo
     spec:
       containers:
-      - name: ts-consign-price-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-consign-price-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 
@@ -583,26 +583,136 @@ spec:
         app: ts-food-mongo
     spec:
       containers:
-      - name: ts-food-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
+        - name: ts-food-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-notification-mongo
+spec:
+  selector:
+    matchLabels:
+      app: ts-notification-mongo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-notification-mongo
+    spec:
+      containers:
+        - name: ts-notification-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-notification-mongo
+spec:
+  ports:
+    - port: 27017
+  selector:
+    app: ts-notification-mongo
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-delivery-mongo
+spec:
+  selector:
+    matchLabels:
+      app: ts-delivery-mongo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-delivery-mongo
+    spec:
+      containers:
+        - name: ts-delivery-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-user-mongo 
+  name: ts-delivery-mongo
 spec:
   ports:
     - port: 27017
   selector:
-   app: ts-user-mongo 
+    app: ts-delivery-mongo
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:3
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5672
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+spec:
+  ports:
+    - port: 5672
+  selector:
+    app: rabbitmq
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-user-mongo
+spec:
+  ports:
+    - port: 27017
+  selector:
+    app: ts-user-mongo
 
 ---
 apiVersion: v1
@@ -613,7 +723,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-auth-mongo
+    app: ts-auth-mongo
 ---
 
 apiVersion: v1
@@ -624,7 +734,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-route-mongo
+    app: ts-route-mongo
 
 ---
 
@@ -636,7 +746,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-contacts-mongo
+    app: ts-contacts-mongo
 
 ---
 
@@ -648,7 +758,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-order-mongo
+    app: ts-order-mongo
 
 ---
 
@@ -660,7 +770,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-order-other-mongo
+    app: ts-order-other-mongo
 
 ---
 
@@ -672,7 +782,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-config-mongo
+    app: ts-config-mongo
 
 ---
 
@@ -684,7 +794,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-station-mongo
+    app: ts-station-mongo
 
 ---
 
@@ -696,7 +806,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-train-mongo
+    app: ts-train-mongo
 
 ---
 
@@ -708,7 +818,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-travel-mongo
+    app: ts-travel-mongo
 
 ---
 
@@ -720,7 +830,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-travel2-mongo
+    app: ts-travel2-mongo
 
 ---
 
@@ -732,7 +842,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-price-mongo
+    app: ts-price-mongo
 
 ---
 
@@ -744,7 +854,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-security-mongo
+    app: ts-security-mongo
 
 ---
 
@@ -756,7 +866,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-inside-payment-mongo
+    app: ts-inside-payment-mongo
 
 ---
 
@@ -768,7 +878,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-payment-mongo
+    app: ts-payment-mongo
 
 ---
 
@@ -780,7 +890,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-assurance-mongo
+    app: ts-assurance-mongo
 
 ---
 
@@ -792,7 +902,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-ticket-office-mongo
+    app: ts-ticket-office-mongo
 
 ---
 
@@ -804,7 +914,7 @@ spec:
   ports:
     - port: 3306
   selector:
-   app: ts-voucher-mysql
+    app: ts-voucher-mysql
 
 ---
 
@@ -816,7 +926,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-food-map-mongo
+    app: ts-food-map-mongo
 
 ---
 
@@ -828,7 +938,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-consign-mongo
+    app: ts-consign-mongo
 
 ---
 
@@ -840,7 +950,7 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-consign-price-mongo
+    app: ts-consign-price-mongo
 
 ---
 
@@ -852,4 +962,5 @@ spec:
   ports:
     - port: 27017
   selector:
-   app: ts-food-mongo
+    app: ts-food-mongo
+

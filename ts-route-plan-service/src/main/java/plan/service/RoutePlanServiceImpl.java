@@ -153,7 +153,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         RoutePlanServiceImpl.LOGGER.info("From Id: {} To: {}", fromStationId , toStationId);
         //1.Get the route through the two stations
 
-        HttpEntity requestEntity = new HttpEntity(headers);
+        HttpEntity requestEntity = new HttpEntity(null);
         ResponseEntity<Response<ArrayList<Route>>> re = restTemplate.exchange(
                 "http://ts-route-service:11178/api/v1/routeservice/routes/" + fromStationId + "/" + toStationId,
                 HttpMethod.GET,
@@ -163,7 +163,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
 
         ArrayList<Route> routeList = re.getBody().getData();
-        RoutePlanServiceImpl.LOGGER.info("[Route Plan Service] Candidate Route Number: {}", routeList.size());
+        RoutePlanServiceImpl.LOGGER.info("Candidate Route Number: {}", routeList.size());
         //2.Calculate how many stops there are between the two stations
         ArrayList<Integer> gapList = new ArrayList<>();
         for (int i = 0; i < routeList.size(); i++) {
@@ -188,7 +188,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
             gapList.remove(minIndex);
         }
         //4.Depending on the route, go to travel-service or travel2service to get the train information
-        requestEntity = new HttpEntity(resultRoutes, headers);
+        requestEntity = new HttpEntity(resultRoutes, null);
         ResponseEntity<Response<ArrayList<ArrayList<Trip>>>> re2 = restTemplate.exchange(
                 "http://ts-travel-service:12346/api/v1/travelservice/trips/routes",
                 HttpMethod.POST,
@@ -214,7 +214,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
             tempList.addAll(travelTrips.get(i));
             finalTripResult.add(tempList);
         }
-        RoutePlanServiceImpl.LOGGER.info("[Route Plan Service] Trips Num: {}", finalTripResult.size());
+        RoutePlanServiceImpl.LOGGER.info("Trips Num: {}", finalTripResult.size());
         //5.Then, get the price and the station information according to the train information
         ArrayList<Trip> trips = new ArrayList<>();
         for (ArrayList<Trip> tempTrips : finalTripResult) {
@@ -230,7 +230,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
             allDetailInfo.setTravelDate(info.getTravelDate());
             allDetailInfo.setFrom(info.getFormStationName());
             allDetailInfo.setTo(info.getToStationName());
-            requestEntity = new HttpEntity(allDetailInfo, headers);
+            requestEntity = new HttpEntity(allDetailInfo, null);
             String requestUrl = "";
             if (trip.getTripId().toString().charAt(0) == 'D' || trip.getTripId().toString().charAt(0) == 'G') {
                 requestUrl = "http://ts-travel-service:12346/api/v1/travelservice/trip_detail";
@@ -266,14 +266,14 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
             tripResponses.add(unit);
         }
-        RoutePlanServiceImpl.LOGGER.info("[Route Plan Service] Trips Response Unit Num: {}", tripResponses.size());
+        RoutePlanServiceImpl.LOGGER.info("Trips Response Unit Num: {}", tripResponses.size());
         return new Response<>(1, "Success.", tripResponses);
     }
 
     private String queryForStationId(String stationName, HttpHeaders headers) {
-        RoutePlanServiceImpl.LOGGER.info("[Preserve Service][Get Station Name]");
+        RoutePlanServiceImpl.LOGGER.info("[Get Station Name]");
 
-        HttpEntity requestEntity = new HttpEntity(headers);
+        HttpEntity requestEntity = new HttpEntity(null);
         ResponseEntity<Response<String>> re = restTemplate.exchange(
                 "http://ts-station-service:12345/api/v1/stationservice/stations/id/" + stationName,
                 HttpMethod.GET,
@@ -284,8 +284,8 @@ public class RoutePlanServiceImpl implements RoutePlanService {
     }
 
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
-        RoutePlanServiceImpl.LOGGER.info("[Route Plan Service][Get Route By Id] Route ID：{}", routeId);
-        HttpEntity requestEntity = new HttpEntity(headers);
+        RoutePlanServiceImpl.LOGGER.info("[Get Route By Id] Route ID：{}", routeId);
+        HttpEntity requestEntity = new HttpEntity(null);
         ResponseEntity<Response<Route>> re = restTemplate.exchange(
                 "http://ts-route-service:11178/api/v1/routeservice/routes/" + routeId,
                 HttpMethod.GET,
@@ -295,16 +295,16 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         Response<Route> result = re.getBody();
 
         if (result.getStatus() == 0) {
-            RoutePlanServiceImpl.LOGGER.info("[Travel Service][Get Route By Id] Fail. {}", result.getMsg());
+            RoutePlanServiceImpl.LOGGER.error("[Get Route By Id] Fail, RouteId: {}", routeId);
             return null;
         } else {
-            RoutePlanServiceImpl.LOGGER.info("[Travel Service][Get Route By Id] Success.");
+            RoutePlanServiceImpl.LOGGER.info("[Get Route By Id] Success.");
             return result.getData();
         }
     }
 
     private ArrayList<TripResponse> getTripFromHighSpeedTravelServive(TripInfo info, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(info, headers);
+        HttpEntity requestEntity = new HttpEntity(info, null);
 
         ResponseEntity<Response<ArrayList<TripResponse>>> re = restTemplate.exchange(
                 "http://ts-travel-service:12346/api/v1/travelservice/trips/left",
@@ -319,7 +319,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
     }
 
     private ArrayList<TripResponse> getTripFromNormalTrainTravelService(TripInfo info, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(info, headers);
+        HttpEntity requestEntity = new HttpEntity(info, null);
 
         ResponseEntity<Response<ArrayList<TripResponse>>> re = restTemplate.exchange(
                 "http://ts-travel2-service:16346/api/v1/travel2service/trips/left",
@@ -340,7 +340,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         } else {
             path = "http://ts-travel2-service:16346/api/v1/travel2service/routes/" + tripId;
         }
-        HttpEntity requestEntity = new HttpEntity(headers);
+        HttpEntity requestEntity = new HttpEntity(null);
         ResponseEntity<Response<Route>> re = restTemplate.exchange(
                 path,
                 HttpMethod.GET,

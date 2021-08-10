@@ -111,6 +111,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
                     setOrderStatus(info.getTripId(), info.getOrderId(), headers);
                     return new Response<>(1, "Payment Success " +    outsidePaySuccess.getMsg(), null);
                 } else {
+                    LOGGER.error("Payment failed: {}", outsidePaySuccess.getMsg());
                     return new Response<>(0, "Payment Failed:  " +  outsidePaySuccess.getMsg(), null);
                 }
             } else {
@@ -118,9 +119,11 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
                 payment.setType(PaymentType.P);
                 paymentRepository.save(payment);
             }
+            LOGGER.info("Payment success, orderId: {}", info.getOrderId());
             return new Response<>(1, "Payment Success", null);
 
         } else {
+            LOGGER.error("Payment failed: Order not exists, orderId: {}", info.getOrderId());
             return new Response<>(0, "Payment Failed, Order Not Exists", null);
         }
     }
@@ -136,6 +139,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
             addMoneyRepository.save(addMoney);
             return new Response<>(1, "Create Account Success", null);
         } else {
+            LOGGER.error("Create Account Failed, Account already Exists, userId: {}", info.getUserId());
             return new Response<>(0, "Create Account Failed, Account already Exists", null);
         }
     }
@@ -150,6 +154,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
             addMoneyRepository.save(addMoney);
             return new Response<>(1, "Add Money Success", null);
         } else {
+            LOGGER.error("Add Money Failed, userId: {}", userId);
             return new Response<>(0, "Add Money Failed", null);
         }
     }
@@ -221,6 +226,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
         if (payments != null && !payments.isEmpty()) {
             return new Response<>(1, "Query Payment Success", payments);
         }else {
+            LOGGER.error("Query payment failed");
             return new Response<>(0, "Query Payment Failed", null);
         }
     }
@@ -235,6 +241,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
             addMoneyRepository.save(addMoney);
             return new Response<>(1, "Draw Back Money Success", null);
         } else {
+            LOGGER.error("Draw Back Money Failed");
             return new Response<>(0, "Draw Back Money Failed", null);
         }
     }
@@ -288,6 +295,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
                 paymentRepository.save(payment);
                 return new Response<>(1, "Pay Difference Success", null);
             } else {
+                LOGGER.error("Pay Difference Failed, orderId: {}", info.getOrderId());
                 return new Response<>(0, "Pay Difference Failed", null);
             }
         } else {
@@ -303,7 +311,8 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
         if (monies != null && !monies.isEmpty()) {
             return new Response<>(1, "Query Money Success", null);
         } else {
-            return new Response<>(0, "", null);
+            LOGGER.error("Query money failed");
+            return new Response<>(0, "Query money failed", null);
         }
     }
 
@@ -341,7 +350,7 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
         if (paymentTemp == null) {
             paymentRepository.save(payment);
         } else {
-            InsidePaymentServiceImpl.LOGGER.info("[Inside Payment Service][Init Payment] Already Exists: {}", payment.getId());
+            InsidePaymentServiceImpl.LOGGER.error("[Init Payment] Already Exists, paymentId: {}, orderId: {}", payment.getId(), payment.getOrderId());
         }
     }
 

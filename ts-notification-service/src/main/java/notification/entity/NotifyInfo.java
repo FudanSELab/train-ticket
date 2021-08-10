@@ -1,16 +1,32 @@
 package notification.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.UUID;
+
 import lombok.Data;
 
 /**
  * @author fdse
  */
 @Data
+@AllArgsConstructor
+@Document(collection = "notification")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class NotifyInfo {
 
     public NotifyInfo(){
         //Default Constructor
     }
+
+    @Id
+    private UUID id;
+
+    private Boolean sendStatus;
 
     private String email;
     private String orderNumber;

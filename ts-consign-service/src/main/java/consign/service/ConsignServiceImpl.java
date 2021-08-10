@@ -33,7 +33,7 @@ public class ConsignServiceImpl implements ConsignService {
 
     @Override
     public Response insertConsignRecord(Consign consignRequest, HttpHeaders headers) {
-        ConsignServiceImpl.LOGGER.info("[Consign servie] [ Insert new consign record] {}", consignRequest.getOrderId());
+        ConsignServiceImpl.LOGGER.info("[ Insert new consign record] {}", consignRequest.getOrderId());
 
         ConsignRecord consignRecord = new ConsignRecord();
         //Set the record attribute
@@ -69,11 +69,11 @@ public class ConsignServiceImpl implements ConsignService {
 
     @Override
     public Response updateConsignRecord(Consign consignRequest, HttpHeaders headers) {
-        ConsignServiceImpl.LOGGER.info("[Consign servie] [ Update consign record]");
+        ConsignServiceImpl.LOGGER.info("[ Update consign record]");
 
         ConsignRecord originalRecord = repository.findById(consignRequest.getId());
         if (originalRecord == null) {
-            return this.insertConsignRecord(consignRequest, headers);
+            return insertConsignRecord(consignRequest, headers);
         }
         originalRecord.setAccountId(consignRequest.getAccountId());
         originalRecord.setHandleDate(consignRequest.getHandleDate());
@@ -109,6 +109,7 @@ public class ConsignServiceImpl implements ConsignService {
         if (consignRecords != null && !consignRecords.isEmpty()) {
             return new Response<>(1, "Find consign by account id success", consignRecords);
         }else {
+            LOGGER.warn("No Content according to accountId: {}", accountId);
             return new Response<>(0, "No Content according to accountId", null);
         }
     }
@@ -119,6 +120,7 @@ public class ConsignServiceImpl implements ConsignService {
         if (consignRecords != null ) {
             return new Response<>(1, "Find consign by order id success", consignRecords);
         }else {
+            LOGGER.warn("No Content according to orderId: {}", orderId);
             return new Response<>(0, "No Content according to order id", null);
         }
     }
@@ -129,6 +131,7 @@ public class ConsignServiceImpl implements ConsignService {
         if (consignRecords != null && !consignRecords.isEmpty()) {
             return new Response<>(1, "Find consign by consignee success", consignRecords);
         }else {
+            LOGGER.warn("No Content according to consignee: {}", consignee);
             return new Response<>(0, "No Content according to consignee", null);
         }
     }

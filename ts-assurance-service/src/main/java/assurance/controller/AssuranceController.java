@@ -32,28 +32,28 @@ public class AssuranceController {
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/assurances")
     public HttpEntity getAllAssurances(@RequestHeader HttpHeaders headers) {
-        AssuranceController.LOGGER.info("[Assurances Service][Get All Assurances]");
+        AssuranceController.LOGGER.info("Get All Assurances");
         return ok(assuranceService.getAllAssurances(headers));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/assurances/types")
     public HttpEntity getAllAssuranceType(@RequestHeader HttpHeaders headers) {
-        AssuranceController.LOGGER.info("[Assurances Service][Get Assurance Type]");
+        AssuranceController.LOGGER.info("Get Assurance Type");
         return ok(assuranceService.getAllAssuranceTypes(headers));
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping(path = "/assurances/assuranceid/{assuranceId}")
     public HttpEntity deleteAssurance(@PathVariable String assuranceId, @RequestHeader HttpHeaders headers) {
-        AssuranceController.LOGGER.info("[Assurances Service][Delete Assurance]");
+        AssuranceController.LOGGER.info("Delete Assurance, assuranceId: {}", assuranceId);
         return ok(assuranceService.deleteById(UUID.fromString(assuranceId), headers));
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping(path = "/assurances/orderid/{orderId}")
     public HttpEntity deleteAssuranceByOrderId(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
-        AssuranceController.LOGGER.info("[Assurances Service][Delete Assurance by orderId]");
+        AssuranceController.LOGGER.info("Delete Assurance by orderId: {}", orderId);
         return ok(assuranceService.deleteByOrderId(UUID.fromString(orderId), headers));
     }
 
@@ -62,7 +62,8 @@ public class AssuranceController {
     public HttpEntity modifyAssurance(@PathVariable String assuranceId,
                                       @PathVariable String orderId,
                                       @PathVariable int typeIndex, @RequestHeader HttpHeaders headers) {
-        AssuranceController.LOGGER.info("[Assurances Service][Modify Assurance]");
+        AssuranceController.LOGGER.info("Modify Assurance, assuranceId: {}, orderId: {}, typeIndex: {}",
+                assuranceId, orderId, typeIndex);
         return ok(assuranceService.modify(assuranceId, orderId, typeIndex, headers));
     }
 
@@ -71,18 +72,21 @@ public class AssuranceController {
     @GetMapping(path = "/assurances/{typeIndex}/{orderId}")
     public HttpEntity createNewAssurance(@PathVariable int typeIndex, @PathVariable String orderId, @RequestHeader HttpHeaders headers) {
         //Assurance
+        AssuranceController.LOGGER.info("Create new assurance, typeIndex: {}, orderId: {}", typeIndex, orderId);
         return ok(assuranceService.create(typeIndex, orderId, headers));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/assurances/assuranceid/{assuranceId}")
     public HttpEntity getAssuranceById(@PathVariable String assuranceId, @RequestHeader HttpHeaders headers) {
+        AssuranceController.LOGGER.info("Find assurance by assuranceId: {}", assuranceId);
         return ok(assuranceService.findAssuranceById(UUID.fromString(assuranceId), headers));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/assurance/orderid/{orderId}")
     public HttpEntity findAssuranceByOrderId(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
+        AssuranceController.LOGGER.info("Find assurance by orderId: {}", orderId);
         return ok(assuranceService.findAssuranceByOrderId(UUID.fromString(orderId), headers));
     }
 

@@ -3,6 +3,8 @@ package fdse.microservice.service;
 import edu.fudan.common.util.Response;
 import fdse.microservice.entity.*;
 import fdse.microservice.repository.StationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ public class StationServiceImpl implements StationService {
 
     String success = "Success";
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(StationServiceImpl.class);
+
     @Override
     public Response create(Station station, HttpHeaders headers) {
         if (repository.findById(station.getId()) == null) {
@@ -26,6 +30,7 @@ public class StationServiceImpl implements StationService {
             repository.save(station);
             return new Response<>(1, "Create success", station);
         }
+        StationServiceImpl.LOGGER.error("Create station error.Already exists, StationId: {}",station.getId());
         return new Response<>(0, "Already exists", station);
     }
 
@@ -43,6 +48,7 @@ public class StationServiceImpl implements StationService {
     public Response update(Station info, HttpHeaders headers) {
 
         if (repository.findById(info.getId()) == null) {
+            StationServiceImpl.LOGGER.error("Update station error.Station not found, StationId: {}",info.getId());
             return new Response<>(0, "Station not exist", null);
         } else {
             Station station = new Station(info.getId(), info.getName());
@@ -60,6 +66,7 @@ public class StationServiceImpl implements StationService {
             repository.delete(station);
             return new Response<>(1, "Delete success", station);
         }
+        StationServiceImpl.LOGGER.error("Delete station error.Station not found, StationId: {}",info.getId());
         return new Response<>(0, "Station not exist", null);
     }
 
@@ -69,6 +76,7 @@ public class StationServiceImpl implements StationService {
         if (stations != null && !stations.isEmpty()) {
             return new Response<>(1, "Find all content", stations);
         } else {
+            StationServiceImpl.LOGGER.warn("Query stations warn.Find all stations: {}","No content");
             return new Response<>(0, "No content", null);
         }
     }
@@ -80,6 +88,7 @@ public class StationServiceImpl implements StationService {
         if (station  != null) {
             return new Response<>(1, success, station.getId());
         } else {
+            StationServiceImpl.LOGGER.warn("Find station id warn.Station not found, StationName: {}",stationName);
             return new Response<>(0, "Not exists", stationName);
         }
     }
@@ -100,6 +109,7 @@ public class StationServiceImpl implements StationService {
         if (!result.isEmpty()) {
             return new Response<>(1, success, result);
         } else {
+            StationServiceImpl.LOGGER.warn("Find station ids warn.Stations not found, StationNameNumber: {}",nameList.size());
             return new Response<>(0, "No content according to name list", null);
         }
 
@@ -111,6 +121,7 @@ public class StationServiceImpl implements StationService {
         if (station != null) {
             return new Response<>(1, success, station.getName());
         } else {
+            StationServiceImpl.LOGGER.error("Find station name error.Station not found, StationId: {}",stationId);
             return new Response<>(0, "No that stationId", stationId);
         }
     }
@@ -128,6 +139,7 @@ public class StationServiceImpl implements StationService {
         if (!result.isEmpty()) {
             return new Response<>(1, success, result);
         } else {
+            StationServiceImpl.LOGGER.error("Find station names error.Stations not found, StationIdNumber: {}",idList.size());
             return new Response<>(0, "No stationNamelist according to stationIdList", result);
         }
 
