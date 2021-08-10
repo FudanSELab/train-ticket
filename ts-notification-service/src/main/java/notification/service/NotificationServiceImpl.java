@@ -25,7 +25,7 @@ public class NotificationServiceImpl implements NotificationService{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotificationServiceImpl.class);
 
-    String email = "fdse_microservices@163.com";
+    String email = "trainticket_notify@163.com";
     String username = "username";
     String startingPlace = "startingPlace";
     String endPlace = "endPlace";

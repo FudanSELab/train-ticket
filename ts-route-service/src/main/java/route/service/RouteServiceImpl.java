@@ -35,8 +35,7 @@ public class RouteServiceImpl implements RouteService {
         List<String> stationList = new ArrayList<>();
         List<Integer> distanceList = new ArrayList<>();
         if (stations.length != distances.length) {
-            RouteServiceImpl.LOGGER.info("Station Number Not Equal To Distance Number");
-
+            RouteServiceImpl.LOGGER.error("Create and modify error.Station number not equal to distance number,RouteId: {}",info.getId());
             return new Response<>(0, "Station Number Not Equal To Distance Number", null);
         }
         for (int i = 0; i < stations.length; i++) {
@@ -79,6 +78,7 @@ public class RouteServiceImpl implements RouteService {
         if (route == null) {
             return new Response<>(1, "Delete Success", routeId);
         } else {
+            RouteServiceImpl.LOGGER.error("Delete error.Route not found,RouteId: {}",routeId);
             return new Response<>(0, "Delete failed, Reason unKnown with this routeId", routeId);
         }
     }
@@ -87,6 +87,7 @@ public class RouteServiceImpl implements RouteService {
     public Response getRouteById(String routeId, HttpHeaders headers) {
         Route route = routeRepository.findById(routeId);
         if (route == null) {
+            RouteServiceImpl.LOGGER.error("Find route error.Route not found,RouteId: {}",routeId);
             return new Response<>(0, "No content with the routeId", null);
         } else {
             return new Response<>(1, success, route);
@@ -97,7 +98,7 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public Response getRouteByStartAndTerminal(String startId, String terminalId, HttpHeaders headers) {
         ArrayList<Route> routes = routeRepository.findAll();
-        RouteServiceImpl.LOGGER.info("[Route Service] Find All: {}", routes.size());
+        RouteServiceImpl.LOGGER.info("Find All: {}", routes.size());
         List<Route> resultList = new ArrayList<>();
         for (Route route : routes) {
             if (route.getStations().contains(startId) &&
@@ -109,6 +110,7 @@ public class RouteServiceImpl implements RouteService {
         if (!resultList.isEmpty()) {
             return new Response<>(1, success, resultList);
         } else {
+            RouteServiceImpl.LOGGER.warn("Find by start and terminal warn.Routes not found,startId: {},terminalId: {}",startId,terminalId);
             return new Response<>(0, "No routes with the startId and terminalId", null);
         }
     }
@@ -119,6 +121,7 @@ public class RouteServiceImpl implements RouteService {
         if (routes != null && !routes.isEmpty()) {
             return new Response<>(1, success, routes);
         } else {
+            RouteServiceImpl.LOGGER.warn("Find all routes warn: {}","No Content");
             return new Response<>(0, "No Content", null);
         }
     }

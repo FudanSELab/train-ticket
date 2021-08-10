@@ -31,7 +31,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         Response<ArrayList<AdminTrip>> result;
         ArrayList<AdminTrip> trips = new ArrayList<>();
 
-        AdminTravelServiceImpl.LOGGER.info("[Admin Travel Service][Get All Travels]");
+        AdminTravelServiceImpl.LOGGER.info("[Get All Travels]");
         HttpEntity requestEntity = new HttpEntity(headers);
         ResponseEntity<Response<ArrayList<AdminTrip>>> re = restTemplate.exchange(
                 "http://ts-travel-service:12346/api/v1/travelservice/admin_trip",
@@ -43,10 +43,10 @@ public class AdminTravelServiceImpl implements AdminTravelService {
 
         if (result.getStatus() == 1) {
             ArrayList<AdminTrip> adminTrips = result.getData();
-            AdminTravelServiceImpl.LOGGER.info("[Admin Travel Service][Get Travel From ts-travel-service successfully!]");
+            AdminTravelServiceImpl.LOGGER.info("[Get Travel From ts-travel-service successfully!]");
             trips.addAll(adminTrips);
         } else {
-            AdminTravelServiceImpl.LOGGER.info("[Admin Travel Service][Get Travel From ts-travel-service fail!]");
+            AdminTravelServiceImpl.LOGGER.error("[Get Travel From ts-travel-service fail!]");
         }
 
         HttpEntity requestEntity2 = new HttpEntity(headers);
@@ -59,11 +59,11 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         result = re2.getBody();
 
         if (result.getStatus() == 1) {
-            AdminTravelServiceImpl.LOGGER.info("[Admin Travel Service][Get Travel From ts-travel2-service successfully!]");
+            AdminTravelServiceImpl.LOGGER.info("[Get Travel From ts-travel2-service successfully!]");
             ArrayList<AdminTrip> adminTrips = result.getData();
             trips.addAll(adminTrips);
         } else {
-            AdminTravelServiceImpl.LOGGER.info("[Admin Travel Service][Get Travel From ts-travel2-service fail!]");
+            AdminTravelServiceImpl.LOGGER.error("[Get Travel From ts-travel2-service fail!]");
         }
         result.setData(trips);
 
@@ -72,7 +72,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
 
     @Override
     public Response addTravel(TravelInfo request, HttpHeaders headers) {
-        Response resultResponse;
+        Response result;
         String requestUrl;
         if (request.getTrainTypeId().charAt(0) == 'G' || request.getTrainTypeId().charAt(0) == 'D') {
             requestUrl = "http://ts-travel-service:12346/api/v1/travelservice/trips";
@@ -85,12 +85,13 @@ public class AdminTravelServiceImpl implements AdminTravelService {
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
-        resultResponse = re.getBody();
+        result = re.getBody();
 
-        if (resultResponse.getStatus() == 1) {
-            AdminTravelServiceImpl.LOGGER.info("[Admin Travel Service][Admin add new travel]");
-            return new Response<>(1, "[Admin Travel Service][Admin add new travel]", null);
+        if (result.getStatus() == 1) {
+            AdminTravelServiceImpl.LOGGER.info("Admin add new travel");
+            return new Response<>(1, "[Admin add new travel]", null);
         } else {
+            AdminTravelServiceImpl.LOGGER.error("Admin add new travel failed, trip id: {}", request.getTripId());
             return new Response<>(0, "Admin add new travel failed", null);
         }
     }
@@ -111,8 +112,14 @@ public class AdminTravelServiceImpl implements AdminTravelService {
                 HttpMethod.PUT,
                 requestEntity,
                 Response.class);
+
         result = re.getBody();
-        AdminTravelServiceImpl.LOGGER.info("[Admin Travel Service][Admin update travel]");
+        if (result.getStatus() != 1)  {
+            AdminTravelServiceImpl.LOGGER.info("[Admin update travel failed]");
+            return new Response<>(0, "Admin update travel failed", null);
+        }
+
+        AdminTravelServiceImpl.LOGGER.info("[Admin update travel success]");
         return result;
     }
 
@@ -132,8 +139,14 @@ public class AdminTravelServiceImpl implements AdminTravelService {
                 HttpMethod.DELETE,
                 requestEntity,
                 Response.class);
-        result = re.getBody();
 
+        result = re.getBody();
+        if (result.getStatus() != 1) {
+            AdminTravelServiceImpl.LOGGER.error("Admin delete travel failed, trip id: {}", tripId);
+            return new Response<>(0, "Admin delete travel failed", null);
+        }
+
+        AdminTravelServiceImpl.LOGGER.info("Admin delete travel success, trip id: {}", tripId);
         return result;
     }
 }

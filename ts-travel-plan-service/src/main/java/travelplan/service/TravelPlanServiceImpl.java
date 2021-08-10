@@ -106,6 +106,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
 
             return new Response<>(1, success, lists);
         } else {
+            TravelPlanServiceImpl.LOGGER.warn("Get cheapest trip warn.Route Plan Result Units: {}","No Content");
             return new Response<>(0, cannotFind, null);
         }
     }
@@ -149,6 +150,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
             }
             return new Response<>(1, success, lists);
         } else {
+            TravelPlanServiceImpl.LOGGER.warn("Get quickest trip warn.Route Plan Result Units: {}","No Content");
             return new Response<>(0, cannotFind, null);
         }
     }
@@ -192,6 +194,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
             }
             return new Response<>(1, success, lists);
         } else {
+            TravelPlanServiceImpl.LOGGER.warn("Get min stations trip warn.Route Plan Result Units: {}","No Content");
             return new Response<>(0, cannotFind, null);
         }
     }
@@ -209,7 +212,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         seatRequest.setSeatType(seatType);
 
         TravelPlanServiceImpl.LOGGER.info("Seat Request is: {}", seatRequest.toString());
-        HttpEntity requestEntity = new HttpEntity(seatRequest, headers);
+        HttpEntity requestEntity = new HttpEntity(seatRequest, null);
         ResponseEntity<Response<Integer>> re = restTemplate.exchange(
                 "http://ts-seat-service:18898/api/v1/seatservice/seats/left_tickets",
                 HttpMethod.POST,
@@ -221,7 +224,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     }
 
     private ArrayList<RoutePlanResultUnit> getRoutePlanResultCheapest(RoutePlanInfo info, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(info, headers);
+        HttpEntity requestEntity = new HttpEntity(info, null);
         ResponseEntity<Response<ArrayList<RoutePlanResultUnit>>> re = restTemplate.exchange(
                 "http://ts-route-plan-service:14578/api/v1/routeplanservice/routePlan/cheapestRoute",
                 HttpMethod.POST,
@@ -232,7 +235,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     }
 
     private ArrayList<RoutePlanResultUnit> getRoutePlanResultQuickest(RoutePlanInfo info, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(info, headers);
+        HttpEntity requestEntity = new HttpEntity(info, null);
         ResponseEntity<Response<ArrayList<RoutePlanResultUnit>>> re = restTemplate.exchange(
                 "http://ts-route-plan-service:14578/api/v1/routeplanservice/routePlan/quickestRoute",
                 HttpMethod.POST,
@@ -244,7 +247,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     }
 
     private ArrayList<RoutePlanResultUnit> getRoutePlanResultMinStation(RoutePlanInfo info, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(info, headers);
+        HttpEntity requestEntity = new HttpEntity(info, null);
         ResponseEntity<Response<ArrayList<RoutePlanResultUnit>>> re = restTemplate.exchange(
                 "http://ts-route-plan-service:14578/api/v1/routeplanservice/routePlan/minStopStations",
                 HttpMethod.POST,
@@ -255,7 +258,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     }
 
     private List<TripResponse> tripsFromHighSpeed(TripInfo info, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(info, headers);
+        HttpEntity requestEntity = new HttpEntity(info, null);
         ResponseEntity<Response<List<TripResponse>>> re = restTemplate.exchange(
                 "http://ts-travel-service:12346/api/v1/travelservice/trips/left",
                 HttpMethod.POST,
@@ -267,7 +270,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
 
     private ArrayList<TripResponse> tripsFromNormal(TripInfo info, HttpHeaders headers) {
 
-        HttpEntity requestEntity = new HttpEntity(info, headers);
+        HttpEntity requestEntity = new HttpEntity(info, null);
         ResponseEntity<Response<ArrayList<TripResponse>>> re = restTemplate.exchange(
                 "http://ts-travel2-service:16346/api/v1/travel2service/trips/left",
                 HttpMethod.POST,
@@ -280,7 +283,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
 
     private String queryForStationId(String stationName, HttpHeaders headers) {
 
-        HttpEntity requestEntity = new HttpEntity(headers);
+        HttpEntity requestEntity = new HttpEntity(null);
         ResponseEntity<Response<String>> re = restTemplate.exchange(
                 "http://ts-ticketinfo-service:15681/api/v1/ticketinfoservice/ticketinfo/" + stationName,
                 HttpMethod.GET,
@@ -292,7 +295,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     }
 
     private List<String> transferStationIdToStationName(ArrayList<String> stations, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(stations, headers);
+        HttpEntity requestEntity = new HttpEntity(stations, null);
         ResponseEntity<Response<List<String>>> re = restTemplate.exchange(
                 "http://ts-station-service:12345/api/v1/stationservice/stations/namelist",
                 HttpMethod.POST,

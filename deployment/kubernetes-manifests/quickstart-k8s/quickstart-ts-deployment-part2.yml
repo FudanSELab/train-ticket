@@ -1,44 +1,3 @@
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: rest-service-collect
-#   labels:
-#     app: rest-service-collect
-# spec:
-#   type: NodePort
-#   ports:
-#     - port: 9413
-#   selector:
-#     app: rest-service-collect
-# ---
-
-# apiVersion: extensions/v1beta1
-# kind: Deployment
-# metadata:
-#   name: rest-service-collect
-# spec:
-#   replicas: 1
-#   template:
-#     metadata:
-#       labels:
-#         app: rest-service-collect
-#         version: v1
-#     spec:
-#       nodeName: k8snode3
-#       containers:
-#       - name: rest-service-collect
-#         image: header/rest-service-collect
-#         imagePullPolicy: IfNotPresent
-#         ports:
-#         - containerPort: 9413
-#         volumeMounts:
-#         - name: collect
-#           mountPath: /parquet
-#       volumes:
-#       - name: collect
-#         hostPath:
-#           path: /home/parquet
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -54,24 +13,29 @@ spec:
         app: ts-admin-basic-info-service
     spec:
       containers:
-      - name: ts-admin-basic-info-service
-        image: codewisdom/ts-admin-basic-info-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 18767
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 18767
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5   
+        - name: ts-admin-basic-info-service
+          image: codewisdom/ts-admin-basic-info-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 18767
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18767
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 
@@ -90,24 +54,29 @@ spec:
         app: ts-admin-order-service
     spec:
       containers:
-      - name: ts-admin-order-service
-        image: codewisdom/ts-admin-order-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16112
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16112
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-admin-order-service
+          image: codewisdom/ts-admin-order-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16112
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16112
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -125,24 +94,29 @@ spec:
         app: ts-admin-route-service
     spec:
       containers:
-      - name: ts-admin-route-service
-        image: codewisdom/ts-admin-route-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16113
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16113
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-admin-route-service
+          image: codewisdom/ts-admin-route-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16113
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16113
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -160,24 +134,29 @@ spec:
         app: ts-admin-travel-service
     spec:
       containers:
-      - name: ts-admin-travel-service
-        image: codewisdom/ts-admin-travel-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16114
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16114
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-admin-travel-service
+          image: codewisdom/ts-admin-travel-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16114
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16114
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -195,24 +174,29 @@ spec:
         app: ts-admin-user-service
     spec:
       containers:
-      - name: ts-admin-user-service
-        image: codewisdom/ts-admin-user-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16115
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16115
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-admin-user-service
+          image: codewisdom/ts-admin-user-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16115
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16115
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -230,24 +214,29 @@ spec:
         app: ts-assurance-service
     spec:
       containers:
-      - name: ts-assurance-service
-        image: codewisdom/ts-assurance-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 18888
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 18888
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-assurance-service
+          image: codewisdom/ts-assurance-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 18888
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18888
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -265,24 +254,29 @@ spec:
         app: ts-basic-service
     spec:
       containers:
-      - name: ts-basic-service
-        image: codewisdom/ts-basic-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 15680
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 15680
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-basic-service
+          image: codewisdom/ts-basic-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 15680
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15680
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -300,24 +294,29 @@ spec:
         app: ts-cancel-service
     spec:
       containers:
-      - name: ts-cancel-service
-        image: codewisdom/ts-cancel-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 18885
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 18885
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-cancel-service
+          image: codewisdom/ts-cancel-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 18885
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18885
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -335,24 +334,29 @@ spec:
         app: ts-config-service
     spec:
       containers:
-      - name: ts-config-service
-        image: codewisdom/ts-config-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 15679
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 15679
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-config-service
+          image: codewisdom/ts-config-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 15679
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15679
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -370,24 +374,29 @@ spec:
         app: ts-consign-price-service
     spec:
       containers:
-      - name: ts-consign-price-service
-        image: codewisdom/ts-consign-price-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16110
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16110
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-consign-price-service
+          image: codewisdom/ts-consign-price-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16110
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16110
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -405,24 +414,29 @@ spec:
         app: ts-consign-service
     spec:
       containers:
-      - name: ts-consign-service
-        image: codewisdom/ts-consign-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16111
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16111
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-consign-service
+          image: codewisdom/ts-consign-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16111
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16111
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -440,24 +454,29 @@ spec:
         app: ts-contacts-service
     spec:
       containers:
-      - name: ts-contacts-service
-        image: codewisdom/ts-contacts-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12347
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12347
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-contacts-service
+          image: codewisdom/ts-contacts-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 12347
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12347
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -475,24 +494,29 @@ spec:
         app: ts-execute-service
     spec:
       containers:
-      - name: ts-execute-service
-        image: codewisdom/ts-execute-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12386
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12386
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-execute-service
+          image: codewisdom/ts-execute-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 12386
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12386
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -510,24 +534,29 @@ spec:
         app: ts-food-map-service
     spec:
       containers:
-      - name: ts-food-map-service
-        image: codewisdom/ts-food-map-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 18855
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 18855
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-food-map-service
+          image: codewisdom/ts-food-map-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 18855
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18855
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -545,24 +574,33 @@ spec:
         app: ts-food-service
     spec:
       containers:
-      - name: ts-food-service
-        image: codewisdom/ts-food-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 18856
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 18856
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-food-service
+          image: codewisdom/ts-food-service:0.1
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: rabbitmq_host
+              value: "rabbitmq"
+            - name: rabbitmq_port
+              value: "5672"
+          ports:
+            - containerPort: 18856
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18856
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -580,24 +618,29 @@ spec:
         app: ts-inside-payment-service
     spec:
       containers:
-      - name: ts-inside-payment-service
-        image: codewisdom/ts-inside-payment-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 18673
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 18673
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-inside-payment-service
+          image: codewisdom/ts-inside-payment-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 18673
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18673
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -615,24 +658,29 @@ spec:
         app: ts-auth-service
     spec:
       containers:
-      - name: ts-auth-service
-        image: codewisdom/ts-auth-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12340
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12340
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-auth-service
+          image: codewisdom/ts-auth-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 12340
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12340
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -650,24 +698,29 @@ spec:
         app: ts-news-service
     spec:
       containers:
-      - name: ts-news-service
-        image: codewisdom/ts-news-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12862
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12862
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-news-service
+          image: codewisdom/ts-news-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 12862
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12862
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -685,24 +738,37 @@ spec:
         app: ts-notification-service
     spec:
       containers:
-      - name: ts-notification-service
-        image: codewisdom/ts-notification-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 17853
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 17853
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-notification-service
+          image: codewisdom/ts-notification-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: email_address
+              value: "trainticket_notify@163.com"
+            - name: email_password
+              value: "GZKSCXHBOLKMCLDQ"
+            - name: rabbitmq_host
+              value: "rabbitmq"
+            - name: rabbitmq_port
+              value: "5672"
+          ports:
+            - containerPort: 17853
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 17853
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -720,24 +786,29 @@ spec:
         app: ts-order-other-service
     spec:
       containers:
-      - name: ts-order-other-service
-        image: codewisdom/ts-order-other-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12032
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12032
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-order-other-service
+          image: codewisdom/ts-order-other-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 12032
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12032
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -755,24 +826,29 @@ spec:
         app: ts-order-service
     spec:
       containers:
-      - name: ts-order-service
-        image: codewisdom/ts-order-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12031
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12031
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-order-service
+          image: codewisdom/ts-order-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 12031
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12031
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -790,24 +866,29 @@ spec:
         app: ts-payment-service
     spec:
       containers:
-      - name: ts-payment-service
-        image: codewisdom/ts-payment-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 19001
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 19001
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-payment-service
+          image: codewisdom/ts-payment-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 19001
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 19001
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -825,24 +906,33 @@ spec:
         app: ts-preserve-other-service
     spec:
       containers:
-      - name: ts-preserve-other-service
-        image: codewisdom/ts-preserve-other-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 14569
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 14569
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-preserve-other-service
+          image: codewisdom/ts-preserve-other-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: rabbitmq_host
+              value: "rabbitmq"
+            - name: rabbitmq_port
+              value: "5672"
+          ports:
+            - containerPort: 14569
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14569
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -860,24 +950,33 @@ spec:
         app: ts-preserve-service
     spec:
       containers:
-      - name: ts-preserve-service
-        image: codewisdom/ts-preserve-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 14568
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 14568
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-preserve-service
+          image: codewisdom/ts-preserve-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: rabbitmq_host
+              value: "rabbitmq"
+            - name: rabbitmq_port
+              value: "5672"
+          ports:
+            - containerPort: 14568
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14568
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -895,24 +994,29 @@ spec:
         app: ts-price-service
     spec:
       containers:
-      - name: ts-price-service
-        image: codewisdom/ts-price-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16579
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16579
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-price-service
+          image: codewisdom/ts-price-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16579
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16579
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -930,24 +1034,29 @@ spec:
         app: ts-rebook-service
     spec:
       containers:
-      - name: ts-rebook-service
-        image: codewisdom/ts-rebook-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 18886
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 18886
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-rebook-service
+          image: codewisdom/ts-rebook-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 18886
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18886
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -965,24 +1074,29 @@ spec:
         app: ts-route-plan-service
     spec:
       containers:
-      - name: ts-route-plan-service
-        image: codewisdom/ts-route-plan-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 14578
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 14578
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-route-plan-service
+          image: codewisdom/ts-route-plan-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 14578
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14578
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1000,24 +1114,29 @@ spec:
         app: ts-route-service
     spec:
       containers:
-      - name: ts-route-service
-        image: codewisdom/ts-route-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 11178
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 11178
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-route-service
+          image: codewisdom/ts-route-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 11178
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 11178
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1035,24 +1154,29 @@ spec:
         app: ts-seat-service
     spec:
       containers:
-      - name: ts-seat-service
-        image: codewisdom/ts-seat-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 18898
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 18898
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-seat-service
+          image: codewisdom/ts-seat-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 18898
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18898
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1070,24 +1194,29 @@ spec:
         app: ts-security-service
     spec:
       containers:
-      - name: ts-security-service
-        image: codewisdom/ts-security-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 11188
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 11188
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-security-service
+          image: codewisdom/ts-security-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 11188
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 11188
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1105,24 +1234,29 @@ spec:
         app: ts-user-service
     spec:
       containers:
-      - name: ts-user-service
-        image: codewisdom/ts-user-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12342
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12342
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-user-service
+          image: codewisdom/ts-user-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 12342
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12342
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1140,24 +1274,29 @@ spec:
         app: ts-station-service
     spec:
       containers:
-      - name: ts-station-service
-        image: codewisdom/ts-station-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12345
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12345
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-station-service
+          image: codewisdom/ts-station-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 12345
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12345
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1172,27 +1311,32 @@ spec:
   template:
     metadata:
       labels:
-        app: ts-ticket-office-service 
+        app: ts-ticket-office-service
     spec:
       containers:
-      - name: ts-ticket-office-service
-        image: codewisdom/ts-ticket-office-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16108
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16108
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-ticket-office-service
+          image: codewisdom/ts-ticket-office-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16108
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16108
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1210,24 +1354,29 @@ spec:
         app: ts-ticketinfo-service
     spec:
       containers:
-      - name: ts-ticketinfo-service
-        image: codewisdom/ts-ticketinfo-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 15681
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 15681
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-ticketinfo-service
+          image: codewisdom/ts-ticketinfo-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 15681
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15681
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1245,24 +1394,29 @@ spec:
         app: ts-train-service
     spec:
       containers:
-      - name: ts-train-service
-        image: codewisdom/ts-train-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 14567
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 14567
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-train-service
+          image: codewisdom/ts-train-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 14567
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14567
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1280,24 +1434,29 @@ spec:
         app: ts-travel2-service
     spec:
       containers:
-      - name: ts-travel2-service
-        image: codewisdom/ts-travel2-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16346
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16346
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-travel2-service
+          image: codewisdom/ts-travel2-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16346
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16346
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1315,24 +1474,29 @@ spec:
         app: ts-travel-plan-service
     spec:
       containers:
-      - name: ts-travel-plan-service
-        image: codewisdom/ts-travel-plan-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 14322
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 14322
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-travel-plan-service
+          image: codewisdom/ts-travel-plan-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 14322
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14322
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1350,24 +1514,74 @@ spec:
         app: ts-travel-service
     spec:
       containers:
-      - name: ts-travel-service
-        image: codewisdom/ts-travel-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12346
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12346
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5 
+        - name: ts-travel-service
+          image: codewisdom/ts-travel-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 12346
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12346
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-delivery-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-delivery-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-delivery-service
+    spec:
+      containers:
+        - name: ts-delivery-service
+          image: codewisdom/ts-delivery-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: rabbitmq_host
+              value: "rabbitmq"
+            - name: rabbitmq_port
+              value: "5672"
+          ports:
+            - containerPort: 18808
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18808
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+
 ---
 
 apiVersion: apps/v1
@@ -1385,24 +1599,29 @@ spec:
         app: ts-verification-code-service
     spec:
       containers:
-      - name: ts-verification-code-service
-        image: codewisdom/ts-verification-code-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 15678
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 15678
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: ts-verification-code-service
+          image: codewisdom/ts-verification-code-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 15678
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15678
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 
 apiVersion: apps/v1
@@ -1420,64 +1639,30 @@ spec:
         app: ts-voucher-service
     spec:
       containers:
-      - name: ts-voucher-service
-        image: codewisdom/ts-voucher-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16101
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16101
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
-
+        - name: ts-voucher-service
+          image: codewisdom/ts-voucher-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          ports:
+            - containerPort: 16101
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16101
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-avatar-service
-spec:
-  selector:
-    matchLabels:
-      app: ts-avatar-service
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-avatar-service
-    spec:
-      containers:
-      - name: ts-avatar-service
-        image: codewisdom/ts-avatar-service:0.1.0
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 17001
-        resources:
-          requests:
-            cpu: 50m
-            memory: 200Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 17001
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
-
-
----
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -1487,7 +1672,19 @@ spec:
     - name: http
       port: 18767
   selector:
-   app: ts-admin-basic-info-service
+    app: ts-admin-basic-info-service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-delivery-service
+spec:
+  ports:
+    - name: http
+      port: 18808
+  selector:
+    app: ts-delivery-service
 
 ---
 
@@ -1500,7 +1697,7 @@ spec:
     - name: http
       port: 16112
   selector:
-   app: ts-admin-order-service
+    app: ts-admin-order-service
 
 ---
 
@@ -1513,7 +1710,7 @@ spec:
     - name: http
       port: 16113
   selector:
-   app: ts-admin-route-service
+    app: ts-admin-route-service
 
 ---
 
@@ -1526,7 +1723,7 @@ spec:
     - name: http
       port: 16114
   selector:
-   app: ts-admin-travel-service
+    app: ts-admin-travel-service
 
 ---
 
@@ -1539,7 +1736,7 @@ spec:
     - name: http
       port: 16115
   selector:
-   app: ts-admin-user-service
+    app: ts-admin-user-service
 
 ---
 
@@ -1552,7 +1749,7 @@ spec:
     - name: http
       port: 18888
   selector:
-   app: ts-assurance-service
+    app: ts-assurance-service
 
 ---
 
@@ -1565,7 +1762,7 @@ spec:
     - name: http
       port: 15680
   selector:
-   app: ts-basic-service
+    app: ts-basic-service
 
 ---
 
@@ -1578,7 +1775,7 @@ spec:
     - name: http
       port: 18885
   selector:
-   app: ts-cancel-service
+    app: ts-cancel-service
 
 ---
 
@@ -1591,7 +1788,7 @@ spec:
     - name: http
       port: 15679
   selector:
-   app: ts-config-service
+    app: ts-config-service
 
 ---
 
@@ -1604,7 +1801,7 @@ spec:
     - name: http
       port: 16110
   selector:
-   app: ts-consign-price-service
+    app: ts-consign-price-service
 
 ---
 
@@ -1617,7 +1814,7 @@ spec:
     - name: http
       port: 16111
   selector:
-   app: ts-consign-service
+    app: ts-consign-service
 
 ---
 
@@ -1630,7 +1827,7 @@ spec:
     - name: http
       port: 12347
   selector:
-   app: ts-contacts-service
+    app: ts-contacts-service
 
 ---
 
@@ -1643,7 +1840,7 @@ spec:
     - name: http
       port: 12386
   selector:
-   app: ts-execute-service
+    app: ts-execute-service
 
 ---
 
@@ -1656,7 +1853,7 @@ spec:
     - name: http
       port: 18855
   selector:
-   app: ts-food-map-service
+    app: ts-food-map-service
 
 ---
 
@@ -1669,7 +1866,7 @@ spec:
     - name: http
       port: 18856
   selector:
-   app: ts-food-service
+    app: ts-food-service
 
 ---
 
@@ -1682,7 +1879,7 @@ spec:
     - name: http
       port: 18673
   selector:
-   app: ts-inside-payment-service
+    app: ts-inside-payment-service
 
 ---
 
@@ -1695,7 +1892,7 @@ spec:
     - name: http
       port: 12342
   selector:
-   app: ts-user-service
+    app: ts-user-service
 
 ---
 
@@ -1708,7 +1905,7 @@ spec:
     - name: http
       port: 17853
   selector:
-   app: ts-notification-service
+    app: ts-notification-service
 
 ---
 
@@ -1721,7 +1918,7 @@ spec:
     - name: http
       port: 12862
   selector:
-   app: ts-news-service
+    app: ts-news-service
 
 ---
 
@@ -1734,7 +1931,7 @@ spec:
     - name: http
       port: 12032
   selector:
-   app: ts-order-other-service
+    app: ts-order-other-service
 
 ---
 
@@ -1747,7 +1944,7 @@ spec:
     - name: http
       port: 12031
   selector:
-   app: ts-order-service
+    app: ts-order-service
 
 ---
 
@@ -1760,7 +1957,7 @@ spec:
     - name: http
       port: 19001
   selector:
-   app: ts-payment-service
+    app: ts-payment-service
 
 ---
 
@@ -1773,7 +1970,7 @@ spec:
     - name: http
       port: 14569
   selector:
-   app: ts-preserve-other-service
+    app: ts-preserve-other-service
 
 ---
 
@@ -1786,7 +1983,7 @@ spec:
     - name: http
       port: 14568
   selector:
-   app: ts-preserve-service
+    app: ts-preserve-service
 
 ---
 
@@ -1799,7 +1996,7 @@ spec:
     - name: http
       port: 16579
   selector:
-   app: ts-price-service
+    app: ts-price-service
 
 ---
 
@@ -1812,7 +2009,7 @@ spec:
     - name: http
       port: 18886
   selector:
-   app: ts-rebook-service
+    app: ts-rebook-service
 
 ---
 
@@ -1825,7 +2022,7 @@ spec:
     - name: http
       port: 14578
   selector:
-   app: ts-route-plan-service
+    app: ts-route-plan-service
 
 ---
 
@@ -1838,7 +2035,7 @@ spec:
     - name: http
       port: 11178
   selector:
-   app: ts-route-service
+    app: ts-route-service
 
 ---
 
@@ -1851,7 +2048,7 @@ spec:
     - name: http
       port: 18898
   selector:
-   app: ts-seat-service
+    app: ts-seat-service
 
 ---
 
@@ -1864,7 +2061,7 @@ spec:
     - name: http
       port: 11188
   selector:
-   app: ts-security-service
+    app: ts-security-service
 
 ---
 
@@ -1873,12 +2070,13 @@ kind: Service
 metadata:
   name: ts-auth-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - name: http
       port: 12340
+      nodePort: 30000
   selector:
-   app: ts-auth-service
+    app: ts-auth-service
 
 ---
 
@@ -1891,7 +2089,7 @@ spec:
     - name: http
       port: 12345
   selector:
-   app: ts-station-service
+    app: ts-station-service
 
 ---
 
@@ -1904,7 +2102,7 @@ spec:
     - name: http
       port: 16108
   selector:
-   app: ts-ticket-office-service
+    app: ts-ticket-office-service
 
 ---
 
@@ -1917,7 +2115,7 @@ spec:
     - name: http
       port: 15681
   selector:
-   app: ts-ticketinfo-service
+    app: ts-ticketinfo-service
 
 ---
 
@@ -1930,7 +2128,7 @@ spec:
     - name: http
       port: 14567
   selector:
-   app: ts-train-service
+    app: ts-train-service
 
 ---
 
@@ -1943,7 +2141,7 @@ spec:
     - name: http
       port: 16346
   selector:
-   app: ts-travel2-service
+    app: ts-travel2-service
 
 ---
 
@@ -1956,7 +2154,7 @@ spec:
     - name: http
       port: 14322
   selector:
-   app: ts-travel-plan-service
+    app: ts-travel-plan-service
 
 ---
 
@@ -1969,7 +2167,7 @@ spec:
     - name: http
       port: 12346
   selector:
-   app: ts-travel-service
+    app: ts-travel-service
 
 
 ---
@@ -1983,7 +2181,7 @@ spec:
     - name: http
       port: 15678
   selector:
-   app: ts-verification-code-service
+    app: ts-verification-code-service
 
 
 ---
@@ -1997,17 +2195,5 @@ spec:
     - name: http
       port: 16101
   selector:
-   app: ts-voucher-service
+    app: ts-voucher-service
 
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-avatar-service
-spec:
-  ports:
-    - name: http
-      port: 17001
-  selector:
-   app: ts-avatar-service

@@ -21,7 +21,7 @@ public class TicketInfoServiceImpl implements TicketInfoService {
 
     @Override
     public Response queryForTravel(Travel info, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(info, headers);
+        HttpEntity requestEntity = new HttpEntity(info, null);
         ResponseEntity<Response> re = restTemplate.exchange(
                 "http://ts-basic-service:15680/api/v1/basicservice/basic/travel",
                 HttpMethod.POST,
@@ -32,7 +32,7 @@ public class TicketInfoServiceImpl implements TicketInfoService {
 
     @Override
     public Response queryForStationId(String name, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(headers);
+        HttpEntity requestEntity = new HttpEntity(null);
         ResponseEntity<Response> re = restTemplate.exchange(
                 "http://ts-basic-service:15680/api/v1/basicservice/basic/" + name,
                 HttpMethod.GET,

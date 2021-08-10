@@ -104,7 +104,7 @@ public class AdminTravelServiceImplTest {
                 requestEntity2,
                 Response.class)).thenReturn(re);
         Response result = adminTravelServiceImpl.addTravel(request, headers);
-        Assert.assertEquals(new Response<>(1, "[Admin Travel Service][Admin add new travel]", null), result);
+        Assert.assertEquals(new Response<>(1, "[Admin add new travel]", null), result);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class AdminTravelServiceImplTest {
                 requestEntity2,
                 Response.class)).thenReturn(re);
         Response result = adminTravelServiceImpl.addTravel(request, headers);
-        Assert.assertEquals(new Response<>(1, "[Admin Travel Service][Admin add new travel]", null), result);
+        Assert.assertEquals(new Response<>(1, "[Admin add new travel]", null), result);
     }
 
 
@@ -142,7 +142,7 @@ public class AdminTravelServiceImplTest {
     public void testUpdateTravel1() {
         TravelInfo request = new TravelInfo(null, null, "G", null, null, null, null, null, null);
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
-        Response response = new Response();
+        Response response = new Response(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 "http://ts-travel-service:12346/api/v1/travelservice/trips",
@@ -150,14 +150,14 @@ public class AdminTravelServiceImplTest {
                 requestEntity2,
                 Response.class)).thenReturn(re);
         Response result = adminTravelServiceImpl.updateTravel(request, headers);
-        Assert.assertEquals(new Response<>(null, null, null), result);
+        Assert.assertEquals(new Response<>(1, null, null), result);
     }
 
     @Test
     public void testUpdateTravel2() {
         TravelInfo request = new TravelInfo(null, null, "K", null, null, null, null, null, null);
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
-        Response response = new Response();
+        Response response = new Response(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 "http://ts-travel2-service:16346/api/v1/travel2service/trips",
@@ -165,12 +165,12 @@ public class AdminTravelServiceImplTest {
                 requestEntity2,
                 Response.class)).thenReturn(re);
         Response result = adminTravelServiceImpl.updateTravel(request, headers);
-        Assert.assertEquals(new Response<>(null, null, null), result);
+        Assert.assertEquals(new Response<>(1, null, null), result);
     }
 
     @Test
     public void testDeleteTravel1() {
-        Response response = new Response();
+        Response response = new Response(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 "http://ts-travel-service:12346/api/v1/travelservice/trips/" + "GaoTie",
@@ -178,12 +178,12 @@ public class AdminTravelServiceImplTest {
                 requestEntity,
                 Response.class)).thenReturn(re);
         Response result = adminTravelServiceImpl.deleteTravel("GaoTie", headers);
-        Assert.assertEquals(new Response<>(null, null, null), result);
+        Assert.assertEquals(new Response<>(1, null, null), result);
     }
 
     @Test
     public void testDeleteTravel2() {
-        Response response = new Response();
+        Response response = new Response(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 "http://ts-travel2-service:16346/api/v1/travel2service/trips/" + "K1024",
@@ -191,7 +191,7 @@ public class AdminTravelServiceImplTest {
                 requestEntity,
                 Response.class)).thenReturn(re);
         Response result = adminTravelServiceImpl.deleteTravel("K1024", headers);
-        Assert.assertEquals(new Response<>(null, null, null), result);
+        Assert.assertEquals(new Response<>(1, null, null), result);
     }
 
 }

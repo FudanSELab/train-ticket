@@ -40,8 +40,7 @@ public class AdminOrderControllerTest {
     @Test
     public void testHome() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/adminorderservice/welcome"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Welcome to [ AdminOrder Service ] !"));
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test

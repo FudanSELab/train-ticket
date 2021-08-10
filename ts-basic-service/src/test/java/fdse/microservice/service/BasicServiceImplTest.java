@@ -79,7 +79,7 @@ public class BasicServiceImplTest {
 
     @Test
     public void testQueryForStationId() {
-        Response response = new Response<>();
+        Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 "http://ts-station-service:12345/api/v1/stationservice/stations/id/" + "stationName",
@@ -87,7 +87,7 @@ public class BasicServiceImplTest {
                 requestEntity,
                 Response.class)).thenReturn(re);
         Response result = basicServiceImpl.queryForStationId("stationName", headers);
-        Assert.assertEquals(new Response<>(null, null, null), result);
+        Assert.assertEquals(new Response<>(1, null, null), result);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class BasicServiceImplTest {
 
     @Test
     public void testQueryTrainType() {
-        Response response = new Response<>();
+        Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 "http://ts-train-service:14567/api/v1/trainservice/trains/" + "trainTypeId",

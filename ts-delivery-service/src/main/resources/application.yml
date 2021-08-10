@@ -1,0 +1,14 @@
+server:
+  port: 18808
+
+spring:
+  application:
+    name: ts-delivery-service
+  data:
+    mongodb:
+      host: ${mongohost:ts-delivery-mongo}
+      database: ts
+      port: 27017
+  rabbitmq:
+    host: ${rabbitmq_host:localhost}
+    port: ${rabbitmq_port:5672}
