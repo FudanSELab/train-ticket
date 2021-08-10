@@ -575,7 +575,7 @@ spec:
     spec:
       containers:
         - name: ts-food-service
-          image: codewisdom/ts-food-service:0.1
+          image: codewisdom/ts-food-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
