@@ -33,7 +33,6 @@ public class ContactsServiceImpl implements ContactsService {
         if (contacts != null) {
             return new Response<>(1, success, contacts);
         } else {
-            LOGGER.error("No contacts according to contactsId: {}", id);
             return new Response<>(0, "No contacts according to contacts id", null);
         }
     }
@@ -49,7 +48,7 @@ public class ContactsServiceImpl implements ContactsService {
     public Response createContacts(Contacts contacts, HttpHeaders headers) {
         Contacts contactsTemp = contactsRepository.findById(contacts.getId());
         if (contactsTemp != null) {
-            ContactsServiceImpl.LOGGER.warn("[Contacts Service][Init Contacts] Already Exists Id: {}", contacts.getId());
+            ContactsServiceImpl.LOGGER.info("[Contacts Service][Init Contacts] Already Exists Id: {}", contacts.getId());
             return new Response<>(0, "Already Exists", contactsTemp);
         } else {
             contactsRepository.save(contacts);
@@ -70,7 +69,7 @@ public class ContactsServiceImpl implements ContactsService {
         ArrayList<Contacts> accountContacts = contactsRepository.findByAccountId(addContacts.getAccountId());
 
         if (accountContacts.contains(contacts)) {
-            ContactsServiceImpl.LOGGER.warn("[Contacts-Add&Delete-Service][AddContacts] Fail.Contacts already exists, contactId: {}", addContacts.getId());
+            ContactsServiceImpl.LOGGER.info("[Contacts-Add&Delete-Service][AddContacts] Fail.Contacts already exists");
             return new Response<>(0, "Contacts already exists", null);
         } else {
             contactsRepository.save(contacts);
@@ -87,19 +86,18 @@ public class ContactsServiceImpl implements ContactsService {
             ContactsServiceImpl.LOGGER.info("[Contacts-Add&Delete-Service][DeleteContacts] Success.");
             return new Response<>(1, "Delete success", contactsId);
         } else {
-            ContactsServiceImpl.LOGGER.error("[Contacts-Add&Delete-Service][DeleteContacts] Fail.Reason not clear, contactsId: {}", contactsId);
+            ContactsServiceImpl.LOGGER.info("[Contacts-Add&Delete-Service][DeleteContacts] Fail.Reason not clear.");
             return new Response<>(0, "Delete failed", contactsId);
         }
     }
 
     @Override
     public Response modify(Contacts contacts, HttpHeaders headers) {
-        headers = null;
         Response oldContactResponse = findContactsById(contacts.getId(), headers);
         LOGGER.info(oldContactResponse.toString());
         Contacts oldContacts = (Contacts) oldContactResponse.getData();
         if (oldContacts == null) {
-            ContactsServiceImpl.LOGGER.error("[Contacts-Modify-Service][ModifyContacts] Fail.Contacts not found, contactId: {}", contacts.getId());
+            ContactsServiceImpl.LOGGER.info("[Contacts-Modify-Service][ModifyContacts] Fail.Contacts not found.");
             return new Response<>(0, "Contacts not found", null);
         } else {
             oldContacts.setName(contacts.getName());
@@ -118,7 +116,6 @@ public class ContactsServiceImpl implements ContactsService {
         if (contacts != null && !contacts.isEmpty()) {
             return new Response<>(1, success, contacts);
         } else {
-            LOGGER.error("Get all contacts error, message: {}", "No content");
             return new Response<>(0, "No content", null);
         }
     }

@@ -1,6 +1,6 @@
 # Codewisdom Train-Ticket system
 
-Repo=codewisdom
+Username=codewisdom
 Tag=$$(cat version)
 
 # build image
@@ -9,27 +9,23 @@ build: clean-image package build-image
 
 .PHONY: package
 package:
-	mvn clean package -DskipTests
+	@mvn clean package
 
 .PHONY: build-image
 build-image:
-	hack/build-image.sh $(Repo) $(Tag)
+	@hack/build-image.sh $(Username) $(Tag)
 
 # push image
 .PHONY: push-image
 push-image:
-	hack/push-image.sh $(Repo)
-
-.PHONY: publish-image
-publish-image:
-	script/publish-docker-images.sh $(Repo) $(Tag)
+	@hack/push-image.sh $(Username)
 
 .PHONY: clean
 clean:
-	mvn clean
-	hack/clean-image.sh $(Repo)
+	@mvn clean
+	@hack/clean-image.sh $(Username)
 
 # clean image
 .PHONY: clean-image
 clean-image:
-	hack/clean-image.sh $(Repo)
+	@hack/clean-image.sh $(Username)

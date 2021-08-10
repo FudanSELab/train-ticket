@@ -39,7 +39,8 @@ public class AdminRouteControllerTest {
     @Test
     public void testHome() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/adminrouteservice/welcome"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Welcome to [ AdminRoute Service ] !"));
     }
 
     @Test

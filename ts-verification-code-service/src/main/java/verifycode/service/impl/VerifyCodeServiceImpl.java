@@ -93,7 +93,6 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
         Cookie cookie = CookieUtil.getCookieByName(request, ysbCaptcha);
         String cookieId;
         if (cookie == null) {
-            VerifyCodeServiceImpl.LOGGER.warn("Get image code warn.Cookie not found,Path Info: {}",request.getPathInfo());
             cookieId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
             CookieUtil.addCookie(response, ysbCaptcha, cookieId, CAPTCHA_EXPIRED);
         } else {
@@ -115,7 +114,6 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
         Cookie cookie = CookieUtil.getCookieByName(request, ysbCaptcha);
         String cookieId;
         if (cookie == null) {
-            VerifyCodeServiceImpl.LOGGER.warn("Verify code warn.Cookie not found,Path Info: {}",request.getPathInfo());
             cookieId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
             CookieUtil.addCookie(response, ysbCaptcha, cookieId, CAPTCHA_EXPIRED);
         } else {
@@ -125,7 +123,6 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
         String code = cacheCode.getIfPresent(cookieId);
         LOGGER.info("GET Code By cookieId " + cookieId + "   is :" + code);
         if (code == null) {
-            VerifyCodeServiceImpl.LOGGER.warn("Get image code warn.Code not found,CookieId: {}",cookieId);
             return false;
         }
         if (code.equalsIgnoreCase(receivedCode)) {

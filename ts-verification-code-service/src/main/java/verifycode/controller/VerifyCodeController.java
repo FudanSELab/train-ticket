@@ -30,7 +30,6 @@ public class VerifyCodeController {
     public void imageCode(@RequestHeader HttpHeaders headers,
                           HttpServletRequest request,
                           HttpServletResponse response) throws IOException {
-        VerifyCodeController.LOGGER.info("Image code");
         OutputStream os = response.getOutputStream();
         Map<String, Object> map = verifyCodeService.getImageCode(60, 20, os, request, response, headers);
         String simpleCaptcha = "simpleCaptcha";
@@ -49,9 +48,6 @@ public class VerifyCodeController {
     public boolean verifyCode(@PathVariable String verifyCode, HttpServletRequest request,
                               HttpServletResponse response, @RequestHeader HttpHeaders headers) {
         LOGGER.info("receivedCode  " + verifyCode);
-
-        boolean result = verifyCodeService.verifyCode(request, response, verifyCode, headers);
-        LOGGER.info("verify result: " + result);
-        return true;
+        return verifyCodeService.verifyCode(request, response, verifyCode, headers);
     }
 }

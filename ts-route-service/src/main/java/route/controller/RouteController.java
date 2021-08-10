@@ -30,25 +30,24 @@ public class RouteController {
 
     @PostMapping(path = "/routes")
     public ResponseEntity<Response> createAndModifyRoute(@RequestBody RouteInfo createAndModifyRouteInfo, @RequestHeader HttpHeaders headers) {
-        RouteController.LOGGER.info("Create route, start: {}, end: {}", createAndModifyRouteInfo.getStartStation(),createAndModifyRouteInfo.getEndStation());
+        RouteController.LOGGER.info("Create Route id: {}", createAndModifyRouteInfo.getId());
         return ok(routeService.createAndModify(createAndModifyRouteInfo, headers));
     }
 
     @DeleteMapping(path = "/routes/{routeId}")
     public HttpEntity deleteRoute(@PathVariable String routeId, @RequestHeader HttpHeaders headers) {
-        RouteController.LOGGER.info("Delete route,RouteId: {}", routeId);
+        RouteController.LOGGER.info("Route id: {}", routeId);
         return ok(routeService.deleteRoute(routeId, headers));
     }
 
     @GetMapping(path = "/routes/{routeId}")
     public HttpEntity queryById(@PathVariable String routeId, @RequestHeader HttpHeaders headers) {
-        RouteController.LOGGER.info("Query route by id, RouteId: {}", routeId);
+        RouteController.LOGGER.info("Route id: {}", routeId);
         return ok(routeService.getRouteById(routeId, headers));
     }
 
     @GetMapping(path = "/routes")
     public HttpEntity queryAll(@RequestHeader HttpHeaders headers) {
-        RouteController.LOGGER.info("Query all routes");
         return ok(routeService.getAllRoutes(headers));
     }
 
@@ -56,7 +55,7 @@ public class RouteController {
     public HttpEntity queryByStartAndTerminal(@PathVariable String startId,
                                               @PathVariable String terminalId,
                                               @RequestHeader HttpHeaders headers) {
-        RouteController.LOGGER.info("Query routes, startId : {}, terminalId: {}", startId, terminalId);
+        RouteController.LOGGER.info("startId : {}, terminalId: {}", startId, terminalId);
         return ok(routeService.getRouteByStartAndTerminal(startId, terminalId, headers));
     }
 

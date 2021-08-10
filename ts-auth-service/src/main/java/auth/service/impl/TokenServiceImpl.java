@@ -45,11 +45,11 @@ public class TokenServiceImpl implements TokenService {
     private RestTemplate restTemplate;
 
     @Override
-    public Response getToken(BasicAuthDto dto, HttpHeaders headers) throws UserOperationException {
+    public Response getToken(BasicAuthDto dto, HttpHeaders headers) {
         String username = dto.getUsername();
         String password = dto.getPassword();
         String verifyCode = dto.getVerificationCode();
-//        LOGGER.info("LOGIN USER :" + username + " __ " + password + " __ " + verifyCode);
+        LOGGER.info("LOGIN USER :" + username + " __ " + password + " __ " + verifyCode);
 
         if (!StringUtils.isEmpty(verifyCode)) {
             HttpEntity requestEntity = new HttpEntity(headers);
@@ -62,7 +62,6 @@ public class TokenServiceImpl implements TokenService {
 
             // failed code
             if (!id) {
-                LOGGER.info("Verification failed, userName: {}", username);
                 return new Response<>(0, "Verification failed.", null);
             }
         }
@@ -72,7 +71,6 @@ public class TokenServiceImpl implements TokenService {
         try {
             authenticationManager.authenticate(upat);
         } catch (AuthenticationException e) {
-            LOGGER.warn("Incorrect username or password, username: {}, password: {}", username, password);
             return new Response<>(0, "Incorrect username or password.", null);
         }
 
@@ -81,8 +79,8 @@ public class TokenServiceImpl implements TokenService {
                         InfoConstant.USER_NAME_NOT_FOUND_1, username
                 )));
         String token = jwtProvider.createToken(user);
-        LOGGER.info("USER TOKEN: "+ token);
-        LOGGER.info("USER ID: " + user.getUserId());
+        LOGGER.info(token + "USER TOKEN");
+        LOGGER.info(user.getUserId() + "   USER ID");
         return new Response<>(1, "login success", new TokenDto(user.getUserId(), username, token));
     }
 }

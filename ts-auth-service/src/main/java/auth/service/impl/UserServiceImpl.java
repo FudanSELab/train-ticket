@@ -56,11 +56,8 @@ public class UserServiceImpl implements UserService {
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .roles(new HashSet<>(Arrays.asList(AuthConstant.ROLE_USER)))
                 .build();
-        try {
-            checkUserCreateInfo(user);
-        } catch (UserOperationException e) {
-            LOGGER.error("Create default auth user error, message: {}", e.getMessage());
-        }
+
+        checkUserCreateInfo(user);
         return userRepository.save(user);
     }
 
@@ -71,13 +68,13 @@ public class UserServiceImpl implements UserService {
         return new Response(1, "DELETE USER SUCCESS", null);
     }
 
+
     /**
      * check Whether user info is empty
      *
      * @param user
      */
-    private void checkUserCreateInfo(User user) throws UserOperationException {
-        LOGGER.info("Check user create info, userId: {}, userName: {}", user.getUserId(), user.getUsername());
+    private void checkUserCreateInfo(User user) {
         List<String> infos = new ArrayList<>();
 
         if (null == user.getUsername() || "".equals(user.getUsername())) {
@@ -96,7 +93,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (!infos.isEmpty()) {
-            LOGGER.warn(infos.toString());
+            LOGGER.error(infos.toString());
             throw new UserOperationException(infos.toString());
         }
     }

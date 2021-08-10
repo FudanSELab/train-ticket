@@ -40,7 +40,7 @@ public class MailService {
 
         helper.setTo(mail.getMailTo());
         helper.setText(text, true);
-        helper.setFrom(mail.getMailFrom());
+        helper.setFrom("fdse_microservices@163.com");
         helper.setSubject(mail.getMailSubject());
 
         sender.send(message);
