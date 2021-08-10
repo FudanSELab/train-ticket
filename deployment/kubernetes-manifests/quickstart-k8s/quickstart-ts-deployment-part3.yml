@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ts-ui-dashboard
-          image: codewisdom/ts-ui-dashboard:0.1.0
+          image: codewisdom/ts-ui-dashboard:0.2.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
