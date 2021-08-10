@@ -1,7 +1,7 @@
 # Codewisdom Train-Ticket system
 
 Repo=codewisdom
-Tag=$$(cat version)
+Tag=latest
 
 # build image
 .PHONY: build
