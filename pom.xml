@@ -161,6 +161,7 @@
                         <ruleset>rulesets/java/ali-set.xml</ruleset>
                     </rulesets>
                     <printFailingErrors>true</printFailingErrors>
+                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -217,5 +218,13 @@
 
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/FudanSELab/train-ticket</url>
+        </repository>
+    </distributionManagement>
 
 </project>
