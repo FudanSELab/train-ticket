@@ -18,6 +18,9 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '8'
+          server-id: github
+          server-username: GITHUB_USER_REF
+          server-password: GITHUB_TOKEN_REF
       - name: Cache local Maven repository
         uses: actions/cache@v2
         with:
@@ -26,3 +29,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - run: mvn checkstyle:checkstyle
+        env:
+          GITHUB_USER_REF: ${{ secrets.GH_PACKAGE_REPO_USERNAME }}
+          GITHUB_TOKEN_REF: ${{ secrets.GH_PACKAGE_REPO_TOKEN }}
