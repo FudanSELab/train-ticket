@@ -14,6 +14,10 @@
         <version>1.5.22.RELEASE</version>
     </parent>
 
+    <properties>
+        <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
+    </properties>
+
     <modules>
         <module>ts-verification-code-service</module>
         <module>ts-contacts-service</module>
@@ -181,26 +185,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>checkstyle</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-                <configuration>
-                    <configLocation>codestyle/checkstyle.xml</configLocation>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
 
     <distributionManagement>
         <repository>
