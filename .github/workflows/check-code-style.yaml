@@ -27,4 +27,4 @@ jobs:
             ${{ runner.os }}-maven-
       - run: |
           mvn install -DskipTests
-          mvn checkstyle:checkstyle
+          mvn checkstyle:check
