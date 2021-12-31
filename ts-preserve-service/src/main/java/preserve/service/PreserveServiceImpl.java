@@ -114,7 +114,7 @@ public class PreserveServiceImpl implements PreserveService {
 
         HttpEntity requestEntity = new HttpEntity(query, headers);
         ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
-                "http://ts-ticketinfo-service:15681/api/v1/ticketinfoservice/ticketinfo",
+                "http://ts-basic-service:15680/api/v1/basicservice/basic/travel",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<TravelResult>>() {

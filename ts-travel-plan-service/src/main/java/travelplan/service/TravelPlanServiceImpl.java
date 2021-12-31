@@ -285,7 +285,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
 
         HttpEntity requestEntity = new HttpEntity(null);
         ResponseEntity<Response<String>> re = restTemplate.exchange(
-                "http://ts-ticketinfo-service:15681/api/v1/ticketinfoservice/ticketinfo/" + stationName,
+                "http://ts-basic-service:15680/api/v1/basicservice/basic/" + stationName,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<String>>() {

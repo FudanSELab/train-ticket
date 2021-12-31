@@ -226,7 +226,7 @@ public class Travel2ServiceImpl implements Travel2Service {
 
         HttpEntity requestEntity = new HttpEntity(query, null);
         ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
-                "http://ts-ticketinfo-service:15681/api/v1/ticketinfoservice/ticketinfo",
+                "http://ts-basic-service:15680/api/v1/basicservice/basic/travel",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<TravelResult>>() {
@@ -353,7 +353,7 @@ public class Travel2ServiceImpl implements Travel2Service {
     private String queryForStationId(String stationName, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
         ResponseEntity<Response<String>> re = restTemplate.exchange(
-                "http://ts-ticketinfo-service:15681/api/v1/ticketinfoservice/ticketinfo/" + stationName,
+                "http://ts-basic-service:15680/api/v1/basicservice/basic/" + stationName,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<String>>() {
