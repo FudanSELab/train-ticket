@@ -22,7 +22,7 @@ public class ConsignPrice {
     @Id
 //    private UUID id;
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 36)
     private String id;
 
     private int index;

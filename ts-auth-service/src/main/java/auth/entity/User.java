@@ -29,7 +29,7 @@ public class User implements UserDetails {
 
 //    private UUID userId;
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 36)
     private String userId;
 
     private String username;
