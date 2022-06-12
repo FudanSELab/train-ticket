@@ -9,13 +9,16 @@ spring:
         server-addr: nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local
   application:
     name: ts-payment-service
-  data:
-    mongodb:
-      host: ts-payment-mongo
-#      username: user
-#      password: ${MONGODB_PASSWORD}
-      database: ts
-      port: 27017
+  datasource:
+    url: jdbc:mysql://${PAYMENT_MYSQL_HOST:ts-payment-mysql}:${PAYMENT_MYSQL_PORT:3306}/${PAYMENT_MYSQL_DATABASE:ts-payment-mysql}?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    username: ${PAYMENT_MYSQL_USER:root}
+    password: ${PAYMENT_MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 swagger:
   controllerPackage: com.trainticket.controller

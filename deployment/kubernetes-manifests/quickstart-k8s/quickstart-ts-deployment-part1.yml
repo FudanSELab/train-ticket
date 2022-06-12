@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-user-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -33,6 +34,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-auth-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -63,23 +65,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-route-mongo
+  name: ts-route-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-route-mongo
+      app: ts-route-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-route-mongo
+        app: ts-route-mysql
     spec:
       containers:
-        - name: ts-route-mongo
-          image: mongo
+        - name: ts-route-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-route-mysql
           ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
@@ -91,6 +99,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-contacts-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -123,6 +132,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-order-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -155,6 +165,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-order-other-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -187,6 +198,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-config-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -213,12 +225,14 @@ spec:
               cpu: 50m
               memory: 100Mi
 
+
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-station-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -246,11 +260,11 @@ spec:
               memory: 100Mi
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-train-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -279,26 +293,33 @@ spec:
 
 ---
 
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-travel-mongo
+  name: ts-travel-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-travel-mongo
+      app: ts-travel-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-travel-mongo
+        app: ts-travel-mysql
     spec:
       containers:
-        - name: ts-travel-mongo
-          image: mongo
+        - name: ts-travel-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-travel-mysql
           ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
@@ -309,23 +330,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-travel2-mongo
+  name: ts-travel2-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-travel2-mongo
+      app: ts-travel2-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-travel2-mongo
+        app: ts-travel2-mysql
     spec:
       containers:
-        - name: ts-travel2-mongo
-          image: mongo
+        - name: ts-travel2-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-travel2-mysql
           ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
@@ -336,23 +363,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-price-mongo
+  name: ts-price-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-price-mongo
+      app: ts-price-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-price-mongo
+        app: ts-price-mysql
     spec:
       containers:
-        - name: ts-price-mongo
-          image: mongo
+        - name: ts-price-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-price-mysql
           ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
@@ -363,23 +396,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-security-mongo
+  name: ts-security-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-security-mongo
+      app: ts-security-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-security-mongo
+        app: ts-security-mysql
     spec:
       containers:
-        - name: ts-security-mongo
-          image: mongo
+        - name: ts-security-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-security-mysql
           ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
@@ -390,23 +429,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-inside-payment-mongo
+  name: ts-inside-payment-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-inside-payment-mongo
+      app: ts-inside-payment-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-inside-payment-mongo
+        app: ts-inside-payment-mysql
     spec:
       containers:
-        - name: ts-inside-payment-mongo
-          image: mongo
+        - name: ts-inside-payment-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-inside-payment-mysql
           ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
@@ -417,23 +462,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-payment-mongo
+  name: ts-payment-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-payment-mongo
+      app: ts-payment-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-payment-mongo
+        app: ts-payment-mysql
     spec:
       containers:
-        - name: ts-payment-mongo
-          image: mongo
+        - name: ts-payment-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-payment-mysql
           ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
@@ -444,23 +495,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-assurance-mongo
+  name: ts-assurance-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-assurance-mongo
+      app: ts-assurance-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-assurance-mongo
+        app: ts-assurance-mysql
     spec:
       containers:
-        - name: ts-assurance-mongo
-          image: mongo
+        - name: ts-assurance-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-assurance-mysql
           ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
@@ -472,6 +529,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-ticket-office-mongo
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -500,6 +558,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-voucher-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -530,26 +589,27 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-station-food-service
+  name: ts-food-map-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-station-food-service
+      app: ts-food-map-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-station-food-service
+        app: ts-food-map-mysql
     spec:
       containers:
-        - name: ts-station-food-service
+        - name: ts-food-map-mysql
           image: mysql:5.7
           imagePullPolicy: IfNotPresent
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
             - name: MYSQL_DATABASE
-              value: ts-station-food-mysql
+              value: ts-food-map-mysql
           ports:
             - containerPort: 3306
           resources:
@@ -559,55 +619,32 @@ spec:
 
 ---
 
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-train-food-mongo
+  name: ts-consign-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-train-food-mongo
+      app: ts-consign-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-train-food-mongo
+        app: ts-consign-mysql
     spec:
       containers:
-        - name: ts-train-food-mongo
-          image: mongo
+        - name: ts-consign-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-consign-mysql
           ports:
-            - containerPort: 27017
-          resources:
-            requests:
-              cpu: 50m
-              memory: 100Mi
-
----
-
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-consign-mongo
-spec:
-  selector:
-    matchLabels:
-      app: ts-consign-mongo
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-consign-mongo
-    spec:
-      containers:
-        - name: ts-consign-mongo
-          image: mongo
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
@@ -619,6 +656,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ts-consign-price-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
@@ -650,171 +688,40 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-food-mongo
+  name: ts-food-mysql
+  namespace: h10g
 spec:
   selector:
     matchLabels:
-      app: ts-food-mongo
+      app: ts-food-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-food-mongo
+        app: ts-food-mysql
     spec:
       containers:
-        - name: ts-food-mongo
-          image: mongo
+        - name: ts-food-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-food-mysql
           ports:
-            - containerPort: 27017
+            - containerPort: 3306
           resources:
             requests:
               cpu: 50m
               memory: 100Mi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-notification-mongo
-spec:
-  selector:
-    matchLabels:
-      app: ts-notification-mongo
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-notification-mongo
-    spec:
-      containers:
-        - name: ts-notification-mongo
-          image: mongo
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 27017
-          resources:
-            requests:
-              cpu: 50m
-              memory: 100Mi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-notification-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-    app: ts-notification-mongo
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-delivery-mongo
-spec:
-  selector:
-    matchLabels:
-      app: ts-delivery-mongo
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-delivery-mongo
-    spec:
-      containers:
-        - name: ts-delivery-mongo
-          image: mongo
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 27017
-          resources:
-            requests:
-              cpu: 50m
-              memory: 100Mi
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-gateway-mongo
-spec:
-  selector:
-    matchLabels:
-      app: ts-gateway-mongo
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-gateway-mongo
-    spec:
-      containers:
-        - name: ts-gateway-mongo
-          image: mongo
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 27017
-          resources:
-            requests:
-              cpu: 50m
-              memory: 100Mi
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-delivery-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-    app: ts-delivery-mongo
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: rabbitmq
-spec:
-  selector:
-    matchLabels:
-      app: rabbitmq
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: rabbitmq
-    spec:
-      containers:
-        - name: rabbitmq
-          image: rabbitmq:3
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 5672
-          resources:
-            requests:
-              cpu: 100m
-              memory: 200Mi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: rabbitmq
-spec:
-  ports:
-    - port: 5672
-  selector:
-    app: rabbitmq
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ts-user-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
@@ -826,6 +733,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-auth-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
@@ -836,12 +744,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-route-mongo
+  name: ts-route-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-route-mongo
+    app: ts-route-mysql
 
 ---
 
@@ -849,6 +758,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-contacts-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
@@ -861,6 +771,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-order-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
@@ -873,18 +784,18 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-order-other-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
   selector:
     app: ts-order-other-mysql
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
   name: ts-config-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
@@ -893,10 +804,12 @@ spec:
 
 ---
 
+
 apiVersion: v1
 kind: Service
 metadata:
   name: ts-station-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
@@ -909,6 +822,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-train-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
@@ -920,84 +834,91 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-travel-mongo
+  name: ts-travel-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-travel-mongo
+    app: ts-travel-mysql
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-travel2-mongo
+  name: ts-travel2-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-travel2-mongo
+    app: ts-travel2-mysql
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-price-mongo
+  name: ts-price-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-price-mongo
+    app: ts-price-mysql
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-security-mongo
+  name: ts-security-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-security-mongo
+    app: ts-security-mysql
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-inside-payment-mongo
+  name: ts-inside-payment-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-inside-payment-mongo
+    app: ts-inside-payment-mysql
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-payment-mongo
+  name: ts-payment-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-payment-mongo
+    app: ts-payment-mysql
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-assurance-mongo
+  name: ts-assurance-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-assurance-mongo
+    app: ts-assurance-mysql
 
 ---
 
@@ -1005,6 +926,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-ticket-office-mongo
+  namespace: h10g
 spec:
   ports:
     - port: 27017
@@ -1017,6 +939,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-voucher-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
@@ -1028,37 +951,26 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-station-food-mysql
+  name: ts-food-map-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
   selector:
-    app: ts-station-food-mysql
+    app: ts-food-map-mysql
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-train-food-mongo
+  name: ts-consign-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-train-food-mongo
-
----
-
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-consign-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-    app: ts-consign-mongo
+    app: ts-consign-mysql
 
 ---
 
@@ -1066,6 +978,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-consign-price-mysql
+  namespace: h10g
 spec:
   ports:
     - port: 3306
@@ -1077,137 +990,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-food-mongo
+  name: ts-food-mysql
+  namespace: h10g
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-food-mongo
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-gateway-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-    app: ts-gateway-mongo
----
-#deploy cluster nacos
-apiVersion: v1
-kind: Service
-metadata:
-  name: nacos-server
-#  namespace: pie-engine-studio
-  labels:
-    app: nacos-headless
-spec:
-  ports:
-    - port: 8848
-      name: server
-      targetPort: 8848
-      nodePort: 30807
-    - port: 7848
-      name: rpc
-      targetPort: 7848
-  selector:
-    app: nacos
-  type: NodePort
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: nacos-headless
-#  namespace: pie-engine-studio
-  labels:
-    app: nacos-headless
-spec:
-  type: ClusterIP
-  clusterIP: None
-  ports:
-    - port: 8848
-      name: server
-      targetPort: 8848
-    - port: 7848
-      name: rpc
-      targetPort: 7848
-    - port: 9848
-      name: client-rpc
-      targetPort: 9848
-    - port: 9849
-      name: raft-rpc
-      targetPort: 9849
-  selector:
-    app: nacos
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: nacos
-#  namespace: pie-engine-studio
-spec:
-  serviceName: nacos-headless
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: nacos
-      annotations:
-        pod.alpha.kubernetes.io/initialized: "true"
-    spec:
-      #      affinity:
-      #        podAntiAffinity:
-      #          requiredDuringSchedulingIgnoredDuringExecution:
-      #            - labelSelector:
-      #                matchExpressions:
-      #                  - key: "app"
-      #                    operator: In
-      #                    values:
-      #                      - nacos-headless
-      #              topologyKey: "kubernetes.io/hostname"
-      #      nodeSelector:
-      #        engine.node.studio: "true"
-      containers:
-        - name: k8snacos
-          imagePullPolicy: IfNotPresent
-          image:  nacos/nacos-server:1.3.1
-          resources:
-            requests:
-              memory: "500Mi"
-              cpu: "400m"
-          ports:
-            - containerPort: 8848
-              name: client
-            - containerPort: 7848
-              name: rpc
-            - containerPort: 9848
-              name: client-rpc
-            - containerPort: 9849
-              name: raft-rpc
-          env:
-            - name: NACOS_REPLICAS
-              value: "3"
-            - name: MYSQL_SERVICE_HOST
-              value: "10.176.122.1"
-            - name: MYSQL_SERVICE_DB_NAME
-              value: "nacos"
-            - name: MYSQL_SERVICE_PORT
-              value: "3306"
-            - name: MYSQL_SERVICE_USER
-              value: "root"
-            - name: MYSQL_SERVICE_PASSWORD
-              value: "Abcd1234#"
-            - name: NACOS_SERVER_PORT
-              value: "8848"
-            - name: PREFER_HOST_MODE
-              value: "hostname"
-            - name: NACOS_SERVERS
-              value: "nacos-0.nacos-headless.default.svc.cluster.local:8848 nacos-1.nacos-headless.default.svc.cluster.local:8848 nacos-2.nacos-headless.default.svc.cluster.local:8848"
-            - name: MODE
-              value: "cluster"
-  selector:
-    matchLabels:
-      app: nacos
+    app: ts-food-mysql

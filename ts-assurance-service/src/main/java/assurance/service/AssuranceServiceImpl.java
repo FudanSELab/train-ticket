@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -26,7 +27,7 @@ public class AssuranceServiceImpl implements AssuranceService {
 
     @Override
     public Response findAssuranceById(UUID id, HttpHeaders headers) {
-        Assurance assurance = assuranceRepository.findById(id);
+        Optional<Assurance> assurance = assuranceRepository.findById(id.toString());
         if (assurance == null) {
             AssuranceServiceImpl.LOGGER.warn("[findAssuranceById][find assurance][No content][assurance id: {}]", id);
             return new Response<>(0, "No Content by this id", null);
@@ -38,7 +39,7 @@ public class AssuranceServiceImpl implements AssuranceService {
 
     @Override
     public Response findAssuranceByOrderId(UUID orderId, HttpHeaders headers) {
-        Assurance assurance = assuranceRepository.findByOrderId(orderId);
+        Assurance assurance = assuranceRepository.findByOrderId(orderId.toString());
         if (assurance == null) {
             AssuranceServiceImpl.LOGGER.warn("[findAssuranceByOrderId][find assurance][No content][orderId: {}]", orderId);
             return new Response<>(0, "No Content by this orderId", null);
@@ -50,7 +51,7 @@ public class AssuranceServiceImpl implements AssuranceService {
 
     @Override
     public Response create(int typeIndex, String orderId, HttpHeaders headers) {
-        Assurance a = assuranceRepository.findByOrderId(UUID.fromString(orderId));
+        Assurance a = assuranceRepository.findByOrderId(orderId);
         AssuranceType at = AssuranceType.getTypeByIndex(typeIndex);
         if (a != null) {
             AssuranceServiceImpl.LOGGER.error("[create][AddAssurance Fail][Assurance already exists][typeIndex: {}, orderId: {}]", typeIndex, orderId);
@@ -59,7 +60,7 @@ public class AssuranceServiceImpl implements AssuranceService {
             AssuranceServiceImpl.LOGGER.warn("[create][AddAssurance Fail][Assurance type doesn't exist][typeIndex: {}, orderId: {}]", typeIndex, orderId);
             return new Response<>(0, "Fail.Assurance type doesn't exist", null);
         } else {
-            Assurance assurance = new Assurance(UUID.randomUUID(), UUID.fromString(orderId), at);
+            Assurance assurance = new Assurance(UUID.randomUUID().toString(), UUID.fromString(orderId).toString(), at);
             assuranceRepository.save(assurance);
             AssuranceServiceImpl.LOGGER.info("[create][AddAssurance][Success]");
             return new Response<>(1, "Success", assurance);
@@ -68,8 +69,8 @@ public class AssuranceServiceImpl implements AssuranceService {
 
     @Override
     public Response deleteById(UUID assuranceId, HttpHeaders headers) {
-        assuranceRepository.deleteById(assuranceId);
-        Assurance a = assuranceRepository.findById(assuranceId);
+        assuranceRepository.deleteById(assuranceId.toString());
+        Optional<Assurance> a = assuranceRepository.findById(assuranceId.toString());
         if (a == null) {
             AssuranceServiceImpl.LOGGER.info("[deleteById][DeleteAssurance success][assuranceId: {}]", assuranceId);
             return new Response<>(1, "Delete Success with Assurance id", null);
@@ -81,8 +82,8 @@ public class AssuranceServiceImpl implements AssuranceService {
 
     @Override
     public Response deleteByOrderId(UUID orderId, HttpHeaders headers) {
-        assuranceRepository.removeAssuranceByOrderId(orderId);
-        Assurance isExistAssurace = assuranceRepository.findByOrderId(orderId);
+        assuranceRepository.removeAssuranceByOrderId(orderId.toString());
+        Assurance isExistAssurace = assuranceRepository.findByOrderId(orderId.toString());
         if (isExistAssurace == null) {
             AssuranceServiceImpl.LOGGER.info("[deleteByOrderId][DeleteAssurance Success][orderId: {}]", orderId);
             return new Response<>(1, "Delete Success with Order Id", null);
@@ -95,7 +96,7 @@ public class AssuranceServiceImpl implements AssuranceService {
     @Override
     public Response modify(String assuranceId, String orderId, int typeIndex, HttpHeaders headers) {
         Response oldAssuranceResponse = findAssuranceById(UUID.fromString(assuranceId), headers);
-        Assurance oldAssurance = (Assurance) oldAssuranceResponse.getData();
+        Assurance oldAssurance =  ((Optional<Assurance>)oldAssuranceResponse.getData()).get();
         if (oldAssurance == null) {
             AssuranceServiceImpl.LOGGER.error("[modify][ModifyAssurance Fail][Assurance not found][assuranceId: {}, orderId: {}, typeIndex: {}]", assuranceId, orderId, typeIndex);
             return new Response<>(0, "Fail.Assurance not found.", null);

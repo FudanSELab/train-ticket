@@ -1,17 +1,17 @@
 package consign.repository;
 
 import consign.entity.ConsignRecord;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.UUID;
+import java.util.Optional;
 
 /**
  * @author fdse
  */
 @Repository
-public interface ConsignRepository extends MongoRepository<ConsignRecord, String> {
+public interface ConsignRepository extends CrudRepository<ConsignRecord, String> {
 
     /**
      * find by account id
@@ -19,7 +19,7 @@ public interface ConsignRepository extends MongoRepository<ConsignRecord, String
      * @param accountId account id
      * @return ArrayList<ConsignRecord>
      */
-    ArrayList<ConsignRecord> findByAccountId(UUID accountId);
+    ArrayList<ConsignRecord> findByAccountId(String accountId);
 
     /**
      * find by order id
@@ -27,7 +27,7 @@ public interface ConsignRepository extends MongoRepository<ConsignRecord, String
      * @param accountId account id
      * @return ConsignRecord
      */
-    ConsignRecord findByOrderId(UUID accountId);
+    ConsignRecord findByOrderId(String accountId);
 
     /**
      * find by consignee
@@ -43,5 +43,5 @@ public interface ConsignRepository extends MongoRepository<ConsignRecord, String
      * @param id id
      * @return ConsignRecord
      */
-    ConsignRecord findById(UUID id);
+    Optional<ConsignRecord> findById(String id);
 }

@@ -14,9 +14,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PlainAssurance implements Serializable {
 
-    private UUID id;
+    private String id;
 
-    private UUID orderId;
+    private String orderId;
 
     private  int typeIndex;
 

@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
+import javax.persistence.*;
 
 /**
  * @author fdse
@@ -15,21 +13,28 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "consign_record")
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(schema = "ts-consign-mysql")
 public class ConsignRecord {
 
     @Id
-    private UUID id;
-    private UUID orderId;
-    private UUID accountId;
+    @Column(name = "consign_record_id")
+    private String id;
+    private String orderId;
+    @Column(name = "user_id")
+    private String accountId;
     private String handleDate;
     private String targetDate;
+    @Column(name = "from_place")
     private String from;
+    @Column(name = "to_place")
     private String to;
     private String consignee;
+    @Column(name = "consign_record_phone")
     private String phone;
     private double weight;
+    @Column(name = "consign_record_price")
     private double price;
 
 }

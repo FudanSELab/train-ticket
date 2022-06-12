@@ -1,6 +1,3 @@
-server:
-  port: 18888
-
 spring:
   cloud:
     nacos:
@@ -8,13 +5,17 @@ spring:
         server-addr: nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local
   application:
     name: ts-assurance-service
-  data:
-    mongodb:
-      host: ts-assurance-mongo
-#      username: user
-#      password: ${MONGODB_PASSWORD}
-      database: ts
-      port: 27017
+  datasource:
+    url: jdbc:mysql://${ASSURANCE_MYSQL_HOST:ts-assurance-mysql}:${ASSURANCE_MYSQL_PORT:3306}/${ASSURANCE_MYSQL_DATABASE:ts-assurance-mysql}?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    username: ${ASSURANCE_MYSQL_USER:root}
+    password: ${ASSURANCE_MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 18888
 
 swagger:
   controllerPackage: assurance.controller
