@@ -6,7 +6,7 @@ spring:
   application:
     name: ts-train-service
   datasource:
-    url: jdbc:mysql://ts-train-mysql:3306/ts-train-mysql?useSSL=false
+    url: jdbc:mysql://${TRAIN_MYSQL_HOST:ts-train-mysql}:${TRAIN_MYSQL_PORT:3306}/${TRAIN_MYSQL_DATABASE:ts-train-mysql}?useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver

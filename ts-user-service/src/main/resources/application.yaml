@@ -9,7 +9,7 @@ spring:
   application:
     name: ts-user-service
   datasource:
-    url: jdbc:mysql://ts-user-mysql:3306/ts-user-mysql?useSSL=false
+    url: jdbc:mysql://${USER_MYSQL_HOST:ts-user-mysql}:${USER_MYSQL_PORT:3306}/${USER_MYSQL_DATABASE:ts-user-mysql}?useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver

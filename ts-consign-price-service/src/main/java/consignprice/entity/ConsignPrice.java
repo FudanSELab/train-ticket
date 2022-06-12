@@ -22,13 +22,17 @@ public class ConsignPrice {
     @Id
 //    private UUID id;
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 36)
     private String id;
 
     private int index;
+    @Column(name = "initial_weight")
     private double initialWeight;
+    @Column(name = "initial_price")
     private double initialPrice;
+    @Column(name = "within_price")
     private double withinPrice;
+    @Column(name = "beyond_price")
     private double beyondPrice;
 
     public ConsignPrice(){
