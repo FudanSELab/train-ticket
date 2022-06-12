@@ -84,7 +84,8 @@ public class RabbitReceive {
             info.setSendStatus(false);
         }
 
-        info.setId(UUID.randomUUID());
+
+        info.setId(UUID.randomUUID().toString());
         logger.info("[process][Save notify info object [{}] into database]", info.getId());
         notifyRepository.save(info);
     }
