@@ -43,7 +43,7 @@ public class RabbitReceive {
         logger.info("[process][Receive delivery object][delivery object: {}]" + delivery);
 
         if (delivery.getId() == null) {
-            delivery.setId(UUID.randomUUID());
+            delivery.setId(UUID.randomUUID().toString());
         }
 
         try {

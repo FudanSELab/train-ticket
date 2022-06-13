@@ -8,11 +8,14 @@ spring:
         server-addr: nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local
   application:
     name: ts-delivery-service
-  data:
-    mongodb:
-      host: ${mongohost:ts-delivery-mongo}
-      database: ts
-      port: 27017
+  datasource:
+    url: jdbc:mysql://ts-delivery-mysql:3306/ts-delivery-mysql?useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
   rabbitmq:
     host: ${rabbitmq_host:localhost}
     port: ${rabbitmq_port:5672}
+  jpa:
+    hibernate:
+      ddl-auto: update

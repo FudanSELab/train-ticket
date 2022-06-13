@@ -23,11 +23,14 @@ spring:
           starttls:
             enable: true
             required: true
-  data:
-    mongodb:
-      host: ${mongohost:ts-notification-mongo}
-      database: ts
-      port: 27017
+  datasource:
+    url: jdbc:mysql://ts-notification-mysql:3306/ts-notification-mysql?useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
 
   rabbitmq:
     host: ${rabbitmq_host:localhost}

@@ -1,26 +1,28 @@
 package delivery.repository;
 
 import delivery.entity.Delivery;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import org.springframework.scheduling.Trigger;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface DeliveryRepository extends MongoRepository<Delivery, String> {
+public interface DeliveryRepository extends CrudRepository<Delivery, String> {
 
-    Delivery findById(UUID id);
 
-    @Query("{ 'orderId' : ?0 }")
+    Optional<Delivery> findById(String id);
+
     Delivery findByOrderId(UUID orderId);
 
     @Override
     List<Delivery> findAll();
 
-    void deleteById(UUID id);
+    void deleteById(String id);
 
-    void deleteFoodOrderByOrderId(UUID id);
+    void deleteFoodOrderByOrderId(String id);
 
 }
