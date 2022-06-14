@@ -24,7 +24,7 @@ public class TrainFoodServiceImpl implements TrainFoodService{
 
     @Override
     public TrainFood createTrainFood(TrainFood tf, HttpHeaders headers) {
-        TrainFood tfTemp = trainFoodRepository.findById(tf.getId());
+        TrainFood tfTemp = trainFoodRepository.findById(tf.getId()).orElse(null);
         if (tfTemp != null) {
             TrainFoodServiceImpl.LOGGER.error("[Init TrainFood] Already Exists Id: {}", tf.getId());
         } else {

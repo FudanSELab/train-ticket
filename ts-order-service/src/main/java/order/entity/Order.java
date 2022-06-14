@@ -22,7 +22,7 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    @Column(length = 32)
+    @Column(length = 36)
     @GeneratedValue(generator = "jpa-uuid")
     private String id;
 
@@ -37,7 +37,7 @@ public class Order {
     /**
      * Which Account Bought it
      */
-    @Column(length = 32)
+    @Column(length = 36)
     @GeneratedValue(generator = "jpa-uuid")
     private String accountId;
 

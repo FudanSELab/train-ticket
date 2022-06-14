@@ -2,14 +2,14 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local
+        server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
     application:
       name: ts-config-service
     datasource:
 #      url: jdbc:mysql://10.176.122.80:32003/ts-config-mysql?useSSL=false
-      url: jdbc:mysql://ts-config-mysql:3306/ts-config-mysql?useSSL=false
-      username: root
-      password: root
+      url: jdbc:mysql://${CONFIG_MYSQL_HOST:ts-config-mysql}:${CONFIG_MYSQL_PORT:3306}/${CONFIG_MYSQL_DATABASE:ts-config-mysql}?useSSL=false
+      username: ${CONFIG_MYSQL_USER:root}
+      password: ${CONFIG_MYSQL_PASSWORD:root}
       driver-class-name: com.mysql.jdbc.Driver
     jpa:
       hibernate:

@@ -9,13 +9,16 @@ spring:
         server-addr: nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local
   application:
     name: ts-travel-service
-  data:
-    mongodb:
-      host: ts-travel-mongo
-#      username: user
-#      password: ${MONGODB_PASSWORD}
-      database: ts
-      port: 27017
+  datasource:
+    url: jdbc:mysql://${TRAVEL_MYSQL_HOST:ts-travel-mysql}:${TRAVEL_MYSQL_PORT:3306}/${TRAVEL_MYSQL_DATABASE:ts-travel-mysql}?useSSL=false
+    username: ${TRAVEL_MYSQL_USER:root}
+    password: ${TRAVEL_MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
 swagger:
   controllerPackage: travel.controller
 

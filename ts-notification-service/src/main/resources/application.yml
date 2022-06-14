@@ -24,9 +24,9 @@ spring:
             enable: true
             required: true
   datasource:
-    url: jdbc:mysql://ts-notification-mysql:3306/ts-notification-mysql?useSSL=false
-    username: root
-    password: root
+    url: jdbc:mysql://${NOTIFICATION_MYSQL_HOST:ts-notification-mysql}:${NOTIFICATION_MYSQL_PORT:3306}/${NOTIFICATION_MYSQL_DATABASE:ts-notification-mysql}?useSSL=false
+    username: ${NOTIFICATION_MYSQL_USERNAME:root}
+    password: ${NOTIFICATION_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:

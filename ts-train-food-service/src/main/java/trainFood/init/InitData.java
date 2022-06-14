@@ -26,13 +26,13 @@ public class InitData implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        BufferedReader br2 = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("../../../resources/trainfood.txt")));
+        BufferedReader br2 = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/trainfood.txt")));
         try{
             String line2 = br2.readLine();
             while( line2 != null ){
                 if( !line2.trim().equals("") ){
                     TrainFood tf = new TrainFood();
-                    tf.setId(UUID.randomUUID());
+                    tf.setId(UUID.randomUUID().toString());
                     String[] lineTemp = line2.trim().split("=");
                     tf.setTripId(lineTemp[1]);
                     lineTemp = br2.readLine().trim().split("=");

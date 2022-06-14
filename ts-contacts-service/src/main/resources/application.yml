@@ -9,7 +9,7 @@ spring:
   application:
     name: ts-contacts-service
   datasource:
-    url: jdbc:mysql://ts-contacts-mysql:3306/ts-contacts-mysql?useSSL=false
+    url: jdbc:mysql://${CONTACTS_MYSQL_HOST:ts-contacts-mysql}:${CONTACTS_MYSQL_PORT:3306}/${CONTACTS_MYSQL_DATABASE:ts-contacts-mysql}?useSSL=false
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver

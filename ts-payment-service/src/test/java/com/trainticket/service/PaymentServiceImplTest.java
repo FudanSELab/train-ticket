@@ -60,7 +60,7 @@ public class PaymentServiceImplTest {
         Payment info = new Payment();
         Mockito.when(addMoneyRepository.save(Mockito.any(Money.class))).thenReturn(null);
         Response result = paymentServiceImpl.addMoney(info, headers);
-        Assert.assertEquals(new Response<>(1,"Add Money Success", new Money("", "")), result);
+        Assert.assertEquals(new Response<>(1,"Add Money Success", null), result);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class PaymentServiceImplTest {
     @Test
     public void testInitPayment2() {
         Payment payment = new Payment();
-        Mockito.when(paymentRepository.findById(Mockito.anyString()).get()).thenReturn(payment);
+        Mockito.when(paymentRepository.findById(Mockito.anyString())).thenReturn(java.util.Optional.of(payment));
         Mockito.when(paymentRepository.save(Mockito.any(Payment.class))).thenReturn(null);
         paymentServiceImpl.initPayment(payment, headers);
         Mockito.verify(paymentRepository, Mockito.times(0)).save(Mockito.any(Payment.class));

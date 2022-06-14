@@ -6,15 +6,15 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local
+        server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
 #        server-addr: ${NACOS_SERVER_ADDR:10.176.122.77}
   application:
     name: ts-order-service
   datasource:
 #    url: jdbc:mysql://10.176.122.80:32001/ts-order-mysql?useSSL=false
-    url: jdbc:mysql://ts-order-mysql:3306/ts-order-mysql?useSSL=false
-    username: root
-    password: root
+    url: jdbc:mysql://${ORDER_MYSQL_HOST:ts-order-mysql}:${ORDER_MYSQL_PORT:3306}/${ORDER_MYSQL_DATABASE:ts-order-mysql}?useSSL=false
+    username: ${ORDER_MYSQL_USER:root}
+    password: ${ORDER_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
     jpa:
       hibernate:

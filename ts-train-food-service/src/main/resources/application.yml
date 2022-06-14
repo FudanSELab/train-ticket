@@ -8,13 +8,15 @@ spring:
         server-addr: nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local
   application:
     name: ts-train-food-service
-  data:
-    mongodb:
-      host: ts-train-food-mongo
-#      username: user
-#      password: ${MONGODB_PASSWORD}
-      database: ts
-      port: 27017
+  datasource:
+    url: jdbc:mysql://${TRAIN_FOOD_MYSQL_HOST:ts-train-food-mysql}:${TRAIN_FOOD_MYSQL_PORT:3306}/${TRAIN_FOOD_MYSQL_DATABASE:ts-train-food-mysql}?useSSL=false
+    username: ${TRAIN_FOOD_MYSQL_USER:root}
+    password: ${TRAIN_FOOD_MYSQL_PASSWORD:root}
+    driver-class-name: com.mysql.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 swagger:
   controllerPackage: trainFood.controller

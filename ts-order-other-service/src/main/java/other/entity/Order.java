@@ -32,7 +32,7 @@ public class Order {
      * Which Account Bought it
      */
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 36)
     private String accountId;
 
     /**

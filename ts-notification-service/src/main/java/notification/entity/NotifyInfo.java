@@ -32,7 +32,7 @@ public class NotifyInfo {
 
     @Id
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @Column(length = 32)
+    @Column(length = 36)
     private String id;
 
     private Boolean sendStatus;

@@ -2,12 +2,14 @@ package travel2.entity;
 
 import lombok.Data;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
  * @author fdse
  */
 @Data
+@Embeddable
 public class TripId implements Serializable{
     private Type type;
     private String number;

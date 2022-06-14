@@ -17,11 +17,11 @@ import java.util.UUID;
 public class OrderAlterInfo {
 
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 36)
     private String accountId;
 
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 36)
     private String previousOrderId;
 
     private String loginToken;

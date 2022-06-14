@@ -29,9 +29,9 @@ public class User implements UserDetails {
 
 //    private UUID userId;
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 36)
+    @Column(length = 36, name = "user_id")
     private String userId;
-
+    @Column(name = "user_name")
     private String username;
 
     private String password;

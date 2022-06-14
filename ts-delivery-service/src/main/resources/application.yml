@@ -9,9 +9,9 @@ spring:
   application:
     name: ts-delivery-service
   datasource:
-    url: jdbc:mysql://ts-delivery-mysql:3306/ts-delivery-mysql?useSSL=false
-    username: root
-    password: root
+    url: jdbc:mysql://${DELIVERY_MYSQL_HOST:ts-delivery-mysql}:${DELIVERY_MYSQL_PORT:3306}/${DELIVERY_MYSQL_DATABASE:ts-delivery-mysql}?useSSL=false
+    username: ${DELIVERY_MYSQL_USERNAME:root}
+    password: ${DELIVERY_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
   rabbitmq:
     host: ${rabbitmq_host:localhost}

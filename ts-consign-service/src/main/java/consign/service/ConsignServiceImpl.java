@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -41,9 +42,9 @@ public class ConsignServiceImpl implements ConsignService {
 
         ConsignRecord consignRecord = new ConsignRecord();
         //Set the record attribute
-        consignRecord.setId(UUID.randomUUID());
-        consignRecord.setOrderId(consignRequest.getOrderId());
-        consignRecord.setAccountId(consignRequest.getAccountId());
+        consignRecord.setId(UUID.randomUUID().toString());
+        consignRecord.setOrderId(consignRequest.getOrderId().toString());
+        consignRecord.setAccountId(consignRequest.getAccountId().toString());
         ConsignServiceImpl.LOGGER.info("[insertConsignRecord][Insert Info][handle date: {}, target date: {}]", consignRequest.getHandleDate(), consignRequest.getTargetDate());
         consignRecord.setHandleDate(consignRequest.getHandleDate());
         consignRecord.setTargetDate(consignRequest.getTargetDate());
@@ -73,11 +74,11 @@ public class ConsignServiceImpl implements ConsignService {
     public Response updateConsignRecord(Consign consignRequest, HttpHeaders headers) {
         ConsignServiceImpl.LOGGER.info("[updateConsignRecord][Update Start]");
 
-        ConsignRecord originalRecord = repository.findById(consignRequest.getId());
-        if (originalRecord == null) {
+        if (!repository.findById(consignRequest.getId()).isPresent()) {
             return insertConsignRecord(consignRequest, headers);
         }
-        originalRecord.setAccountId(consignRequest.getAccountId());
+        ConsignRecord originalRecord = repository.findById(consignRequest.getId()).get();
+        originalRecord.setAccountId(consignRequest.getAccountId().toString());
         originalRecord.setHandleDate(consignRequest.getHandleDate());
         originalRecord.setTargetDate(consignRequest.getTargetDate());
         originalRecord.setFrom(consignRequest.getFrom());
@@ -107,7 +108,7 @@ public class ConsignServiceImpl implements ConsignService {
 
     @Override
     public Response queryByAccountId(UUID accountId, HttpHeaders headers) {
-        List<ConsignRecord> consignRecords = repository.findByAccountId(accountId);
+        List<ConsignRecord> consignRecords = repository.findByAccountId(accountId.toString());
         if (consignRecords != null && !consignRecords.isEmpty()) {
             return new Response<>(1, "Find consign by account id success", consignRecords);
         }else {
@@ -118,7 +119,7 @@ public class ConsignServiceImpl implements ConsignService {
 
     @Override
     public Response queryByOrderId(UUID orderId, HttpHeaders headers) {
-        ConsignRecord consignRecords = repository.findByOrderId(orderId);
+        ConsignRecord consignRecords = repository.findByOrderId(orderId.toString());
         if (consignRecords != null ) {
             return new Response<>(1, "Find consign by order id success", consignRecords);
         }else {

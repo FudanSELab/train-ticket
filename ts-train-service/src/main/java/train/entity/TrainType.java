@@ -1,6 +1,8 @@
 package train.entity;
 
 import lombok.Data;
+
+import javax.persistence.Column;
 import javax.persistence.Id;
 
 import javax.persistence.Entity;
@@ -15,10 +17,12 @@ public class TrainType {
     private String id;
 
     @Valid
+    @Column(name = "economy_class")
     private int economyClass;
     @Valid
+    @Column(name = "confort_class")
     private int confortClass;
-
+    @Column(name = "average_speed")
     private int averageSpeed;
 
     public TrainType(){

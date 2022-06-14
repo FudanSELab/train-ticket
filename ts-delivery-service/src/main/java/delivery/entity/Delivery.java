@@ -25,7 +25,7 @@ public class Delivery {
 
     @Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 36)
     private String id;
 
     private UUID orderId;

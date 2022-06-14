@@ -26,15 +26,15 @@ public class Contacts {
     @GeneratedValue(generator = "jpa-uuid")
     @Column(length = 36)
     private String id;
-
+    @Column(name = "account_id")
     private String accountId;
 
     private String name;
-
+    @Column(name = "document_type")
     private int documentType;
-
+    @Column(name = "document_number")
     private String documentNumber;
-
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     public Contacts() {

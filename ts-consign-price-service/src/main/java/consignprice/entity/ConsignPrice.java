@@ -26,9 +26,13 @@ public class ConsignPrice {
     private String id;
 
     private int index;
+    @Column(name = "initial_weight")
     private double initialWeight;
+    @Column(name = "initial_price")
     private double initialPrice;
+    @Column(name = "within_price")
     private double withinPrice;
+    @Column(name = "beyond_price")
     private double beyondPrice;
 
     public ConsignPrice(){

@@ -1,16 +1,17 @@
 package travel.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.Valid;
 
 /**
  * @author fdse
  */
 @Data
-@Document(collection="trainType")
+@Entity
 public class TrainType {
     @Valid
     @Id

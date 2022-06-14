@@ -1,19 +1,24 @@
 package travel2.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.Valid;
 
 /**
  * @author fdse
  */
 @Data
-@Document(collection="trainType")
+@Entity
+@Table(schema = "ts-travel2-mysql")
 public class TrainType {
     @Valid
     @Id
+    @Column(name = "train_type_id")
     private String id;
 
     @Valid
