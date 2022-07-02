@@ -6,14 +6,24 @@ import lombok.Data;
 import java.util.Date;
 import java.util.UUID;
 
+import org.hibernate.annotations.GeneratorType;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.GenericGenerators;
+
+import javax.persistence.*;
+
 /**
  * @author fdse
  */
 @Data
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
 
-    private UUID id;
+    @Id
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
+    private String id;
 
     private Date boughtDate;
 
@@ -48,6 +58,7 @@ public class Order {
     private String from;
 
     private String to;
+
 
     private int status;
 

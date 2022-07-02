@@ -1,8 +1,9 @@
 package inside_payment.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Id;
+import javax.persistence.Entity;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -12,7 +13,7 @@ import java.util.UUID;
  * @author fdse
  */
 @Data
-@Document(collection="addMoney")
+@Entity
 public class Money {
 
     @Valid

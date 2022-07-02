@@ -1,8 +1,12 @@
 package inside_payment.entity;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 /**
  * @author fdse
  */
+
 public enum SeatClass {
 
     /**
