@@ -772,26 +772,26 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-gateway-mongo
+  name: ts-gateway-mysql
 spec:
   selector:
     matchLabels:
-      app: ts-gateway-mongo
+      app: ts-gateway-mysql
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-gateway-mongo
+        app: ts-gateway-mysql
     spec:
       containers:
-        - name: ts-gateway-mongo
-          image: mongo
+        - name: ts-gateway-mysql
+          image: mysql:5.7
           imagePullPolicy: IfNotPresent
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
             - name: MYSQL_DATABASE
-              value: ts-food-mysql
+              value: ts-gateway-mysql
           ports:
             - containerPort: 3306
           resources:
@@ -1127,12 +1127,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-gateway-mongo
+  name: ts-gateway-mysql
 spec:
   ports:
-    - port: 27017
+    - port: 3306
   selector:
-    app: ts-gateway-mongo
+    app: ts-gateway-mysql
 ---
 #deploy cluster nacos
 apiVersion: v1
