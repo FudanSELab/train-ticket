@@ -11,6 +11,7 @@ spring:
     username: ${SECURITY_MYSQL_USER:root}
     password: ${SECURITY_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: update

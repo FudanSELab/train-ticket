@@ -6,9 +6,9 @@ spring:
   application:
     name: ts-gateway-service
   datasource:
-    url: jdbc:mysql://ts-gateway-mysql:3306/ts-gateway-mysql
-    username: root
-    password: root
+    url: jdbc:mysql://${GATEWAY_MYSQL_HOST:ts-gateway-mysql}:${GATEWAY_MYSQL_PORT:3306}/${GATEWAY_MYSQL_DATABASE:ts-gateway-mysql}?useSSL=false
+    username: ${GATEWAY_MYSQL_USER:root}
+    password: ${GATEWAY_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
 
   jpa:

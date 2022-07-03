@@ -1,6 +1,9 @@
 package inside_payment.entity;
 
 import lombok.Data;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Entity;
 //import org.springframework.data.mongodb.core.mapping.Document;
@@ -31,6 +34,7 @@ public class Money {
 
     @Valid
     @NotNull
+    @Enumerated(EnumType.STRING)
     private MoneyType type;
 
     public Money(){
