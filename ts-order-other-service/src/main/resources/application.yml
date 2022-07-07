@@ -10,14 +10,16 @@ spring:
   application:
     name: ts-order-other-service
   datasource:
-#    url: jdbc:mysql://10.176.122.80:32002/ts-order-other-mysql?useSSL=false
+#    url: jdbc:mysql://localhost:3306/ts-order-other-mysql?useSSL=false
     url: jdbc:mysql://${ORDER_OTHER_MYSQL_HOST:ts-order-other-mysql}:${ORDER_OTHER_MYSQL_PORT:3306}/${ORDER_OTHER_MYSQL_DATABASE:ts-order-other-mysql}?useSSL=false
     username: ${ORDER_OTHER_MYSQL_USER:root}
     password: ${ORDER_OTHER_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
-    jpa:
-      hibernate:
-        ddl-auto: update
+  jpa:
+    hibernate:
+      ddl-auto: update
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
 
 #  rabbitmq:
 #    host: rabbitmq

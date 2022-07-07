@@ -58,8 +58,10 @@ public class Order {
 
     private String seatNumber;
 
+    @Column(name = "from_station")
     private String from;
 
+    @Column(name = "to_station")
     private String to;
 
     private int status;

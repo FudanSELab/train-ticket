@@ -14,9 +14,9 @@ spring:
     username: ${STATION_FOOD_MYSQL_USER:root}
     password: ${STATION_FOOD_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
-    jpa:
-      hibernate:
-        ddl-auto: update
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 swagger:
   controllerPackage: food.controller

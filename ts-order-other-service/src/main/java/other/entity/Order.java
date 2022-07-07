@@ -19,7 +19,7 @@ public class Order {
 
     @Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 36)
     private String id;
 
     private Date boughtDate;
@@ -52,8 +52,10 @@ public class Order {
 
     private String seatNumber;
 
+    @Column(name = "from_station")
     private String from;
 
+    @Column(name = "to_station")
     private String to;
 
     private int status;
