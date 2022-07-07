@@ -630,7 +630,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               value: root
             - name: MYSQL_DATABASE
-              value: ts-train-food-mysql
+              value: ts-station-food-mysql
           ports:
             - containerPort: 3306
           resources:
@@ -1132,7 +1132,7 @@ spec:
   ports:
     - port: 3306
   selector:
-    app: ts-train-food-mysql
+    app: ts-station-food-mysql
 
 ---
 
