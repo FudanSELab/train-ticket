@@ -4,6 +4,8 @@ import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -31,8 +33,18 @@ public class OrderOtherServiceImpl implements OrderOtherService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderOtherServiceImpl.class);
 
-    @Value("${station-service.url}")
-    String station_service_url;
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
+    private String getServiceUrl(String serviceName) {
+        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
+        ServiceInstance serviceInstance = serviceInstances.get(0);
+        String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
+        return service_url;
+    }
+
+//    @Value("${station-service.url}")
+//    String station_service_url;
 
     String success = "Success";
     String orderNotFound = "Order Not Found";
@@ -205,6 +217,7 @@ public class OrderOtherServiceImpl implements OrderOtherService {
     public List<String> queryForStationId(List<String> ids, HttpHeaders headers) {
 
         HttpEntity requestEntity = new HttpEntity(ids, null);
+        String station_service_url=getServiceUrl("ts-station-service");
         ResponseEntity<Response<List<String>>> re = restTemplate.exchange(
                 station_service_url + "/api/v1/stationservice/stations/namelist",
                 HttpMethod.POST,
