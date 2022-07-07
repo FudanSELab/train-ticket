@@ -606,6 +606,38 @@ spec:
 
 ---
 
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-station-food-mysql
+spec:
+  selector:
+    matchLabels:
+      app: ts-station-food-mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-station-food-mysql
+    spec:
+      containers:
+        - name: ts-station-food-mysql
+          image: mysql:5.7
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: ts-train-food-mysql
+          ports:
+            - containerPort: 3306
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -1085,6 +1117,17 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ts-train-food-mysql
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: ts-train-food-mysql
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-station-food-mysql
 spec:
   ports:
     - port: 3306
