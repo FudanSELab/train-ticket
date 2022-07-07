@@ -7,8 +7,8 @@ spring:
     name: ts-train-service
   datasource:
     url: jdbc:mysql://${TRAIN_MYSQL_HOST:ts-train-mysql}:${TRAIN_MYSQL_PORT:3306}/${TRAIN_MYSQL_DATABASE:ts-train-mysql}?useSSL=false
-    username: root
-    password: root
+    username: ${TRAIN_MYSQL_USER:root}
+    password: ${TRAIN_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.jdbc.Driver
     jpa:
       hibernate:
