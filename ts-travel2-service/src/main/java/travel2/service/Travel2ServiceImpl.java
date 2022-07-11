@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -30,18 +32,17 @@ public class Travel2ServiceImpl implements Travel2Service {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(Travel2ServiceImpl.class);
 
-    @Value("${train-service.url}")
-    String train_service_url;
-    @Value("${order-other-service.url}")
-    String order_other_service_url;
-    @Value("${route-service.url}")
-    String route_service_url;
-    @Value("${basic-service.url}")
-    String basic_service_url;
-    @Value("${seat-service.url}")
-    String seat_service_url;
+    private String getServiceUrl(String serviceName) {
+        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
+        ServiceInstance serviceInstance = serviceInstances.get(0);
+        String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
+        return service_url;
+    }
 
     String success = "Success";
     String noCnontent = "No Content";
@@ -237,6 +238,7 @@ public class Travel2ServiceImpl implements Travel2Service {
         query.setDepartureTime(departureTime);
 
         HttpEntity requestEntity = new HttpEntity(query, null);
+        String basic_service_url = getServiceUrl("ts-basic-service");
         ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
                 basic_service_url + "/api/v1/basicservice/basic/travel",
                 HttpMethod.POST,
@@ -250,6 +252,7 @@ public class Travel2ServiceImpl implements Travel2Service {
 
         //Ticket order _ high-speed train (number of tickets purchased)
         requestEntity = new HttpEntity(null);
+        String order_other_service_url = getServiceUrl("ts-order-other-service");
         ResponseEntity<Response<SoldTicket>> re2 = restTemplate.exchange(
                 order_other_service_url + "/api/v1/orderOtherService/orderOther/" + departureTime + "/" + trip.getTripId().toString(),
                 HttpMethod.GET,
@@ -352,6 +355,7 @@ public class Travel2ServiceImpl implements Travel2Service {
     private TrainType getTrainType(String trainTypeId, HttpHeaders headers) {
 
         HttpEntity requestEntity = new HttpEntity(null);
+        String train_service_url = getServiceUrl("ts-train-service");
         ResponseEntity<Response<TrainType>> re = restTemplate.exchange(
                 train_service_url + "/api/v1/trainservice/trains/" + trainTypeId,
                 HttpMethod.GET,
@@ -364,6 +368,7 @@ public class Travel2ServiceImpl implements Travel2Service {
 
     private String queryForStationId(String stationName, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
+        String basic_service_url = getServiceUrl("ts-basic-service");
         ResponseEntity<Response<String>> re = restTemplate.exchange(
                 basic_service_url + "/api/v1/basicservice/basic/" + stationName,
                 HttpMethod.GET,
@@ -378,6 +383,7 @@ public class Travel2ServiceImpl implements Travel2Service {
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
         Travel2ServiceImpl.LOGGER.debug("[getRouteByRouteId][Get Route By Id][Route ID：{}]", routeId);
         HttpEntity requestEntity = new HttpEntity(null);
+        String route_service_url = getServiceUrl("ts-route-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/" + routeId,
                 HttpMethod.GET,
@@ -408,6 +414,7 @@ public class Travel2ServiceImpl implements Travel2Service {
         Travel2ServiceImpl.LOGGER.info("[getRestTicketNumber][Seat request][request: {}]", seatRequest.toString());
 
         HttpEntity requestEntity = new HttpEntity(seatRequest, null);
+        String seat_service_url = getServiceUrl("ts-seat-service");
         ResponseEntity<Response<Integer>> re = restTemplate.exchange(
                 seat_service_url + "/api/v1/seatservice/seats/left_tickets",
                 HttpMethod.POST,
