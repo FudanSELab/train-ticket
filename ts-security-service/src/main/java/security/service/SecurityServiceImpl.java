@@ -5,6 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +22,7 @@ import security.repository.SecurityRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -33,12 +37,18 @@ public class SecurityServiceImpl implements SecurityService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    private DiscoveryClient discoveryClient;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
-    @Value("${order-service.url}")
-    String order_service_url;
-    @Value("${order-other-service.url}")
-    String order_other_service_url;
+
+    private String getServiceUrl(String serviceName) {
+        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
+        ServiceInstance serviceInstance = serviceInstances.get(0);
+        String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
+        return service_url;
+    }
 
     String success = "Success";
 
@@ -122,6 +132,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     private OrderSecurity getSecurityOrderInfoFromOrder(Date checkDate, String accountId, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
+        String order_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
                 order_service_url + "/api/v1/orderservice/order/security/" + checkDate + "/" + accountId,
                 HttpMethod.GET,
@@ -136,6 +147,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     private OrderSecurity getSecurityOrderOtherInfoFromOrder(Date checkDate, String accountId, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
+        String order_other_service_url = getServiceUrl("ts-order-other-service");
         ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
                 order_other_service_url + "/api/v1/orderOtherService/orderOther/security/" + checkDate + "/" + accountId,
                 HttpMethod.GET,
