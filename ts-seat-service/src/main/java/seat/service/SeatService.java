@@ -2,7 +2,7 @@ package seat.service;
 
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
-import seat.entity.Seat;
+import edu.fudan.common.entity.Seat;
 
 /**
  * @author fdse

@@ -1,12 +1,11 @@
 package preserveOther.service;
 
+import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -15,11 +14,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import preserveOther.entity.*;
 import preserveOther.mq.RabbitSend;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -104,10 +101,10 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         //PreserveOtherServiceImpl.LOGGER.info("[preserve][Step 4][Do Order]");
         Contacts contacts = gcr.getData();
         Order order = new Order();
-        UUID orderId = UUID.randomUUID();
+        String orderId = UUID.randomUUID().toString();
         order.setId(orderId);
         order.setTrainNumber(oti.getTripId());
-        order.setAccountId(UUID.fromString(oti.getAccountId()));
+        order.setAccountId(oti.getAccountId());
 
         String fromStationId = queryForStationId(oti.getFrom(), httpHeaders);
         String toStationId = queryForStationId(oti.getTo(), httpHeaders);
@@ -123,7 +120,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
 
         Travel query = new Travel();
         query.setTrip(trip);
-        query.setStartingPlace(oti.getFrom());
+        query.setStartPlace(oti.getFrom());
         query.setEndPlace(oti.getTo());
         query.setDepartureTime(new Date());
 
@@ -248,7 +245,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         notifyInfo.setOrderNumber(order.getId().toString());
         notifyInfo.setPrice(order.getPrice());
         notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));
-        notifyInfo.setStartingTime(order.getTravelTime().toString());
+        notifyInfo.setStartTime(order.getTravelTime().toString());
 
         // TODO: change to async message serivce
         // sendEmail(notifyInfo, httpHeaders);

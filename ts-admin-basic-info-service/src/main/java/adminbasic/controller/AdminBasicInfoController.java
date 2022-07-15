@@ -2,6 +2,10 @@ package adminbasic.controller;
 
 import adminbasic.entity.*;
 import adminbasic.service.AdminBasicInfoService;
+import edu.fudan.common.entity.Config;
+import edu.fudan.common.entity.Contacts;
+import edu.fudan.common.entity.Station;
+import edu.fudan.common.entity.TrainType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

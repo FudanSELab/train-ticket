@@ -44,34 +44,24 @@ public class RouteServiceImpl implements RouteService {
             stationList.add(stations[i]);
             distanceList.add(Integer.parseInt(distances[i]));
         }
-        int maxIdArrayLen = 10;
+        int maxIdArrayLen = 32;
+        Route route = new Route();
         if (info.getId() == null || info.getId().length() < maxIdArrayLen) {
-            Route route = new Route();
             route.setId(UUID.randomUUID().toString());
-            route.setStartStationId(info.getStartStation());
-            route.setTerminalStationId(info.getEndStation());
-            route.setStations(stationList);
-            route.setDistances(distanceList);
-            routeRepository.save(route);
-            RouteServiceImpl.LOGGER.info("[createAndModify][Save Success]");
-
-            return new Response<>(1, "Save Success", route);
-        } else {
+        }else{
             Optional<Route> routeOld = routeRepository.findById(info.getId());
-            Route route;
-            if(routeOld.isPresent()) route=routeOld.get();
-            else {
-                route = new Route();
+            if(routeOld.isPresent()) {
+                route = routeOld.get();
+            } else {
                 route.setId(info.getId());
             }
-            route.setStartStationId(info.getStartStation());
-            route.setTerminalStationId(info.getEndStation());
-            route.setStations(stationList);
-            route.setDistances(distanceList);
-            routeRepository.save(route);
-            RouteServiceImpl.LOGGER.info("[createAndModify][Modify Success]");
-            return new Response<>(1, "Modify success", route);
         }
+        route.setStartStationName(info.getStartStation());
+        route.setTerminalStationName(info.getEndStation());
+        route.setStations(stationList);
+        route.setDistances(distanceList);
+        routeRepository.save(route);
+        return new Response<>(1, "Save and Modify success", route);
     }
 
     @Override

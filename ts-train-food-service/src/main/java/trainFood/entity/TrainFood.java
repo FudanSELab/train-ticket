@@ -1,6 +1,7 @@
 package trainFood.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import edu.fudan.common.entity.Food;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TrainFood {
 

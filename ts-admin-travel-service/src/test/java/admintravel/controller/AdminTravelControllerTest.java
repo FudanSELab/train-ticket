@@ -1,8 +1,8 @@
 package admintravel.controller;
 
-import admintravel.entity.TravelInfo;
 import admintravel.service.AdminTravelService;
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.common.entity.TravelInfo;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;

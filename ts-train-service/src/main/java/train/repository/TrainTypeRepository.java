@@ -13,4 +13,5 @@ public interface TrainTypeRepository extends CrudRepository<TrainType,String> {
     @Override
     List<TrainType> findAll();
     void deleteById(String id);
+    TrainType findByName(String name);
 }

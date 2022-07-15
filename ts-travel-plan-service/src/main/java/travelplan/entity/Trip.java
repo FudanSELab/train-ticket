@@ -16,7 +16,7 @@ public class Trip {
 
     private String routeId;
 
-    private String startingStationId;
+    private String startStationName;
 
     private String stationsId;
 
@@ -26,10 +26,10 @@ public class Trip {
 
     private Date endTime;
 
-    public Trip(TripId tripId, String trainTypeId, String startingStationId, String stationsId, String terminalStationId, Date startingTime, Date endTime) {
+    public Trip(TripId tripId, String trainTypeId, String startStationName, String stationsId, String terminalStationId, Date startingTime, Date endTime) {
         this.tripId = tripId;
         this.trainTypeId = trainTypeId;
-        this.startingStationId = startingStationId;
+        this.startStationName = startStationName;
         this.stationsId = stationsId;
         this.terminalStationId = terminalStationId;
         this.startingTime = startingTime;

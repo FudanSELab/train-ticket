@@ -37,6 +37,7 @@ public class InitUser implements CommandLineRunner {
                 .documentType(1)
                 .documentNum("2135488099312X")
                 .email("trainticket_notify@163.com").build();
+        user.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
         if (whetherExistUser == null) {
             userRepository.save(user);
         }

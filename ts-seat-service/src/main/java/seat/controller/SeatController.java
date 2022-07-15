@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
-import seat.entity.Seat;
+import edu.fudan.common.entity.Seat;
 import seat.service.SeatService;
 
 import static org.springframework.http.ResponseEntity.ok;

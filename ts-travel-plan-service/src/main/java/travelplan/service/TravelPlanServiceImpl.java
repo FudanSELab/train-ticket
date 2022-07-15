@@ -101,7 +101,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 newUnit.setStopStations(stops);
                 newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());
                 newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
-                newUnit.setStartingTime(tempUnit.getStartingTime());
+                newUnit.setStartTime(tempUnit.getStartingTime());
                 newUnit.setEndTime(tempUnit.getEndTime());
                 int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
                         tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.FIRSTCLASS.getCode(), headers);
@@ -146,7 +146,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
 
                 newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());
                 newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
-                newUnit.setStartingTime(tempUnit.getStartingTime());
+                newUnit.setStartTime(tempUnit.getStartingTime());
                 newUnit.setEndTime(tempUnit.getEndTime());
                 int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
                         tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.FIRSTCLASS.getCode(), headers);
@@ -190,7 +190,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());
                 newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
                 newUnit.setEndTime(tempUnit.getEndTime());
-                newUnit.setStartingTime(tempUnit.getStartingTime());
+                newUnit.setStartTime(tempUnit.getStartingTime());
 
                 int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
                         tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.FIRSTCLASS.getCode(), headers);

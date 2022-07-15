@@ -1,7 +1,7 @@
 package admintravel.service;
 
-import admintravel.entity.AdminTrip;
-import admintravel.entity.TravelInfo;
+import edu.fudan.common.entity.AdminTrip;
+import edu.fudan.common.entity.TravelInfo;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;
@@ -79,7 +79,8 @@ public class AdminTravelServiceImplTest {
 
     @Test
     public void testAddTravel1() {
-        TravelInfo request = new TravelInfo(null, null, "G", null, null, null, null, null, null);
+        TravelInfo request = new TravelInfo();
+        request.setTrainTypeId("G");
         HttpEntity requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response<>(0, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -94,7 +95,8 @@ public class AdminTravelServiceImplTest {
 
     @Test
     public void testAddTravel2() {
-        TravelInfo request = new TravelInfo(null, null, "G", null, null, null, null, null, null);
+        TravelInfo request = new TravelInfo();
+        request.setTrainTypeId("G");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -109,7 +111,8 @@ public class AdminTravelServiceImplTest {
 
     @Test
     public void testAddTravel3() {
-        TravelInfo request = new TravelInfo(null, null, "K", null, null, null, null, null, null);
+        TravelInfo request = new TravelInfo();
+        request.setTrainTypeId("K");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response<>(0, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -124,7 +127,8 @@ public class AdminTravelServiceImplTest {
 
     @Test
     public void testAddTravel4() {
-        TravelInfo request = new TravelInfo(null, null, "K", null, null, null, null, null, null);
+        TravelInfo request = new TravelInfo();
+        request.setTrainTypeId("K");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -140,7 +144,8 @@ public class AdminTravelServiceImplTest {
 
     @Test
     public void testUpdateTravel1() {
-        TravelInfo request = new TravelInfo(null, null, "G", null, null, null, null, null, null);
+        TravelInfo request = new TravelInfo();
+        request.setTrainTypeId("G");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -155,7 +160,8 @@ public class AdminTravelServiceImplTest {
 
     @Test
     public void testUpdateTravel2() {
-        TravelInfo request = new TravelInfo(null, null, "K", null, null, null, null, null, null);
+        TravelInfo request = new TravelInfo();
+        request.setTrainTypeId("K");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);

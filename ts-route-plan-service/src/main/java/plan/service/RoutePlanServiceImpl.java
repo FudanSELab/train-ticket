@@ -1,11 +1,10 @@
 package plan.service;
 
+import edu.fudan.common.entity.*;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -14,7 +13,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import plan.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +82,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
             tempUnit.setPriceForSecondClassSeat(tempResponse.getPriceForEconomyClass());
             tempUnit.setPriceForFirstClassSeat(tempResponse.getPriceForConfortClass());
             tempUnit.setEndTime(tempResponse.getEndTime());
-            tempUnit.setStartingTime(tempResponse.getStartingTime());
+            tempUnit.setStartTime(tempResponse.getStartingTime());
 
             units.add(tempUnit);
         }
@@ -148,7 +146,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
             tempUnit.setPriceForSecondClassSeat(tempResponse.getPriceForEconomyClass());
             tempUnit.setPriceForFirstClassSeat(tempResponse.getPriceForConfortClass());
-            tempUnit.setStartingTime(tempResponse.getStartingTime());
+            tempUnit.setStartTime(tempResponse.getStartingTime());
             tempUnit.setEndTime(tempResponse.getEndTime());
             units.add(tempUnit);
         }
@@ -264,7 +262,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
             unit.setTrainTypeId(tripResponse.getTrainTypeId());
             unit.setFromStationName(tripResponse.getStartingStation());
             unit.setToStationName(tripResponse.getTerminalStation());
-            unit.setStartingTime(tripResponse.getStartingTime());
+            unit.setStartTime(tripResponse.getStartingTime());
             unit.setEndTime(tripResponse.getEndTime());
             unit.setPriceForFirstClassSeat(tripResponse.getPriceForConfortClass());
             unit.setPriceForSecondClassSeat(tripResponse.getPriceForEconomyClass());

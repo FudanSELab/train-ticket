@@ -13,7 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import seat.entity.*;
+import edu.fudan.common.entity.*;
 
 import java.util.ArrayList;
 

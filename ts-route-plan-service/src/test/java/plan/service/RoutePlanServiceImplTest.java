@@ -1,5 +1,7 @@
 package plan.service;
 
+import edu.fudan.common.entity.Trip;
+import edu.fudan.common.entity.TripResponse;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,10 +15,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import plan.entity.Route;
-import plan.entity.RoutePlanInfo;
-import plan.entity.Trip;
-import plan.entity.TripResponse;
+import edu.fudan.common.entity.RoutePlanInfo;
+import edu.fudan.common.entity.Route;
 
 import java.util.ArrayList;
 import java.util.Date;

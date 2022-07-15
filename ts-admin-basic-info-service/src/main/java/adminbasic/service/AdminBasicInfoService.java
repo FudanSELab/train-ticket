@@ -1,6 +1,10 @@
 package adminbasic.service;
 
 import adminbasic.entity.*;
+import edu.fudan.common.entity.Config;
+import edu.fudan.common.entity.Contacts;
+import edu.fudan.common.entity.Station;
+import edu.fudan.common.entity.TrainType;
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
 
@@ -25,7 +29,7 @@ public interface AdminBasicInfoService {
      * @param headers headers
      * @return Response
      */
-    Response addContact(  Contacts c, HttpHeaders headers);
+    Response addContact(Contacts c, HttpHeaders headers);
 
     /**
      * delete contact with contact id

@@ -100,7 +100,7 @@ public class PriceServiceImplTest {
     @Test
     public void testDeletePriceConfig2() {
         PriceConfig c = new PriceConfig();
-        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString())).thenReturn(c);
+        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString()).get()).thenReturn(c);
         Mockito.doNothing().doThrow(new RuntimeException()).when(priceConfigRepository).delete(Mockito.any(PriceConfig.class));
         Response result = priceServiceImpl.deletePriceConfig(c, headers);
         Assert.assertEquals(new Response<>(1, "Delete success", c), result);
@@ -117,7 +117,7 @@ public class PriceServiceImplTest {
     @Test
     public void testUpdatePriceConfig2() {
         PriceConfig c = new PriceConfig();
-        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString())).thenReturn(c);
+        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString()).get()).thenReturn(c);
         Mockito.when(priceConfigRepository.save(Mockito.any(PriceConfig.class))).thenReturn(null);
         Response result = priceServiceImpl.updatePriceConfig(c, headers);
         Assert.assertEquals(new Response<>(1, "Update success", c), result);

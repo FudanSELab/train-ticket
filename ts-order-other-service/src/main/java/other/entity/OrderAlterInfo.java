@@ -12,8 +12,8 @@ import java.util.UUID;
  * @author fdse
  */
 @Data
-@GenericGenerator(name = "jpa-uuid",strategy="uuid")
 @AllArgsConstructor
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class OrderAlterInfo {
 
     @GeneratedValue(generator = "jpa-uuid")

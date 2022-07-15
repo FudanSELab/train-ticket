@@ -1,6 +1,6 @@
 package food.init;
 
-import food.entity.Food;
+import edu.fudan.common.entity.Food;
 import food.entity.StationFoodStore;
 import food.service.StationFoodService;
 import org.slf4j.Logger;

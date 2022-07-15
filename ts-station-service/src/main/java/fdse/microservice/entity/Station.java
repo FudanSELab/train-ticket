@@ -9,11 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Locale;
 import java.util.UUID;
 
 @Data
 @Entity
-@GenericGenerator(name = "jpa-uuid",strategy="uuid")
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class Station {
     @Id
     @GeneratedValue(generator = "jpa-uuid")
@@ -31,13 +32,17 @@ public class Station {
         this.name = "";
     }
 
+    public void setName(String name) {
+        this.name = name.replace(" ", "").toLowerCase(Locale.ROOT);
+    }
+
     public Station(String name) {
-        this.name = name;
+        this.name = name.replace(" ", "").toLowerCase(Locale.ROOT);
     }
 
 
     public Station(String name, int stayTime) {
-        this.name = name;
+        this.name = name.replace(" ", "").toLowerCase(Locale.ROOT);;
         this.stayTime = stayTime;
     }
 

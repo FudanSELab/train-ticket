@@ -1,20 +1,16 @@
 package adminroute.service;
 
-import adminroute.entity.Route;
-import adminroute.entity.RouteInfo;
+import edu.fudan.common.entity.Route;
+import edu.fudan.common.entity.RouteInfo;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 /**
  * @author fdse

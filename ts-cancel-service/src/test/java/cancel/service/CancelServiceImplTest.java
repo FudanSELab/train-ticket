@@ -1,8 +1,8 @@
 package cancel.service;
 
-import cancel.entity.NotifyInfo;
-import cancel.entity.Order;
-import cancel.entity.User;
+import edu.fudan.common.entity.NotifyInfo;
+import edu.fudan.common.entity.Order;
+import edu.fudan.common.entity.User;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;

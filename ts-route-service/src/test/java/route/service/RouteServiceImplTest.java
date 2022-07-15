@@ -17,6 +17,7 @@ import route.repository.RouteRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RunWith(JUnit4.class)
 public class RouteServiceImplTest {
@@ -98,7 +99,7 @@ public class RouteServiceImplTest {
         List<Integer> distances = new ArrayList<>();
         distances.add(5);
         distances.add(10);
-        Route route = new Route("id", stations, distances, "shanghai", "nanjing");
+        Route route = new Route(UUID.randomUUID().toString(), stations, distances, "shanghai", "nanjing");
         ArrayList<Route> routes = new ArrayList<>();
         routes.add(route);
         Mockito.when(routeRepository.findAll()).thenReturn(routes);

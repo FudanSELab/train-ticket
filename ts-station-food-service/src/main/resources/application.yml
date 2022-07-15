@@ -5,14 +5,14 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
+        server-addr: ${NACOS_ADDRS:127.0.0.1:8848}
   application:
     name: ts-station-food-service
   datasource:
 #    url: jdbc:mysql://localhost:3306/ts-station-food-mysql?useSSL=false
-    url: jdbc:mysql://${STATION_FOOD_MYSQL_HOST:ts-station-food-mysql}:${STATION_FOOD_MYSQL_PORT:3306}/${STATION_FOOD_MYSQL_DATABASE:ts-station-food-mysql}?useSSL=false
+    url: jdbc:mysql://${STATION_FOOD_MYSQL_HOST:10.176.122.1}:${STATION_FOOD_MYSQL_PORT:3306}/${STATION_FOOD_MYSQL_DATABASE:ts}?useSSL=false
     username: ${STATION_FOOD_MYSQL_USER:root}
-    password: ${STATION_FOOD_MYSQL_PASSWORD:root}
+    password: ${STATION_FOOD_MYSQL_PASSWORD:Abcd1234#}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

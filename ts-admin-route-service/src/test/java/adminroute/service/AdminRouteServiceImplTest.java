@@ -1,7 +1,7 @@
 package adminroute.service;
 
-import adminroute.entity.Route;
-import adminroute.entity.RouteInfo;
+import edu.fudan.common.entity.Route;
+import edu.fudan.common.entity.RouteInfo;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;

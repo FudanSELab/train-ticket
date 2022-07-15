@@ -1,7 +1,7 @@
 package admintravel.controller;
 
-import admintravel.entity.TravelInfo;
 import admintravel.service.AdminTravelService;
+import edu.fudan.common.entity.TravelInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +37,14 @@ public class AdminTravelController {
     @PostMapping(value = "/admintravel")
     public HttpEntity addTravel(@RequestBody TravelInfo request, @RequestHeader HttpHeaders headers) {
         logger.info("[addTravel][Add travel][trip id: {}, train type id: {}, form station {} to station {}, login id: {}]",
-                request.getTripId(), request.getTrainTypeId(), request.getStartingStationId(), request.getStationsId(), request.getLoginId());
+                request.getTripId(), request.getTrainTypeId(), request.getStartStationName(), request.getStationsName(), request.getLoginId());
         return ok(adminTravelService.addTravel(request, headers));
     }
 
     @PutMapping(value = "/admintravel")
     public HttpEntity updateTravel(@RequestBody TravelInfo request, @RequestHeader HttpHeaders headers) {
         logger.info("[updateTravel][Update travel][trip id: {}, train type id: {}, form station {} to station {}, login id: {}]",
-                request.getTripId(), request.getTrainTypeId(), request.getStartingStationId(), request.getStationsId(), request.getLoginId());
+                request.getTripId(), request.getTrainTypeId(), request.getStartStationName(), request.getStationsName(), request.getLoginId());
         return ok(adminTravelService.updateTravel(request, headers));
     }
 

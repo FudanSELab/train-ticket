@@ -1,15 +1,16 @@
 package foodsearch.service;
 
+import edu.fudan.common.entity.StationFoodStore;
+import edu.fudan.common.entity.TrainFood;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.entity.Route;
 import foodsearch.entity.*;
 import foodsearch.mq.RabbitSend;
 import foodsearch.repository.FoodOrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;

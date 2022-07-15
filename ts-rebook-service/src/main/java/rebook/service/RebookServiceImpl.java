@@ -1,11 +1,13 @@
 package rebook.service;
 
+import edu.fudan.common.entity.Trip;
+import edu.fudan.common.entity.TripAllDetail;
+import edu.fudan.common.entity.TripAllDetailInfo;
+import edu.fudan.common.entity.TripResponse;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -14,13 +16,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import edu.fudan.common.entity.*;
 import rebook.entity.*;
-import rebook.entity.RebookInfo;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author fdse
@@ -186,7 +187,7 @@ public class RebookServiceImpl implements RebookService {
         order.setPrice(ticketPrice);//Set ticket price
         order.setSeatClass(info.getSeatType());
         order.setTravelDate(info.getDate());
-        order.setTravelTime(trip.getStartingTime());
+        order.setTravelTime(trip.getStartTime());
 
         if (info.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {//Dispatch the seat
             Ticket ticket =

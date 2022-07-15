@@ -1,9 +1,9 @@
 package adminorder.controller;
 
-import adminorder.entity.Order;
 import adminorder.service.AdminOrderService;
 import com.alibaba.fastjson.JSONObject;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.entity.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,7 +54,7 @@ public class AdminOrderControllerTest {
 
     @Test
     public void testAddOrder() throws Exception {
-        Order order = new Order(null, null, null, null, null, null, 0, null, "G", 0, 0, null, null, null, 0, null);
+        Order order = new Order(null, null, null, null, null, null, 0, null, "G", 0, 0, null, null, null, 0, null, null);
         Mockito.when(adminOrderService.addOrder(Mockito.any(Order.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(order);
         String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/adminorderservice/adminorder").contentType(MediaType.APPLICATION_JSON).content(requestJson))
@@ -65,7 +65,7 @@ public class AdminOrderControllerTest {
 
     @Test
     public void testUpdateOrder() throws Exception {
-        Order order = new Order(null, null, null, null, null, null, 0, null, "G", 0, 0, null, null, null, 0, null);
+        Order order = new Order(null, null, null, null, null, null, 0, null, "G", 0, 0, null, null, null, 0, null, null);
         Mockito.when(adminOrderService.updateOrder(Mockito.any(Order.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(order);
         String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/adminorderservice/adminorder").contentType(MediaType.APPLICATION_JSON).content(requestJson))

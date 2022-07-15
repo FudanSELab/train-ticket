@@ -1,14 +1,16 @@
 package order.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import edu.fudan.common.entity.OrderStatus;
+import edu.fudan.common.entity.SeatClass;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
+
+import edu.fudan.common.entity.SeatClass;
 
 /**
  * @author fdse
@@ -16,7 +18,7 @@ import java.util.UUID;
 @Data
 @Table(name = "orders")
 @Entity
-@GenericGenerator(name = "jpa-uuid",strategy="uuid")
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {

@@ -1,11 +1,14 @@
 package other.service;
 
+
+import edu.fudan.common.entity.Seat;
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
-import other.entity.*;
+import other.entity.Order;
+import other.entity.QueryInfo;
+import other.entity.OrderAlterInfo;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author fdse

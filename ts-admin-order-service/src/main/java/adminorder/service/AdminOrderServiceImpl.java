@@ -1,6 +1,6 @@
 package adminorder.service;
 
-import adminorder.entity.*;
+import edu.fudan.common.entity.*;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

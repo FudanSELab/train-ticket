@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,9 +16,10 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
-@GenericGenerator(name = "jpa-uuid",strategy="uuid")
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class Route {
 
     @Id
@@ -35,7 +37,15 @@ public class Route {
 
     private String terminalStationId;
 
-    public Route() {
-        //Default Constructor
+    private String startStationName;
+
+    private String terminalStationName;
+
+    public Route(String id, List<String> stations, List<Integer> distances, String startStationName, String terminalStationName) {
+        this.id = id;
+        this.stations = stations;
+        this.distances = distances;
+        this.startStationName = startStationName;
+        this.terminalStationName = terminalStationName;
     }
 }

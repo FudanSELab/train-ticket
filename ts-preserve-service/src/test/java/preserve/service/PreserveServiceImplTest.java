@@ -13,7 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import preserve.entity.*;
+import edu.fudan.common.entity.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -85,7 +85,7 @@ public class PreserveServiceImplTest {
         //response for getTripAllDetailInformation()
         TripResponse tripResponse = new TripResponse();
         tripResponse.setConfortClass(1);
-        tripResponse.setStartingTime(new Date());
+        tripResponse.setStartTime(new Date());
         TripAllDetail tripAllDetail = new TripAllDetail(true, "message", tripResponse, new Trip());
         Response<TripAllDetail> response3 = new Response<>(1, null, tripAllDetail);
         ResponseEntity<Response<TripAllDetail>> re3 = new ResponseEntity<>(response3, HttpStatus.OK);
@@ -108,8 +108,8 @@ public class PreserveServiceImplTest {
 
         //response for createOrder()
         Order order = new Order();
-        order.setId(UUID.randomUUID());
-        order.setAccountId(UUID.randomUUID());
+        order.setId(UUID.randomUUID().toString());
+        order.setAccountId(UUID.randomUUID().toString());
         order.setTravelDate(new Date());
         order.setFrom("from_station");
         order.setTo("to_station");

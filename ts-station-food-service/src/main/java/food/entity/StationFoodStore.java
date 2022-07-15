@@ -1,20 +1,18 @@
 package food.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import edu.fudan.common.entity.Food;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
-@GenericGenerator(name = "jpa-uuid",strategy="uuid")
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StationFoodStore {

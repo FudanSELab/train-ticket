@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import seat.entity.Seat;
+import edu.fudan.common.entity.Seat;
 import seat.service.SeatService;
 
 @RunWith(JUnit4.class)

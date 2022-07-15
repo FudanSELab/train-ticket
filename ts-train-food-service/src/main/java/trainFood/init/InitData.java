@@ -1,11 +1,11 @@
 package trainFood.init;
 
+import edu.fudan.common.entity.Food;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import trainFood.entity.Food;
 import trainFood.entity.TrainFood;
 import trainFood.service.TrainFoodService;
 

@@ -20,7 +20,7 @@ public class TestServiceTravel {
     public class TravelInfo{
         String tripId;
         String trainTypeId;
-        String startingStationId;
+        String startStationName;
         String stationsId;
         String terminalStationId;
         String startingTime;
@@ -28,7 +28,7 @@ public class TestServiceTravel {
         TravelInfo (
                 String tripId,
                 String trainTypeId,
-                String startingStationId,
+                String startStationName,
                 String stationsId,
                 String terminalStationId,
                 String startingTime,
@@ -36,7 +36,7 @@ public class TestServiceTravel {
         ){
             this.tripId = tripId;
             this.trainTypeId = trainTypeId;
-            this.startingStationId = startingStationId;
+            this.startStationName = startingStationId;
             this.stationsId = stationsId;
             this.terminalStationId = terminalStationId;
             this.startingTime = startingTime;
@@ -67,7 +67,7 @@ public class TestServiceTravel {
         driver.findElement(By.id("travel_update_trainTypeId")).sendKeys(travelinfo.trainTypeId);
 
         driver.findElement(By.id("travel_update_startingStationId")).clear();
-        driver.findElement(By.id("travel_update_startingStationId")).sendKeys(travelinfo.startingStationId);
+        driver.findElement(By.id("travel_update_startingStationId")).sendKeys(travelinfo.startStationName);
 
         driver.findElement(By.id("travel_update_stationsId")).clear();
         driver.findElement(By.id("travel_update_stationsId")).sendKeys(travelinfo.stationsId);

@@ -1,5 +1,7 @@
 package foodsearch.entity;
 
+import edu.fudan.common.entity.StationFoodStore;
+import edu.fudan.common.entity.TrainFood;
 import lombok.Data;
 
 import java.util.List;

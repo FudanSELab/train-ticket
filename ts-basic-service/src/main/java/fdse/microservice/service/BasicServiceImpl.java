@@ -1,13 +1,15 @@
 package fdse.microservice.service;
 
+import edu.fudan.common.entity.PriceConfig;
+import edu.fudan.common.entity.Route;
+import edu.fudan.common.entity.TrainType;
+import edu.fudan.common.entity.Travel;
+import edu.fudan.common.entity.TravelResult;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
-import fdse.microservice.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * @author fdse
@@ -45,14 +46,14 @@ public class BasicServiceImpl implements BasicService {
         result.setStatus(true);
         response.setStatus(1);
         response.setMsg("Success");
-        boolean startingPlaceExist = checkStationExists(info.getStartingPlace(), headers);
+        boolean startingPlaceExist = checkStationExists(info.getStartPlace(), headers);
         boolean endPlaceExist = checkStationExists(info.getEndPlace(), headers);
         if (!startingPlaceExist || !endPlaceExist) {
             result.setStatus(false);
             response.setStatus(0);
             response.setMsg("Start place or end place not exist!");
             if (!startingPlaceExist)
-                BasicServiceImpl.LOGGER.warn("[queryForTravel][Start place not exist][start place: {}]", info.getStartingPlace());
+                BasicServiceImpl.LOGGER.warn("[queryForTravel][Start place not exist][start place: {}]", info.getStartPlace());
             if (!endPlaceExist)
                 BasicServiceImpl.LOGGER.warn("[queryForTravel][End place not exist][end place: {}]", info.getEndPlace());
         }
@@ -75,7 +76,7 @@ public class BasicServiceImpl implements BasicService {
         Route route = getRouteByRouteId(routeId, headers);
         PriceConfig priceConfig = queryPriceConfigByRouteIdAndTrainType(routeId, trainTypeString, headers);
 
-        String startingPlaceId = (String) queryForStationId(info.getStartingPlace(), headers).getData();
+        String startingPlaceId = (String) queryForStationId(info.getStartPlace(), headers).getData();
         String endPlaceId = (String) queryForStationId(info.getEndPlace(), headers).getData();
 
         LOGGER.info("[queryForTravel][query start and end info][startingPlaceId: {} endPlaceId: {}]", startingPlaceId, endPlaceId);

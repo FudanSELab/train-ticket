@@ -1,6 +1,6 @@
 package adminorder.controller;
 
-import adminorder.entity.*;
+import edu.fudan.common.entity.*;
 import adminorder.service.AdminOrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

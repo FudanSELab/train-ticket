@@ -15,7 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import preserve.entity.*;
+import edu.fudan.common.entity.*;
 import preserve.mq.RabbitSend;
 
 import java.util.Date;
@@ -102,9 +102,9 @@ public class PreserveServiceImpl implements PreserveService {
         Contacts contacts = gcr.getData();
         Order order = new Order();
         UUID orderId = UUID.randomUUID();
-        order.setId(orderId);
+        order.setId(orderId.toString());
         order.setTrainNumber(oti.getTripId());
-        order.setAccountId(UUID.fromString(oti.getAccountId()));
+        order.setAccountId(oti.getAccountId());
 
         String fromStationId = queryForStationId(oti.getFrom(), headers);
         String toStationId = queryForStationId(oti.getTo(), headers);
@@ -119,7 +119,7 @@ public class PreserveServiceImpl implements PreserveService {
 
         Travel query = new Travel();
         query.setTrip(trip);
-        query.setStartingPlace(oti.getFrom());
+        query.setStartPlace(oti.getFrom());
         query.setEndPlace(oti.getTo());
         query.setDepartureTime(new Date());
 
@@ -247,7 +247,7 @@ public class PreserveServiceImpl implements PreserveService {
         notifyInfo.setOrderNumber(order.getId().toString());
         notifyInfo.setPrice(order.getPrice());
         notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));
-        notifyInfo.setStartingTime(order.getTravelTime().toString());
+        notifyInfo.setStartTime(order.getTravelTime().toString());
 
         // TODO: change to async message serivce
         // sendEmail(notifyInfo, headers);

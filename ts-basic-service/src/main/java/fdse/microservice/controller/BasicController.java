@@ -1,6 +1,6 @@
 package fdse.microservice.controller;
 
-import fdse.microservice.entity.Travel;
+import edu.fudan.common.entity.Travel;
 import fdse.microservice.service.BasicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
