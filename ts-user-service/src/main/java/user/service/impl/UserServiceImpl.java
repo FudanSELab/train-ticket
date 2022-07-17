@@ -34,7 +34,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private DiscoveryClient discoveryClient;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     private String getServiceUrl(String serviceName) {
         return "http://" + serviceName;

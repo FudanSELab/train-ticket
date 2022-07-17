@@ -1,13 +1,12 @@
 package travel.service;
 
+import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import org.apache.skywalking.apm.toolkit.trace.TraceCrossThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -17,7 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import travel.entity.*;
+import travel.entity.AdminTrip;
+import travel.entity.Travel;
+import travel.entity.Trip;
+import travel.entity.TripAllDetail;
 import travel.repository.TripRepository;
 
 import java.util.*;
@@ -53,8 +55,8 @@ public class TravelServiceImpl implements TravelService {
     public Response create(TravelInfo info, HttpHeaders headers) {
         TripId ti = new TripId(info.getTripId());
         if (repository.findByTripId(ti) == null) {
-            Trip trip = new Trip(ti, info.getTrainTypeId(), info.getStartingStationId(),
-                    info.getStationsId(), info.getTerminalStationId(), info.getStartingTime(), info.getEndTime());
+            Trip trip = new Trip(ti, info.getTrainTypeName(), info.getStartStationName(),
+                    info.getStationsName(), info.getTerminalStationName(), info.getStartTime(), info.getEndTime());
             trip.setRouteId(info.getRouteId());
             repository.save(trip);
             return new Response<>(1, "Create trip:" + ti.toString() + ".", null);
@@ -90,7 +92,7 @@ public class TravelServiceImpl implements TravelService {
         TrainType trainType = null;
         Trip trip = repository.findByTripId(tripId1);
         if (trip != null) {
-            trainType = getTrainType(trip.getTrainTypeId(), headers);
+            trainType = getTrainType(trip.getTrainTypeName(), headers);
         } else {
             TravelServiceImpl.LOGGER.error("[getTrainTypeByTripId][Get Train Type by Trip id error][Trip not found][TripId: {}]", tripId);
         }
@@ -137,8 +139,8 @@ public class TravelServiceImpl implements TravelService {
     public Response update(TravelInfo info, HttpHeaders headers) {
         TripId ti = new TripId(info.getTripId());
         if (repository.findByTripId(ti) != null) {
-            Trip trip = new Trip(ti, info.getTrainTypeId(), info.getStartingStationId(),
-                    info.getStationsId(), info.getTerminalStationId(), info.getStartingTime(), info.getEndTime());
+            Trip trip = new Trip(ti, info.getTrainTypeName(), info.getStartStationName(),
+                    info.getStationsName(), info.getTerminalStationName(), info.getStartTime(), info.getEndTime());
             trip.setRouteId(info.getRouteId());
             repository.save(trip);
             return new Response<>(1, "Update trip:" + ti.toString(), trip);
@@ -164,10 +166,10 @@ public class TravelServiceImpl implements TravelService {
     public Response query(TripInfo info, HttpHeaders headers) {
 
         //Gets the start and arrival stations of the train number to query. The originating and arriving stations received here are both station names, so two requests need to be sent to convert to station ids
-        String startingPlaceName = info.getStartingPlace();
+        String startingPlaceName = info.getStartPlace();
         String endPlaceName = info.getEndPlace();
-        String startingPlaceId = queryForStationId(startingPlaceName, headers);
-        String endPlaceId = queryForStationId(endPlaceName, headers);
+        //String startingPlaceId = queryForStationId(startingPlaceName, headers);
+       // String endPlaceId = queryForStationId(endPlaceName, headers);
 
         //This is the final result
         List<TripResponse> list = new ArrayList<>();
@@ -180,10 +182,10 @@ public class TravelServiceImpl implements TravelService {
                 Route tempRoute = getRouteByRouteId(tempTrip.getRouteId(), headers);
                 //Check the route list for this train. Check that the required start and arrival stations are in the list of stops that are not on the route, and check that the location of the start station is before the stop
                 //Trains that meet the above criteria are added to the return list
-                if (tempRoute.getStations().contains(startingPlaceId) &&
-                        tempRoute.getStations().contains(endPlaceId) &&
-                        tempRoute.getStations().indexOf(startingPlaceId) < tempRoute.getStations().indexOf(endPlaceId)) {
-                    TripResponse response = getTickets(tempTrip, tempRoute, startingPlaceId, endPlaceId, startingPlaceName, endPlaceName, info.getDepartureTime(), headers);
+                if (tempRoute !=null && tempRoute.getStations().contains(startingPlaceName) &&
+                        tempRoute.getStations().contains(endPlaceName) &&
+                        tempRoute.getStations().indexOf(startingPlaceName) < tempRoute.getStations().indexOf(endPlaceName)) {
+                    TripResponse response = getTickets(tempTrip, tempRoute, startingPlaceName, endPlaceName, startingPlaceName, endPlaceName, info.getDepartureTime(), headers);
                     if (response == null) {
                         TravelServiceImpl.LOGGER.warn("[query][Query trip error][Tickets not found][start: {},end: {},time: {}]", startingPlaceName, endPlaceName, info.getDepartureTime());
                         return new Response<>(0, "No Trip info content", null);
@@ -200,30 +202,30 @@ public class TravelServiceImpl implements TravelService {
         private TripInfo info;
         private Trip tempTrip;
         private HttpHeaders headers;
-        private String startingPlaceId;
-        private String endPlaceId;
+        private String startingPlaceName;
+        private String endPlaceName;
 
-        MyCallable(TripInfo info, String startingPlaceId, String endPlaceId, Trip tempTrip, HttpHeaders headers) {
+        MyCallable(TripInfo info, String startingPlaceName, String endPlaceName, Trip tempTrip, HttpHeaders headers) {
             this.info = info;
             this.tempTrip = tempTrip;
             this.headers = headers;
-            this.startingPlaceId = startingPlaceId;
-            this.endPlaceId = endPlaceId;
+            this.startingPlaceName = startingPlaceName;
+            this.endPlaceName = endPlaceName;
         }
 
         @Override
         public TripResponse call() throws Exception {
             TravelServiceImpl.LOGGER.debug("[call][Start to query][tripId: {}, routeId: {}] ", tempTrip.getTripId().toString(), tempTrip.getRouteId());
 
-            String startingPlaceName = info.getStartingPlace();
+            String startingPlaceName = info.getStartPlace();
             String endPlaceName = info.getEndPlace();
             Route tempRoute = getRouteByRouteId(tempTrip.getRouteId(), headers);
 
             TripResponse response = null;
-            if (tempRoute.getStations().contains(startingPlaceId) &&
-                    tempRoute.getStations().contains(endPlaceId) &&
-                    tempRoute.getStations().indexOf(startingPlaceId) < tempRoute.getStations().indexOf(endPlaceId)) {
-                response = getTickets(tempTrip, tempRoute, startingPlaceId, endPlaceId, startingPlaceName, endPlaceName, info.getDepartureTime(), headers);
+            if (tempRoute.getStations().contains(startingPlaceName) &&
+                    tempRoute.getStations().contains(endPlaceName) &&
+                    tempRoute.getStations().indexOf(startingPlaceName) < tempRoute.getStations().indexOf(endPlaceName)) {
+                response = getTickets(tempTrip, tempRoute, startingPlaceName, endPlaceName, startingPlaceName, endPlaceName, info.getDepartureTime(), headers);
             }
             if (response == null) {
                 TravelServiceImpl.LOGGER.warn("[call][Query trip error][Tickets not found][tripId: {}, routeId: {}, start: {}, end: {},time: {}]", tempTrip.getTripId().toString(), tempTrip.getRouteId(), startingPlaceName, endPlaceName, info.getDepartureTime());
@@ -237,10 +239,10 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public Response queryInParallel(TripInfo info, HttpHeaders headers) {
         //Gets the start and arrival stations of the train number to query. The originating and arriving stations received here are both station names, so two requests need to be sent to convert to station ids
-        String startingPlaceName = info.getStartingPlace();
+        String startingPlaceName = info.getStartPlace();
         String endPlaceName = info.getEndPlace();
-        String startingPlaceId = queryForStationId(startingPlaceName, headers);
-        String endPlaceId = queryForStationId(endPlaceName, headers);
+//        String startingPlaceId = queryForStationId(startingPlaceName, headers);
+//        String endPlaceId = queryForStationId(endPlaceName, headers);
 
         //This is the final result
         List<TripResponse> list = new ArrayList<>();
@@ -251,7 +253,7 @@ public class TravelServiceImpl implements TravelService {
 
         if(allTripList != null ){
             for (Trip tempTrip : allTripList) {
-                MyCallable callable = new MyCallable(info, startingPlaceId, endPlaceId, tempTrip, headers);
+                MyCallable callable = new MyCallable(info, startingPlaceName, endPlaceName, tempTrip, headers);
                 Future<TripResponse> future = executorService.submit(callable);
                 futureList.add(future);
             }
@@ -287,11 +289,11 @@ public class TravelServiceImpl implements TravelService {
         } else {
             String startingPlaceName = gtdi.getFrom();
             String endPlaceName = gtdi.getTo();
-            String startingPlaceId = queryForStationId(startingPlaceName, headers);
-            String endPlaceId = queryForStationId(endPlaceName, headers);
+//            String startingPlaceId = queryForStationId(startingPlaceName, headers);
+//            String endPlaceId = queryForStationId(endPlaceName, headers);
             Route tempRoute = getRouteByRouteId(trip.getRouteId(), headers);
 
-            TripResponse tripResponse = getTickets(trip, tempRoute, startingPlaceId, endPlaceId, gtdi.getFrom(), gtdi.getTo(), gtdi.getTravelDate(), headers);
+            TripResponse tripResponse = getTickets(trip, tempRoute, startingPlaceName, endPlaceName, startingPlaceName, endPlaceName, gtdi.getTravelDate(), headers);
             if (tripResponse == null) {
                 gtdr.setTripResponse(null);
                 gtdr.setTrip(null);
@@ -313,7 +315,7 @@ public class TravelServiceImpl implements TravelService {
 
         Travel query = new Travel();
         query.setTrip(trip);
-        query.setStartingPlace(startingPlaceName);
+        query.setStartPlace(startingPlaceName);
         query.setEndPlace(endPlaceName);
         query.setDepartureTime(departureTime);
 
@@ -354,33 +356,35 @@ public class TravelServiceImpl implements TravelService {
         response.setConfortClass(first);
         response.setEconomyClass(second);
 
-        response.setStartingStation(startingPlaceName);
+        response.setStartStation(startingPlaceName);
         response.setTerminalStation(endPlaceName);
 
         //Calculate the distance from the starting point
-        int indexStart = route.getStations().indexOf(startingPlaceId);
-        int indexEnd = route.getStations().indexOf(endPlaceId);
+//        int indexStart = route.getStations().indexOf(startingPlaceId);
+//        int indexEnd = route.getStations().indexOf(endPlaceId);
+        int indexStart = route.getStations().indexOf(startingPlaceName);
+        int indexEnd = route.getStations().indexOf(endPlaceName);
         int distanceStart = route.getDistances().get(indexStart) - route.getDistances().get(0);
         int distanceEnd = route.getDistances().get(indexEnd) - route.getDistances().get(0);
-        TrainType trainType = getTrainType(trip.getTrainTypeId(), headers);
+        TrainType trainType = getTrainType(trip.getTrainTypeName(), headers);
         //Train running time is calculated according to the average running speed of the train
         int minutesStart = 60 * distanceStart / trainType.getAverageSpeed();
         int minutesEnd = 60 * distanceEnd / trainType.getAverageSpeed();
 
         Calendar calendarStart = Calendar.getInstance();
-        calendarStart.setTime(trip.getStartingTime());
+        calendarStart.setTime(trip.getStartTime());
         calendarStart.add(Calendar.MINUTE, minutesStart);
-        response.setStartingTime(calendarStart.getTime());
+        response.setStartTime(calendarStart.getTime());
         TravelServiceImpl.LOGGER.info("[getTickets][Calculate distance][calculate time：{}  time: {}]", minutesStart, calendarStart.getTime());
 
         Calendar calendarEnd = Calendar.getInstance();
-        calendarEnd.setTime(trip.getStartingTime());
+        calendarEnd.setTime(trip.getStartTime());
         calendarEnd.add(Calendar.MINUTE, minutesEnd);
         response.setEndTime(calendarEnd.getTime());
         TravelServiceImpl.LOGGER.info("[getTickets][Calculate distance][calculate time：{}  time: {}]", minutesEnd, calendarEnd.getTime());
 
         response.setTripId(new TripId(result.getData().getTrainNumber()));
-        response.setTrainTypeId(trip.getTrainTypeId());
+        response.setTrainTypeName(trip.getTrainTypeName());
         response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
         response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
 
@@ -435,15 +439,18 @@ public class TravelServiceImpl implements TravelService {
 
     private String queryForStationId(String stationName, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
-        String basic_service_url = getServiceUrl("ts-basic-service");
+        String station_service_url=getServiceUrl("ts-station-service");
         ResponseEntity<Response<String>> re = restTemplate.exchange(
-                basic_service_url + "/api/v1/basicservice/basic/" + stationName,
+                station_service_url + "/api/v1/stationservice/stations/id/" + stationName,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<String>>() {
                 });
-        TravelServiceImpl.LOGGER.info("[queryForStationId][Query for Station id][response is: {}]", re.getBody().toString());
-
+        if (re.getBody().getStatus() != 1) {
+            String msg = re.getBody().getMsg();
+            TravelServiceImpl.LOGGER.warn("[queryForStationId][Query for stationId error][stationName: {}, message: {}]", stationName, msg);
+            return "";
+        }
         return re.getBody().getData();
     }
 
@@ -503,7 +510,7 @@ public class TravelServiceImpl implements TravelService {
                 AdminTrip adminTrip = new AdminTrip();
                 adminTrip.setTrip(trip);
                 adminTrip.setRoute(getRouteByRouteId(trip.getRouteId(), headers));
-                adminTrip.setTrainType(getTrainType(trip.getTrainTypeId(), headers));
+                adminTrip.setTrainType(getTrainType(trip.getTrainTypeName(), headers));
                 adminTrips.add(adminTrip);
             }
         }

@@ -1,5 +1,6 @@
 package travel2.controller;
 
+import edu.fudan.common.entity.TripResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import travel2.entity.*;
-import travel2.service.Travel2Service;
+import travel2.service.TravelService;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ import static org.springframework.http.ResponseEntity.ok;
 public class Travel2Controller {
 
     @Autowired
-    private Travel2Service service;
+    private TravelService service;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Travel2Controller.class);
 
@@ -58,7 +58,7 @@ public class Travel2Controller {
 
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/trips")
-    public HttpEntity<?> createTrip(@RequestBody TravelInfo routeIds, @RequestHeader HttpHeaders headers) {
+    public HttpEntity<?> createTrip(@RequestBody edu.fudan.common.entity.TravelInfo routeIds, @RequestHeader HttpHeaders headers) {
         // null
         Travel2Controller.LOGGER.info("[create][Create trip][TripId: {}]", routeIds.getTripId());
         return new ResponseEntity<>(service.create(routeIds, headers), HttpStatus.CREATED);
@@ -81,7 +81,7 @@ public class Travel2Controller {
 
     @CrossOrigin(origins = "*")
     @PutMapping(value = "/trips")
-    public HttpEntity updateTrip(@RequestBody TravelInfo info, @RequestHeader HttpHeaders headers) {
+    public HttpEntity updateTrip(@RequestBody edu.fudan.common.entity.TravelInfo info, @RequestHeader HttpHeaders headers) {
         // Trip
         Travel2Controller.LOGGER.info("[update][Update trip][TripId: {}]",info.getTripId());
         return ok(service.update(info, headers));
@@ -104,8 +104,8 @@ public class Travel2Controller {
      */
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/trips/left")
-    public HttpEntity queryInfo(@RequestBody TripInfo info, @RequestHeader HttpHeaders headers) {
-        if (info.getStartingPlace() == null || info.getStartingPlace().length() == 0 ||
+    public HttpEntity queryInfo(@RequestBody edu.fudan.common.entity.TripInfo info, @RequestHeader HttpHeaders headers) {
+        if (info.getStartPlace() == null || info.getStartPlace().length() == 0 ||
                 info.getEndPlace() == null || info.getEndPlace().length() == 0 ||
                 info.getDepartureTime() == null) {
             Travel2Controller.LOGGER.info("[query][Travel Query Fail][Something null]");
@@ -125,7 +125,7 @@ public class Travel2Controller {
      */
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/trip_detail")
-    public HttpEntity getTripAllDetailInfo(@RequestBody TripAllDetailInfo gtdi, @RequestHeader HttpHeaders headers) {
+    public HttpEntity getTripAllDetailInfo(@RequestBody edu.fudan.common.entity.TripAllDetailInfo gtdi, @RequestHeader HttpHeaders headers) {
         Travel2Controller.LOGGER.info("[getTripAllDetailInfo][Get trip detail][TripId: {}]",gtdi.getTripId());
         return ok(service.getTripAllDetailInfo(gtdi, headers));
     }

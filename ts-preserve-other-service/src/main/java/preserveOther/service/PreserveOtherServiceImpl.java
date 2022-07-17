@@ -138,7 +138,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         order.setSeatClass(oti.getSeatType());
         PreserveOtherServiceImpl.LOGGER.info("[preserve][Step 4][Do Order][Travel Date][Date is: {}]", oti.getDate().toString());
         order.setTravelDate(oti.getDate());
-        order.setTravelTime(gtdr.getTripResponse().getStartingTime());
+        order.setTravelTime(gtdr.getTripResponse().getStartTime());
 
         //Dispatch the seat
         if (oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {
@@ -238,7 +238,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         notifyInfo.setDate(new Date().toString());
 
         notifyInfo.setEmail(getUser.getEmail());
-        notifyInfo.setStartingPlace(order.getFrom());
+        notifyInfo.setStartPlace(order.getFrom());
         notifyInfo.setEndPlace(order.getTo());
         notifyInfo.setUsername(getUser.getUserName());
         notifyInfo.setSeatNumber(order.getSeatNumber());

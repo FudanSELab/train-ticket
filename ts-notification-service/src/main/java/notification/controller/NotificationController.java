@@ -42,7 +42,7 @@ public class NotificationController {
         notifyInfo.setDate("Wed Jul 21 09:49:44 CST 2021");
         notifyInfo.setEmail(test_mail_user);
         notifyInfo.setEndPlace("Test");
-        notifyInfo.setStartingPlace("Test");
+        notifyInfo.setStartPlace("Test");
         notifyInfo.setOrderNumber("111-111-111");
         notifyInfo.setPrice("100");
         notifyInfo.setSeatClass("1");

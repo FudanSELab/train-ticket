@@ -101,7 +101,7 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
                         tripId: $scope.add_travel_id,
                         trainTypeId: $scope.add_travel_train_type_id,
                         routeId: $scope.add_travel_route_id,
-                        startingTime: $scope.add_travel_start_time
+                        startTime: $scope.add_travel_start_time
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {
@@ -126,7 +126,7 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
         $scope.update_travel_id = record.trip.tripId.type + "" + record.trip.tripId.number;
         $scope.update_travel_train_type_id = record.trip.trainTypeId;
         $scope.update_travel_route_id = record.trip.routeId;
-        $scope.update_travel_start_time = record.trip.startingTime;
+        $scope.update_travel_start_time = record.trip.startTime;
 
         $('#update_prompt').modal({
             relatedTarget: this,
@@ -140,7 +140,7 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
                         tripId: $scope.update_travel_id,
                         trainTypeId: $scope.update_travel_train_type_id,
                         routeId: $scope.update_travel_route_id,
-                        startingTime: $scope.update_travel_start_time
+                        startTime: $scope.update_travel_start_time
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status == 1) {

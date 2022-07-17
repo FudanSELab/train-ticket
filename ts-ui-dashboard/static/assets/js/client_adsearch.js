@@ -31,7 +31,7 @@ var adSearch = new Vue({
         },
         adSearchPath() {
             var advanceSearchInfo = new Object();
-            advanceSearchInfo.startingPlace = this.startPlace;
+            advanceSearchInfo.startPlace = this.startPlace;
             advanceSearchInfo.endPlace = this.treminalPlace;
             advanceSearchInfo.departureTime = this.selectedDate;
             if (advanceSearchInfo.departureTime == null || this.checkDateFormat(advanceSearchInfo.departureTime) == false) {
@@ -71,7 +71,7 @@ var adSearch = new Vue({
                         that.adTicketSearchResult = obj;
                         that.initSeatClaass(obj.length);
                         for (var i = 0, l = obj.length; i < l; i++) {
-                            that.adTicketSearchResult[i].startingTime = that.flow_advance_convertNumberToTimeString(obj[i]["startingTime"]);
+                            that.adTicketSearchResult[i].startTime = that.flow_advance_convertNumberToTimeString(obj[i]["startTime"]);
                             that.adTicketSearchResult[i].endTime = that.flow_advance_convertNumberToTimeString(obj[i]["endTime"]);
                         }
                     }
@@ -112,7 +112,7 @@ var adSearch = new Vue({
                         that.adTicketSearchResult = obj;
                         that.initSeatClaass(obj.length);
                         for (var i = 0; i < obj.length; i++) {
-                            that.adTicketSearchResult[i].startingTime = that.flow_advance_convertNumberToTimeString(obj[i]["startingTime"]);
+                            that.adTicketSearchResult[i].startTime = that.flow_advance_convertNumberToTimeString(obj[i]["startTime"]);
                             that.adTicketSearchResult[i].endTime = that.flow_advance_convertNumberToTimeString(obj[i]["endTime"]);
                         }
                     }
@@ -148,7 +148,7 @@ var adSearch = new Vue({
                         that.adTicketSearchResult = obj;
                         that.initSeatClaass(obj.length);
                         for (var i = 0, l = obj.length; i < l; i++) {
-                            that.adTicketSearchResult[i].startingTime = that.flow_advance_convertNumberToTimeString(obj[i]["startingTime"]);
+                            that.adTicketSearchResult[i].startTime = that.flow_advance_convertNumberToTimeString(obj[i]["startTime"]);
                             that.adTicketSearchResult[i].endTime = that.flow_advance_convertNumberToTimeString(obj[i]["endTime"]);
                         }
                      //   flow_advance_addListenerToBookingTable();

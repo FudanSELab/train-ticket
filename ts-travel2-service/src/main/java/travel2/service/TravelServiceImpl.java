@@ -1,12 +1,11 @@
 package travel2.service;
 
+import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -15,7 +14,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import travel2.entity.*;
+import travel2.entity.AdminTrip;
+import travel2.entity.Trip;
+import travel2.entity.Travel;
+import travel2.entity.TripAllDetail;
 import travel2.repository.TripRepository;
 
 import java.util.*;
@@ -24,7 +26,7 @@ import java.util.*;
  * @author fdse
  */
 @Service
-public class Travel2ServiceImpl implements Travel2Service {
+public class TravelServiceImpl implements TravelService {
 
     @Autowired
     TripRepository repository;
@@ -35,7 +37,7 @@ public class Travel2ServiceImpl implements Travel2Service {
     @Autowired
     private DiscoveryClient discoveryClient;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Travel2ServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TravelServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
         return "http://" + serviceName; }
@@ -49,15 +51,15 @@ public class Travel2ServiceImpl implements Travel2Service {
 
         Trip trip = repository.findByTripId(tripId1);
         if (trip == null) {
-            Travel2ServiceImpl.LOGGER.error("[getRouteByTripId][Get Route By Trip ID Fail][Trip Not Found][TripId: {}]", tripId);
+            TravelServiceImpl.LOGGER.error("[getRouteByTripId][Get Route By Trip ID Fail][Trip Not Found][TripId: {}]", tripId);
             return new Response<>(0, "\"[Get Route By Trip ID] Trip Not Found:\" + tripId", null);
         } else {
             Route route = getRouteByRouteId(trip.getRouteId(), headers);
             if (route == null) {
-                Travel2ServiceImpl.LOGGER.error("[getRouteByTripId][Get route by Trip id error][Route not found][RouteId: {}]",trip.getRouteId());
+                TravelServiceImpl.LOGGER.error("[getRouteByTripId][Get route by Trip id error][Route not found][RouteId: {}]",trip.getRouteId());
                 return new Response<>(0, "\"[Get Route By Trip ID] Route Not Found:\" + trip.getRouteId()", null);
             } else {
-                Travel2ServiceImpl.LOGGER.info("[getRouteByTripId][Get Route By Trip ID Success]");
+                TravelServiceImpl.LOGGER.info("[getRouteByTripId][Get Route By Trip ID Success]");
                 return new Response<>(1, "[Get Route By Trip ID] Success", route);
             }
         }
@@ -70,15 +72,15 @@ public class Travel2ServiceImpl implements Travel2Service {
         TrainType trainType = null;
         Trip trip = repository.findByTripId(tripId1);
         if (trip != null) {
-            trainType = getTrainType(trip.getTrainTypeId(), headers);
+            trainType = getTrainType(trip.getTrainTypeName(), headers);
         }
         else {
-            Travel2ServiceImpl.LOGGER.error("[getTrainTypeByTripId[]Get Train Type by Trip id error][Trip not found][TripId: {}]",tripId);
+            TravelServiceImpl.LOGGER.error("[getTrainTypeByTripId[]Get Train Type by Trip id error][Trip not found][TripId: {}]",tripId);
         }
         if (trainType != null) {
             return new Response<>(1, "Success query Train by trip id", trainType);
         } else {
-            Travel2ServiceImpl.LOGGER.error("[getTrainTypeByTripId][Get Train Type by Trip id error][Train Type not found][TripId: {}]",tripId);
+            TravelServiceImpl.LOGGER.error("[getTrainTypeByTripId][Get Train Type by Trip id error][Train Type not found][TripId: {}]",tripId);
             return new Response<>(0, noCnontent, null);
         }
     }
@@ -96,22 +98,22 @@ public class Travel2ServiceImpl implements Travel2Service {
         if (!tripList.isEmpty()) {
             return new Response<>(1, success, tripList);
         } else {
-            Travel2ServiceImpl.LOGGER.warn("[getTripByRoute][Get Trips by Route ids warn][Trips not found][RouteIdNumber: {}]",routeIds.size());
+            TravelServiceImpl.LOGGER.warn("[getTripByRoute][Get Trips by Route ids warn][Trips not found][RouteIdNumber: {}]",routeIds.size());
             return new Response<>(0, noCnontent, null);
         }
     }
 
     @Override
-    public Response create(TravelInfo info, HttpHeaders headers) {
+    public Response create(edu.fudan.common.entity.TravelInfo info, HttpHeaders headers) {
         TripId ti = new TripId(info.getTripId());
         if (repository.findByTripId(ti) == null) {
-            Trip trip = new Trip(ti, info.getTrainTypeId(), info.getStartingStationId(),
-                    info.getStationsId(), info.getTerminalStationId(), info.getStartingTime(), info.getEndTime());
+            Trip trip = new Trip(ti, info.getTrainTypeName(), info.getStartStationName(),
+                    info.getStationsName(), info.getTerminalStationName(), info.getStartTime(), info.getEndTime());
             trip.setRouteId(info.getRouteId());
             repository.save(trip);
             return new Response<>(1, "Create trip info:" + ti.toString() + ".", null);
         } else {
-            Travel2ServiceImpl.LOGGER.error("[getTripByRoute][Create trip error][Trip already exists][TripId: {}]",info.getTripId());
+            TravelServiceImpl.LOGGER.error("[getTripByRoute][Create trip error][Trip already exists][TripId: {}]",info.getTripId());
             return new Response<>(1, "Trip " + info.getTripId() + " already exists", null);
         }
     }
@@ -123,22 +125,22 @@ public class Travel2ServiceImpl implements Travel2Service {
         if (trip != null) {
             return new Response<>(1, "Search Trip Success by Trip Id " + tripId, trip);
         } else {
-            Travel2ServiceImpl.LOGGER.error("[retrieve][Retrieve trip error][Trip not found][TripId: {}]",tripId);
+            TravelServiceImpl.LOGGER.error("[retrieve][Retrieve trip error][Trip not found][TripId: {}]",tripId);
             return new Response<>(0, "No Content according to tripId" + tripId, null);
         }
     }
 
     @Override
-    public Response update(TravelInfo info, HttpHeaders headers) {
+    public Response update(edu.fudan.common.entity.TravelInfo info, HttpHeaders headers) {
         TripId ti = new TripId(info.getTripId());
         if (repository.findByTripId(ti) != null) {
-            Trip trip = new Trip(ti, info.getTrainTypeId(), info.getStartingStationId(),
-                    info.getStationsId(), info.getTerminalStationId(), info.getStartingTime(), info.getEndTime());
+            Trip trip = new Trip(ti, info.getTrainTypeName(), info.getStartStationName(),
+                    info.getStationsName(), info.getTerminalStationName(), info.getStartTime(), info.getEndTime());
             trip.setRouteId(info.getRouteId());
             repository.save(trip);
             return new Response<>(1, "Update trip info:" + ti.toString(), trip);
         } else {
-            Travel2ServiceImpl.LOGGER.error("[update][Update trip error][Trip not found][TripId: {}]",info.getTripId());
+            TravelServiceImpl.LOGGER.error("[update][Update trip error][Trip not found][TripId: {}]",info.getTripId());
             return new Response<>(1, "Trip" + info.getTripId() + "doesn 't exists", null);
         }
     }
@@ -150,7 +152,7 @@ public class Travel2ServiceImpl implements Travel2Service {
             repository.deleteByTripId(ti);
             return new Response<>(1, "Delete trip:" + tripId + ".", tripId);
         } else {
-            Travel2ServiceImpl.LOGGER.error("[delete][Delete trip error][Trip not found][TripId: {}]",tripId);
+            TravelServiceImpl.LOGGER.error("[delete][Delete trip error][Trip not found][TripId: {}]",tripId);
             return new Response<>(0, "Trip " + tripId + " doesn't exist.", null);
         }
     }
@@ -159,10 +161,10 @@ public class Travel2ServiceImpl implements Travel2Service {
     public Response query(TripInfo info, HttpHeaders headers) {
 
         //Gets the start and arrival stations of the train number to query. The originating and arriving stations received here are both station names, so two requests need to be sent to convert to station ids
-        String startingPlaceName = info.getStartingPlace();
+        String StartPlaceName = info.getStartPlace();
         String endPlaceName = info.getEndPlace();
-        String startingPlaceId = queryForStationId(startingPlaceName, headers);
-        String endPlaceId = queryForStationId(endPlaceName, headers);
+//        String StartPlaceId = queryForStationId(StartPlaceName, headers);
+//        String endPlaceId = queryForStationId(endPlaceName, headers);
 
         //This is the final result
         ArrayList<TripResponse> list = new ArrayList<>();
@@ -175,12 +177,12 @@ public class Travel2ServiceImpl implements Travel2Service {
                 Route tempRoute = getRouteByRouteId(tempTrip.getRouteId(), headers);
                 //Check the route list for this train. Check that the required start and arrival stations are in the list of stops that are not on the route, and check that the location of the start station is before the stop
                 //Trains that meet the above criteria are added to the return list
-                if (tempRoute.getStations().contains(startingPlaceId) &&
-                        tempRoute.getStations().contains(endPlaceId) &&
-                        tempRoute.getStations().indexOf(startingPlaceId) < tempRoute.getStations().indexOf(endPlaceId)) {
-                    TripResponse response = getTickets(tempTrip, tempRoute, startingPlaceId, endPlaceId, startingPlaceName, endPlaceName, info.getDepartureTime(), headers);
+                if (tempRoute.getStations().contains(StartPlaceName) &&
+                        tempRoute.getStations().contains(endPlaceName) &&
+                        tempRoute.getStations().indexOf(StartPlaceName) < tempRoute.getStations().indexOf(endPlaceName)) {
+                    TripResponse response = getTickets(tempTrip, tempRoute, StartPlaceName, endPlaceName, StartPlaceName, endPlaceName, info.getDepartureTime(), headers);
                     if (response == null) {
-                        Travel2ServiceImpl.LOGGER.warn("[query][Query trip error][Tickets not found][start: {},end: {},time: {}]",info.getStartingPlace(),info.getEndPlace(),info.getDepartureTime());
+                        TravelServiceImpl.LOGGER.warn("[query][Query trip error][Tickets not found][start: {},end: {},time: {}]",info.getStartPlace(),info.getEndPlace(),info.getDepartureTime());
                         return new Response<>(0, noCnontent, null);
                     }
                     list.add(response);
@@ -193,24 +195,24 @@ public class Travel2ServiceImpl implements Travel2Service {
     @Override
     public Response getTripAllDetailInfo(TripAllDetailInfo gtdi, HttpHeaders headers) {
         TripAllDetail gtdr = new TripAllDetail();
-        Travel2ServiceImpl.LOGGER.debug("[getTripAllDetailInfo][gtdi info: {}]", gtdi.toString());
+        TravelServiceImpl.LOGGER.debug("[getTripAllDetailInfo][gtdi info: {}]", gtdi.toString());
         Trip trip = repository.findByTripId(new TripId(gtdi.getTripId()));
         if (trip == null) {
             gtdr.setTripResponse(null);
             gtdr.setTrip(null);
-            Travel2ServiceImpl.LOGGER.error("[getTripAllDetailInfo][Get trip detail error][Trip not found][TripId: {}]",gtdi.getTripId());
+            TravelServiceImpl.LOGGER.error("[getTripAllDetailInfo][Get trip detail error][Trip not found][TripId: {}]",gtdi.getTripId());
         } else {
             String endPlaceName = gtdi.getTo();
-            String startingPlaceName = gtdi.getFrom();
-            String startingPlaceId = queryForStationId(startingPlaceName, headers);
-            String endPlaceId = queryForStationId(endPlaceName, headers);
-            Travel2ServiceImpl.LOGGER.debug("[getTripAllDetailInfo][endPlaceID: {}]", endPlaceId);
+            String StartPlaceName = gtdi.getFrom();
+//            String StartPlaceId = queryForStationId(StartPlaceName, headers);
+//            String endPlaceId = queryForStationId(endPlaceName, headers);
+//            TravelServiceImpl.LOGGER.debug("[getTripAllDetailInfo][endPlaceID: {}]", endPlaceId);
             Route tempRoute = getRouteByRouteId(trip.getRouteId(), headers);
-            TripResponse tripResponse = getTickets(trip, tempRoute, startingPlaceId, endPlaceId, gtdi.getFrom(), gtdi.getTo(), gtdi.getTravelDate(), headers);
+            TripResponse tripResponse = getTickets(trip, tempRoute, StartPlaceName, endPlaceName, gtdi.getFrom(), gtdi.getTo(), gtdi.getTravelDate(), headers);
             if (tripResponse == null) {
                 gtdr.setTrip(null);
                 gtdr.setTripResponse(null);
-                Travel2ServiceImpl.LOGGER.warn("[getTripAllDetailInfo][Query trip error][Tickets not found][start: {},end: {}]", gtdi.getTo(), gtdi.getFrom());
+                TravelServiceImpl.LOGGER.warn("[getTripAllDetailInfo][Query trip error][Tickets not found][start: {},end: {}]", gtdi.getTo(), gtdi.getFrom());
             } else {
                 gtdr.setTripResponse(tripResponse);
                 gtdr.setTrip(repository.findByTripId(new TripId(gtdi.getTripId())));
@@ -222,7 +224,7 @@ public class Travel2ServiceImpl implements Travel2Service {
     }
 
 
-    private TripResponse getTickets(Trip trip, Route route, String startingPlaceId, String endPlaceId, String startingPlaceName, String endPlaceName, Date departureTime, HttpHeaders headers) {
+    private TripResponse getTickets(Trip trip, Route route, String StartPlaceId, String endPlaceId, String StartPlaceName, String endPlaceName, Date departureTime, HttpHeaders headers) {
 
         //Determine if the date checked is the same day and after
         if (!afterToday(departureTime)) {
@@ -231,43 +233,43 @@ public class Travel2ServiceImpl implements Travel2Service {
 
         Travel query = new Travel();
         query.setTrip(trip);
-        query.setStartingPlace(startingPlaceName);
+        query.setStartPlace(StartPlaceName);
         query.setEndPlace(endPlaceName);
         query.setDepartureTime(departureTime);
 
         HttpEntity requestEntity = new HttpEntity(query, null);
         String basic_service_url = getServiceUrl("ts-basic-service");
-        ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
+        ResponseEntity<Response<edu.fudan.common.entity.TravelResult>> re = restTemplate.exchange(
                 basic_service_url + "/api/v1/basicservice/basic/travel",
                 HttpMethod.POST,
                 requestEntity,
-                new ParameterizedTypeReference<Response<TravelResult>>() {
+                new ParameterizedTypeReference<Response<edu.fudan.common.entity.TravelResult>>() {
                 });
-        Travel2ServiceImpl.LOGGER.debug("[getTickets][Ticket info  is: {}]", re.getBody().toString());
-        TravelResult resultForTravel =  re.getBody().getData();
+        TravelServiceImpl.LOGGER.debug("[getTickets][Ticket info  is: {}]", re.getBody().toString());
+        edu.fudan.common.entity.TravelResult resultForTravel =  re.getBody().getData();
 
 
 
         //Ticket order _ high-speed train (number of tickets purchased)
         requestEntity = new HttpEntity(null);
         String order_other_service_url = getServiceUrl("ts-order-other-service");
-        ResponseEntity<Response<SoldTicket>> re2 = restTemplate.exchange(
+        ResponseEntity<Response<edu.fudan.common.entity.SoldTicket>> re2 = restTemplate.exchange(
                 order_other_service_url + "/api/v1/orderOtherService/orderOther/" + departureTime + "/" + trip.getTripId().toString(),
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<Response<SoldTicket>>() {
+                new ParameterizedTypeReference<Response<edu.fudan.common.entity.SoldTicket>>() {
                 });
-        Travel2ServiceImpl.LOGGER.debug("[getTickets][Order other Ticket info  is: {}]", re.getBody().toString());
-        SoldTicket result = re2.getBody().getData();
+        TravelServiceImpl.LOGGER.debug("[getTickets][Order other Ticket info  is: {}]", re.getBody().toString());
+        edu.fudan.common.entity.SoldTicket result = re2.getBody().getData();
 
         if (result == null) {
-            Travel2ServiceImpl.LOGGER.warn("[getTickets][Get tickets warn][Sold ticket Info doesn't exist][Departure Time: {},TripId: {}]",departureTime,trip.getTripId());
+            TravelServiceImpl.LOGGER.warn("[getTickets][Get tickets warn][Sold ticket Info doesn't exist][Departure Time: {},TripId: {}]",departureTime,trip.getTripId());
             return null;
         }
         //Set the returned ticket information
         TripResponse response = new TripResponse();
-        if (queryForStationId(startingPlaceName, headers).equals(trip.getStartingStationId()) &&
-                queryForStationId(endPlaceName, headers).equals(trip.getTerminalStationId())) {
+        if (queryForStationId(StartPlaceName, headers).equals(trip.getStartStationName()) &&
+                queryForStationId(endPlaceName, headers).equals(trip.getTerminalStationName())) {
             response.setEconomyClass(50);
             response.setConfortClass(50);
         } else {
@@ -276,41 +278,43 @@ public class Travel2ServiceImpl implements Travel2Service {
         }
 
         int first = getRestTicketNumber(departureTime, trip.getTripId().toString(),
-                startingPlaceName, endPlaceName, SeatClass.FIRSTCLASS.getCode(), headers);
+                StartPlaceName, endPlaceName, edu.fudan.common.entity.SeatClass.FIRSTCLASS.getCode(), headers);
 
         int second = getRestTicketNumber(departureTime, trip.getTripId().toString(),
-                startingPlaceName, endPlaceName, SeatClass.SECONDCLASS.getCode(), headers);
+                StartPlaceName, endPlaceName, edu.fudan.common.entity.SeatClass.SECONDCLASS.getCode(), headers);
         response.setConfortClass(first);
         response.setEconomyClass(second);
 
-        response.setStartingStation(startingPlaceName);
+        response.setStartStation(StartPlaceName);
         response.setTerminalStation(endPlaceName);
 
         //Calculate the distance from the starting point
-        Travel2ServiceImpl.LOGGER.info("[getTickets][Calculate Distance][route: {} , station: {}]", route.getId(), route.getStations());
-        int indexStart = route.getStations().indexOf(startingPlaceId);
-        int indexEnd = route.getStations().indexOf(endPlaceId);
+        TravelServiceImpl.LOGGER.info("[getTickets][Calculate Distance][route: {} , station: {}]", route.getId(), route.getStations());
+//        int indexStart = route.getStations().indexOf(StartPlaceId);
+//        int indexEnd = route.getStations().indexOf(endPlaceId);
+        int indexStart = route.getStations().indexOf(StartPlaceName);
+        int indexEnd = route.getStations().indexOf(endPlaceName);
         int distanceStart = route.getDistances().get(indexStart) - route.getDistances().get(0);
         int distanceEnd = route.getDistances().get(indexEnd) - route.getDistances().get(0);
-        TrainType trainType = getTrainType(trip.getTrainTypeId(), headers);
+        edu.fudan.common.entity.TrainType trainType = getTrainType(trip.getTrainTypeName(), headers);
         //Train running time is calculated according to the average running speed of the train
         int minutesStart = 60 * distanceStart / trainType.getAverageSpeed();
         int minutesEnd = 60 * distanceEnd / trainType.getAverageSpeed();
 
         Calendar calendarStart = Calendar.getInstance();
-        calendarStart.setTime(trip.getStartingTime());
+        calendarStart.setTime(trip.getStartTime());
         calendarStart.add(Calendar.MINUTE, minutesStart);
-        response.setStartingTime(calendarStart.getTime());
-        Travel2ServiceImpl.LOGGER.info("[getTickets][Calculate Distance][calculate time：{} , time: {}]", minutesStart, calendarStart.getTime());
+        response.setStartTime(calendarStart.getTime());
+        TravelServiceImpl.LOGGER.info("[getTickets][Calculate Distance][calculate time：{} , time: {}]", minutesStart, calendarStart.getTime());
 
         Calendar calendarEnd = Calendar.getInstance();
-        calendarEnd.setTime(trip.getStartingTime());
+        calendarEnd.setTime(trip.getStartTime());
         calendarEnd.add(Calendar.MINUTE, minutesEnd);
         response.setEndTime(calendarEnd.getTime());
-        Travel2ServiceImpl.LOGGER.info("[getTickets][Calculate Distance][calculate time：{} , time: {}]", minutesEnd, calendarEnd.getTime());
+        TravelServiceImpl.LOGGER.info("[getTickets][Calculate Distance][calculate time：{} , time: {}]", minutesEnd, calendarEnd.getTime());
 
         response.setTripId(new TripId(result.getTrainNumber()));
-        response.setTrainTypeId(trip.getTrainTypeId());
+        response.setTrainTypeName(trip.getTrainTypeName());
         response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
         response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
 
@@ -323,7 +327,7 @@ public class Travel2ServiceImpl implements Travel2Service {
         if (tripList != null && !tripList.isEmpty()) {
             return new Response<>(1, success, tripList);
         }
-        Travel2ServiceImpl.LOGGER.warn("[queryAll][Query all trips warn][{}]","No Content");
+        TravelServiceImpl.LOGGER.warn("[queryAll][Query all trips warn][{}]","No Content");
         return new Response<>(0, noCnontent, null);
     }
 
@@ -354,11 +358,11 @@ public class Travel2ServiceImpl implements Travel2Service {
 
         HttpEntity requestEntity = new HttpEntity(null);
         String train_service_url = getServiceUrl("ts-train-service");
-        ResponseEntity<Response<TrainType>> re = restTemplate.exchange(
-                train_service_url + "/api/v1/trainservice/trains/" + trainTypeId,
+        ResponseEntity<Response<edu.fudan.common.entity.TrainType>> re = restTemplate.exchange(
+                train_service_url + "/api/v1/trainservice/trains/byName" + trainTypeId,
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<Response<TrainType>>() {
+                new ParameterizedTypeReference<Response<edu.fudan.common.entity.TrainType>>() {
                 });
 
         return re.getBody().getData();
@@ -379,7 +383,7 @@ public class Travel2ServiceImpl implements Travel2Service {
     }
 
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
-        Travel2ServiceImpl.LOGGER.debug("[getRouteByRouteId][Get Route By Id][Route ID：{}]", routeId);
+        TravelServiceImpl.LOGGER.debug("[getRouteByRouteId][Get Route By Id][Route ID：{}]", routeId);
         HttpEntity requestEntity = new HttpEntity(null);
         String route_service_url = getServiceUrl("ts-route-service");
         ResponseEntity<Response> re = restTemplate.exchange(
@@ -390,16 +394,16 @@ public class Travel2ServiceImpl implements Travel2Service {
         Response result = re.getBody();
 
         if (result.getStatus() == 0 ) {
-            Travel2ServiceImpl.LOGGER.error("[getRouteByRouteId][Get Route By Id Fail][Route not found][RouteId: {}]", routeId);
+            TravelServiceImpl.LOGGER.error("[getRouteByRouteId][Get Route By Id Fail][Route not found][RouteId: {}]", routeId);
             return null;
         } else {
-            Travel2ServiceImpl.LOGGER.info("[getRouteByRouteId][Get Route By Id Success]");
+            TravelServiceImpl.LOGGER.info("[getRouteByRouteId][Get Route By Id Success]");
             return JsonUtils.conveterObject(result.getData(), Route.class);
         }
     }
 
     private int getRestTicketNumber(Date travelDate, String trainNumber, String startStationName, String endStationName, int seatType, HttpHeaders headers) {
-        Seat seatRequest = new Seat();
+        edu.fudan.common.entity.Seat seatRequest = new edu.fudan.common.entity.Seat();
 
         String fromId = queryForStationId(startStationName, headers);
         String toId = queryForStationId(endStationName, headers);
@@ -409,7 +413,7 @@ public class Travel2ServiceImpl implements Travel2Service {
         seatRequest.setTrainNumber(trainNumber);
         seatRequest.setSeatType(seatType);
         seatRequest.setTravelDate(travelDate);
-        Travel2ServiceImpl.LOGGER.info("[getRestTicketNumber][Seat request][request: {}]", seatRequest.toString());
+        TravelServiceImpl.LOGGER.info("[getRestTicketNumber][Seat request][request: {}]", seatRequest.toString());
 
         HttpEntity requestEntity = new HttpEntity(seatRequest, null);
         String seat_service_url = getServiceUrl("ts-seat-service");
@@ -421,7 +425,7 @@ public class Travel2ServiceImpl implements Travel2Service {
                 });
         int restNumber =   re.getBody().getData();
 
-        Travel2ServiceImpl.LOGGER.info("[getRestTicketNumber][Get Rest tickets num][num is: {}]", re.getBody().toString());
+        TravelServiceImpl.LOGGER.info("[getRestTicketNumber][Get Rest tickets num][num is: {}]", re.getBody().toString());
         return restNumber;
     }
 
@@ -433,7 +437,7 @@ public class Travel2ServiceImpl implements Travel2Service {
             for (Trip trip : trips) {
                 AdminTrip adminTrip = new AdminTrip();
                 adminTrip.setRoute(getRouteByRouteId(trip.getRouteId(), headers));
-                adminTrip.setTrainType(getTrainType(trip.getTrainTypeId(), headers));
+                adminTrip.setTrainType(getTrainType(trip.getTrainTypeName(), headers));
                 adminTrip.setTrip(trip);
                 adminTrips.add(adminTrip);
             }
@@ -442,7 +446,7 @@ public class Travel2ServiceImpl implements Travel2Service {
         if (!adminTrips.isEmpty()) {
             return new Response<>(1, "Travel Service Admin Query All Travel Success", adminTrips);
         } else {
-            Travel2ServiceImpl.LOGGER.warn("[adminQueryAll][Admin query all trips warn][{}]","No Content");
+            TravelServiceImpl.LOGGER.warn("[adminQueryAll][Admin query all trips warn][{}]","No Content");
             return new Response<>(0, noCnontent, null);
         }
     }

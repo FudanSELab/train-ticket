@@ -13,7 +13,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import travelplan.entity.*;
+import edu.fudan.common.entity.*;
+import travelplan.entity.TransferTravelInfo;
 
 import java.util.ArrayList;
 import java.util.Date;

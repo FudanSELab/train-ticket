@@ -85,7 +85,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         String requestUrl;
         String travel_service_url = getServiceUrl("ts-travel-service");
         String travel2_service_url = getServiceUrl("ts-travel2-service");
-        if (request.getTrainTypeId().charAt(0) == 'G' || request.getTrainTypeId().charAt(0) == 'D') {
+        if (request.getTrainTypeName().charAt(0) == 'G' || request.getTrainTypeName().charAt(0) == 'D') {
             requestUrl = travel_service_url + "/api/v1/travelservice/trips";
         } else {
             requestUrl = travel2_service_url + "/api/v1/travel2service/trips";
@@ -114,7 +114,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         String requestUrl = "";
         String travel_service_url = getServiceUrl("ts-travel-service");
         String travel2_service_url = getServiceUrl("ts-travel2-service");
-        if (request.getTrainTypeId().charAt(0) == 'G' || request.getTrainTypeId().charAt(0) == 'D') {
+        if (request.getTrainTypeName().charAt(0) == 'G' || request.getTrainTypeName().charAt(0) == 'D') {
             requestUrl = travel_service_url + "/api/v1/travelservice/trips";
         } else {
             requestUrl = travel2_service_url + "/api/v1/travel2service/trips";

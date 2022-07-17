@@ -29,7 +29,7 @@ public class TravelAdvanceResultUnit {
 
     private int numberOfRestTicketFirstClass;
 
-    private Date startingTime;
+    private Date startTime;
 
     private Date endTime;
 

@@ -73,7 +73,7 @@ public class CancelServiceImpl implements CancelService {
                         NotifyInfo notifyInfo = new NotifyInfo();
                         notifyInfo.setDate(new Date().toString());
                         notifyInfo.setEmail(result.getData().getEmail());
-                        notifyInfo.setStartingPlace(order.getFrom());
+                        notifyInfo.setStartPlace(order.getFrom());
                         notifyInfo.setEndPlace(order.getTo());
                         notifyInfo.setUsername(result.getData().getUserName());
                         notifyInfo.setSeatNumber(order.getSeatNumber());

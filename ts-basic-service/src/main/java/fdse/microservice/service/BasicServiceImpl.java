@@ -58,9 +58,9 @@ public class BasicServiceImpl implements BasicService {
                 BasicServiceImpl.LOGGER.warn("[queryForTravel][End place not exist][end place: {}]", info.getEndPlace());
         }
 
-        TrainType trainType = queryTrainType(info.getTrip().getTrainTypeId(), headers);
+        TrainType trainType = queryTrainType(info.getTrip().getTrainTypeName(), headers);
         if (trainType == null) {
-            BasicServiceImpl.LOGGER.warn("[queryForTravel][traintype doesn't exist][trainTypeId: {}]", info.getTrip().getTrainTypeId());
+            BasicServiceImpl.LOGGER.warn("[queryForTravel][traintype doesn't exist][trainTypeId: {}]", info.getTrip().getTrainTypeName());
             result.setStatus(false);
             response.setStatus(0);
             response.setMsg("Train type doesn't exist");

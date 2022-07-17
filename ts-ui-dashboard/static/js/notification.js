@@ -19,8 +19,8 @@ $("#notification_send_email_button").click(function(){
         alert("Please input the username.");
         return;
     }
-    notificationInfo.startingPlace = $("#notification_startingPlace").val()
-    if(notificationInfo.startingPlace == null || notificationInfo.startingPlace == ""){
+    notificationInfo.startPlace = $("#notification_startingPlace").val()
+    if(notificationInfo.startPlace == null || notificationInfo.startPlace == ""){
         alert("Please input the starting place.");
         return;
     }
@@ -29,8 +29,8 @@ $("#notification_send_email_button").click(function(){
         alert("Please input the end place.");
         return;
     }
-    notificationInfo.startingTime = $("#notification_startingTime").val();
-    if(notificationInfo.startingTime == null || notificationInfo.startingTime == ""){
+    notificationInfo.startTime = $("#notification_startingTime").val();
+    if(notificationInfo.startTime == null || notificationInfo.startTime == ""){
         alert("Please input the starting time.");
         return;
     }

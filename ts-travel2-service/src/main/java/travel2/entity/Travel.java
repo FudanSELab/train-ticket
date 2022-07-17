@@ -12,14 +12,10 @@ public class Travel {
 
     private Trip trip;
 
-    private String startingPlace;
+    private String startPlace;
 
     private String endPlace;
 
     private Date departureTime;
-
-    public Travel(){
-        //Default Constructor
-    }
 
 }

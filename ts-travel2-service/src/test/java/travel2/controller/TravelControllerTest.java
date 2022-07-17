@@ -16,23 +16,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import travel2.entity.TravelInfo;
-import travel2.entity.TripAllDetailInfo;
-import travel2.entity.TripInfo;
-import travel2.entity.TripResponse;
-import travel2.service.Travel2Service;
+import edu.fudan.common.entity.TravelInfo;
+import edu.fudan.common.entity.TripAllDetailInfo;
+import edu.fudan.common.entity.TripInfo;
+import edu.fudan.common.entity.TripResponse;
+import travel2.service.TravelService;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 @RunWith(JUnit4.class)
-public class Travel2ControllerTest {
+public class TravelControllerTest {
 
     @InjectMocks
     private Travel2Controller travel2Controller;
 
     @Mock
-    private Travel2Service service;
+    private TravelService service;
     private MockMvc mockMvc;
     private Response response = new Response();
 
@@ -131,7 +131,7 @@ public class Travel2ControllerTest {
 
     @Test
     public void testQueryInfo2() throws Exception {
-        TripInfo info = new TripInfo("startingPlace", "endPlace", new Date());
+        TripInfo info = new TripInfo("startPlace", "endPlace", new Date());
         Mockito.when(service.query(Mockito.any(TripInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(info);
         String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/travel2service/trips/left").contentType(MediaType.APPLICATION_JSON).content(requestJson))

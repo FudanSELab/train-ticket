@@ -98,7 +98,7 @@ var reserveApp = new Vue({
         },
         searchTravel() {
             var travelQueryInfo = new Object();
-            travelQueryInfo.startingPlace = this.from;
+            travelQueryInfo.startPlace = this.from;
             travelQueryInfo.endPlace = this.to;
             travelQueryInfo.departureTime = this.selectedDate;
             if (travelQueryInfo.departureTime == null || this.checkDateFormat(travelQueryInfo.departureTime) == false) {
@@ -141,7 +141,7 @@ var reserveApp = new Vue({
                         that.tempTravelList = obj;
                         that.initSeatClass(size);
                         for (var i = 0; i < size; i++) {
-                            that.tempTravelList[i].startingTime = that.convertNumberToTimeString(obj[i].startingTime);
+                            that.tempTravelList[i].startTime = that.convertNumberToTimeString(obj[i].startTime);
                             that.tempTravelList[i].endTime = that.convertNumberToTimeString(obj[i].endTime);
                         }
                         that.travelList = that.travelList.concat(that.tempTravelList);

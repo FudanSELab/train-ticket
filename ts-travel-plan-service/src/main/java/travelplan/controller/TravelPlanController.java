@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
-import travelplan.entity.TripInfo;
+import edu.fudan.common.entity.TripInfo;
 import travelplan.entity.TransferTravelInfo;
 import travelplan.service.TravelPlanService;
 
@@ -37,19 +37,19 @@ public class TravelPlanController {
 
     @PostMapping(value="/travelPlan/cheapest")
     public HttpEntity getByCheapest(@RequestBody TripInfo queryInfo, @RequestHeader HttpHeaders headers) {
-        TravelPlanController.LOGGER.info("[getCheapest][Search Cheapest][start: {},end: {},time: {}]",queryInfo.getStartingPlace(),queryInfo.getEndPlace(),queryInfo.getDepartureTime());
+        TravelPlanController.LOGGER.info("[getCheapest][Search Cheapest][start: {},end: {},time: {}]",queryInfo.getStartPlace(),queryInfo.getEndPlace(),queryInfo.getDepartureTime());
         return ok(travelPlanService.getCheapest(queryInfo, headers));
     }
 
     @PostMapping(value="/travelPlan/quickest")
     public HttpEntity getByQuickest(@RequestBody TripInfo queryInfo, @RequestHeader HttpHeaders headers) {
-        TravelPlanController.LOGGER.info("[getQuickest][Search Quickest][start: {},end: {},time: {}]",queryInfo.getStartingPlace(),queryInfo.getEndPlace(),queryInfo.getDepartureTime());
+        TravelPlanController.LOGGER.info("[getQuickest][Search Quickest][start: {},end: {},time: {}]",queryInfo.getStartPlace(),queryInfo.getEndPlace(),queryInfo.getDepartureTime());
         return ok(travelPlanService.getQuickest(queryInfo, headers));
     }
 
     @PostMapping(value="/travelPlan/minStation")
     public HttpEntity getByMinStation(@RequestBody TripInfo queryInfo, @RequestHeader HttpHeaders headers) {
-        TravelPlanController.LOGGER.info("[getMinStation][Search Min Station][start: {},end: {},time: {}]",queryInfo.getStartingPlace(),queryInfo.getEndPlace(),queryInfo.getDepartureTime());
+        TravelPlanController.LOGGER.info("[getMinStation][Search Min Station][start: {},end: {},time: {}]",queryInfo.getStartPlace(),queryInfo.getEndPlace(),queryInfo.getDepartureTime());
         return ok(travelPlanService.getMinStation(queryInfo, headers));
     }
 

@@ -38,7 +38,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
         //1.Violence pulls out all the results of travel-service and travle2-service
         TripInfo queryInfo = new TripInfo();
-        queryInfo.setStartingPlace(info.getFormStationName());
+        queryInfo.setStartPlace(info.getFormStationName());
         queryInfo.setEndPlace(info.getToStationName());
         queryInfo.setDepartureTime(info.getTravelDate());
 
@@ -75,14 +75,14 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
             RoutePlanResultUnit tempUnit = new RoutePlanResultUnit();
             tempUnit.setTripId(tempResponse.getTripId().toString());
-            tempUnit.setTrainTypeId(tempResponse.getTrainTypeId());
-            tempUnit.setFromStationName(tempResponse.getStartingStation());
+            tempUnit.setTrainTypeName(tempResponse.getTrainTypeName());
+            tempUnit.setFromStationName(tempResponse.getStartStation());
             tempUnit.setToStationName(tempResponse.getTerminalStation());
             tempUnit.setStopStations(getStationList(tempResponse.getTripId().toString(), headers));
             tempUnit.setPriceForSecondClassSeat(tempResponse.getPriceForEconomyClass());
             tempUnit.setPriceForFirstClassSeat(tempResponse.getPriceForConfortClass());
             tempUnit.setEndTime(tempResponse.getEndTime());
-            tempUnit.setStartTime(tempResponse.getStartingTime());
+            tempUnit.setStartTime(tempResponse.getStartTime());
 
             units.add(tempUnit);
         }
@@ -95,7 +95,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
         //1.Violence pulls out all the results of travel-service and travle2-service
         TripInfo queryInfo = new TripInfo();
-        queryInfo.setStartingPlace(info.getFormStationName());
+        queryInfo.setStartPlace(info.getFormStationName());
         queryInfo.setEndPlace(info.getToStationName());
         queryInfo.setDepartureTime(info.getTravelDate());
 
@@ -121,8 +121,8 @@ public class RoutePlanServiceImpl implements RoutePlanService {
             minTime = Long.MAX_VALUE;
             for (int j = 0; j < finalResult.size(); j++) {
                 TripResponse thisRes = finalResult.get(j);
-                if (thisRes.getEndTime().getTime() - thisRes.getStartingTime().getTime() < minTime) {
-                    minTime = thisRes.getEndTime().getTime() - thisRes.getStartingTime().getTime();
+                if (thisRes.getEndTime().getTime() - thisRes.getStartTime().getTime() < minTime) {
+                    minTime = thisRes.getEndTime().getTime() - thisRes.getStartTime().getTime();
                     minIndex = j;
                 }
             }
@@ -138,15 +138,15 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
             RoutePlanResultUnit tempUnit = new RoutePlanResultUnit();
             tempUnit.setTripId(tempResponse.getTripId().toString());
-            tempUnit.setTrainTypeId(tempResponse.getTrainTypeId());
-            tempUnit.setFromStationName(tempResponse.getStartingStation());
+            tempUnit.setTrainTypeName(tempResponse.getTrainTypeName());
+            tempUnit.setFromStationName(tempResponse.getStartStation());
             tempUnit.setToStationName(tempResponse.getTerminalStation());
 
             tempUnit.setStopStations(getStationList(tempResponse.getTripId().toString(), headers));
 
             tempUnit.setPriceForSecondClassSeat(tempResponse.getPriceForEconomyClass());
             tempUnit.setPriceForFirstClassSeat(tempResponse.getPriceForConfortClass());
-            tempUnit.setStartTime(tempResponse.getStartingTime());
+            tempUnit.setStartTime(tempResponse.getStartTime());
             tempUnit.setEndTime(tempResponse.getEndTime());
             units.add(tempUnit);
         }
@@ -259,10 +259,10 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
             RoutePlanResultUnit unit = new RoutePlanResultUnit();
             unit.setTripId(trip.getTripId().toString());
-            unit.setTrainTypeId(tripResponse.getTrainTypeId());
-            unit.setFromStationName(tripResponse.getStartingStation());
+            unit.setTrainTypeName(tripResponse.getTrainTypeName());
+            unit.setFromStationName(tripResponse.getStartStation());
             unit.setToStationName(tripResponse.getTerminalStation());
-            unit.setStartTime(tripResponse.getStartingTime());
+            unit.setStartTime(tripResponse.getStartTime());
             unit.setEndTime(tripResponse.getEndTime());
             unit.setPriceForFirstClassSeat(tripResponse.getPriceForConfortClass());
             unit.setPriceForSecondClassSeat(tripResponse.getPriceForEconomyClass());

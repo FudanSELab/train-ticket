@@ -35,7 +35,7 @@ function queryForMinStopInfo(data,path) {
                         "<td >" + obj[i]["trainTypeId"] + "</td>" +
                         "<td >" + obj[i]["fromStationName"] + "</td>" +
                         "<td >" + obj[i]["toStationName"] + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +
@@ -93,9 +93,9 @@ function queryForQuickestInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td >" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
                         "<td >" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td >" + obj[i]["startingStation"] + "</td>" +
+                        "<td >" + obj[i]["startStation"] + "</td>" +
                         "<td >" + obj[i]["terminalStation"] + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +
@@ -153,9 +153,9 @@ function queryForCheapestInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td >" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
                         "<td >" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td >" + obj[i]["startingStation"] + "</td>" +
+                        "<td >" + obj[i]["startStation"] + "</td>" +
                         "<td >" + obj[i]["terminalStation"] + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +

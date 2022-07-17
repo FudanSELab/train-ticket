@@ -1,5 +1,7 @@
 package edu.fudan.common.entity;
 
+import edu.fudan.common.util.StringUtils;
+
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -19,7 +21,7 @@ public class Trip {
 
     @Valid
     @NotNull
-    private String trainTypeId;
+    private String trainTypeName;
 
     private String routeId;
 
@@ -29,11 +31,11 @@ public class Trip {
     private String startStationName;
 
     @Valid
-    private String stationsId;
+    private String stationsName;
 
     @Valid
     @NotNull
-    private String terminalStationId;
+    private String terminalStationName;
 
     @Valid
     @NotNull
@@ -43,24 +45,24 @@ public class Trip {
     @NotNull
     private Date endTime;
 
-    public Trip(TripId tripId, String trainTypeId, String startStationName, String stationsId, String terminalStationId, Date startingTime, Date endTime) {
+    public Trip(TripId tripId, String trainTypeName, String startStationName, String stationsName, String terminalStationId, Date startTime, Date endTime) {
         this.id = UUID.randomUUID().toString();
         this.tripId = tripId;
-        this.trainTypeId = trainTypeId;
-        this.startStationName = startStationName;
-        this.stationsId = stationsId;
-        this.terminalStationId = terminalStationId;
-        this.startTime = startingTime;
+        this.trainTypeName = trainTypeName;
+        this.startStationName = StringUtils.String2Lower(startStationName);
+        this.stationsName = StringUtils.String2Lower(stationsName);
+        this.terminalStationName = StringUtils.String2Lower(terminalStationName);
+        this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public Trip(TripId tripId, String trainTypeId, String routeId) {
+    public Trip(TripId tripId, String trainTypeName, String routeId) {
         this.id = UUID.randomUUID().toString();
         this.tripId = tripId;
-        this.trainTypeId = trainTypeId;
+        this.trainTypeName = trainTypeName;
         this.routeId = routeId;
         this.startStationName = "";
-        this.terminalStationId = "";
+        this.terminalStationName = "";
         this.startTime = new Date();
         this.endTime = new Date();
     }
@@ -68,9 +70,9 @@ public class Trip {
     public Trip(){
         //Default Constructor
         this.id = UUID.randomUUID().toString();
-        this.trainTypeId = "";
+        this.trainTypeName = "";
         this.startStationName = "";
-        this.terminalStationId = "";
+        this.terminalStationName = "";
         this.startTime = new Date();
         this.endTime = new Date();
     }

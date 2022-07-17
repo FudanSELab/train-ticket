@@ -1,5 +1,6 @@
 package edu.fudan.common.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,11 +12,13 @@ import java.util.Date;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class RoutePlanResultUnit {
 
     private String tripId;
 
     private String trainTypeId;
+    private String trainTypeName;
 
     private String fromStationName;
 
@@ -27,7 +30,7 @@ public class RoutePlanResultUnit {
 
     private String priceForFirstClassSeat;
 
-    private Date startingTime;
+    private Date startTime;
 
     private Date endTime;
 

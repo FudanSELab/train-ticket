@@ -1,5 +1,8 @@
 package travel2.service;
 
+import edu.fudan.common.entity.TripId;
+import edu.fudan.common.entity.TripAllDetailInfo;
+import edu.fudan.common.entity.TripInfo;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,17 +16,17 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import travel2.entity.*;
+import travel2.entity.Trip;
 import travel2.repository.TripRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 @RunWith(JUnit4.class)
-public class Travel2ServiceImplTest {
+public class TravelServiceImplTest {
 
     @InjectMocks
-    private Travel2ServiceImpl travel2ServiceImpl;
+    private TravelServiceImpl travel2ServiceImpl;
 
     @Mock
     private TripRepository repository;
@@ -52,7 +55,7 @@ public class Travel2ServiceImplTest {
         Trip trip = new Trip();
         Mockito.when(repository.findByTripId(Mockito.any(TripId.class))).thenReturn(trip);
         //mock getRouteByRouteId()
-        Route route = new Route();
+        edu.fudan.common.entity.Route route = new edu.fudan.common.entity.Route();
         Response response = new Response(1, null, route);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
@@ -70,9 +73,9 @@ public class Travel2ServiceImplTest {
         Trip trip = new Trip();
         Mockito.when(repository.findByTripId(Mockito.any(TripId.class))).thenReturn(trip);
         //mock getTrainType()
-        TrainType trainType = new TrainType();
-        Response<TrainType> response = new Response<>(null, null, trainType);
-        ResponseEntity<Response<TrainType>> re = new ResponseEntity<>(response, HttpStatus.OK);
+        edu.fudan.common.entity.TrainType trainType = new edu.fudan.common.entity.TrainType();
+        Response<edu.fudan.common.entity.TrainType> response = new Response<>(null, null, trainType);
+        ResponseEntity<Response<edu.fudan.common.entity.TrainType>> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 Mockito.anyString(),
                 Mockito.any(HttpMethod.class),
@@ -101,7 +104,7 @@ public class Travel2ServiceImplTest {
 
     @Test
     public void testCreate1() {
-        TravelInfo info = new TravelInfo();
+        edu.fudan.common.entity.TravelInfo info = new edu.fudan.common.entity.TravelInfo();
         info.setTripId("Z");
         Mockito.when(repository.findByTripId(Mockito.any(TripId.class))).thenReturn(null);
         Mockito.when(repository.save(Mockito.any(Trip.class))).thenReturn(null);
@@ -111,7 +114,7 @@ public class Travel2ServiceImplTest {
 
     @Test
     public void testCreate2() {
-        TravelInfo info = new TravelInfo();
+        edu.fudan.common.entity.TravelInfo info = new edu.fudan.common.entity.TravelInfo();
         info.setTripId("Z");
         Trip trip = new Trip();
         Mockito.when(repository.findByTripId(Mockito.any(TripId.class))).thenReturn(trip);
@@ -137,7 +140,7 @@ public class Travel2ServiceImplTest {
 
     @Test
     public void testUpdate1() {
-        TravelInfo info = new TravelInfo();
+        edu.fudan.common.entity.TravelInfo info = new edu.fudan.common.entity.TravelInfo();
         info.setTripId("Z");
         Trip trip = new Trip();
         Mockito.when(repository.findByTripId(Mockito.any(TripId.class))).thenReturn(trip);
@@ -148,7 +151,7 @@ public class Travel2ServiceImplTest {
 
     @Test
     public void testUpdate2() {
-        TravelInfo info = new TravelInfo();
+        edu.fudan.common.entity.TravelInfo info = new edu.fudan.common.entity.TravelInfo();
         info.setTripId("Z");
         Mockito.when(repository.findByTripId(Mockito.any(TripId.class))).thenReturn(null);
         Response result = travel2ServiceImpl.update(info, headers);
@@ -191,7 +194,7 @@ public class Travel2ServiceImplTest {
         Mockito.when(repository.findAll()).thenReturn(tripList);
 
         //mock getRouteByRouteId()
-        Route route = new Route();
+        edu.fudan.common.entity.Route route = new edu.fudan.common.entity.Route();
         route.setStations(new ArrayList<>());
         Response response2 = new Response(1, null, route);
         ResponseEntity<Response> re2 = new ResponseEntity<>(response2, HttpStatus.OK);
@@ -228,7 +231,7 @@ public class Travel2ServiceImplTest {
                 .thenReturn(re1);
 
         //mock getRouteByRouteId()
-        Route route = new Route();
+        edu.fudan.common.entity.Route route = new edu.fudan.common.entity.Route();
         route.setStations(new ArrayList<>());
         Response response2 = new Response(1, null, route);
         ResponseEntity<Response> re2 = new ResponseEntity<>(response2, HttpStatus.OK);
@@ -267,7 +270,7 @@ public class Travel2ServiceImplTest {
         Mockito.when(repository.findAll()).thenReturn(tripList);
 
         //mock getRouteByRouteId()
-        Route route = new Route();
+        edu.fudan.common.entity.Route route = new edu.fudan.common.entity.Route();
         Response response2 = new Response(1, null, route);
         ResponseEntity<Response> re2 = new ResponseEntity<>(response2, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
@@ -278,9 +281,9 @@ public class Travel2ServiceImplTest {
                 .thenReturn(re2);
 
         //mock getTrainType()
-        TrainType trainType = new TrainType();
-        Response<TrainType> response = new Response<>(null, null, trainType);
-        ResponseEntity<Response<TrainType>> re = new ResponseEntity<>(response, HttpStatus.OK);
+        edu.fudan.common.entity.TrainType trainType = new edu.fudan.common.entity.TrainType();
+        Response<edu.fudan.common.entity.TrainType> response = new Response<>(null, null, trainType);
+        ResponseEntity<Response<edu.fudan.common.entity.TrainType>> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
                 Mockito.anyString(),
                 Mockito.any(HttpMethod.class),

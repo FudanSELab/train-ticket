@@ -15,7 +15,7 @@ import java.util.Date;
 public class TripInfo {
     @Valid
     @NotNull
-    private String startingPlace;
+    private String startPlace;
 
     @Valid
     @NotNull
@@ -27,7 +27,7 @@ public class TripInfo {
 
     public TripInfo(){
         //Default Constructor
-        this.startingPlace = "";
+        this.startPlace = "";
         this.endPlace = "";
         this.departureTime = new Date();
     }

@@ -5,13 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author fdse
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-@NoArgsConstructor
 public class Route {
     private String id;
 
@@ -27,11 +27,23 @@ public class Route {
 
     private String terminalStationId;
 
-    public Route(List<String> stations, List<Integer> distances, String startStationName, String terminalStationName) {
+    public Route(){
+        this.id = UUID.randomUUID().toString();
+    }
+
+    public Route(String id, List<String> stations, List<Integer> distances, String startStationName, String terminalStationName) {
+        this.id = id;
         this.stations = stations;
         this.distances = distances;
         this.startStationName = startStationName;
         this.terminalStationName = terminalStationName;
     }
 
+    public Route(List<String> stations, List<Integer> distances, String startStationName, String terminalStationName) {
+        this.id = UUID.randomUUID().toString();
+        this.stations = stations;
+        this.distances = distances;
+        this.startStationName = startStationName;
+        this.terminalStationName = terminalStationName;
+    }
 }

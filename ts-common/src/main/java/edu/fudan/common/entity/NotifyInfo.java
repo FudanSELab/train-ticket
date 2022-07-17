@@ -15,9 +15,9 @@ public class NotifyInfo {
     private String email;
     private String orderNumber;
     private String username;
-    private String startingPlace;
+    private String startPlace;
     private String endPlace;
-    private String startingTime;
+    private String startTime;
     private String date;
     private String seatClass;
     private String seatNumber;

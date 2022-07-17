@@ -1,8 +1,11 @@
 package travel.service;
 
+import edu.fudan.common.entity.TravelInfo;
+import edu.fudan.common.entity.TripAllDetailInfo;
+import edu.fudan.common.entity.TripInfo;
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
-import travel.entity.*;
+
 
 import java.util.ArrayList;
 

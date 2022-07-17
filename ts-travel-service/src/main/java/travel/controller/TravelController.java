@@ -1,5 +1,9 @@
 package travel.controller;
 
+import edu.fudan.common.entity.TravelInfo;
+import edu.fudan.common.entity.TripAllDetailInfo;
+import edu.fudan.common.entity.TripInfo;
+import edu.fudan.common.entity.TripResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +12,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import edu.fudan.common.entity.TravelInfo;
 import travel.entity.*;
 import travel.service.TravelService;
 
@@ -106,7 +112,7 @@ public class TravelController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/trips/left")
     public HttpEntity queryInfo(@RequestBody TripInfo info, @RequestHeader HttpHeaders headers) {
-        if (info.getStartingPlace() == null || info.getStartingPlace().length() == 0 ||
+        if (info.getStartPlace() == null || info.getStartPlace().length() == 0 ||
                 info.getEndPlace() == null || info.getEndPlace().length() == 0 ||
                 info.getDepartureTime() == null) {
             TravelController.LOGGER.info("[query][Travel Query Fail][Something null]");
@@ -127,7 +133,7 @@ public class TravelController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/trips/left_parallel")
     public HttpEntity queryInfoInparallel(@RequestBody TripInfo info, @RequestHeader HttpHeaders headers) {
-        if (info.getStartingPlace() == null || info.getStartingPlace().length() == 0 ||
+        if (info.getStartPlace() == null || info.getStartPlace().length() == 0 ||
                 info.getEndPlace() == null || info.getEndPlace().length() == 0 ||
                 info.getDepartureTime() == null) {
             TravelController.LOGGER.info("[queryInParallel][Travel Query Fail][Something null]");
