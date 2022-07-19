@@ -29,27 +29,27 @@ public class InitData implements CommandLineRunner {
     public void run(String... args) {
         BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/food_delivery_orders.txt")));
         try {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] strs = line.trim().split("\\|");
-                String[] foods = strs[1].trim().split(",");
-                List<Food> foodList = new ArrayList<>();
-                for (String food : foods) {
-                    String[] food_info = food.trim().split("_");
-                    foodList.add(new Food(food_info[0], Double.parseDouble(food_info[1])));
-                }
-                FoodDeliveryOrder foodDeliveryOrder = new FoodDeliveryOrder(
-                        UUID.randomUUID().toString(),       // id
-                        strs[0],                            // stationFoodStoreId
-                        foodList,                           // foodList
-                        strs[2],                            // tripId
-                        Integer.parseInt(strs[3]),          // seatNo
-                        strs[4],                            // createdTime
-                        strs[5],                            // deliveryTime
-                        Double.parseDouble(strs[6])         // deliveryFee
-                );
-                foodDeliveryService.createFoodDeliveryOrder(foodDeliveryOrder, null);
-            }
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                String[] strs = line.trim().split("\\|");
+//                String[] foods = strs[1].trim().split(",");
+//                List<Food> foodList = new ArrayList<>();
+//                for (String food : foods) {
+//                    String[] food_info = food.trim().split("_");
+//                    foodList.add(new Food(food_info[0], Double.parseDouble(food_info[1])));
+//                }
+//                FoodDeliveryOrder foodDeliveryOrder = new FoodDeliveryOrder(
+//                        UUID.randomUUID().toString(),       // id
+//                        strs[0],                            // stationFoodStoreId
+//                        foodList,                           // foodList
+//                        strs[2],                            // tripId
+//                        Integer.parseInt(strs[3]),          // seatNo
+//                        strs[4],                            // createdTime
+//                        strs[5],                            // deliveryTime
+//                        Double.parseDouble(strs[6])         // deliveryFee
+//                );
+//                foodDeliveryService.createFoodDeliveryOrder(foodDeliveryOrder, null);
+//            }
         } catch(Exception e) {
             InitData.LOGGER.info("food_delivery_orders.txt has format error!");
             InitData.LOGGER.error(e.getMessage());

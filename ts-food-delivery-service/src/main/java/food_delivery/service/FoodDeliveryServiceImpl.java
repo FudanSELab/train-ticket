@@ -2,15 +2,26 @@ package food_delivery.service;
 
 
 import edu.fudan.common.util.Response;
+import food_delivery.entity.Food;
 import food_delivery.entity.FoodDeliveryOrder;
+import food_delivery.entity.StationFoodStoreInfo;
 import food_delivery.repository.FoodDeliveryOrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class FoodDeliveryServiceImpl implements FoodDeliveryService {
@@ -20,17 +31,53 @@ public class FoodDeliveryServiceImpl implements FoodDeliveryService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FoodDeliveryServiceImpl.class);
 
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
+//
+    private String getServiceUrl(String serviceName) {
+        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
+        if(serviceInstances.size() > 0){
+            ServiceInstance serviceInstance = serviceInstances.get(0);
+            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
+            return service_url;
+        }
+        return "";
+    }
+
     @Override
     public Response createFoodDeliveryOrder(FoodDeliveryOrder fd, HttpHeaders headers) {
-        String id = fd.getId();
-        FoodDeliveryOrder t = foodDeliveryOrderRepository.findById(id).orElse(null);
-        if (t != null) {
-            LOGGER.error("[createFoodDeliveryOrder] Already exists id: {}", id);
-            return new Response<>(0, "Already exists id", id);
-        } else {
-            FoodDeliveryOrder res = foodDeliveryOrderRepository.save(fd);
-            return new Response<>(1, "Save success", res);
+        String stationFoodStoreId = fd.getStationFoodStoreId();
+
+        String staion_food_service_url = getServiceUrl("ts-station-food-service");
+//        staion_food_service_url = "http://ts-station-food-service"; // 测试
+        ResponseEntity<Response<StationFoodStoreInfo>> getStationFoodStore = restTemplate.exchange(
+                staion_food_service_url + "/api/v1/stationfoodservice/stationfoodstores/g/" + stationFoodStoreId,
+                HttpMethod.GET,
+                new HttpEntity(headers),
+                new ParameterizedTypeReference<Response<StationFoodStoreInfo>>() {
+                });
+        Response<StationFoodStoreInfo> result = getStationFoodStore.getBody();
+        StationFoodStoreInfo stationFoodStoreInfo = result.getData();
+        List<Food> storeFoodList = stationFoodStoreInfo.getFoodList();
+        Map<String, Double> foodPrice = storeFoodList.stream()
+                                                     .collect(Collectors.toMap(Food::getFoodName, Food::getPrice));
+        List<Food> orderFoodList = fd.getFoodList();
+        double deliveryFee = 0;
+        for (Food food : orderFoodList) {
+            Double fee = foodPrice.get(food.getFoodName());
+            if (fee == null) {
+                LOGGER.error("{}:{} have no such food: {}", stationFoodStoreId, stationFoodStoreInfo.getStoreName(), food.getFoodName());
+                return new Response<>(0, "Food not in store", null);
+            }
+            deliveryFee += fee;
         }
+        deliveryFee += stationFoodStoreInfo.getDeliveryFee();
+        fd.setDeliveryFee(deliveryFee);
+        FoodDeliveryOrder res = foodDeliveryOrderRepository.save(fd);
+        return new Response<>(1, "Save success", res);
     }
 
     @Override

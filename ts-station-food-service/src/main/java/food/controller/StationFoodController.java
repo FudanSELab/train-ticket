@@ -46,4 +46,9 @@ public class StationFoodController {
         StationFoodController.LOGGER.info("[Food Map Service][Get FoodStores By StationIds]");
         return ok(stationFoodService.getFoodStoresByStationIds(stationIdList));
     }
+    @GetMapping("/stationfoodstores/g/{stationFoodStoreId}")
+    public HttpEntity getFoodListByStationFoodStoreId(@PathVariable String stationFoodStoreId, @RequestHeader HttpHeaders headers) {
+        StationFoodController.LOGGER.info("[Food Map Service][Get Foodlist By stationFoodStoreId]");
+        return ok(stationFoodService.getStaionFoodStoreById(stationFoodStoreId));
+    }
 }

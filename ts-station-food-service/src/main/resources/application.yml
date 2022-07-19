@@ -5,11 +5,12 @@ spring:
   cloud:
     nacos:
       discovery:
+#        server-addr: 10.176.122.80:8848
         server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
   application:
     name: ts-station-food-service
   datasource:
-#    url: jdbc:mysql://localhost:3306/ts-station-food-mysql?useSSL=false
+#    url: jdbc:mysql://localhost:30001/ts-station-food-mysql?useSSL=false
     url: jdbc:mysql://${STATION_FOOD_MYSQL_HOST:ts-station-food-mysql}:${STATION_FOOD_MYSQL_PORT:3306}/${STATION_FOOD_MYSQL_DATABASE:ts-station-food-mysql}?useSSL=false
     username: ${STATION_FOOD_MYSQL_USER:root}
     password: ${STATION_FOOD_MYSQL_PASSWORD:root}

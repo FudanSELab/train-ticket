@@ -1,6 +1,7 @@
 package food.service;
 
 import edu.fudan.common.util.Response;
+import food.entity.Food;
 import food.entity.StationFoodStore;
 import food.repository.StationFoodRepository;
 import org.slf4j.Logger;
@@ -101,6 +102,17 @@ public class StationFoodServiceImpl implements StationFoodService {
         } else {
             StationFoodServiceImpl.LOGGER.error("List food stores by station ids error: {}, stationId list: {}", "Food store is empty", stationIds);
             return new Response<>(0, noContent, null);
+        }
+    }
+
+    @Override
+    public Response getStaionFoodStoreById(String id) {
+        StationFoodStore stationFoodStore = stationFoodRepository.findById(id).orElse(null);
+        if (stationFoodStore == null) {
+            LOGGER.error("no such staionFoodStoreId: {}", id);
+            return new Response<>(0, noContent, null);
+        } else {
+            return new Response<>(1, success, stationFoodStore);
         }
     }
 }
