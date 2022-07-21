@@ -28,7 +28,7 @@ public class InitData implements CommandLineRunner {
     @Override
     public void run(String... args) {
         BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/food_delivery_orders.txt")));
-        try {
+        try {  // 有限制，不能随意init初始化数据，因此先注释掉。
 //            String line;
 //            while ((line = br.readLine()) != null) {
 //                String[] strs = line.trim().split("\\|");

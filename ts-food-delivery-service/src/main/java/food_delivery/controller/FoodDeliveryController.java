@@ -64,18 +64,18 @@ public class FoodDeliveryController {
     @PutMapping("/orders/tripid")
     public HttpEntity updateTripId(@RequestBody TripInfo tripInfo, @RequestHeader HttpHeaders headers) {
         LOGGER.info("[Food Delivery Service][Update Trip Id]");
-        return ok(foodDeliveryService.updateTripId(tripInfo.getOrderId(), tripInfo.getTripId(), headers));
+        return ok(foodDeliveryService.updateTripId(tripInfo, headers));
     }
 
     @PutMapping("/orders/seatno")
     public HttpEntity updateSeatNo(@RequestBody SeatInfo seatInfo, @RequestHeader HttpHeaders headers) {
         LOGGER.info("[Food Delivery Service][Update Seat No]");
-        return ok(foodDeliveryService.updateSeatNo(seatInfo.getOrderId(), seatInfo.getSeatNo(), headers));
+        return ok(foodDeliveryService.updateSeatNo(seatInfo, headers));
     }
 
     @PutMapping("/orders/dtime")
     public HttpEntity updateDeliveryTime(@RequestBody DeliveryInfo deliveryInfo, @RequestHeader HttpHeaders headers) {
         LOGGER.info("[Food Delivery Service][Update Delivery Time]");
-        return ok(foodDeliveryService.updateDeliveryTime(deliveryInfo.getOrderId(), deliveryInfo.getDeliveryTime(), headers));
+        return ok(foodDeliveryService.updateDeliveryTime(deliveryInfo, headers));
     }
 }

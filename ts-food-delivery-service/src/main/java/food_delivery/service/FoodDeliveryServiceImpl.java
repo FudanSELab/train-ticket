@@ -2,9 +2,7 @@ package food_delivery.service;
 
 
 import edu.fudan.common.util.Response;
-import food_delivery.entity.Food;
-import food_delivery.entity.FoodDeliveryOrder;
-import food_delivery.entity.StationFoodStoreInfo;
+import food_delivery.entity.*;
 import food_delivery.repository.FoodDeliveryOrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -130,7 +128,9 @@ public class FoodDeliveryServiceImpl implements FoodDeliveryService {
     }
 
     @Override
-    public Response updateTripId(String id, String tripId, HttpHeaders headers) {
+    public Response updateTripId(TripInfo tripInfo, HttpHeaders headers) {
+        String id = tripInfo.getOrderId();
+        String tripId = tripInfo.getTripId();
         FoodDeliveryOrder t = foodDeliveryOrderRepository.findById(id).orElse(null);
         if (t == null) {
             LOGGER.error("[updateTripId] No such delivery order id: {}", id);
@@ -144,7 +144,9 @@ public class FoodDeliveryServiceImpl implements FoodDeliveryService {
     }
 
     @Override
-    public Response updateSeatNo(String id, int seatNo, HttpHeaders headers) {
+    public Response updateSeatNo(SeatInfo seatInfo, HttpHeaders headers) {
+        String id = seatInfo.getOrderId();
+        int seatNo = seatInfo.getSeatNo();
         FoodDeliveryOrder t = foodDeliveryOrderRepository.findById(id).orElse(null);
         if (t == null) {
             LOGGER.error("[updateSeatNo] No such delivery order id: {}", id);
@@ -158,7 +160,9 @@ public class FoodDeliveryServiceImpl implements FoodDeliveryService {
     }
 
     @Override
-    public Response updateDeliveryTime(String id, String deliveryTime, HttpHeaders headers) {
+    public Response updateDeliveryTime(DeliveryInfo deliveryInfo, HttpHeaders headers) {
+        String id = deliveryInfo.getOrderId();
+        String deliveryTime = deliveryInfo.getDeliveryTime();
         FoodDeliveryOrder t = foodDeliveryOrderRepository.findById(id).orElse(null);
         if (t == null) {
             LOGGER.error("[updateDeliveryTime] No such delivery order id: {}", id);
