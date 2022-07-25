@@ -14,10 +14,10 @@
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datetimepicker.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <script type="text/javascript" src="assets/js/angular.js"></script>
-    <script type="text/javascript" src="assets/js/admin_travel.js"></script>
 </head>
 
 <body data-type="generalComponents" onload="loadBody()">
@@ -214,8 +214,8 @@
                                             <td>{{record.trip.trainTypeId}}</td>
                                             <td>{{record.trip.routeId}}</td>
                                             <td>{{record.trip.startTime}}</td>
-                                            <td>{{record.route.startStationId}}</td>
-                                            <td>{{record.route.terminalStationId}}</td>
+                                            <td>{{record.route.startStationName}}</td>
+                                            <td>{{record.route.terminalStationName}}</td>
                                             <td>{{record.route.stations}}</td>
                                             <td>{{record.route.distances}}</td>
                                             <td>{{record.trainType.economyClass}}</td>
@@ -314,21 +314,51 @@
                                                             </div>
                                                             <div class="am-form-group">
                                                                 <label for="add_travel_train_type_id"
-                                                                    class="am-u-sm-5 am-form-label">TrainType Id:
+                                                                    class="am-u-sm-5 am-form-label">TrainType:
                                                                 </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_travel_train_type_id"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_travel_train_type_id">
+                                                                    <select id="add_travel_train_type_id" name="train_type_id"
+                                                                            class="am-modal-prompt-input">
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
                                                                 <label for="add_travel_route_id"
                                                                     class="am-u-sm-5 am-form-label">Route Id: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_travel_route_id"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_travel_route_id">
+                                                                    <select id="add_travel_route_id" name="travel_route_id"
+                                                                            class="am-modal-prompt-input">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_travel_start_station"
+                                                                       class="am-u-sm-5 am-form-label">Start Station: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <select id="add_travel_start_station" name="travel_start_station"
+                                                                            class="am-modal-prompt-input">
+                                                                        <option style='display: none'></option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_travel_station_name"
+                                                                       class="am-u-sm-5 am-form-label">Station Name: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <select id="add_travel_station_name" name="travel_station_name"
+                                                                            class="am-modal-prompt-input">
+                                                                        <option style='display: none'></option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_travel_terminal_station"
+                                                                       class="am-u-sm-5 am-form-label">Terminal Station: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <select id="add_travel_terminal_station" name="travel_terminal_station"
+                                                                            class="am-modal-prompt-input">
+                                                                        <option style='display: none'></option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -336,8 +366,15 @@
                                                                     class="am-u-sm-5 am-form-label">Start Time: </label>
                                                                 <div class="am-u-sm-7">
                                                                     <input type="text" id="add_travel_start_time"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_travel_start_time">
+                                                                        class="am-modal-prompt-input">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_travel_end_time"
+                                                                       class="am-u-sm-5 am-form-label">End Time: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="add_travel_end_time"
+                                                                           class="am-modal-prompt-input">
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -378,6 +415,9 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/amazeui.datetimepicker.min.js"></script>
+    <script type="text/javascript" src="assets/js/admin_travel.js"></script>
+
 </body>
 
 </html>

@@ -10,6 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import price.entity.PriceConfig;
 import price.service.PriceService;
+
+import java.util.List;
+import java.util.Map;
+
 import static org.springframework.http.ResponseEntity.ok;
 
 /**
@@ -34,6 +38,13 @@ public class PriceController {
                             @RequestHeader HttpHeaders headers) {
         PriceController.LOGGER.info("[findByRouteIdAndTrainType][Query price][RouteId: {}, TrainType: {}]",routeId,trainType);
         return ok(service.findByRouteIdAndTrainType(routeId, trainType, headers));
+    }
+
+    @PostMapping(value = "/prices/byRouteIdsAndTrainTypes")
+    public HttpEntity query(@RequestBody List<String> ridsAndTts,
+                            @RequestHeader HttpHeaders headers) {
+        PriceController.LOGGER.info("[findByRouteIdAndTrainType][Query price][routeId and Train Type: {}]", ridsAndTts);
+        return ok(service.findByRouteIdsAndTrainTypes(ridsAndTts, headers));
     }
 
     @GetMapping(value = "/prices")

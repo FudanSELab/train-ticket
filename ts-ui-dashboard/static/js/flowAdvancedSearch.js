@@ -111,8 +111,8 @@ function advanceSearchForCheapestInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td class='booking_tripId'>" + obj[i]["tripId"] + "</td>" +
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startStation"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["endStation"] + "</td>" +
                         "<td>" +  obj[i]["stopStations"]  + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
@@ -159,8 +159,8 @@ function advanceSearchForQuickestInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td class='booking_tripId'>" + obj[i]["tripId"] + "</td>" +
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startStation"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["endStation"] + "</td>" +
                         "<td>" +  obj[i]["stopStations"]  + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
@@ -208,8 +208,8 @@ function advanceSearchForMinStopInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td class='booking_tripId'>" + obj[i]["tripId"] + "</td>" +
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startStation"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["endStation"] + "</td>" +
                         "<td>" +  obj[i]["stopStations"]  + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +

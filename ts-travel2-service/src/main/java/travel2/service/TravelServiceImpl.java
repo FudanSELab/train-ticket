@@ -1,5 +1,7 @@
 package travel2.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
@@ -158,6 +160,22 @@ public class TravelServiceImpl implements TravelService {
     }
 
     @Override
+    public Response queryByBatch(TripInfo info, HttpHeaders headers) {
+
+        //Gets the start and arrival stations of the train number to query. The originating and arriving stations received here are both station names, so two requests need to be sent to convert to station ids
+        String startPlaceName = info.getStartPlace();
+        String endPlaceName = info.getEndPlace();
+
+        //This is the final result
+        List<TripResponse> list = new ArrayList<>();
+
+        //Check all train info
+        List<Trip> allTripList = repository.findAll();
+        list = getTicketsByBatch(allTripList, startPlaceName, endPlaceName, info.getDepartureTime(), headers);
+        return new Response<>(1, success, list);
+    }
+
+    @Override
     public Response query(TripInfo info, HttpHeaders headers) {
 
         //Gets the start and arrival stations of the train number to query. The originating and arriving stations received here are both station names, so two requests need to be sent to convert to station ids
@@ -208,6 +226,64 @@ public class TravelServiceImpl implements TravelService {
         return new Response<>(1, success, gtdr);
     }
 
+    private List<TripResponse> getTicketsByBatch(List<Trip> trips, String startPlaceName, String endPlaceName, Date departureTime, HttpHeaders headers) {
+
+        //Determine if the date checked is the same day and after
+        if (!afterToday(departureTime)) {
+            TravelServiceImpl.LOGGER.info("[getTickets][depaturetime not vailid][departuretime: {}]", departureTime);
+            return null;
+        }
+
+        List<Travel> infos = new ArrayList<>();
+        Map<String, Trip> tripMap = new HashMap<>();
+        for(Trip trip: trips){
+            Travel query = new Travel();
+            query.setTrip(trip);
+            query.setStartPlace(startPlaceName);
+            query.setEndPlace(endPlaceName);
+            query.setDepartureTime(departureTime);
+
+            infos.add(query);
+            tripMap.put(trip.getTripId().toString(), trip);
+        }
+
+        TravelServiceImpl.LOGGER.info("[getTicketsByBatch][before get basic][trips: {}]", trips);
+
+        HttpEntity requestEntity = new HttpEntity(infos, null);
+        String basic_service_url = getServiceUrl("ts-basic-service");
+        ResponseEntity<Response> re = restTemplate.exchange(
+                basic_service_url + "/api/v1/basicservice/basic/travels",
+                HttpMethod.POST,
+                requestEntity,
+                Response.class);
+
+        Response r = re.getBody();
+        if(r.getStatus() == 0){
+            TravelServiceImpl.LOGGER.info("[getTicketsByBatch][Ts-basic-service response status is 0][response is: {}]", r);
+            return null;
+        }
+        Map<String, TravelResult> trMap;
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            trMap = mapper.readValue(JsonUtils.object2Json(r.getData()), new TypeReference<Map<String, TravelResult>>(){});
+        }catch(Exception e) {
+            TravelServiceImpl.LOGGER.warn("[getTicketsByBatch][Ts-basic-service convert data failed][Fail msg: {}]", e.getMessage());
+            return null;
+        }
+
+        List<TripResponse> responses = new ArrayList<>();
+        for(Map.Entry<String, TravelResult> trEntry: trMap.entrySet()){
+            //Set the returned ticket information
+            String tripNumber = trEntry.getKey();
+            TravelResult tr = trEntry.getValue();
+            Trip trip = tripMap.get(tripNumber);
+
+            TripResponse response = setResponse(trip, tr, startPlaceName, endPlaceName, departureTime, headers);
+            responses.add(response);
+        }
+        return responses;
+    }
+
 
     private TripResponse getTickets(Trip trip, Route route1, String startPlaceName, String endPlaceName, Date departureTime, HttpHeaders headers) {
 
@@ -224,7 +300,7 @@ public class TravelServiceImpl implements TravelService {
 
         HttpEntity requestEntity = new HttpEntity(query, null);
         String basic_service_url = getServiceUrl("ts-basic-service");
-        ResponseEntity<Response<edu.fudan.common.entity.TravelResult>> re = restTemplate.exchange(
+        ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
                 basic_service_url + "/api/v1/basicservice/basic/travel",
                 HttpMethod.POST,
                 requestEntity,
@@ -238,15 +314,20 @@ public class TravelServiceImpl implements TravelService {
         TravelResult resultForTravel =  re.getBody().getData();
 
         //Set the returned ticket information
+        return setResponse(trip, resultForTravel, startPlaceName, endPlaceName, departureTime, headers);
+    }
+
+    private TripResponse setResponse(Trip trip, TravelResult tr, String startPlaceName, String endPlaceName, Date departureTime, HttpHeaders headers){
+        //Set the returned ticket information
         TripResponse response = new TripResponse();
         response.setConfortClass(50);
         response.setEconomyClass(50);
 
-        Route route = resultForTravel.getRoute();
+        Route route = tr.getRoute();
         List<String> stationList = route.getStations();
 
-        int firstClassTotalNum = resultForTravel.getTrainType().getConfortClass();
-        int secondClassTotalNum = resultForTravel.getTrainType().getEconomyClass();
+        int firstClassTotalNum = tr.getTrainType().getConfortClass();
+        int secondClassTotalNum = tr.getTrainType().getEconomyClass();
 
         int first = getRestTicketNumber(departureTime, trip.getTripId().toString(),
                 startPlaceName, endPlaceName, SeatClass.FIRSTCLASS.getCode(), firstClassTotalNum, stationList, headers);
@@ -260,12 +341,11 @@ public class TravelServiceImpl implements TravelService {
         response.setTerminalStation(endPlaceName);
 
         //Calculate the distance from the starting point
-        TravelServiceImpl.LOGGER.info("[getTickets][Calculate Distance][route: {} , station: {}]", route.getId(), route.getStations());
         int indexStart = route.getStations().indexOf(startPlaceName);
         int indexEnd = route.getStations().indexOf(endPlaceName);
         int distanceStart = route.getDistances().get(indexStart) - route.getDistances().get(0);
         int distanceEnd = route.getDistances().get(indexEnd) - route.getDistances().get(0);
-        TrainType trainType = resultForTravel.getTrainType();
+        TrainType trainType = tr.getTrainType();
         //Train running time is calculated according to the average running speed of the train
         int minutesStart = 60 * distanceStart / trainType.getAverageSpeed();
         int minutesEnd = 60 * distanceEnd / trainType.getAverageSpeed();
@@ -274,18 +354,18 @@ public class TravelServiceImpl implements TravelService {
         calendarStart.setTime(trip.getStartTime());
         calendarStart.add(Calendar.MINUTE, minutesStart);
         response.setStartTime(calendarStart.getTime());
-        TravelServiceImpl.LOGGER.info("[getTickets][Calculate Distance][calculate time：{} , time: {}]", minutesStart, calendarStart.getTime());
+        TravelServiceImpl.LOGGER.info("[getTickets][Calculate distance][calculate time：{}  time: {}]", minutesStart, calendarStart.getTime());
 
         Calendar calendarEnd = Calendar.getInstance();
         calendarEnd.setTime(trip.getStartTime());
         calendarEnd.add(Calendar.MINUTE, minutesEnd);
         response.setEndTime(calendarEnd.getTime());
-        TravelServiceImpl.LOGGER.info("[getTickets][Calculate Distance][calculate time：{} , time: {}]", minutesEnd, calendarEnd.getTime());
+        TravelServiceImpl.LOGGER.info("[getTickets][Calculate distance][calculate time：{}  time: {}]", minutesEnd, calendarEnd.getTime());
 
         response.setTripId(trip.getTripId());
         response.setTrainTypeName(trip.getTrainTypeName());
-        response.setPriceForConfortClass(resultForTravel.getPrices().get("confortClass"));
-        response.setPriceForEconomyClass(resultForTravel.getPrices().get("economyClass"));
+        response.setPriceForConfortClass(tr.getPrices().get("confortClass"));
+        response.setPriceForEconomyClass(tr.getPrices().get("economyClass"));
 
         return response;
     }

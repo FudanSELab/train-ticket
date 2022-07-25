@@ -5,6 +5,8 @@ import edu.fudan.common.util.Response;
 import edu.fudan.common.entity.*;
 import org.springframework.http.HttpHeaders;
 
+import java.util.List;
+
 /**
  * @author Chenjie
  * @date 2017/6/6.
@@ -19,6 +21,8 @@ public interface BasicService {
      * @return Response
      */
     Response queryForTravel(Travel info, HttpHeaders headers);
+
+    Response queryForTravels(List<Travel> infos, HttpHeaders headers);
 
     /**
      * query for station id with station name

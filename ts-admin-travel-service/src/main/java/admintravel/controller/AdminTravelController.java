@@ -36,7 +36,7 @@ public class AdminTravelController {
 
     @PostMapping(value = "/admintravel")
     public HttpEntity addTravel(@RequestBody TravelInfo request, @RequestHeader HttpHeaders headers) {
-        logger.info("[addTravel][Add travel][trip id: {}, train type id: {}, form station {} to station {}, login id: {}]",
+        logger.info("[addTravel][Add travel][trip id: {}, train type name: {}, form station {} to station {}, login id: {}]",
                 request.getTripId(), request.getTrainTypeName(), request.getStartStationName(), request.getStationsName(), request.getLoginId());
         return ok(adminTravelService.addTravel(request, headers));
     }

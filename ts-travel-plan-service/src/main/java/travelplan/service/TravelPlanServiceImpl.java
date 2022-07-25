@@ -1,6 +1,7 @@
 package travelplan.service;
 
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,9 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     public Response getTransferSearch(TransferTravelInfo info, HttpHeaders headers) {
 
         TripInfo queryInfoFirstSection = new TripInfo();
-        queryInfoFirstSection.setDepartureTime(info.getTravelDate());
-        queryInfoFirstSection.setStartPlace(info.getFromStationName());
-        queryInfoFirstSection.setEndPlace(info.getViaStationName());
+        queryInfoFirstSection.setDepartureTime(StringUtils.Date2String(info.getTravelDate()));
+        queryInfoFirstSection.setStartPlace(info.getStartStation());
+        queryInfoFirstSection.setEndPlace(info.getViaStation());
 
         List<TripResponse> firstSectionFromHighSpeed;
         List<TripResponse> firstSectionFromNormal;
@@ -57,9 +58,9 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         firstSectionFromNormal = tripsFromNormal(queryInfoFirstSection, headers);
 
         TripInfo queryInfoSecondSectoin = new TripInfo();
-        queryInfoSecondSectoin.setDepartureTime(info.getTravelDate());
-        queryInfoSecondSectoin.setStartPlace(info.getViaStationName());
-        queryInfoSecondSectoin.setEndPlace(info.getToStationName());
+        queryInfoSecondSectoin.setDepartureTime(StringUtils.Date2String(info.getTravelDate()));
+        queryInfoSecondSectoin.setStartPlace(info.getViaStation());
+        queryInfoSecondSectoin.setEndPlace(info.getEndStation());
 
         List<TripResponse> secondSectionFromHighSpeed;
         List<TripResponse> secondSectionFromNormal;
@@ -85,9 +86,9 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     public Response getCheapest(TripInfo info, HttpHeaders headers) {
         RoutePlanInfo routePlanInfo = new RoutePlanInfo();
         routePlanInfo.setNum(5);
-        routePlanInfo.setFormStationName(info.getStartPlace());
-        routePlanInfo.setToStationName(info.getEndPlace());
-        routePlanInfo.setTravelDate(info.getDepartureTime());
+        routePlanInfo.setStartStation(info.getStartPlace());
+        routePlanInfo.setEndStation(info.getEndPlace());
+        routePlanInfo.setTravelDate(StringUtils.Date2String(info.getDepartureTime()));
         ArrayList<RoutePlanResultUnit> routePlanResultUnits = getRoutePlanResultCheapest(routePlanInfo, headers);
 
         if (!routePlanResultUnits.isEmpty()) {
@@ -96,9 +97,9 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 RoutePlanResultUnit tempUnit = routePlanResultUnits.get(i);
                 TravelAdvanceResultUnit newUnit = new TravelAdvanceResultUnit();
                 newUnit.setTripId(tempUnit.getTripId());
-                newUnit.setToStationName(tempUnit.getToStationName());
+                newUnit.setEndStation(tempUnit.getEndStation());
                 newUnit.setTrainTypeId(tempUnit.getTrainTypeName());
-                newUnit.setFromStationName(tempUnit.getFromStationName());
+                newUnit.setStartStation(tempUnit.getStartStation());
 
                 List<String> stops = transferStationIdToStationName(tempUnit.getStopStations(), headers);
                 newUnit.setStopStations(stops);
@@ -107,10 +108,10 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 newUnit.setStartTime(tempUnit.getStartTime());
                 newUnit.setEndTime(tempUnit.getEndTime());
                 int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.FIRSTCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.FIRSTCLASS.getCode(), headers);
 
                 int second = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.SECONDCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.SECONDCLASS.getCode(), headers);
                 newUnit.setNumberOfRestTicketFirstClass(first);
                 newUnit.setNumberOfRestTicketSecondClass(second);
                 lists.add(newUnit);
@@ -127,9 +128,9 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     public Response getQuickest(TripInfo info, HttpHeaders headers) {
         RoutePlanInfo routePlanInfo = new RoutePlanInfo();
         routePlanInfo.setNum(5);
-        routePlanInfo.setFormStationName(info.getStartPlace());
-        routePlanInfo.setToStationName(info.getEndPlace());
-        routePlanInfo.setTravelDate(info.getDepartureTime());
+        routePlanInfo.setStartStation(info.getStartPlace());
+        routePlanInfo.setEndStation(info.getEndPlace());
+        routePlanInfo.setTravelDate(StringUtils.Date2String(info.getDepartureTime()));
         ArrayList<RoutePlanResultUnit> routePlanResultUnits = getRoutePlanResultQuickest(routePlanInfo, headers);
 
 
@@ -141,8 +142,8 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 TravelAdvanceResultUnit newUnit = new TravelAdvanceResultUnit();
                 newUnit.setTripId(tempUnit.getTripId());
                 newUnit.setTrainTypeId(tempUnit.getTrainTypeName());
-                newUnit.setToStationName(tempUnit.getToStationName());
-                newUnit.setFromStationName(tempUnit.getFromStationName());
+                newUnit.setEndStation(tempUnit.getEndStation());
+                newUnit.setStartStation(tempUnit.getStartStation());
 
                 List<String> stops = transferStationIdToStationName(tempUnit.getStopStations(), headers);
                 newUnit.setStopStations(stops);
@@ -152,10 +153,10 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 newUnit.setStartTime(tempUnit.getStartTime());
                 newUnit.setEndTime(tempUnit.getEndTime());
                 int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.FIRSTCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.FIRSTCLASS.getCode(), headers);
 
                 int second = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.SECONDCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.SECONDCLASS.getCode(), headers);
                 newUnit.setNumberOfRestTicketFirstClass(first);
                 newUnit.setNumberOfRestTicketSecondClass(second);
                 lists.add(newUnit);
@@ -171,9 +172,9 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     public Response getMinStation(TripInfo info, HttpHeaders headers) {
         RoutePlanInfo routePlanInfo = new RoutePlanInfo();
         routePlanInfo.setNum(5);
-        routePlanInfo.setFormStationName(info.getStartPlace());
-        routePlanInfo.setToStationName(info.getEndPlace());
-        routePlanInfo.setTravelDate(info.getDepartureTime());
+        routePlanInfo.setStartStation(info.getStartPlace());
+        routePlanInfo.setEndStation(info.getEndPlace());
+        routePlanInfo.setTravelDate(StringUtils.Date2String(info.getDepartureTime()));
         ArrayList<RoutePlanResultUnit> routePlanResultUnits = getRoutePlanResultMinStation(routePlanInfo, headers);
 
         if (!routePlanResultUnits.isEmpty()) {
@@ -184,8 +185,8 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 TravelAdvanceResultUnit newUnit = new TravelAdvanceResultUnit();
                 newUnit.setTripId(tempUnit.getTripId());
                 newUnit.setTrainTypeId(tempUnit.getTrainTypeName());
-                newUnit.setFromStationName(tempUnit.getFromStationName());
-                newUnit.setToStationName(tempUnit.getToStationName());
+                newUnit.setStartStation(tempUnit.getStartStation());
+                newUnit.setEndStation(tempUnit.getEndStation());
 
                 List<String> stops = transferStationIdToStationName(tempUnit.getStopStations(), headers);
                 newUnit.setStopStations(stops);
@@ -196,10 +197,10 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 newUnit.setStartTime(tempUnit.getStartTime());
 
                 int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.FIRSTCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.FIRSTCLASS.getCode(), headers);
 
                 int second = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getFromStationName(), tempUnit.getToStationName(), SeatClass.SECONDCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.SECONDCLASS.getCode(), headers);
                 newUnit.setNumberOfRestTicketFirstClass(first);
                 newUnit.setNumberOfRestTicketSecondClass(second);
                 lists.add(newUnit);

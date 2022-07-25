@@ -59,6 +59,17 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
+    public List<TrainType> retrieveByNames(List<String> names, HttpHeaders headers) {
+        List<TrainType> tt = repository.findByNames(names);
+        if (tt == null || tt.isEmpty()) {
+            TrainServiceImpl.LOGGER.error("[retrieveByNames][RetrieveByNames error][Train not found][TrainTypeNames: {}]", names);
+            return null;
+        } else {
+            return tt;
+        }
+    }
+
+    @Override
     public boolean update(TrainType trainType, HttpHeaders headers) {
         boolean result = false;
         if (repository.findById(trainType.getId()).isPresent()) {

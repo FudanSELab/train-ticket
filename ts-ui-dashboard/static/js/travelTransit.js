@@ -1,8 +1,8 @@
 $("#transit_search_button").click(function(){
     var transitSearchInfo = new Object();
-    transitSearchInfo.fromStationName = $("#transit_start_station").val();
-    transitSearchInfo.viaStationName = $("#transit_middle_station").val();
-    transitSearchInfo.toStationName = $("#transit_end_station").val();
+    transitSearchInfo.startStation = $("#transit_start_station").val();
+    transitSearchInfo.viaStation = $("#transit_middle_station").val();
+    transitSearchInfo.endStation = $("#transit_end_station").val();
     transitSearchInfo.travelDate = $("#transit_end_station_date").val();
     if(transitSearchInfo.travelDate  == null || checkDateFormat(transitSearchInfo.travelDate ) == false){
         alert("Departure Date Format Wrong.");

@@ -67,6 +67,18 @@ public class TrainController {
     }
 
     @CrossOrigin(origins = "*")
+    @PostMapping(value = "/trains/byNames")
+    public HttpEntity retrieveByName(@RequestBody List<String> names, @RequestHeader HttpHeaders headers) {
+        TrainController.LOGGER.info("[retrieveByNames][Retrieve train][TrainTypeNames: {}]", names);
+        List<TrainType> trainTypes = trainService.retrieveByNames(names, headers);
+        if (trainTypes == null) {
+            return ok(new Response(0, "here is no TrainTypes with the trainType names: " + names, null));
+        } else {
+            return ok(new Response(1, "success", trainTypes));
+        }
+    }
+
+    @CrossOrigin(origins = "*")
     @PutMapping(value = "/trains")
     public HttpEntity update(@RequestBody TrainType trainType, @RequestHeader HttpHeaders headers) {
         TrainController.LOGGER.info("[update][Update train][TrainTypeId: {}]",trainType.getId());

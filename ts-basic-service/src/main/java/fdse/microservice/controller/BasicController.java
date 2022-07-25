@@ -9,6 +9,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.ResponseEntity.ok;
 
 /**
@@ -35,6 +37,13 @@ public class BasicController {
         // TravelResult
         logger.info("[queryForTravel][Query for travel][Travel: {}]", info.toString());
         return ok(service.queryForTravel(info, headers));
+    }
+
+    @PostMapping(value = "/basic/travels")
+    public HttpEntity queryForTravels(@RequestBody List<Travel> infos, @RequestHeader HttpHeaders headers) {
+        // TravelResult
+        logger.info("[queryForTravels][Query for travels][Travels: {}]", infos);
+        return ok(service.queryForTravels(infos, headers));
     }
 
     @GetMapping(value = "/basic/{stationName}")

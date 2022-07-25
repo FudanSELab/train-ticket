@@ -21,6 +21,8 @@ public interface TravelService {
 
     Response query(TripInfo info, HttpHeaders headers);
 
+    Response queryByBatch(TripInfo info, HttpHeaders headers);
+
     Response getTripAllDetailInfo(edu.fudan.common.entity.TripAllDetailInfo gtdi, HttpHeaders headers);
 
     Response getRouteByTripId(String tripId, HttpHeaders headers);

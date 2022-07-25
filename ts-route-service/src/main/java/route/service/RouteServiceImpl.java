@@ -56,8 +56,8 @@ public class RouteServiceImpl implements RouteService {
                 route.setId(info.getId());
             }
         }
-        route.setStartStationName(info.getStartStation());
-        route.setTerminalStationName(info.getEndStation());
+        route.setStartStation(info.getStartStation());
+        route.setEndStation(info.getEndStation());
         route.setStations(stationList);
         route.setDistances(distanceList);
         routeRepository.save(route);
@@ -90,9 +90,20 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public Response getRouteByStartAndTerminal(String startId, String terminalId, HttpHeaders headers) {
+    public Response getRouteByIds(List<String> routeIds, HttpHeaders headers) {
+        List<Route> routes = routeRepository.findByIds(routeIds);
+        if (routes == null || routes.isEmpty()) {
+            RouteServiceImpl.LOGGER.error("[getRouteById][Find route error][Route not found][RouteIds: {}]",routeIds);
+            return new Response<>(0, "No content with the routeIds", null);
+        } else {
+            return new Response<>(1, success, routes);
+        }
+    }
+
+    @Override
+    public Response getRouteByStartAndEnd(String startId, String terminalId, HttpHeaders headers) {
         ArrayList<Route> routes = routeRepository.findAll();
-        RouteServiceImpl.LOGGER.info("[getRouteByStartAndTerminal][Find All][size:{}]", routes.size());
+        RouteServiceImpl.LOGGER.info("[getRouteByStartAndEnd][Find All][size:{}]", routes.size());
         List<Route> resultList = new ArrayList<>();
         for (Route route : routes) {
             if (route.getStations().contains(startId) &&
@@ -104,7 +115,7 @@ public class RouteServiceImpl implements RouteService {
         if (!resultList.isEmpty()) {
             return new Response<>(1, success, resultList);
         } else {
-            RouteServiceImpl.LOGGER.warn("[getRouteByStartAndTerminal][Find by start and terminal warn][Routes not found][startId: {},terminalId: {}]",startId,terminalId);
+            RouteServiceImpl.LOGGER.warn("[getRouteByStartAndEnd][Find by start and terminal warn][Routes not found][startId: {},terminalId: {}]",startId,terminalId);
             return new Response<>(0, "No routes with the startId and terminalId", null);
         }
     }

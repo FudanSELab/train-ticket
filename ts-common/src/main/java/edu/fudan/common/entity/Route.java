@@ -19,13 +19,9 @@ public class Route {
 
     private List<Integer> distances;
 
-    private String startStationName;
+    private String startStation;
 
-    private String terminalStationName;
-
-    private String startStationId;
-
-    private String terminalStationId;
+    private String endStation;
 
     public Route(){
         this.id = UUID.randomUUID().toString();
@@ -35,15 +31,15 @@ public class Route {
         this.id = id;
         this.stations = stations;
         this.distances = distances;
-        this.startStationName = startStationName;
-        this.terminalStationName = terminalStationName;
+        this.startStation = startStationName;
+        this.endStation = terminalStationName;
     }
 
     public Route(List<String> stations, List<Integer> distances, String startStationName, String terminalStationName) {
         this.id = UUID.randomUUID().toString();
         this.stations = stations;
         this.distances = distances;
-        this.startStationName = startStationName;
-        this.terminalStationName = terminalStationName;
+        this.startStation = startStationName;
+        this.endStation = terminalStationName;
     }
 }

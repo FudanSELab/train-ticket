@@ -4,12 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
 import java.util.UUID;
 
 /**
@@ -19,14 +15,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {@Index(name = "route_type_idx", columnList = "train_type, route_id", unique = true)})
 public class PriceConfig {
 
     @Id
     @Column(length = 36)
     private String id;
 
+    @Column(name="train_type")
     private String trainType;
 
+    @Column(name="route_id", length = 36)
     private String routeId;
 
     private double basicPriceRate;

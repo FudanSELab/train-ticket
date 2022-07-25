@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import price.entity.PriceConfig;
 import price.repository.PriceConfigRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 /**
@@ -80,6 +77,31 @@ public class PriceServiceImpl implements PriceService {
             return new Response<>(0, noThatConfig, null);
         } else {
             return new Response<>(1, "Success", priceConfig);
+        }
+    }
+
+    @Override
+    public Response findByRouteIdsAndTrainTypes(List<String> ridsAndTts, HttpHeaders headers){
+        List<String> routeIds = new ArrayList<>();
+        List<String> trainTypes = new ArrayList<>();
+        for(String rts: ridsAndTts){
+            List<String> r_t  = Arrays.asList(rts.split(":"));
+            routeIds.add(r_t.get(0));
+            trainTypes.add(r_t.get(1));
+        }
+        List<PriceConfig> pcs = priceConfigRepository.findByRouteIdsAndTrainTypes(routeIds, trainTypes);
+        Map<String, PriceConfig> pcMap = new HashMap<>();
+        for(PriceConfig pc: pcs){
+            String key = pc.getRouteId() + ":" + pc.getTrainType();
+            if(ridsAndTts.contains(key)){
+                pcMap.put(key, pc);
+            }
+        }
+        if (pcMap == null) {
+            PriceServiceImpl.LOGGER.warn("[findByRouteIdsAndTrainTypes][Find by routes and train types warn][PricrConfig not found][RouteIds: {}, TrainTypes: {}]",routeIds,trainTypes);
+            return new Response<>(0, noThatConfig, null);
+        } else {
+            return new Response<>(1, "Success", pcMap);
         }
     }
 

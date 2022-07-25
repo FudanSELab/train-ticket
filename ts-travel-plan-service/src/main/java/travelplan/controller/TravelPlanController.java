@@ -31,7 +31,7 @@ public class TravelPlanController {
 
     @PostMapping(value="/travelPlan/transferResult" )
     public HttpEntity getTransferResult(@RequestBody TransferTravelInfo info, @RequestHeader HttpHeaders headers) {
-        TravelPlanController.LOGGER.info("[getTransferSearch][Search Transit][start: {},end: {}]",info.getFromStationName(),info.getToStationName());
+        TravelPlanController.LOGGER.info("[getTransferSearch][Search Transit][start: {},end: {}]",info.getStartStation(),info.getEndStation());
         return ok(travelPlanService.getTransferSearch(info, headers));
     }
 

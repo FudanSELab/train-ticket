@@ -87,6 +87,9 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
         alert(des);
     }
 
+    //init optional table item
+    getOptionsData();
+
     //Add new travel
     $scope.addNewTravel = function () {
         $('#add_prompt').modal({
@@ -99,9 +102,13 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
                     withCredentials: true,
                     data: {
                         tripId: $scope.add_travel_id,
-                        trainTypeId: $scope.add_travel_train_type_id,
-                        routeId: $scope.add_travel_route_id,
-                        startTime: $scope.add_travel_start_time
+                        trainTypeName: $('#add_travel_train_type_id').find("option:selected").val(),
+                        routeId: $('#add_travel_route_id').find("option:selected").val(),
+                        startStationName: $('#add_travel_start_station').find("option:selected").val(),
+                        stationsName: $('#add_travel_station_name').find("option:selected").val(),
+                        terminalStationName: $('#add_travel_terminal_station').find("option:selected").val(),
+                        startTime: $('#add_travel_start_time').val(),
+                        endTime: $('#add_travel_end_time').val(),
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status) {
@@ -190,3 +197,152 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
         });
     }
 });
+
+function getOptionsData(){
+    getTrainTypes();
+    getRouteList();
+    getStationList();
+}
+
+function getTrainTypes(){
+    $.ajax({
+        type: "get",
+        url: "/api/v1/trainservice/trains",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            if (result.status == 1) {
+                var obj = result.data;
+                var types = document.getElementById("add_travel_train_type_id");
+                //use data to build options
+                for (var i = 0, l = obj.length; i < l; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = obj[i]["name"];
+                    opt.innerText = obj[i]["name"];
+                    types.appendChild(opt);
+                }
+            } else {
+                alert(result.msg);
+            }
+        }, error: function (e) {
+            var message = e.responseJSON.message;
+            console.log(message);
+            if (message.indexOf("Token") != -1) {
+                alert("Token is expired! please login first!");
+            }
+        },
+        complete: function () {
+
+        }
+    });
+}
+
+function getRouteList(){
+    $.ajax({
+        type: "get",
+        url: "/api/v1/routeservice/routes",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            if (result.status == 1) {
+                var obj = result.data;
+                var types = document.getElementById("add_travel_route_id");
+                //use data to build options
+                for (var i = 0, l = obj.length; i < l; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = obj[i]["id"];
+                    opt.innerText = obj[i]["id"];
+                    types.appendChild(opt);
+                }
+            } else {
+                alert(result.msg);
+            }
+        }, error: function (e) {
+            var message = e.responseJSON.message;
+            console.log(message);
+            if (message.indexOf("Token") != -1) {
+                alert("Token is expired! please login first!");
+            }
+        },
+        complete: function () {
+
+        }
+    });
+}
+
+function getStationList(){
+    $.ajax({
+        type: "get",
+        url: "/api/v1/stationservice/stations",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            if (result.status == 1) {
+                var obj = result.data;
+                var start_station = document.getElementById("add_travel_start_station");
+                var terminal_station = document.getElementById("add_travel_terminal_station")
+                var station_name = document.getElementById("add_travel_station_name")
+                //use data to build options
+                for (var i = 0, l = obj.length; i < l; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = obj[i]["name"];
+                    opt.innerText = obj[i]["name"];
+                    start_station.appendChild(opt);
+                    station_name.appendChild(opt.cloneNode(true));
+                    terminal_station.appendChild(opt.cloneNode(true));
+                }
+            } else {
+                alert(result.msg);
+            }
+        }, error: function (e) {
+            var message = e.responseJSON.message;
+            console.log(message);
+            if (message.indexOf("Token") != -1) {
+                alert("Token is expired! please login first!");
+            }
+        },
+        complete: function () {
+
+        }
+    });
+}
+
+var travel_start_time=$("#add_travel_start_time")
+var travel_end_time=$("#add_travel_end_time")
+
+travel_start_time.datetimepicker({
+    format : 'yyyy-mm-dd hh:ii:00',
+    autoclose : true,
+    startView : 4,
+    minView : 0,
+    minuteStep: 1
+}).on('changeDate',function(ev){
+    var datetimepicker=travel_start_time.val();
+    console.log(datetimepicker);
+});
+
+travel_end_time.datetimepicker({
+    format : 'yyyy-mm-dd hh:ii:00',
+    autoclose : true,
+    startView : 4,
+    minView : 0,
+    minuteStep: 1
+}).on('changeDate',function(ev){
+    var datetimepicker=travel_end_time.val();
+    console.log(datetimepicker);
+});
+
+travel_start_time.datetimepicker('setDate',new Date());
+travel_end_time.datetimepicker('setDate',new Date());

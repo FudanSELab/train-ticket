@@ -88,6 +88,7 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
         alert(des);
     }
 
+    getOptionsData();
     //Add new order
     $scope.addNewOrder = function () {
         $('#add_prompt').modal({
@@ -99,20 +100,20 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
                     headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
                     withCredentials: true,
                     data: {
-                        boughtDate: $scope.add_order_bought_date,
-                        travelDate: $scope.add_order_travel_date,
-                        travelTime: $scope.add_order_travel_time,
-                        accountId: $scope.add_order_account,
-                        contactsName: $scope.add_order_passenger,
-                        documentType: $scope.add_order_document_type,
+                        boughtDate: $('#add_order_bought_date').val(),
+                        travelDate: $('#add_order_travel_date').val(),
+                        travelTime:  $('#add_order_travel_time').val(),
+                        accountId: $('#add_order_account').find("option:selected").val(),
+                        contactsName: $('#add_order_passenger').find("option:selected").val(),
+                        documentType: $('#add_order_document_type').find("option:selected").val(),
                         contactsDocumentNumber: $scope.add_order_document_number,
-                        trainNumber: $scope.add_order_train_number,
+                        trainNumber: $('#add_order_train_number').find("option:selected").val(),
                         coachNumber: $scope.add_order_coach_number,
-                        seatClass: $scope.add_order_seat_class,
+                        seatClass: $('#add_order_seat_class').find("option:selected").val(),
                         seatNumber: $scope.add_order_seat_number,
                         from: $scope.add_order_from,
                         to: $scope.add_order_to,
-                        status: $scope.add_order_status,
+                        status: $('#add_order_status').find("option:selected").val(),
                         price: $scope.add_order_price
                     }
                 }).success(function (data, status, headers, config) {
@@ -227,3 +228,181 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
         });
     }
 });
+
+var bought_date_selector=$("#add_order_bought_date")
+var travel_date_selector=$("#add_order_travel_date")
+var travel_time_selector=$("#add_order_travel_time")
+
+
+
+bought_date_selector.datetimepicker({
+    format : 'yyyy-mm-dd hh:ii:00', // 展现格式
+    autoclose : true, // 选择日期后关闭
+    // 选择器打开之后首先显示的视图
+    // 0表示分钟(默认),1表示小时,2表示天,3表示月,4表示年
+    startView : 4,
+    // 选择器所能够提供的最精确的时间选择视图
+    // 0表示分钟(默认),1表示小时,2表示天,3表示月,4表示年
+    minView : 0,
+    minuteStep: 1
+}).on('changeDate',function(ev){
+    var datetimepicker=bought_date_selector.val();
+    console.log(datetimepicker);
+});
+travel_date_selector.datetimepicker({
+    format : 'yyyy-mm-dd hh:ii:00',
+    autoclose : true,
+    startView : 4,
+    minView : 0,
+    minuteStep: 1
+}).on('changeDate',function(ev){
+    var datetimepicker=travel_date_selector.val();
+    console.log(datetimepicker);
+});
+travel_time_selector.datetimepicker({
+    format : 'yyyy-mm-dd hh:ii:00',
+    autoclose : true,
+    startView : 4,
+    minView : 0,
+    minuteStep: 1
+}).on('changeDate',function(ev){
+    var datetimepicker=travel_time_selector.val();
+    console.log(datetimepicker);
+});
+
+bought_date_selector.datetimepicker('setDate',new Date());
+travel_date_selector.datetimepicker('setDate',new Date());
+travel_time_selector.datetimepicker('setDate',new Date());
+
+
+/**
+ * get options data
+ */
+
+
+function getOptionsData(){
+    getUserList();
+    getTravelOptions();
+}
+
+
+function getUserList(){
+    $.ajax({
+        type: "get",
+        url: "/api/v1/userservice/users",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            if (result.status == 1) {
+                var obj = result.data;
+                var types = document.getElementById("add_order_account");
+                //use data to build options
+                for (var i = 0, l = obj.length; i < l; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = obj[i]["userId"];
+                    opt.innerText = obj[i]["userName"];
+                    types.appendChild(opt);
+                }
+            } else {
+                alert(result.msg);
+            }
+        }, error: function (e) {
+            var message = e.responseJSON.message;
+            console.log(message);
+            if (message.indexOf("Token") != -1) {
+                alert("Token is expired! please login first!");
+            }
+        },
+        complete: function () {
+
+        }
+    });
+}
+
+$("#add_order_account").on('change',function (){
+    var e=document.getElementById("add_order_passenger");
+    e.options.length=0;
+    e.style.visibility="hidden";
+    getContactOptions();
+})
+
+function getContactOptions(){
+    var accountId=$('#add_order_account').find("option:selected").val();
+    $.ajax({
+        type: "get",
+        url: "/api/v1/contactservice/contacts/account/"+accountId,
+        contentType: "application/json",
+        dataType: "json",
+        headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            if (result.status == 1) {
+                var obj = result.data;
+                var types = document.getElementById("add_order_passenger");
+                //display passenger options
+                types.style.visibility="visible"
+                //use data to build options
+                for (var i = 0, l = obj.length; i < l; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = obj[i]["id"];
+                    opt.innerText = obj[i]["name"];
+                    types.appendChild(opt);
+                }
+            } else {
+                alert(result.msg);
+            }
+        }, error: function (e) {
+            var message = e.responseJSON.message;
+            console.log(message);
+            if (message.indexOf("Token") != -1) {
+                alert("Token is expired! please login first!");
+            }
+        },
+        complete: function () {
+
+        }
+    });
+}
+
+function getTravelOptions(){
+    $.ajax({
+        type: "get",
+        url: "/api/v1/admintravelservice/admintravel",
+        contentType: "application/json",
+        dataType: "json",
+        headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
+        xhrFields: {
+            withCredentials: true
+        },
+        success: function (result) {
+            if (result.status == 1) {
+                var obj = result.data;
+                var types = document.getElementById("add_order_train_number");
+                //use data to build options
+                for (var i = 0, l = obj.length; i < l; i++) {
+                    var opt = document.createElement("option");
+                    opt.value = obj[i]["trip"]["tripId"]["type"]+obj[i]["trip"]["tripId"]["number"];
+                    opt.innerText = obj[i]["trip"]["tripId"]["type"]+obj[i]["trip"]["tripId"]["number"];
+                    types.appendChild(opt);
+                }
+            } else {
+                alert(result.msg);
+            }
+        }, error: function (e) {
+            var message = e.responseJSON.message;
+            console.log(message);
+            if (message.indexOf("Token") != -1) {
+                alert("Token is expired! please login first!");
+            }
+        },
+        complete: function () {
+
+        }
+    });
+}

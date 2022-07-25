@@ -103,7 +103,7 @@ public class RouteServiceImplTest {
         ArrayList<Route> routes = new ArrayList<>();
         routes.add(route);
         Mockito.when(routeRepository.findAll()).thenReturn(routes);
-        Response result = routeServiceImpl.getRouteByStartAndTerminal("shanghai", "nanjing", headers);
+        Response result = routeServiceImpl.getRouteByStartAndEnd("shanghai", "nanjing", headers);
         Assert.assertEquals("Success", result.getMsg());
     }
 
@@ -111,7 +111,7 @@ public class RouteServiceImplTest {
     public void testGetRouteByStartAndTerminal2() {
         ArrayList<Route> routes = new ArrayList<>();
         Mockito.when(routeRepository.findAll()).thenReturn(routes);
-        Response result = routeServiceImpl.getRouteByStartAndTerminal("shanghai", "nanjing", headers);
+        Response result = routeServiceImpl.getRouteByStartAndEnd("shanghai", "nanjing", headers);
         Assert.assertEquals("No routes with the startId and terminalId", result.getMsg());
     }
 

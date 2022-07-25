@@ -39,7 +39,7 @@ public class RoutePlanServiceImplTest {
 
     @Test
     public void testSearchCheapestResult() {
-        RoutePlanInfo info = new RoutePlanInfo("form_station", "to_station", new Date(), 1);
+        RoutePlanInfo info = new RoutePlanInfo("form_station", "to_station", "", 1);
         //mock getTripFromHighSpeedTravelServive() and getTripFromNormalTrainTravelService()
         ArrayList<TripResponse> tripResponses = new ArrayList<>();
         Response<ArrayList<TripResponse>> response1 = new Response<>(null, null, tripResponses);
@@ -56,7 +56,7 @@ public class RoutePlanServiceImplTest {
 
     @Test
     public void testSearchQuickestResult() {
-        RoutePlanInfo info = new RoutePlanInfo("form_station", "to_station", new Date(), 1);
+        RoutePlanInfo info = new RoutePlanInfo("form_station", "to_station", "", 1);
         //mock getTripFromHighSpeedTravelServive() and getTripFromNormalTrainTravelService()
         ArrayList<TripResponse> tripResponses = new ArrayList<>();
         Response<ArrayList<TripResponse>> response1 = new Response<>(null, null, tripResponses);
@@ -73,7 +73,7 @@ public class RoutePlanServiceImplTest {
 
     @Test
     public void testSearchMinStopStations() {
-        RoutePlanInfo info = new RoutePlanInfo("form_station", "to_station", new Date(), 1);
+        RoutePlanInfo info = new RoutePlanInfo("form_station", "to_station", "", 1);
 
         Response<String> response = new Response(null, null, "");
         ResponseEntity<Response<String>> re = new ResponseEntity<>(response, HttpStatus.OK);

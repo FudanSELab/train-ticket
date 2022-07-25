@@ -38,7 +38,7 @@ public class TravelPlanServiceImplTest {
 
     @Test
     public void testGetTransferSearch() {
-        TransferTravelInfo info = new TransferTravelInfo("from_station", "", "to_station", new Date(), "G");
+        TransferTravelInfo info = new TransferTravelInfo("from_station", "", "to_station", "", "G");
 
         //mock tripsFromHighSpeed() and tripsFromNormal()
         List<TripResponse> tripResponseList = new ArrayList<>();
@@ -56,7 +56,7 @@ public class TravelPlanServiceImplTest {
 
     @Test
     public void testGetCheapest() {
-        TripInfo info = new TripInfo("start_station", "end_station", new Date());
+        TripInfo info = new TripInfo("start_station", "end_station", "");
 
         //response for getRoutePlanResultCheapest()
         RoutePlanResultUnit rpru = new RoutePlanResultUnit("trip_id", "type_id", "from_station", "to_station", new ArrayList<>(), "1.0", "2.0", new Date(), new Date());
@@ -92,7 +92,7 @@ public class TravelPlanServiceImplTest {
 
     @Test
     public void testGetQuickest() {
-        TripInfo info = new TripInfo("start_station", "end_station", new Date());
+        TripInfo info = new TripInfo("start_station", "end_station", "");
 
         //response for getRoutePlanResultQuickest()
         RoutePlanResultUnit rpru = new RoutePlanResultUnit("trip_id", "type_id", "from_station", "to_station", new ArrayList<>(), "1.0", "2.0", new Date(), new Date());
@@ -128,7 +128,7 @@ public class TravelPlanServiceImplTest {
 
     @Test
     public void testGetMinStation() {
-        TripInfo info = new TripInfo("start_station", "end_station", new Date());
+        TripInfo info = new TripInfo("start_station", "end_station", "");
 
         //response for getRoutePlanResultMinStation()
         RoutePlanResultUnit rpru = new RoutePlanResultUnit("trip_id", "type_id", "from_station", "to_station", new ArrayList<>(), "1.0", "2.0", new Date(), new Date());

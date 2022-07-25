@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -102,14 +100,15 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public Response queryForIdBatch(List<String> nameList, HttpHeaders headers) {
-        ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < nameList.size(); i++) {
-            Station station = repository.findByName(nameList.get(i));
-            if (station == null) {
-                result.add("Not Exist");
-            } else {
-                result.add(station.getId());
-            }
+        Map<String, String> result = new HashMap<>();
+        List<Station> stations = repository.findByNames(nameList);
+        Map<String, String> stationMap = new HashMap<>();
+        for(Station s: stations) {
+            stationMap.put(s.getName(), s.getId());
+        }
+
+        for(String name: nameList){
+            result.put(name, stationMap.get(name));
         }
 
         if (!result.isEmpty()) {

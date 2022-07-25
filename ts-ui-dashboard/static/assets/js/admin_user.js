@@ -103,9 +103,9 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
                     data: {
                         userName: $scope.add_user_name,
                         password: $scope.add_user_password,
-                        gender: $scope.add_user_gender,
+                        gender: $('#add_user_gender').find("option:selected").val(),
                         email: $scope.add_user_email,
-                        documentType: $scope.add_user_document_type,
+                        documentType: $('#add_user_document_type').find("option:selected").val(),
                         documentNum: $scope.add_user_document_number
                     }
                 }).success(function (data, status, headers, config) {

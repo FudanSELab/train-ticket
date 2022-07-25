@@ -15,9 +15,9 @@ public class TravelAdvanceResultUnit {
 
     private String trainTypeId;
 
-    private String fromStationName;
+    private String startStation;
 
-    private String toStationName;
+    private String endStation;
 
     private List<String> stopStations;
 

@@ -113,7 +113,7 @@ public class Travel2Controller {
             return ok(errorList);
         }
         Travel2Controller.LOGGER.info("[query][Query TripResponse]");
-        return ok(service.query(info, headers));
+        return ok(service.queryByBatch(info, headers));
     }
 
     /**
