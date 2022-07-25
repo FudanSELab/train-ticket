@@ -99,7 +99,7 @@ public class AdminBasicInfoControllerTest {
     @Test
     public void testDeleteStation() throws Exception {
         Station s = new Station();
-        Mockito.when(adminBasicInfoService.deleteStation(Mockito.any(Station.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
+        Mockito.when(adminBasicInfoService.deleteStation(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(s);
         String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/adminbasicservice/adminbasic/stations").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -221,7 +221,7 @@ public class AdminBasicInfoControllerTest {
     @Test
     public void testDeletePrice() throws Exception {
         PriceInfo pi = new PriceInfo();
-        Mockito.when(adminBasicInfoService.deletePrice(Mockito.any(PriceInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
+        Mockito.when(adminBasicInfoService.deletePrice(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(pi);
         String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/adminbasicservice/adminbasic/prices").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())

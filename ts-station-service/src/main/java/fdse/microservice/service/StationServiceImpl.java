@@ -65,14 +65,14 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public Response delete(Station info, HttpHeaders headers) {
-        Optional<Station> op = repository.findById(info.getId());
+    public Response delete(String stationsId, HttpHeaders headers) {
+        Optional<Station> op = repository.findById(stationsId);
         if (op.isPresent()) {
             Station station = op.get();
             repository.delete(station);
             return new Response<>(1, "Delete success", station);
         }
-        StationServiceImpl.LOGGER.error("[delete][Delete station error][Station not found][StationId: {}]",info.getId());
+        StationServiceImpl.LOGGER.error("[delete][Delete station error][Station not found][StationId: {}]",stationsId);
         return new Response<>(0, "Station not exist", null);
     }
 

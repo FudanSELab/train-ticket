@@ -80,7 +80,7 @@ public class StationControllerTest {
     @Test
     public void testDelete() throws Exception {
         Station station = new Station();
-        Mockito.when(stationService.delete(Mockito.any(Station.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
+        Mockito.when(stationService.delete(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(station);
         String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/stationservice/stations").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())

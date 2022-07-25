@@ -14,7 +14,7 @@ public interface StationService {
 
     Response update(Station info, HttpHeaders headers);
 
-    Response delete(Station info, HttpHeaders headers);
+    Response delete(String stationsId, HttpHeaders headers);
 
     Response query(HttpHeaders headers);
 

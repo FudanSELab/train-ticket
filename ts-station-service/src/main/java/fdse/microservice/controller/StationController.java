@@ -47,10 +47,10 @@ public class StationController {
         return ok(stationService.update(station, headers));
     }
 
-    @DeleteMapping(value = "/stations")
-    public ResponseEntity<Response> delete(@RequestBody Station station, @RequestHeader HttpHeaders headers) {
-        StationController.LOGGER.info("[delete][Delete station][StationId: {}]",station.getId());
-        return ok(stationService.delete(station, headers));
+    @DeleteMapping(value = "/stations/{stationsId}")
+    public ResponseEntity<Response> delete(@PathVariable String stationsId, @RequestHeader HttpHeaders headers) {
+        StationController.LOGGER.info("[delete][Delete station][StationId: {}]",stationsId);
+        return ok(stationService.delete(stationsId, headers));
     }
 
 

@@ -115,7 +115,7 @@ public class AdminBasicInfoServiceImplTest {
                 HttpMethod.DELETE,
                 requestEntity,
                 Response.class)).thenReturn(re);
-        response = adminBasicInfoService.deleteStation(s, headers);
+        response = adminBasicInfoService.deleteStation(s.getId(), headers);
         Assert.assertEquals(new Response<>(null, null, null), response);
     }
 
@@ -261,7 +261,7 @@ public class AdminBasicInfoServiceImplTest {
                 HttpMethod.DELETE,
                 requestEntity,
                 Response.class)).thenReturn(re);
-        response = adminBasicInfoService.deletePrice(pi, headers);
+        response = adminBasicInfoService.deletePrice(pi.getId(), headers);
         Assert.assertEquals(new Response<>(null, null, null), response);
     }
 

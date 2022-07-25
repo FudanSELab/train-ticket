@@ -93,7 +93,7 @@ public class PriceServiceImplTest {
     public void testDeletePriceConfig1() {
         PriceConfig c = new PriceConfig();
         Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString())).thenReturn(null);
-        Response result = priceServiceImpl.deletePriceConfig(c, headers);
+        Response result = priceServiceImpl.deletePriceConfig(c.getId(), headers);
         Assert.assertEquals(new Response<>(0, "No that config", null), result);
     }
 
@@ -102,7 +102,7 @@ public class PriceServiceImplTest {
         PriceConfig c = new PriceConfig();
         Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString()).get()).thenReturn(c);
         Mockito.doNothing().doThrow(new RuntimeException()).when(priceConfigRepository).delete(Mockito.any(PriceConfig.class));
-        Response result = priceServiceImpl.deletePriceConfig(c, headers);
+        Response result = priceServiceImpl.deletePriceConfig(c.getId(), headers);
         Assert.assertEquals(new Response<>(1, "Delete success", c), result);
     }
 

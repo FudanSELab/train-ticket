@@ -11,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class UserDto {
+    private String accountId;
 
     private String userName;
 

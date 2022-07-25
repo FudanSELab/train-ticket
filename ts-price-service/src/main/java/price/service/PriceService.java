@@ -19,7 +19,7 @@ public interface PriceService {
 
     Response findAllPriceConfig(HttpHeaders headers);
 
-    Response deletePriceConfig(PriceConfig c, HttpHeaders headers);
+    Response deletePriceConfig(String pcId, HttpHeaders headers);
 
     Response updatePriceConfig(PriceConfig c, HttpHeaders headers);
 

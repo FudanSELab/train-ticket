@@ -61,7 +61,7 @@ public class AdminUserServiceImpl implements AdminUserService {
     public Response deleteUser(String userId, HttpHeaders headers) {
         HttpHeaders newHeaders = new HttpHeaders();
         String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
-        newHeaders.set("AUTHORIZATION", token);
+        newHeaders.set(HttpHeaders.AUTHORIZATION, token);
 
         HttpEntity<Response> requestEntity = new HttpEntity<>(newHeaders);
 
@@ -83,7 +83,12 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public Response updateUser(UserDto userDto, HttpHeaders headers) {
         LOGGER.info("UPDATE USER: " + userDto.toString());
-        HttpEntity requestEntity = new HttpEntity(userDto, null);
+
+        HttpHeaders newHeaders = new HttpHeaders();
+        String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
+        newHeaders.set(HttpHeaders.AUTHORIZATION, token);
+
+        HttpEntity requestEntity = new HttpEntity(userDto, newHeaders);
         String user_service_url = getServiceUrl("ts-user-service");
         String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
         ResponseEntity<Response> re = restTemplate.exchange(

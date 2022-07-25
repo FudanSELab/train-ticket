@@ -10,6 +10,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import user.dto.AuthDto;
 import user.dto.UserDto;
@@ -129,6 +130,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Response deleteUser(String userId, HttpHeaders headers) {
         LOGGER.info("[deleteUser][DELETE USER BY ID][userId: {}]", userId);
         User user = userRepository.findByUserId(userId);
@@ -146,6 +148,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Response updateUser(UserDto userDto, HttpHeaders headers) {
         LOGGER.info("[updateUser][UPDATE USER: {}]", userDto.toString());
         User oldUser = userRepository.findByUserName(userDto.getUserName());
@@ -171,7 +174,7 @@ public class UserServiceImpl implements UserService {
 
         HttpHeaders newHeaders = new HttpHeaders();
         String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
-        newHeaders.set("AUTHORIZATION", token);
+        newHeaders.set(HttpHeaders.AUTHORIZATION, token);
 
         HttpEntity<Response> httpEntity = new HttpEntity<>(newHeaders);
 

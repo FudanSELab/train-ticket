@@ -75,7 +75,7 @@ public class PriceControllerTest {
     @Test
     public void testDelete() throws Exception {
         PriceConfig info = new PriceConfig();
-        Mockito.when(service.deletePriceConfig(Mockito.any(PriceConfig.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
+        Mockito.when(service.deletePriceConfig(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(info);
         String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/priceservice/prices").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())

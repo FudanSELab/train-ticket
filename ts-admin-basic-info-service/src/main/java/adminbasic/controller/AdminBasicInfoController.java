@@ -67,10 +67,10 @@ public class AdminBasicInfoController {
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping(path = "/adminbasic/stations")
-    public HttpEntity deleteStation(@RequestBody Station s, @RequestHeader HttpHeaders headers) {
-        AdminBasicInfoController.LOGGER.info("[deleteStation][Delete Station by admin][Station id: {}]", s.getId());
-        return ok(adminBasicInfoService.deleteStation(s, headers));
+    @DeleteMapping(path = "/adminbasic/stations/{id}")
+    public HttpEntity deleteStation(@PathVariable String id, @RequestHeader HttpHeaders headers) {
+        AdminBasicInfoController.LOGGER.info("[deleteStation][Delete Station by admin][Station id: {}]", id);
+        return ok(adminBasicInfoService.deleteStation(id, headers));
     }
 
     @CrossOrigin(origins = "*")
@@ -151,10 +151,10 @@ public class AdminBasicInfoController {
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping(path = "/adminbasic/prices")
-    public HttpEntity deletePrice(@RequestBody PriceInfo pi, @RequestHeader HttpHeaders headers) {
-        AdminBasicInfoController.LOGGER.info("[deletePrice][Delete Price by admin][PriceInfo id: {}]", pi.getId());
-        return ok(adminBasicInfoService.deletePrice(pi, headers));
+    @DeleteMapping(path = "/adminbasic/prices/{pricesId}")
+    public HttpEntity deletePrice(@PathVariable String pricesId, @RequestHeader HttpHeaders headers) {
+        AdminBasicInfoController.LOGGER.info("[deletePrice][Delete Price by admin][PriceInfo id: {}]", pricesId);
+        return ok(adminBasicInfoService.deletePrice(pricesId, headers));
     }
 
     @CrossOrigin(origins = "*")

@@ -101,18 +101,13 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public Response deletePriceConfig(PriceConfig c, HttpHeaders headers) {
-        Optional<PriceConfig> op = priceConfigRepository.findById(c.getId());
+    public Response deletePriceConfig(String pcId, HttpHeaders headers) {
+        Optional<PriceConfig> op = priceConfigRepository.findById(pcId);
         if (!op.isPresent()) {
-            PriceServiceImpl.LOGGER.error("[deletePriceConfig][Delete price config error][Price config not found][PriceConfigId: {}]",c.getId());
+            PriceServiceImpl.LOGGER.error("[deletePriceConfig][Delete price config error][Price config not found][PriceConfigId: {}]",pcId);
             return new Response<>(0, noThatConfig, null);
         } else {
-            PriceConfig pc = new PriceConfig();
-            pc.setId(c.getId());
-            pc.setRouteId(c.getRouteId());
-            pc.setTrainType(c.getTrainType());
-            pc.setBasicPriceRate(c.getBasicPriceRate());
-            pc.setFirstClassPriceRate(c.getFirstClassPriceRate());
+            PriceConfig pc = op.get();
             priceConfigRepository.delete(pc);
             return new Response<>(1, "Delete success", pc);
         }

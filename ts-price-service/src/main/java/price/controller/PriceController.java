@@ -49,10 +49,10 @@ public class PriceController {
         return new ResponseEntity<>(service.createNewPriceConfig(info, headers), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/prices")
-    public HttpEntity delete(@RequestBody PriceConfig info, @RequestHeader HttpHeaders headers) {
-        PriceController.LOGGER.info("[deletePriceConfig][Delete price][PriceConfigId: {}]",info.getId());
-        return ok(service.deletePriceConfig(info, headers));
+    @DeleteMapping(value = "/prices/{pricesId}")
+    public HttpEntity delete(@PathVariable String pricesId, @RequestHeader HttpHeaders headers) {
+        PriceController.LOGGER.info("[deletePriceConfig][Delete price][PriceConfigId: {}]",pricesId);
+        return ok(service.deletePriceConfig(pricesId, headers));
     }
 
     @PutMapping(value = "/prices")

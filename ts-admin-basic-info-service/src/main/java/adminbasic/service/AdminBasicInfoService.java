@@ -71,11 +71,11 @@ public interface AdminBasicInfoService {
     /**
      * delete station with station information
      *
-     * @param s station information
+     * @param id station id
      * @param headers headers
      * @return Response
      */
-    Response deleteStation(Station s, HttpHeaders headers);
+    Response deleteStation(String id, HttpHeaders headers);
 
     /**
      * modify station with station information
@@ -182,11 +182,11 @@ public interface AdminBasicInfoService {
     /**
      * delete price with price info
      *
-     * @param pi price info
+     * @param pricesId price config id
      * @param headers headers
      * @return Response
      */
-    Response deletePrice(PriceInfo pi, HttpHeaders headers);
+    Response deletePrice(String pricesId, HttpHeaders headers);
 
     /**
      * modify price with price info

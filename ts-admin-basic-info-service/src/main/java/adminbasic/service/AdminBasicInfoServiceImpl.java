@@ -129,19 +129,18 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService {
     }
 
     @Override
-    public Response deleteStation(Station s, HttpHeaders headers) {
+    public Response deleteStation(String id, HttpHeaders headers) {
         Response result;
-        HttpEntity requestEntity = new HttpEntity(s, headers);
+        HttpEntity requestEntity = new HttpEntity(headers);
         String station_service_url = getServiceUrl("ts-station-service");
-        String stations = station_service_url + "/api/v1/stationservice/stations";
+        String path = station_service_url + "/api/v1/stationservice/stations/" + id;
         ResponseEntity<Response> re = restTemplate.exchange(
-                stations,
+                path,
                 HttpMethod.DELETE,
                 requestEntity,
                 Response.class);
         result = re.getBody();
         return result;
-
     }
 
     @Override
@@ -301,18 +300,17 @@ public class AdminBasicInfoServiceImpl implements AdminBasicInfoService {
     }
 
     @Override
-    public Response deletePrice(PriceInfo pi, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(pi, headers);
+    public Response deletePrice(String pricesId, HttpHeaders headers) {
+        HttpEntity requestEntity = new HttpEntity(headers);
         String price_service_url = getServiceUrl("ts-price-service");
-        String prices = price_service_url + "/api/v1/priceservice/prices";
+        String path = price_service_url + "/api/v1/priceservice/prices/" + pricesId;
         ResponseEntity<Response> re = restTemplate.exchange(
-                prices,
+                path,
                 HttpMethod.DELETE,
                 requestEntity,
                 Response.class);
 
         return re.getBody();
-
     }
 
     @Override
