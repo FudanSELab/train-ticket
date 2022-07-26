@@ -1,0 +1,475 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-admin-basic-info-service
+spec:
+  ports:
+    - name: http
+      port: 18767
+  selector:
+    app: ts-admin-basic-info-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-admin-order-service
+spec:
+  ports:
+    - name: http
+      port: 16112
+  selector:
+    app: ts-admin-order-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-admin-route-service
+spec:
+  ports:
+    - name: http
+      port: 16113
+  selector:
+    app: ts-admin-route-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-admin-travel-service
+spec:
+  ports:
+    - name: http
+      port: 16114
+  selector:
+    app: ts-admin-travel-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-admin-user-service
+spec:
+  ports:
+    - name: http
+      port: 16115
+  selector:
+    app: ts-admin-user-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-assurance-service
+spec:
+  ports:
+    - name: http
+      port: 18888
+  selector:
+    app: ts-assurance-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-auth-service
+spec:
+  ports:
+    - name: http
+      port: 12340
+  selector:
+    app: ts-auth-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-avatar-service
+spec:
+  ports:
+    - name: http
+      port: 17001
+  selector:
+    app: ts-avatar-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-basic-service
+spec:
+  ports:
+    - name: http
+      port: 15680
+  selector:
+    app: ts-basic-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-cancel-service
+spec:
+  ports:
+    - name: http
+      port: 18885
+  selector:
+    app: ts-cancel-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-config-service
+spec:
+  ports:
+    - name: http
+      port: 15679
+  selector:
+    app: ts-config-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-consign-price-service
+spec:
+  ports:
+    - name: http
+      port: 16110
+  selector:
+    app: ts-consign-price-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-consign-service
+spec:
+  ports:
+    - name: http
+      port: 16111
+  selector:
+    app: ts-consign-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-contacts-service
+spec:
+  ports:
+    - name: http
+      port: 12347
+  selector:
+    app: ts-contacts-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-delivery-service
+spec:
+  ports:
+    - name: http
+      port: 18808
+  selector:
+    app: ts-delivery-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-execute-service
+spec:
+  ports:
+    - name: http
+      port: 12386
+  selector:
+    app: ts-execute-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-food-service
+spec:
+  ports:
+    - name: http
+      port: 18856
+  selector:
+    app: ts-food-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-gateway-service
+spec:
+  ports:
+    - name: http
+      port: 18888
+      nodePort: 30467
+  selector:
+    app: ts-gateway-service
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-inside-payment-service
+spec:
+  ports:
+    - name: http
+      port: 18673
+  selector:
+    app: ts-inside-payment-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-news-service
+spec:
+  ports:
+    - name: http
+      port: 12862
+  selector:
+    app: ts-news-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-notification-service
+spec:
+  ports:
+    - name: http
+      port: 17853
+  selector:
+    app: ts-notification-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-order-other-service
+spec:
+  ports:
+    - name: http
+      port: 12032
+  selector:
+    app: ts-order-other-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-order-service
+spec:
+  ports:
+    - name: http
+      port: 12031
+  selector:
+    app: ts-order-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-payment-service
+spec:
+  ports:
+    - name: http
+      port: 19001
+  selector:
+    app: ts-payment-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-preserve-other-service
+spec:
+  ports:
+    - name: http
+      port: 14569
+  selector:
+    app: ts-preserve-other-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-preserve-service
+spec:
+  ports:
+    - name: http
+      port: 14568
+  selector:
+    app: ts-preserve-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-price-service
+spec:
+  ports:
+    - name: http
+      port: 16579
+  selector:
+    app: ts-price-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-rebook-service
+spec:
+  ports:
+    - name: http
+      port: 18886
+  selector:
+    app: ts-rebook-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-route-plan-service
+spec:
+  ports:
+    - name: http
+      port: 14578
+  selector:
+    app: ts-route-plan-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-route-service
+spec:
+  ports:
+    - name: http
+      port: 11178
+  selector:
+    app: ts-route-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-seat-service
+spec:
+  ports:
+    - name: http
+      port: 18898
+  selector:
+    app: ts-seat-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-security-service
+spec:
+  ports:
+    - name: http
+      port: 11188
+  selector:
+    app: ts-security-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-station-food-service
+spec:
+  ports:
+    - name: http
+      port: 18855
+  selector:
+    app: ts-station-food-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-station-service
+spec:
+  ports:
+    - name: http
+      port: 12345
+  selector:
+    app: ts-station-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-ticket-office-service
+spec:
+  ports:
+    - name: http
+      port: 16108
+  selector:
+    app: ts-ticket-office-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-train-food-service
+spec:
+  ports:
+    - name: http
+      port: 19999
+  selector:
+    app: ts-train-food-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-train-service
+spec:
+  ports:
+    - name: http
+      port: 14567
+  selector:
+    app: ts-train-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-travel-plan-service
+spec:
+  ports:
+    - name: http
+      port: 14322
+  selector:
+    app: ts-travel-plan-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-travel-service
+spec:
+  ports:
+    - name: http
+      port: 12346
+  selector:
+    app: ts-travel-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-travel2-service
+spec:
+  ports:
+    - name: http
+      port: 16346
+  selector:
+    app: ts-travel2-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-user-service
+spec:
+  ports:
+    - name: http
+      port: 12342
+  selector:
+    app: ts-user-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-verification-code-service
+spec:
+  ports:
+    - name: http
+      port: 15678
+  selector:
+    app: ts-verification-code-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-voucher-service
+spec:
+  ports:
+    - name: http
+      port: 16101
+  selector:
+    app: ts-voucher-service
+---

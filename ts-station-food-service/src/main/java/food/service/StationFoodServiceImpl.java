@@ -33,8 +33,12 @@ public class StationFoodServiceImpl implements StationFoodService {
             StationFoodServiceImpl.LOGGER.error("[Init FoodStore] Already Exists Id: {}", fs.getId());
             return new Response<>(0, "Already Exists Id", null);
         } else {
-            stationFoodRepository.save(fs);
-            return new Response<>(1, "Save Success", fs);
+            try{
+                stationFoodRepository.save(fs);
+                return new Response<>(1, "Save Success", fs);
+            }catch(Exception e){
+                return new Response<>(0, "Save failed", e.getMessage());
+            }
         }
     }
 
@@ -72,12 +76,12 @@ public class StationFoodServiceImpl implements StationFoodService {
 //    }
 
     @Override
-    public Response listFoodStoresByStationId(String stationId, HttpHeaders headers) {
-        List<StationFoodStore> stationFoodStoreList = stationFoodRepository.findByStationId(stationId);
+    public Response listFoodStoresByStationName(String stationName, HttpHeaders headers) {
+        List<StationFoodStore> stationFoodStoreList = stationFoodRepository.findByStationName(stationName);
         if (stationFoodStoreList != null && !stationFoodStoreList.isEmpty()) {
             return new Response<>(1, success, stationFoodStoreList);
         } else {
-            StationFoodServiceImpl.LOGGER.error("List food stores by station id error: {}, stationId: {}", "Food store is empty", stationId);
+            StationFoodServiceImpl.LOGGER.error("List food stores by station id error: {}, stationName: {}", "Food store is empty", stationName);
             return new Response<>(0, "Food store is empty", null);
         }
     }
@@ -94,12 +98,12 @@ public class StationFoodServiceImpl implements StationFoodService {
 //    }
 
     @Override
-    public Response getFoodStoresByStationIds(List<String> stationIds) {
-        List<StationFoodStore> stationFoodStoreList = stationFoodRepository.findByStationIdIn(stationIds);
+    public Response getFoodStoresByStationNames(List<String> stationNames) {
+        List<StationFoodStore> stationFoodStoreList = stationFoodRepository.findByStationNameIn(stationNames);
         if (stationFoodStoreList != null) {
             return new Response<>(1, success, stationFoodStoreList);
         } else {
-            StationFoodServiceImpl.LOGGER.error("List food stores by station ids error: {}, stationId list: {}", "Food store is empty", stationIds);
+            StationFoodServiceImpl.LOGGER.error("List food stores by station ids error: {}, stationName list: {}", "Food store is empty", stationNames);
             return new Response<>(0, noContent, null);
         }
     }

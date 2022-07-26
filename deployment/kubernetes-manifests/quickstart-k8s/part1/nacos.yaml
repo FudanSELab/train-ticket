@@ -1,0 +1,130 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nacos-mysql
+type: Opaque
+stringData:
+  MYSQL_SERVICE_HOST: "nacos-rdb-leader"
+  MYSQL_SERVICE_PORT: "3306"
+  MYSQL_SERVICE_DB_NAME: "nacos"
+  MYSQL_SERVICE_USER: "nacos"
+  MYSQL_SERVICE_PASSWORD: "Abcd1234#"
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nacos
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: nacos
+  serviceName: nacos-headless
+  template:
+    metadata:
+      labels:
+        app: nacos
+    spec:
+      initContainers:
+      - name: initmysql
+        image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/mysqlclient:0.1
+        imagePullPolicy: IfNotPresent
+        envFrom:
+          - secretRef:
+              name: nacos-mysql
+      containers:
+      - name: k8snacos
+        env:
+        - name: NACOS_REPLICAS
+          value: "3"
+        - name: NACOS_SERVER_PORT
+          value: "8848"
+        - name: NACOS_APPLICATION_PORT
+          value: "8848"
+        - name: PREFER_HOST_MODE
+          value: hostname
+        - name: MODE
+          value: cluster
+        - name: NACOS_SERVERS
+          value: "nacos-0.nacos-headless.default.svc.cluster.local:8848 nacos-1.nacos-headless.default.svc.cluster.local:8848 nacos-2.nacos-headless.default.svc.cluster.local:8848"
+        envFrom:
+          - secretRef:
+              name: nacos-mysql
+        image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/nacos-server:2.0.1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8848
+          name: client
+          protocol: TCP
+        - containerPort: 7848
+          name: old-rpc
+          protocol: TCP
+        - containerPort: 9848
+          name: client-rpc
+          protocol: TCP
+        - containerPort: 9849
+          name: raft-rpc
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2000Mi
+          requests:
+            cpu: 400m
+            memory: 500Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nacos-server
+  labels:
+    app: nacos-headless
+spec:
+  ports:
+    - port: 8848
+      name: server
+      targetPort: 8848
+    - port: 7848
+      name: rpc
+      targetPort: 7848
+  selector:
+    app: nacos
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nacos-headless
+  labels:
+    app: nacos-headless
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - port: 8848
+      name: server
+      targetPort: 8848
+    - port: 7848
+      name: old-rpc
+      targetPort: 7848
+    - port: 9848
+      name: client-rpc
+      targetPort: 9848
+    - port: 9849
+      name: raft-rpc
+      targetPort: 9849
+  selector:
+    app: nacos

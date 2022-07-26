@@ -15,6 +15,7 @@ import java.util.List;
 @GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {@Index(name = "station_store_idx", columnList = "station_name, store_name", unique = true)})
 public class StationFoodStore {
 
     @Id
@@ -22,8 +23,10 @@ public class StationFoodStore {
     private String id;
 
     @NotNull
-    private String stationId;
+    @Column(name = "station_name")
+    private String stationName;
 
+    @Column(name = "store_name")
     private String storeName;
 
     private String telephone;
@@ -33,12 +36,12 @@ public class StationFoodStore {
     private double deliveryFee;
 
     @ElementCollection(targetClass = Food.class, fetch = FetchType.EAGER)
-    @CollectionTable(joinColumns = @JoinColumn(name = "store_id"))
+    @CollectionTable(name = "station_food_list", joinColumns = @JoinColumn(name = "store_id"))
     private List<Food> foodList;
 
     public StationFoodStore(){
         //Default Constructor
-        this.stationId = "";
+        this.stationName = "";
     }
 
 }

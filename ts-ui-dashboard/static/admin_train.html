@@ -171,7 +171,7 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat=" train in trains">
-                                            <td>{{train.id}}</td>
+                                            <td>{{train.name}}</td>
                                             <td>{{train.economyClass}}</td>
                                             <td>{{train.confortClass}}</td>
                                             <td>{{train.averageSpeed}}</td>
@@ -268,14 +268,14 @@
 
     <div class="am-modal am-modal-prompt" tabindex="-1" id="add-train-table">
         <div class="am-modal-dialog">
-            <div class="am-modal-hd">Add Train</div>
+            <div class="am-modal-hd">Add Train Type</div>
             <div class="am-g">
                 <div class="am-form-group am-u-sm-5">
-                    <label>Id:</label>
+                    <label>Type:</label>
                 </div>
                 <div class="am-form-group am-u-sm-7">
-                    <input type="text" id="add-train-id" class="am-form-field am-modal-prompt-input"
-                        placeholder="Train Id">
+                    <input type="text" id="add-train-type-name" class="am-form-field am-modal-prompt-input"
+                        placeholder="Train type name">
                 </div>
             </div>
             <div class="am-g">

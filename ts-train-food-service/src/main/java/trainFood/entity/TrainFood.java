@@ -23,9 +23,11 @@ public class TrainFood {
     private String id;
 
     @NotNull
+    @Column(unique = true)
     private String tripId;
 
     @ElementCollection(targetClass = Food.class)
+    @CollectionTable(name = "train_food_list", joinColumns = @JoinColumn(name = "trip_id"))
     private List<Food> foodList;
 
     public TrainFood(){
