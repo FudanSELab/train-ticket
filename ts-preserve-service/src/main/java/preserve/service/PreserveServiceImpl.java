@@ -106,11 +106,14 @@ public class PreserveServiceImpl implements PreserveService {
         order.setTrainNumber(oti.getTripId());
         order.setAccountId(oti.getAccountId());
 
-        String fromStationId = queryForStationId(oti.getFrom(), headers);
-        String toStationId = queryForStationId(oti.getTo(), headers);
+        String fromStationName = oti.getFrom();
+        String toStationName = oti.getTo();
 
-        order.setFrom(fromStationId);
-        order.setTo(toStationId);
+        String fromStationId = queryForStationId(fromStationName, headers);
+        String toStationId = queryForStationId(toStationName, headers);
+
+        order.setFrom(fromStationName);
+        order.setTo(toStationName);
         order.setBoughtDate(new Date());
         order.setStatus(OrderStatus.NOTPAID.getCode());
         order.setContactsDocumentNumber(contacts.getDocumentNumber());

@@ -495,7 +495,7 @@ public class TravelServiceImpl implements TravelService {
         HttpEntity requestEntity = new HttpEntity(null);
         String train_service_url = getServiceUrl("ts-train-service");
         ResponseEntity<Response<TrainType>> re = restTemplate.exchange(
-                train_service_url + "/api/v1/trainservice/trains/" + trainTypeId,
+                train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<TrainType>>() {
@@ -590,7 +590,7 @@ public class TravelServiceImpl implements TravelService {
                 AdminTrip adminTrip = new AdminTrip();
                 adminTrip.setTrip(trip);
                 adminTrip.setRoute(getRouteByRouteId(trip.getRouteId(), headers));
-                adminTrip.setTrainType(getTrainType(trip.getTrainTypeName(), headers));
+                adminTrip.setTrainType(getTrainTypeByName(trip.getTrainTypeName(), headers));
                 adminTrips.add(adminTrip);
             }
         }

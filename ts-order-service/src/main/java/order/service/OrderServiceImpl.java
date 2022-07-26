@@ -190,10 +190,10 @@ public class OrderServiceImpl implements OrderService {
             stationIds.add(order.getTo());
         }
 
-        List<String> names = queryForStationId(stationIds, headers);
+        // List<String> names = queryForStationId(stationIds, headers);
         for (int i = 0; i < orders.size(); i++) {
-            orders.get(i).setFrom(names.get(i * 2));
-            orders.get(i).setTo(names.get(i * 2 + 1));
+            orders.get(i).setFrom(stationIds.get(i * 2));
+            orders.get(i).setTo(stationIds.get(i * 2 + 1));
         }
         return new Response<>(1, "Query Orders For Refresh Success", orders);
     }
