@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
+import edu.fudan.common.entity.Food;
 
 @Data
 @Entity

@@ -4,7 +4,7 @@ import edu.fudan.common.util.Response;
 import food_delivery.entity.DeliveryInfo;
 import food_delivery.entity.FoodDeliveryOrder;
 import food_delivery.entity.SeatInfo;
-import food_delivery.entity.TripInfo;
+import food_delivery.entity.TripOrderInfo;
 import org.springframework.http.HttpHeaders;
 
 public interface FoodDeliveryService {
@@ -19,7 +19,7 @@ public interface FoodDeliveryService {
 
     Response getFoodDeliveryOrderByStoreId(String storeId, HttpHeaders headers);
 
-    Response updateTripId(TripInfo tripInfo, HttpHeaders headers);
+    Response updateTripId(TripOrderInfo tripOrderInfo, HttpHeaders headers);
 
     Response updateSeatNo(SeatInfo seatInfo, HttpHeaders headers);
 

@@ -3,6 +3,7 @@ package food_delivery.service;
 
 import edu.fudan.common.util.Response;
 import food_delivery.entity.*;
+import edu.fudan.common.entity.*;
 import food_delivery.repository.FoodDeliveryOrderRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,15 +35,9 @@ public class FoodDeliveryServiceImpl implements FoodDeliveryService {
 
     @Autowired
     private DiscoveryClient discoveryClient;
-//
+
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
 
     @Override
@@ -52,7 +47,7 @@ public class FoodDeliveryServiceImpl implements FoodDeliveryService {
         String staion_food_service_url = getServiceUrl("ts-station-food-service");
 //        staion_food_service_url = "http://ts-station-food-service"; // 测试
         ResponseEntity<Response<StationFoodStoreInfo>> getStationFoodStore = restTemplate.exchange(
-                staion_food_service_url + "/api/v1/stationfoodservice/stationfoodstores/g/" + stationFoodStoreId,
+                staion_food_service_url + "/api/v1/stationfoodservice/stationfoodstores/bystoreid/" + stationFoodStoreId,
                 HttpMethod.GET,
                 new HttpEntity(headers),
                 new ParameterizedTypeReference<Response<StationFoodStoreInfo>>() {

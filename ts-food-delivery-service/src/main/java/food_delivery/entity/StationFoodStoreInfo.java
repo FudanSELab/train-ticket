@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import edu.fudan.common.entity.Food;
 
 @Data
 @NoArgsConstructor

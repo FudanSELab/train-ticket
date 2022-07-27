@@ -5,7 +5,7 @@ import edu.fudan.common.util.Response;
 import food_delivery.entity.DeliveryInfo;
 import food_delivery.entity.FoodDeliveryOrder;
 import food_delivery.entity.SeatInfo;
-import food_delivery.entity.TripInfo;
+import food_delivery.entity.TripOrderInfo;
 import food_delivery.service.FoodDeliveryService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -96,9 +96,9 @@ public class FoodDeliveryControllerTest {
 
     @Test
     public void testUpdateTripId() throws Exception {
-        TripInfo tripInfo = new TripInfo();
-        Mockito.when(foodDeliveryService.updateTripId(Mockito.any(TripInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String requestJson = JSONObject.toJSONString(tripInfo);
+        TripOrderInfo tripOrderInfo = new TripOrderInfo();
+        Mockito.when(foodDeliveryService.updateTripId(Mockito.any(TripOrderInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
+        String requestJson = JSONObject.toJSONString(tripOrderInfo);
         String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/fooddeliveryservice/orders/tripid").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();

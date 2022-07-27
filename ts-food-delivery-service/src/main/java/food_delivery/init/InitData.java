@@ -1,7 +1,5 @@
 package food_delivery.init;
 
-import food_delivery.entity.Food;
-import food_delivery.entity.FoodDeliveryOrder;
 import food_delivery.service.FoodDeliveryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import edu.fudan.common.entity.Food;
 
 @Component
 public class InitData implements CommandLineRunner {

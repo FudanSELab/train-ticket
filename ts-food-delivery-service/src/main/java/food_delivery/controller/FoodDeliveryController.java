@@ -5,7 +5,7 @@ import edu.fudan.common.util.Response;
 import food_delivery.entity.DeliveryInfo;
 import food_delivery.entity.FoodDeliveryOrder;
 import food_delivery.entity.SeatInfo;
-import food_delivery.entity.TripInfo;
+import food_delivery.entity.TripOrderInfo;
 import food_delivery.service.FoodDeliveryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,9 +62,9 @@ public class FoodDeliveryController {
     }
 
     @PutMapping("/orders/tripid")
-    public HttpEntity updateTripId(@RequestBody TripInfo tripInfo, @RequestHeader HttpHeaders headers) {
+    public HttpEntity updateTripId(@RequestBody TripOrderInfo tripOrderInfo, @RequestHeader HttpHeaders headers) {
         LOGGER.info("[Food Delivery Service][Update Trip Id]");
-        return ok(foodDeliveryService.updateTripId(tripInfo, headers));
+        return ok(foodDeliveryService.updateTripId(tripOrderInfo, headers));
     }
 
     @PutMapping("/orders/seatno")
