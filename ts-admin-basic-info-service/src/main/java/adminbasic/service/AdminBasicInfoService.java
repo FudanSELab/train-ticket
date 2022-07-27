@@ -1,6 +1,10 @@
 package adminbasic.service;
 
 import adminbasic.entity.*;
+import edu.fudan.common.entity.Config;
+import edu.fudan.common.entity.Contacts;
+import edu.fudan.common.entity.Station;
+import edu.fudan.common.entity.TrainType;
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
 
@@ -25,7 +29,7 @@ public interface AdminBasicInfoService {
      * @param headers headers
      * @return Response
      */
-    Response addContact(  Contacts c, HttpHeaders headers);
+    Response addContact(Contacts c, HttpHeaders headers);
 
     /**
      * delete contact with contact id
@@ -67,11 +71,11 @@ public interface AdminBasicInfoService {
     /**
      * delete station with station information
      *
-     * @param s station information
+     * @param id station id
      * @param headers headers
      * @return Response
      */
-    Response deleteStation(Station s, HttpHeaders headers);
+    Response deleteStation(String id, HttpHeaders headers);
 
     /**
      * modify station with station information
@@ -178,11 +182,11 @@ public interface AdminBasicInfoService {
     /**
      * delete price with price info
      *
-     * @param pi price info
+     * @param pricesId price config id
      * @param headers headers
      * @return Response
      */
-    Response deletePrice(PriceInfo pi, HttpHeaders headers);
+    Response deletePrice(String pricesId, HttpHeaders headers);
 
     /**
      * modify price with price info

@@ -19,11 +19,12 @@ public interface StationFoodService {
 //    Response listTrainFood(HttpHeaders headers);
 
     // query according id
-    Response listFoodStoresByStationId(String stationId, HttpHeaders headers);
+    Response listFoodStoresByStationName(String stationName, HttpHeaders headers);
 
 //    Response listTrainFoodByTripId(String tripId, HttpHeaders headers);
 
-    Response getFoodStoresByStationIds(List<String> stationIds);
-
     Response getStaionFoodStoreById(String id);
+
+    Response getFoodStoresByStationNames(List<String> stationNames);
+
 }

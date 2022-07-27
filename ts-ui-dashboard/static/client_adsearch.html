@@ -232,10 +232,10 @@
                                                 </td>
                                                 <td class='booking_trainTypeId'> {{item.trainTypeId}}
                                                 </td>
-                                                <td class='booking_from'> {{item.fromStationName}}</td>
-                                                <td class='booking_to'>{{item.toStationName}}</td>
+                                                <td class='booking_from'> {{item.startStation}}</td>
+                                                <td class='booking_to'>{{item.endStation}}</td>
                                                 <td>{{item.stopStations}}</td>
-                                                <td>{{item.startingTime}}</td>
+                                                <td>{{item.startTime}}</td>
                                                 <td>{{item.endTime}}</td>
                                                 <td>{{item.numberOfRestTicketSecondClass}}</td>
                                                 <td>{{item.numberOfRestTicketFirstClass}}</td>
@@ -250,7 +250,7 @@
                                                 </td>
                                                 <td>
                                                     <button class='btn btn-primary ticket_booking_button'
-                                                        v-on:click="adBooking(index,item.tripId,item.fromStationName, item.toStationName)">
+                                                        v-on:click="adBooking(index,item.tripId,item.startStation, item.endStation)">
                                                         Booking
                                                     </button>
                                                 </td>

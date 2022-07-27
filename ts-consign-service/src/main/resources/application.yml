@@ -9,7 +9,7 @@ spring:
     url: jdbc:mysql://${CONSIGN_MYSQL_HOST:ts-consign-mysql}:${CONSIGN_MYSQL_PORT:3306}/${CONSIGN_MYSQL_DATABASE:ts-consign-mysql}?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
     username: ${CONSIGN_MYSQL_USER:root}
     password: ${CONSIGN_MYSQL_PASSWORD:root}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:

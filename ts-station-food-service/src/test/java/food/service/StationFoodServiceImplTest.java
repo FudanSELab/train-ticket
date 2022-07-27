@@ -103,18 +103,18 @@ public class StationFoodServiceImplTest {
 //    }
 
     @Test
-    public void testListFoodStoresByStationId1() {
+    public void testListFoodStoresByStationName1() {
         List<StationFoodStore> stationFoodStoreList = new ArrayList<>();
         stationFoodStoreList.add(new StationFoodStore());
-        Mockito.when(stationFoodRepository.findByStationId(Mockito.anyString())).thenReturn(stationFoodStoreList);
-        Response result = foodMapServiceImpl.listFoodStoresByStationId("station_id", headers);
+        Mockito.when(stationFoodRepository.findByStationName(Mockito.anyString())).thenReturn(stationFoodStoreList);
+        Response result = foodMapServiceImpl.listFoodStoresByStationName("station_id", headers);
         Assert.assertEquals(new Response<>(1, "Success", stationFoodStoreList), result);
     }
 
     @Test
-    public void testListFoodStoresByStationId2() {
-        Mockito.when(stationFoodRepository.findByStationId(Mockito.anyString())).thenReturn(null);
-        Response result = foodMapServiceImpl.listFoodStoresByStationId("station_id", headers);
+    public void testListFoodStoresByStationName2() {
+        Mockito.when(stationFoodRepository.findByStationName(Mockito.anyString())).thenReturn(null);
+        Response result = foodMapServiceImpl.listFoodStoresByStationName("station_id", headers);
         Assert.assertEquals(new Response<>(0, "Food store is empty", null), result);
     }
 
@@ -135,20 +135,20 @@ public class StationFoodServiceImplTest {
 //    }
 
     @Test
-    public void testGetFoodStoresByStationIds1() {
+    public void testGetFoodStoresByStationNames1() {
         List<String> stationIds = new ArrayList<>();
         List<StationFoodStore> stationFoodStoreList = new ArrayList<>();
         stationFoodStoreList.add(new StationFoodStore());
-        Mockito.when(stationFoodRepository.findByStationIdIn(Mockito.anyList())).thenReturn(stationFoodStoreList);
-        Response result = foodMapServiceImpl.getFoodStoresByStationIds(stationIds);
+        Mockito.when(stationFoodRepository.findByStationNameIn(Mockito.anyList())).thenReturn(stationFoodStoreList);
+        Response result = foodMapServiceImpl.getFoodStoresByStationNames(stationIds);
         Assert.assertEquals(new Response<>(1, "Success", stationFoodStoreList), result);
     }
 
     @Test
-    public void testGetFoodStoresByStationIds2() {
+    public void testGetFoodStoresByStationNames2() {
         List<String> stationIds = new ArrayList<>();
-        Mockito.when(stationFoodRepository.findByStationIdIn(Mockito.anyList())).thenReturn(null);
-        Response result = foodMapServiceImpl.getFoodStoresByStationIds(stationIds);
+        Mockito.when(stationFoodRepository.findByStationNameIn(Mockito.anyList())).thenReturn(null);
+        Response result = foodMapServiceImpl.getFoodStoresByStationNames(stationIds);
         Assert.assertEquals(new Response<>(0, "No content", null), result);
     }
 

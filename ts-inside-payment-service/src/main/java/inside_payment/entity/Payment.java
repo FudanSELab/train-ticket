@@ -1,11 +1,9 @@
 package inside_payment.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Entity;
+import javax.persistence.*;
 //import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
@@ -17,18 +15,23 @@ import java.util.UUID;
  */
 @Data
 @Entity
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@Table(name="inside_payment")
 public class Payment {
     @Id
     @NotNull
-    @Valid
+    @Column(length = 36)
+    @GeneratedValue(generator = "jpa-uuid")
     private String id;
 
     @NotNull
     @Valid
+    @Column(length = 36)
     private String orderId;
 
     @NotNull
     @Valid
+    @Column(length = 36)
     private String userId;
 
     @NotNull
@@ -41,7 +44,6 @@ public class Payment {
     private PaymentType type;
 
     public Payment(){
-        this.id = UUID.randomUUID().toString().replace("-", "").toUpperCase();
         this.orderId = "";
         this.userId = "";
         this.price = "";

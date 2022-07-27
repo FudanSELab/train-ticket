@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 @Data
 @AllArgsConstructor
-@GenericGenerator(name = "jpa-uuid",strategy="uuid")
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class OrderAlterInfo {
 
     @GeneratedValue(generator = "jpa-uuid")

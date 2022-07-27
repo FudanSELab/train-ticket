@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
     public User createDefaultAuthUser(AuthDto dto) {
         LOGGER.info("[createDefaultAuthUser][Register User Info][AuthDto name: {}]", dto.getUserName());
         User user = User.builder()
-                .userId(UUID.fromString(dto.getUserId()).toString())
+                .userId(dto.getUserId())
                 .username(dto.getUserName())
                 .password(passwordEncoder.encode(dto.getPassword()))
                 .roles(new HashSet<>(Arrays.asList(AuthConstant.ROLE_USER)))
@@ -65,6 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Response deleteByUserId(String userId, HttpHeaders headers) {
         LOGGER.info("[deleteByUserId][DELETE USER][user id: {}]", userId);
         userRepository.deleteByUserId(userId);

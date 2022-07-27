@@ -1,6 +1,6 @@
 package adminroute.controller;
 
-import adminroute.entity.RouteInfo;
+import edu.fudan.common.entity.RouteInfo;
 import adminroute.service.AdminRouteService;
 import com.alibaba.fastjson.JSONObject;
 import edu.fudan.common.util.Response;

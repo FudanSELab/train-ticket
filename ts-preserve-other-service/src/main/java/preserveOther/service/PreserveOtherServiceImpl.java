@@ -1,12 +1,11 @@
 package preserveOther.service;
 
+import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -15,11 +14,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import preserveOther.entity.*;
 import preserveOther.mq.RabbitSend;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -40,13 +37,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PreserveOtherServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
 
     @Override
@@ -110,10 +101,10 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         //PreserveOtherServiceImpl.LOGGER.info("[preserve][Step 4][Do Order]");
         Contacts contacts = gcr.getData();
         Order order = new Order();
-        UUID orderId = UUID.randomUUID();
+        String orderId = UUID.randomUUID().toString();
         order.setId(orderId);
         order.setTrainNumber(oti.getTripId());
-        order.setAccountId(UUID.fromString(oti.getAccountId()));
+        order.setAccountId(oti.getAccountId());
 
         String fromStationId = queryForStationId(oti.getFrom(), httpHeaders);
         String toStationId = queryForStationId(oti.getTo(), httpHeaders);
@@ -129,7 +120,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
 
         Travel query = new Travel();
         query.setTrip(trip);
-        query.setStartingPlace(oti.getFrom());
+        query.setStartPlace(oti.getFrom());
         query.setEndPlace(oti.getTo());
         query.setDepartureTime(new Date());
 
@@ -147,7 +138,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         order.setSeatClass(oti.getSeatType());
         PreserveOtherServiceImpl.LOGGER.info("[preserve][Step 4][Do Order][Travel Date][Date is: {}]", oti.getDate().toString());
         order.setTravelDate(oti.getDate());
-        order.setTravelTime(gtdr.getTripResponse().getStartingTime());
+        order.setTravelTime(gtdr.getTripResponse().getStartTime());
 
         //Dispatch the seat
         if (oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {
@@ -247,14 +238,14 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         notifyInfo.setDate(new Date().toString());
 
         notifyInfo.setEmail(getUser.getEmail());
-        notifyInfo.setStartingPlace(order.getFrom());
+        notifyInfo.setStartPlace(order.getFrom());
         notifyInfo.setEndPlace(order.getTo());
         notifyInfo.setUsername(getUser.getUserName());
         notifyInfo.setSeatNumber(order.getSeatNumber());
         notifyInfo.setOrderNumber(order.getId().toString());
         notifyInfo.setPrice(order.getPrice());
         notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));
-        notifyInfo.setStartingTime(order.getTravelTime().toString());
+        notifyInfo.setStartTime(order.getTravelTime().toString());
 
         // TODO: change to async message serivce
         // sendEmail(notifyInfo, httpHeaders);

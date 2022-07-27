@@ -1,42 +1,47 @@
 package other.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import edu.fudan.common.entity.OrderStatus;
+import edu.fudan.common.entity.SeatClass;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author fdse
  */
 @Data
-@Table(name = "orderOther")
+@Table(name = "orders_other")
 @Entity
-@GenericGenerator(name = "jpa-uuid",strategy="uuid")
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
+@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
-
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
     @Column(length = 36)
+    @GeneratedValue(generator = "jpa-uuid")
     private String id;
 
     private Date boughtDate;
 
+
     private Date travelDate;
+
 
     private Date travelTime;
 
     /**
      * Which Account Bought it
      */
-    @GeneratedValue(generator = "jpa-uuid")
     @Column(length = 36)
+    @GeneratedValue(generator = "jpa-uuid")
     private String accountId;
 
     /**
-     * Tickets bought for whom
+     * Tickets bought for whom....
      */
     private String contactsName;
 
@@ -61,6 +66,8 @@ public class Order {
     private int status;
 
     private String price;
+
+
 
     public Order(){
         boughtDate = new Date(System.currentTimeMillis());

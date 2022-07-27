@@ -11,8 +11,8 @@ spring:
   datasource:
     url: jdbc:mysql://${DELIVERY_MYSQL_HOST:ts-delivery-mysql}:${DELIVERY_MYSQL_PORT:3306}/${DELIVERY_MYSQL_DATABASE:ts-delivery-mysql}?useSSL=false
     username: ${DELIVERY_MYSQL_USER:root}
-    password: ${DELIVERY_MYSQL_PASSWORD:root}
-    driver-class-name: com.mysql.jdbc.Driver
+    password: ${DELIVERY_MYSQL_PASSWORD:Abcd1234#}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   rabbitmq:
     host: ${rabbitmq_host:localhost}
     port: 5672

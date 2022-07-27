@@ -16,16 +16,13 @@ import java.util.UUID;
  * @author fdse
  */
 @Data
-@GenericGenerator(name = "jpa-uuid",strategy="uuid")
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class User {
 
     //    private UUID userId;
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
     @Column(length = 36, name = "user_id")
     private String userId;
     @Column(name = "user_name")
@@ -39,5 +36,9 @@ public class User {
     private String documentNum;
 
     private String email;
+
+    public User() {
+        this.userId = UUID.randomUUID().toString();
+    }
 
 }

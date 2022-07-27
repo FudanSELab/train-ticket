@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rabbitmq
+data:
+  rabbitmq_host: rabbitmq
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nacos
+data:
+  NACOS_ADDRS: nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local

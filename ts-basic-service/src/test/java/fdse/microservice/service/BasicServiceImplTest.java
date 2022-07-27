@@ -1,7 +1,7 @@
 package fdse.microservice.service;
 
+import edu.fudan.common.entity.*;
 import edu.fudan.common.util.Response;
-import fdse.microservice.entity.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,8 +36,16 @@ public class BasicServiceImplTest {
 
     @Test
     public void testQueryForTravel() {
-        Trip trip = new Trip(new TripId(), "", "route_id", "", "", "", new Date(), new Date());
-        Travel info = new Travel(trip, "starting_place", "end_place", new Date());
+        Trip trip = new Trip();
+        trip.setTripId(new TripId());
+        trip.setRouteId("route_id");
+        trip.setStartTime(new Date());
+        trip.setEndTime(new Date());
+        Travel info = new Travel();
+        info.setTrip(trip);
+        info.setStartPlace("starting_place");
+        info.setEndPlace("end_place");
+        info.setDepartureTime(new Date());
         Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         //mock checkStationExists() and queryForStationId()
@@ -108,11 +116,11 @@ public class BasicServiceImplTest {
         Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-train-service:14567/api/v1/trainservice/trains/" + "trainTypeId",
+                "http://ts-train-service:14567/api/v1/trainservice/trains/byName/" + "trainTypeName",
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re);
-        TrainType result = basicServiceImpl.queryTrainType("trainTypeId", headers);
+        TrainType result = basicServiceImpl.queryTrainTypeByName("trainTypeId", headers);
         Assert.assertNull(result);
     }
 

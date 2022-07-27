@@ -39,13 +39,7 @@ public class ConsignServiceImpl implements ConsignService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsignServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
 
 

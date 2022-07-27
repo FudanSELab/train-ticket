@@ -23,8 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //初始化数据库
 var db = require('./bin/db');
-db.initMongo(function (result) {
-    if(result.result.ok){
+db.initMysql(function (result) {
+    if(result.ok){
         console.log("init data successful!");
     }
 });

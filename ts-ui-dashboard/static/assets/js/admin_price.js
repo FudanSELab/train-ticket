@@ -46,16 +46,9 @@ priceModule.controller("priceCtrl", function ($scope, $http, loadDataService, $w
             onConfirm: function (options) {
                 $http({
                     method: "delete",
-                    url: "/api/v1/adminbasicservice/adminbasic/prices",
+                    url: "/api/v1/adminbasicservice/adminbasic/prices/"+price.id,
                     headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
                     withCredentials: true,
-                    data: {
-                        id: price.id,
-                        routeId: price.routeId,
-                        trainType: price.trainType,
-                        basicPriceRate: price.basicPriceRate,
-                        firstClassPriceRate: price.firstClassPriceRate
-                    }
                 }).success(function (data, status, headers, config) {
                     if (data.status ==1) {
                         alert("Delete price successfully!");

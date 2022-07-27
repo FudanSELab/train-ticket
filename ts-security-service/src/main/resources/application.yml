@@ -10,7 +10,7 @@ spring:
     url: jdbc:mysql://${SECURITY_MYSQL_HOST:ts-security-mysql}:${SECURITY_MYSQL_PORT:3306}/${SECURITY_MYSQL_DATABASE:ts-security-mysql}?useSSL=false
     username: ${SECURITY_MYSQL_USER:root}
     password: ${SECURITY_MYSQL_PASSWORD:root}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:

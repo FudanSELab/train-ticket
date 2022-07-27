@@ -10,6 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import price.entity.PriceConfig;
 import price.service.PriceService;
+
+import java.util.List;
+import java.util.Map;
+
 import static org.springframework.http.ResponseEntity.ok;
 
 /**
@@ -36,6 +40,13 @@ public class PriceController {
         return ok(service.findByRouteIdAndTrainType(routeId, trainType, headers));
     }
 
+    @PostMapping(value = "/prices/byRouteIdsAndTrainTypes")
+    public HttpEntity query(@RequestBody List<String> ridsAndTts,
+                            @RequestHeader HttpHeaders headers) {
+        PriceController.LOGGER.info("[findByRouteIdAndTrainType][Query price][routeId and Train Type: {}]", ridsAndTts);
+        return ok(service.findByRouteIdsAndTrainTypes(ridsAndTts, headers));
+    }
+
     @GetMapping(value = "/prices")
     public HttpEntity queryAll(@RequestHeader HttpHeaders headers) {
         PriceController.LOGGER.info("[findAllPriceConfig][Query all prices]");
@@ -49,10 +60,10 @@ public class PriceController {
         return new ResponseEntity<>(service.createNewPriceConfig(info, headers), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(value = "/prices")
-    public HttpEntity delete(@RequestBody PriceConfig info, @RequestHeader HttpHeaders headers) {
-        PriceController.LOGGER.info("[deletePriceConfig][Delete price][PriceConfigId: {}]",info.getId());
-        return ok(service.deletePriceConfig(info, headers));
+    @DeleteMapping(value = "/prices/{pricesId}")
+    public HttpEntity delete(@PathVariable String pricesId, @RequestHeader HttpHeaders headers) {
+        PriceController.LOGGER.info("[deletePriceConfig][Delete price][PriceConfigId: {}]",pricesId);
+        return ok(service.deletePriceConfig(pricesId, headers));
     }
 
     @PutMapping(value = "/prices")

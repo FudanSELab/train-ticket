@@ -1,5 +1,6 @@
 package security.service;
 
+import edu.fudan.common.entity.OrderSecurity;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-import security.entity.*;
+import security.entity.SecurityConfig;
 import security.repository.SecurityRepository;
 
 
@@ -43,13 +44,7 @@ public class SecurityServiceImpl implements SecurityService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
 
     String success = "Success";

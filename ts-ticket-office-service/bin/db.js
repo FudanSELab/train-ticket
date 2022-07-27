@@ -1,99 +1,69 @@
 /**
  * Created by dingding on 2017/10/13.
  */
-var MongoClient = require('mongodb').MongoClient;
+var HOST=process.env.TICKET_OFFICE_MYSQL_HOST
+var PORT=process.env.TICKET_OFFICE_MYSQL_PORT
+var USER=process.env.TICKET_OFFICE_MYSQL_USER
+var PASSWORD=process.env.TICKET_OFFICE_MYSQL_PASSWORD
+var DATABASE=process.env.TICKET_OFFICE_MYSQL_DATABASE
+var DB_CONN_STR = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
+var MysqlClient = require('mysql').createConnection({
+    host: HOST,
+    user: USER,
+    password: PASSWORD,
+    database: DATABASE
+});
 var fs = require('fs');
 var path = require('path');
-// var DB_CONN_STR = 'mongodb://localhost:27017/test';
-var DB_CONN_STR = 'mongodb://ts-ticket-office-mongo/ticket-office';
 
-var initData = function(db, callback){
-    var collection =  db.collection('office');
-    if(collection.find()){
-        collection.remove({});
-    }
-    /*读取已存在的数据*/
-    fs.readFile(path.join(__dirname, "./office.json"), 'utf8', function (err, data) {
-        data = JSON.parse( data );
-        collection.insertMany(data, function(err, result){
-            if(err){
-                console.log('Error: ' + err);
-                return;
-            }
-            callback(result);
-        });
+
+
+var initData = function(callback){
+    var sql = "CREATE TABLE IF NOT EXISTS office (name VARCHAR(255), city VARCHAR(255), province VARCHAR(255),region VARCHAR(255), address VARCHAR(255), workTime VARCHAR(32), windowNum INT(10))";
+    MysqlClient.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Table created");
+        callback(result);
     });
+
+    // init data
+    insertEntry('Jinqiao Road ticket sales outlets', 'Shanghai', 'Shanghai', 'Pudong New Area', 'Jinqiao Road 1320, Shanghai, Pudong New Area', '08:00-18:00', 1);
+
 };
 
 var getAllOffices = function(db, callback){
-    var collection =  db.collection('office');
-    collection.find().toArray(function(err, result){
-        if(err){
-            console.log("Error:" + err);
-            return;
-        }
+    MysqlClient.query("SELECT * FROM office", function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
         callback(result);
     });
 };
 
 /*根据省市区信息获取该地区的代售点列表*/
 var getSpecificOffices = function(province, city, region, db, callback){
-    var collection =  db.collection('office');
-    var findString = {"province":province ,
-                        "city": city ,
-                        "region": region};
-    collection.find(findString).toArray(function(err, result){
-        if(err){
-            console.log("Error:" + err);
-            return;
-        }
+    var where_sql= "WHERE province = '" + province + "' AND city = '" + city + "' AND region = '" + region + "'";
+    var sql = "SELECT * FROM office " + where_sql;
+    console.log("getSpecificOffices sql:", sql);
+    MysqlClient.query(sql, function (err, result, fields) {
+        if (err) throw err;
+        console.log(result);
         callback(result);
     });
 };
 
 /*根据省市区信息添加代售点*/
 var addOffice = function(province, city, region, office, db, callback){
-    var collection =  db.collection('office');
-    var findString = {"province":province ,
-                        "city": city ,
-                        "region": region};
-    var updateString = {$push:{
-                            "offices": {
-                                'officeName':office.officeName,
-                                'address': office.address,
-                                'workTime': office.workTime,
-                                'windowNum': office.windowNum
-                            }
-                        }};
-    collection.update(findString, updateString, function(err, result){
-        if(err){
-            console.log("Update Error:" + err);
-            return;
-        }
-        callback(result);
-    });
+    insertEntry(office.name, city, province, region, office.address, office.workTime, office.windowNum);
+    callback("insert succeed.")
 };
 
 /*根据省市区和代售点名称删除代售点*/
 var deleteOffice = function(province, city, region, officeName, db, callback){
-    var collection =  db.collection('office');
-    var findString = {
-        "province":province ,
-        "city": city ,
-        "region": region
-    };
-    var updateString = {
-        $pull:{
-            "offices": {
-                "officeName": officeName
-            }
-        }
-    };
-    collection.update(findString, updateString, function(err, result){
-        if(err){
-            console.log("Error:" + err);
-            return;
-        }
+    var where_sql= "WHERE name = '" + officeName + "' AND province = '" + province + "' AND city = '" + city + "' AND region = '" + region + "'";
+    var sql = "DELETE FROM office " + where_sql;
+    MysqlClient.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Number of records deleted: " + result.affectedRows);
         callback(result);
     });
 };
@@ -101,87 +71,78 @@ var deleteOffice = function(province, city, region, officeName, db, callback){
 
 /*根据省市区代售点信息更新代售点*/
 var updateOffice = function(province, city, region, oldOfficeName, newOffice, db, callback){
-    var collection =  db.collection('office');
-    var findString = {
-        "province":province ,
-        "city": city ,
-        "region": region,
-        "offices.officeName": oldOfficeName
-    };
-    var updateString = {
-        $set:{
-        'offices.$.officeName':newOffice.officeName,
-        'offices.$.address': newOffice.address,
-        'offices.$.workTime': newOffice.workTime,
-        'offices.$.windowNum': newOffice.windowNum
-        }
-    };
-    collection.update(findString, updateString, function(err, result){
-        if(err){
-            console.log("Error:" + err);
-            return;
-        }
+    var where_sql= "WHERE name = '" + oldOfficeName + "' AND province = '" + province + "' AND city = '" + city + "' AND region = '" + region + "'";
+    var set_sql = "SET name = '" + newOffice.name + "', address = '" + newOffice.address + "', workTime = '" + newOffice.workTime + "', windowNum = " + newOffice.windowNum;
+    var sql = "UPDATE office " + set_sql + " " + where_sql;
+    console.log("update sql:", sql);
+    MysqlClient.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Number of records updated: " + result.affectedRows);
         callback(result);
     });
+
 };
 
+var insertEntry = function(name, city, province, region, address, workTime, windowNum){
+    values = "('" + name + "','" + city +"','" + province + "','" + region +"','"+address +"','"+workTime +"',"+windowNum+")";
+    var sql = "INSERT INTO office (name, city, province, region, address, workTime, windowNum)" +
+        " VALUES " + values;
+    console.log("insert sql", sql);
+    MysqlClient.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted, ", result);
+    });
+}
 
-
-exports.initMongo = function(callback){
-    MongoClient.connect(DB_CONN_STR, function(err, db){
-        console.log("initMongo连接上数据库啦！");
-        initData(db, function(result){
-            db.close();
+exports.initMysql = function(callback){
+    MysqlClient.connect(function(err){
+        console.log("initMysql连接上数据库啦！");
+        initData(function(result){
             callback(result);
         });
     })
 };
 
 exports.getAll = function(callback){
-    MongoClient.connect(DB_CONN_STR, function(err, db){
+    MysqlClient.connect(DB_CONN_STR, function(err, db){
         console.log("getAll连接上数据库啦！");
         getAllOffices(db, function(result){
-            db.close();
             callback(result);
         });
     })
 };
 
 exports.getSpecificOffices = function(province, city, region, callback){
-    MongoClient.connect(DB_CONN_STR, function(err, db){
+    MysqlClient.connect(DB_CONN_STR, function(err, db){
         console.log("getSpecificOffices连接上数据库啦！");
         getSpecificOffices(province, city, region, db, function(result){
-            db.close();
             callback(result);
         });
     })
 };
 
 exports.addOffice = function(province, city, region, office, callback){
-    MongoClient.connect(DB_CONN_STR, function(err, db){
+    MysqlClient.connect(DB_CONN_STR, function(err, db){
         console.log("addOffice连接上数据库啦！");
         addOffice(province, city, region, office, db, function(result){
-            db.close();
             callback(result);
         });
     })
 };
 
 exports.deleteOffice = function(province, city, region, officeName, callback){
-    MongoClient.connect(DB_CONN_STR, function(err, db){
+    MysqlClient.connect(DB_CONN_STR, function(err, db){
         console.log("deleteOffice连接上数据库啦！");
         deleteOffice(province, city, region, officeName, db, function(result){
-            db.close();
             callback(result);
         });
     })
 };
 
 exports.updateOffice = function(province, city, region, oldOfficeName, newOffice, callback){
-    MongoClient.connect(DB_CONN_STR, function(err, db){
+    MysqlClient.connect(DB_CONN_STR, function(err, db){
         console.log("updateOffice连接上数据库啦！");
         updateOffice(province, city, region, oldOfficeName, newOffice, db, function(result){
-            db.close();
             callback(result);
         });
     })

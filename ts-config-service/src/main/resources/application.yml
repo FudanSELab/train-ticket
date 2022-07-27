@@ -6,11 +6,10 @@ spring:
   application:
     name: ts-config-service
   datasource:
-#    url: jdbc:mysql://10.176.122.80:32003/ts-config-mysql?useSSL=false
     url: jdbc:mysql://${CONFIG_MYSQL_HOST:ts-config-mysql}:${CONFIG_MYSQL_PORT:3306}/${CONFIG_MYSQL_DATABASE:ts-config-mysql}?useSSL=false
     username: ${CONFIG_MYSQL_USER:root}
     password: ${CONFIG_MYSQL_PASSWORD:root}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update

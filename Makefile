@@ -9,7 +9,7 @@ build: clean-image package build-image
 
 .PHONY: package
 package:
-	@mvn clean package -DskipTests
+	@mvn clean package -Dmaven.test.skip=true
 
 .PHONY: build-image
 build-image:

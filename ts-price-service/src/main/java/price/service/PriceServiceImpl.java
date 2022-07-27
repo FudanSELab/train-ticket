@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import price.entity.PriceConfig;
 import price.repository.PriceConfigRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 /**
@@ -43,10 +40,12 @@ public class PriceServiceImpl implements PriceService {
             priceConfigRepository.save(priceConfig);
         } else {
             // modify
-            priceConfig = priceConfigRepository.findById(createAndModifyPriceConfig.getId()).get();
-            if (priceConfig == null) {
+            Optional<PriceConfig> op = priceConfigRepository.findById(createAndModifyPriceConfig.getId());
+            if (!op.isPresent()) {
                 priceConfig = new PriceConfig();
                 priceConfig.setId(createAndModifyPriceConfig.getId());
+            }else{
+                priceConfig = op.get();
             }
             priceConfig.setBasicPriceRate(createAndModifyPriceConfig.getBasicPriceRate());
             priceConfig.setFirstClassPriceRate(createAndModifyPriceConfig.getFirstClassPriceRate());
@@ -81,6 +80,31 @@ public class PriceServiceImpl implements PriceService {
         }
     }
 
+    @Override
+    public Response findByRouteIdsAndTrainTypes(List<String> ridsAndTts, HttpHeaders headers){
+        List<String> routeIds = new ArrayList<>();
+        List<String> trainTypes = new ArrayList<>();
+        for(String rts: ridsAndTts){
+            List<String> r_t  = Arrays.asList(rts.split(":"));
+            routeIds.add(r_t.get(0));
+            trainTypes.add(r_t.get(1));
+        }
+        List<PriceConfig> pcs = priceConfigRepository.findByRouteIdsAndTrainTypes(routeIds, trainTypes);
+        Map<String, PriceConfig> pcMap = new HashMap<>();
+        for(PriceConfig pc: pcs){
+            String key = pc.getRouteId() + ":" + pc.getTrainType();
+            if(ridsAndTts.contains(key)){
+                pcMap.put(key, pc);
+            }
+        }
+        if (pcMap == null) {
+            PriceServiceImpl.LOGGER.warn("[findByRouteIdsAndTrainTypes][Find by routes and train types warn][PricrConfig not found][RouteIds: {}, TrainTypes: {}]",routeIds,trainTypes);
+            return new Response<>(0, noThatConfig, null);
+        } else {
+            return new Response<>(1, "Success", pcMap);
+        }
+    }
+
 
     @Override
     public Response findAllPriceConfig(HttpHeaders headers) {
@@ -99,18 +123,13 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public Response deletePriceConfig(PriceConfig c, HttpHeaders headers) {
-        Optional<PriceConfig> op = priceConfigRepository.findById(c.getId());
+    public Response deletePriceConfig(String pcId, HttpHeaders headers) {
+        Optional<PriceConfig> op = priceConfigRepository.findById(pcId);
         if (!op.isPresent()) {
-            PriceServiceImpl.LOGGER.error("[deletePriceConfig][Delete price config error][Price config not found][PriceConfigId: {}]",c.getId());
+            PriceServiceImpl.LOGGER.error("[deletePriceConfig][Delete price config error][Price config not found][PriceConfigId: {}]",pcId);
             return new Response<>(0, noThatConfig, null);
         } else {
-            PriceConfig pc = new PriceConfig();
-            pc.setId(c.getId());
-            pc.setRouteId(c.getRouteId());
-            pc.setTrainType(c.getTrainType());
-            pc.setBasicPriceRate(c.getBasicPriceRate());
-            pc.setFirstClassPriceRate(c.getFirstClassPriceRate());
+            PriceConfig pc = op.get();
             priceConfigRepository.delete(pc);
             return new Response<>(1, "Delete success", pc);
         }

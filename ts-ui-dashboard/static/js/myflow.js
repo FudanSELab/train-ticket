@@ -541,7 +541,7 @@
 //         alert("Please Login");
 //     }
 //     var travelQueryInfo = new Object();
-//     travelQueryInfo.startingPlace = $("#travel_rebook_startingPlace").val();
+//     travelQueryInfo.startPlace = $("#travel_rebook_startingPlace").val();
 //     travelQueryInfo.endPlace = $("#travel_rebook_terminalPlace").val();
 //     travelQueryInfo.departureTime = $("#travel_rebook_date").val();
 //     if(travelQueryInfo.departureTime == null || checkDateFormat(travelQueryInfo.departureTime) == false){
@@ -584,9 +584,9 @@
 //                         "<td>" + i + "</td>" +
 //                         "<td class='rebook_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
 //                         "<td class='rebook_trainTypeId'>" + obj[i]["trainTypeId"] +  "</td>" +
-//                         "<td class='rebook_from'>" + obj[i]["startingStation"]                             + "</td>" +
+//                         "<td class='rebook_from'>" + obj[i]["startStation"]                             + "</td>" +
 //                         "<td class='rebook_to'>" + obj[i]["terminalStation"]                             + "</td>" +
-//                         "<td>" + convertNumberToTimeString(obj[i]["startingTime"])     + "</td>" +
+//                         "<td>" + convertNumberToTimeString(obj[i]["startTime"])     + "</td>" +
 //                         "<td>" + convertNumberToTimeString(obj[i]["endTime"])          + "</td>" +
 //                         "<td>" + obj[i]["economyClass"]                                + "</td>" +
 //                         "<td>" + obj[i]["confortClass"]                                + "</td>" +

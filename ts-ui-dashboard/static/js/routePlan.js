@@ -1,7 +1,7 @@
 $("#travel_min_stop_button").click(function(){
     var minStopSearchInfo = new Object();
-    minStopSearchInfo.formStationName = $("#travel_min_stop_fromPlace").val();
-    minStopSearchInfo.toStationName = $("#travel_min_stop_toPlace").val();
+    minStopSearchInfo.startStation = $("#travel_min_stop_fromPlace").val();
+    minStopSearchInfo.endStation = $("#travel_min_stop_toPlace").val();
     minStopSearchInfo.travelDate = $("#travel_min_stop_date").val();
     minStopSearchInfo.num = 5;
     if(minStopSearchInfo.travelDate  == null || checkDateFormat(minStopSearchInfo.travelDate ) == false){
@@ -33,9 +33,9 @@ function queryForMinStopInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td >" + obj[i]["tripId"] + "</td>" +
                         "<td >" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td >" + obj[i]["fromStationName"] + "</td>" +
-                        "<td >" + obj[i]["toStationName"] + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td >" + obj[i]["startStation"] + "</td>" +
+                        "<td >" + obj[i]["endStation"] + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +
@@ -60,8 +60,8 @@ function queryForMinStopInfo(data,path) {
 
 $("#travel_quickest_route_button").click(function(){
     var qucikestSearchInfo = new Object();
-    qucikestSearchInfo.formStationName = $("#travel_quickest_route_fromPlace").val();
-    qucikestSearchInfo.toStationName = $("#travel_quickest_route_toPlace").val();
+    qucikestSearchInfo.startStation = $("#travel_quickest_route_fromPlace").val();
+    qucikestSearchInfo.endStation = $("#travel_quickest_route_toPlace").val();
     qucikestSearchInfo.travelDate = $("#travel_quickest_route_date").val();
     qucikestSearchInfo.num = 5;
     if(qucikestSearchInfo.travelDate  == null || checkDateFormat(qucikestSearchInfo.travelDate ) == false){
@@ -93,9 +93,9 @@ function queryForQuickestInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td >" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
                         "<td >" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td >" + obj[i]["startingStation"] + "</td>" +
+                        "<td >" + obj[i]["startStation"] + "</td>" +
                         "<td >" + obj[i]["terminalStation"] + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +
@@ -120,8 +120,8 @@ function queryForQuickestInfo(data,path) {
 
 $("#travel_cheapest_route_button").click(function(){
     var cheapestSearchInfo = new Object();
-    cheapestSearchInfo.formStationName = $("#travel_cheapest_route_fromPlace").val();
-    cheapestSearchInfo.toStationName = $("#travel_cheapest_route_toPlace").val();
+    cheapestSearchInfo.startStation = $("#travel_cheapest_route_fromPlace").val();
+    cheapestSearchInfo.endStation = $("#travel_cheapest_route_toPlace").val();
     cheapestSearchInfo.travelDate = $("#travel_cheapest_route_date").val();
     cheapestSearchInfo.num = 5;
     if(cheapestSearchInfo.travelDate  == null || checkDateFormat(cheapestSearchInfo.travelDate ) == false){
@@ -153,9 +153,9 @@ function queryForCheapestInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td >" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
                         "<td >" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td >" + obj[i]["startingStation"] + "</td>" +
+                        "<td >" + obj[i]["startStation"] + "</td>" +
                         "<td >" + obj[i]["terminalStation"] + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" +
                         "<select class='form-control'>" +

@@ -1,6 +1,7 @@
 package other.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.common.entity.Seat;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;
@@ -18,7 +19,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import other.entity.Order;
 import other.entity.QueryInfo;
-import other.entity.Seat;
 import other.service.OrderOtherService;
 
 import java.util.Date;

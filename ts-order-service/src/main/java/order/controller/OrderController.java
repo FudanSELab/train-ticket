@@ -1,5 +1,6 @@
 package order.controller;
 
+import edu.fudan.common.entity.Seat;
 import order.entity.*;
 import order.service.OrderService;
 import org.slf4j.Logger;

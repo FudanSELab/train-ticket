@@ -69,7 +69,7 @@ $("#flow_advance_reserve_login_button").click(function() {
 
 $("#flow_advance_reserve_booking_button").click(function() {
     var advanceSearchInfo = new Object();
-    advanceSearchInfo.startingPlace = $("#flow_advance_reserve_startingPlace").val();
+    advanceSearchInfo.startPlace = $("#flow_advance_reserve_startingPlace").val();
     advanceSearchInfo.endPlace = $("#flow_advance_reserve_terminalPlace").val();
     advanceSearchInfo.departureTime = $("#flow_advance_reserve_booking_date").val();
     if(advanceSearchInfo.departureTime  == null || checkDateFormat(advanceSearchInfo.departureTime ) == false){
@@ -111,10 +111,10 @@ function advanceSearchForCheapestInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td class='booking_tripId'>" + obj[i]["tripId"] + "</td>" +
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startStation"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["endStation"] + "</td>" +
                         "<td>" +  obj[i]["stopStations"]  + "</td>" +
-                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["numberOfRestTicketSecondClass"] + "</td>" +
                         "<td>" + obj[i]["numberOfRestTicketFirstClass"] + "</td>" +
@@ -159,10 +159,10 @@ function advanceSearchForQuickestInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td class='booking_tripId'>" + obj[i]["tripId"] + "</td>" +
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startStation"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["endStation"] + "</td>" +
                         "<td>" +  obj[i]["stopStations"]  + "</td>" +
-                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["numberOfRestTicketSecondClass"] + "</td>" +
                         "<td>" + obj[i]["numberOfRestTicketFirstClass"] + "</td>" +
@@ -208,10 +208,10 @@ function advanceSearchForMinStopInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td class='booking_tripId'>" + obj[i]["tripId"] + "</td>" +
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["fromStationName"] + "</td>" +
-                        "<td class='booking_to'>" + obj[i]["toStationName"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startStation"] + "</td>" +
+                        "<td class='booking_to'>" + obj[i]["endStation"] + "</td>" +
                         "<td>" +  obj[i]["stopStations"]  + "</td>" +
-                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + flow_advance_convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + flow_advance_convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["numberOfRestTicketSecondClass"] + "</td>" +
                         "<td>" + obj[i]["numberOfRestTicketFirstClass"] + "</td>" +

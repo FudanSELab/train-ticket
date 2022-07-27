@@ -1,6 +1,6 @@
 package adminroute.controller;
 
-import adminroute.entity.RouteInfo;
+import edu.fudan.common.entity.RouteInfo;
 import adminroute.service.AdminRouteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

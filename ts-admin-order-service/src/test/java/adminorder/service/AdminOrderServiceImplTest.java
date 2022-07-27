@@ -1,7 +1,7 @@
 package adminorder.service;
 
-import adminorder.entity.Order;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.entity.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,7 +104,7 @@ public class AdminOrderServiceImplTest {
 
     @Test
     public void testUpdateOrder1() {
-        Order order = new Order(null, null, null, null, null, null, 0, null, "G", 0, 0, null, null, null, 0, null);
+        Order order = new Order(null, null, null, null, null, null, 0, null, "G", 0, 0, null, null, null, 0, null, null);
         HttpEntity<Order> requestEntity2 = new HttpEntity<>(order, headers);
         Response response = new Response();
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -119,7 +119,7 @@ public class AdminOrderServiceImplTest {
 
     @Test
     public void testUpdateOrder2() {
-        Order order = new Order(null, null, null, null, null, null, 0, null, "K", 0, 0, null, null, null, 0, null);
+        Order order = new Order(null, null, null, null, null, null, 0, null, "K", 0, 0, null, null, null, 0, null, null);
         HttpEntity<Order> requestEntity2 = new HttpEntity<>(order, headers);
         Response response = new Response();
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -134,7 +134,7 @@ public class AdminOrderServiceImplTest {
 
     @Test
     public void testAddOrder1() {
-        Order order = new Order(null, null, null, null, null, null, 0, null, "G", 0, 0, null, null, null, 0, null);
+        Order order = new Order(null, null, null, null, null, null, 0, null, "G", 0, 0, null, null, null, 0, null,null);
         HttpEntity<Order> requestEntity2 = new HttpEntity<>(order, headers);
         Response response = new Response();
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -149,7 +149,7 @@ public class AdminOrderServiceImplTest {
 
     @Test
     public void testAddOrder2() {
-        Order order = new Order(null, null, null, null, null, null, 0, null, "K", 0, 0, null, null, null, 0, null);
+        Order order = new Order(null, null, null, null, null, null, 0, null, "K", 0, 0, null, null, null, 0, null, null);
         HttpEntity<Order> requestEntity2 = new HttpEntity<>(order, headers);
         Response response = new Response();
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);

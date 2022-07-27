@@ -1,5 +1,6 @@
 package travelplan.entity;
 
+import edu.fudan.common.util.StringUtils;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,13 +11,13 @@ import java.util.Date;
 @Data
 public class TransferTravelInfo {
 
-    private String fromStationName;
+    private String startStation;
 
-    private String viaStationName;
+    private String viaStation;
 
-    private String toStationName;
+    private String endStation;
 
-    private Date travelDate;
+    private String travelDate;
 
     private String trainType;
 
@@ -24,12 +25,15 @@ public class TransferTravelInfo {
         //Empty Constructor
     }
 
-    public TransferTravelInfo(String fromStationName, String viaStationName, String toStationName, Date travelDate, String trainType) {
-        this.fromStationName = fromStationName;
-        this.viaStationName = viaStationName;
-        this.toStationName = toStationName;
+    public TransferTravelInfo(String startStation, String viaStation, String endStation, String travelDate, String trainType) {
+        this.startStation = startStation;
+        this.viaStation = viaStation;
+        this.endStation = endStation;
         this.travelDate = travelDate;
         this.trainType = trainType;
     }
 
+    public Date getTravelDate() {
+        return StringUtils.String2Date(travelDate);
+    }
 }

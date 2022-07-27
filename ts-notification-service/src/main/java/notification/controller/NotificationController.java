@@ -42,12 +42,12 @@ public class NotificationController {
         notifyInfo.setDate("Wed Jul 21 09:49:44 CST 2021");
         notifyInfo.setEmail(test_mail_user);
         notifyInfo.setEndPlace("Test");
-        notifyInfo.setStartingPlace("Test");
+        notifyInfo.setStartPlace("Test");
         notifyInfo.setOrderNumber("111-111-111");
         notifyInfo.setPrice("100");
         notifyInfo.setSeatClass("1");
         notifyInfo.setSeatNumber("1102");
-        notifyInfo.setStartingTime("Sat May 04 07:00:00 CST 2013");
+        notifyInfo.setStartTime("Sat May 04 07:00:00 CST 2013");
         notifyInfo.setUsername("h10g");
 
         service.preserveSuccess(notifyInfo, null);

@@ -14,9 +14,8 @@ public interface StationFoodRepository extends CrudRepository<StationFoodStore, 
     @Override
     Optional<StationFoodStore> findById(String id);
 
-//    @Query("{ 'stationId' : ?0 }")
-    List<StationFoodStore> findByStationId(String stationId);
-    List<StationFoodStore> findByStationIdIn(List<String> stationIds);
+    List<StationFoodStore> findByStationName(String stationName);
+    List<StationFoodStore> findByStationNameIn(List<String> stationNames);
 
 
     @Override

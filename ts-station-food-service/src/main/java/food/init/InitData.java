@@ -1,6 +1,6 @@
 package food.init;
 
-import food.entity.Food;
+import edu.fudan.common.entity.Food;
 import food.entity.StationFoodStore;
 import food.service.StationFoodService;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ public class InitData implements CommandLineRunner{
                     StationFoodStore fs = new StationFoodStore();
                     fs.setId(UUID.randomUUID().toString());
                     String[] lineTemp = line.trim().split("=");
-                    fs.setStationId(lineTemp[1]);
+                    fs.setStationName(lineTemp[1]);
 
                     lineTemp = br1.readLine().trim().split("=");
                     fs.setStoreName(lineTemp[1]);

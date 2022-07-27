@@ -1,20 +1,16 @@
 package adminroute.service;
 
-import adminroute.entity.Route;
-import adminroute.entity.RouteInfo;
+import edu.fudan.common.entity.Route;
+import edu.fudan.common.entity.RouteInfo;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 /**
  * @author fdse
@@ -29,13 +25,7 @@ public class AdminRouteServiceImpl implements AdminRouteService {
     public static final Logger logger = LoggerFactory.getLogger(AdminRouteServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
 
     @Override

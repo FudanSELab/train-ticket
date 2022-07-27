@@ -29,7 +29,7 @@ public class InitUser implements CommandLineRunner {
         User whetherExistUser = userRepository.findByUsername("fdse_microservice").orElse(new User());
         if (whetherExistUser.getUsername() == null) {
             User user = User.builder()
-                    .userId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f").toString())
+                    .userId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f")
                     .username("fdse_microservice")
                     .password(passwordEncoder.encode("111111"))
                     .roles(new HashSet<>(Arrays.asList("ROLE_USER")))

@@ -14,10 +14,10 @@
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
     <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.datetimepicker.css"/>
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <script type="text/javascript" src="assets/js/angular.js"></script>
-    <script type="text/javascript" src="assets/js/old_index.js"></script>
 </head>
 
 <body data-type="generalComponents" onload="loadBody()">
@@ -433,8 +433,7 @@
                                                                 </label>
                                                                 <div class="am-u-sm-7">
                                                                     <input type="text" id="add_order_bought_date"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_order_bought_date">
+                                                                        class="am-modal-prompt-input">
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -443,8 +442,7 @@
                                                                 </label>
                                                                 <div class="am-u-sm-7">
                                                                     <input type="text" id="add_order_travel_date"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_order_travel_date">
+                                                                        class="am-modal-prompt-input">
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -453,26 +451,26 @@
                                                                 </label>
                                                                 <div class="am-u-sm-7">
                                                                     <input type="text" id="add_order_travel_time"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_order_travel_time">
+                                                                        class="am-modal-prompt-input">
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
                                                                 <label for="add_order_account"
                                                                     class="am-u-sm-5 am-form-label">Account: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_order_account"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_order_account">
+                                                                    <select id="add_order_account" name="order_account"
+                                                                            class="am-modal-prompt-input">
+                                                                        <option style='display: none'></option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
                                                                 <label for="add_order_passenger"
                                                                     class="am-u-sm-5 am-form-label">Passenger: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_order_passenger"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_order_passenger">
+                                                                    <select id="add_order_passenger" name="order_passenger"
+                                                                            class="am-modal-prompt-input">
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -480,9 +478,12 @@
                                                                     class="am-u-sm-5 am-form-label">Document Type:
                                                                 </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_order_document_type"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_order_document_type">
+                                                                    <select id="add_order_document_type" name="document_type"
+                                                                            class="am-modal-prompt-input">
+                                                                        <option value='1' selected = 'selected'>ID Card</option> +
+                                                                        <option value='2'>Passport</option> +
+                                                                        <option value='3'>Other</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -500,9 +501,10 @@
                                                                     class="am-u-sm-5 am-form-label">Train Number:
                                                                 </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_order_train_number"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_order_train_number">
+                                                                    <select id="add_order_train_number" name="order_train_number"
+                                                                            class="am-modal-prompt-input">
+                                                                        <option style='display: none'></option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -519,9 +521,17 @@
                                                                 <label for="add_order_seat_class"
                                                                     class="am-u-sm-5 am-form-label">Seat Class: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_order_seat_class"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_order_seat_class">
+                                                                    <select id="add_order_seat_class" name="order_seat_class"
+                                                                            class="am-modal-prompt-input"><option value="0">NoSeat</option>
+                                                                        <option value="1">GreenSeat</option>
+                                                                        <option value="2">FirstClassSeat</option>
+                                                                        <option value="3">SecondClassSeat</option>
+                                                                        <option value="4">HardSeat</option>
+                                                                        <option value="5">SoftSeat</option>
+                                                                        <option value="6">HardBed</option>
+                                                                        <option value="7">SoftBed</option>
+                                                                        <option value="8">HighSoftSeat</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -556,9 +566,16 @@
                                                                 <label for="add_order_status"
                                                                     class="am-u-sm-5 am-form-label">Status: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_order_status"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_order_status">
+                                                                    <select id="add_order_status" name="order_status"
+                                                                            class="am-modal-prompt-input">
+                                                                        <option value="0">Not Paid</option>
+                                                                        <option value="1">Paid & Not Collected</option>
+                                                                        <option value="2">Collected</option>
+                                                                        <option value="3">Cancel & Rebook</option>
+                                                                        <option value="4">Cancel</option>
+                                                                        <option value="5">Refunded</option>
+                                                                        <option value="6">Used</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -608,6 +625,8 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/amazeui.datetimepicker.min.js"></script>
+    <script type="text/javascript" src="assets/js/old_index.js"></script>
 </body>
 
 </html>

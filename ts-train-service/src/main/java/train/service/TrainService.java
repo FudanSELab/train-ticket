@@ -11,6 +11,10 @@ public interface TrainService {
 
     TrainType retrieve(String id,HttpHeaders headers);
 
+    TrainType retrieveByName(String name,HttpHeaders headers);
+
+    List<TrainType> retrieveByNames(List<String> name,HttpHeaders headers);
+
     boolean update(TrainType trainType,HttpHeaders headers);
 
     boolean delete(String id,HttpHeaders headers);

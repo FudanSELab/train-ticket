@@ -6,10 +6,10 @@ spring:
   application:
     name: ts-train-service
   datasource:
-    url: jdbc:mysql://${TRAIN_MYSQL_HOST:ts-train-mysql}:${TRAIN_MYSQL_PORT:3306}/${TRAIN_MYSQL_DATABASE:ts-train-mysql}?useSSL=false
+    url: jdbc:mysql://${TRAIN_MYSQL_HOST:ts-train-mysql}:${TRAIN_MYSQL_PORT:3306}/${TRAIN_MYSQL_DATABASE:s-train-mysql}?useSSL=false
     username: ${TRAIN_MYSQL_USER:root}
     password: ${TRAIN_MYSQL_PASSWORD:Abcd1234#}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update

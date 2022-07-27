@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -26,7 +24,11 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public Response create(Station station, HttpHeaders headers) {
-        if (repository.findById(station.getId()) == null) {
+        if(station.getName().isEmpty()) {
+            StationServiceImpl.LOGGER.error("[create][Create station error][Name not specify]");
+            return new Response<>(0, "Name not specify", station);
+        }
+        if (repository.findByName(station.getName()) == null) {
             station.setStayTime(station.getStayTime());
             repository.save(station);
             return new Response<>(1, "Create success", station);
@@ -48,11 +50,12 @@ public class StationServiceImpl implements StationService {
     @Override
     public Response update(Station info, HttpHeaders headers) {
 
-        if (repository.findById(info.getId()) == null) {
+        Optional<Station> op = repository.findById(info.getId());
+        if (!op.isPresent()) {
             StationServiceImpl.LOGGER.error("[update][Update station error][Station not found][StationId: {}]",info.getId());
             return new Response<>(0, "Station not exist", null);
         } else {
-            Station station = new Station(info.getId(), info.getName());
+            Station station = op.get();
             station.setStayTime(info.getStayTime());
             repository.save(station);
             return new Response<>(1, "Update success", station);
@@ -60,14 +63,14 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public Response delete(Station info, HttpHeaders headers) {
-
-        if (repository.findById(info.getId()) != null) {
-            Station station = new Station(info.getId(), info.getName());
+    public Response delete(String stationsId, HttpHeaders headers) {
+        Optional<Station> op = repository.findById(stationsId);
+        if (op.isPresent()) {
+            Station station = op.get();
             repository.delete(station);
             return new Response<>(1, "Delete success", station);
         }
-        StationServiceImpl.LOGGER.error("[delete][Delete station error][Station not found][StationId: {}]",info.getId());
+        StationServiceImpl.LOGGER.error("[delete][Delete station error][Station not found][StationId: {}]",stationsId);
         return new Response<>(0, "Station not exist", null);
     }
 
@@ -97,14 +100,15 @@ public class StationServiceImpl implements StationService {
 
     @Override
     public Response queryForIdBatch(List<String> nameList, HttpHeaders headers) {
-        ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < nameList.size(); i++) {
-            Station station = repository.findByName(nameList.get(i));
-            if (station == null) {
-                result.add("Not Exist");
-            } else {
-                result.add(station.getId());
-            }
+        Map<String, String> result = new HashMap<>();
+        List<Station> stations = repository.findByNames(nameList);
+        Map<String, String> stationMap = new HashMap<>();
+        for(Station s: stations) {
+            stationMap.put(s.getName(), s.getId());
+        }
+
+        for(String name: nameList){
+            result.put(name, stationMap.get(name));
         }
 
         if (!result.isEmpty()) {
@@ -119,7 +123,7 @@ public class StationServiceImpl implements StationService {
     @Override
     public Response queryById(String stationId, HttpHeaders headers) {
         Optional<Station> station = repository.findById(stationId);
-        if (station != null) {
+        if (station.isPresent()) {
             return new Response<>(1, success, station.get().getName());
         } else {
             StationServiceImpl.LOGGER.error("[queryById][Find station name error][Station not found][StationId: {}]",stationId);
@@ -132,8 +136,8 @@ public class StationServiceImpl implements StationService {
         ArrayList<String> result = new ArrayList<>();
         for (int i = 0; i < idList.size(); i++) {
             Optional<Station> stationOld = repository.findById(idList.get(i));
-            Station station=stationOld.get();
-            if (station != null) {
+            if(stationOld.isPresent()){
+                Station station=stationOld.get();
                 result.add(station.getName());
             }
         }

@@ -1,0 +1,1902 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-basic-info-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-basic-info-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-basic-info-service
+    spec:
+      containers:
+        - name: ts-admin-basic-info-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-admin-basic-info-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-admin-basic-info-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18767
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18767
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-order-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-order-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-order-service
+    spec:
+      containers:
+        - name: ts-admin-order-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-admin-order-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-admin-order-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16112
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16112
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-route-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-route-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-route-service
+    spec:
+      containers:
+        - name: ts-admin-route-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-admin-route-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-admin-route-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16113
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16113
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-travel-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-travel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-travel-service
+    spec:
+      containers:
+        - name: ts-admin-travel-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-admin-travel-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-admin-travel-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16114
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16114
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-user-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-user-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-user-service
+    spec:
+      containers:
+        - name: ts-admin-user-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-admin-user-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-admin-user-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16115
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16115
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-assurance-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-assurance-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-assurance-service
+    spec:
+      containers:
+        - name: ts-assurance-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-assurance-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-assurance-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18888
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18888
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-auth-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-auth-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-auth-service
+    spec:
+      containers:
+        - name: ts-auth-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-auth-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-auth-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12340
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12340
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-avatar-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-avatar-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-avatar-service
+    spec:
+      containers:
+        - name: ts-avatar-service
+          image: codewisdom/ts-avatar-service:0.2.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-avatar-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 17001
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 17001
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-basic-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-basic-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-basic-service
+    spec:
+      containers:
+        - name: ts-basic-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-basic-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-basic-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 15680
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15680
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-cancel-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-cancel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-cancel-service
+    spec:
+      containers:
+        - name: ts-cancel-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-cancel-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-cancel-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18885
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18885
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-config-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-config-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-config-service
+    spec:
+      containers:
+        - name: ts-config-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-config-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-config-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 15679
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15679
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-consign-price-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-consign-price-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-consign-price-service
+    spec:
+      containers:
+        - name: ts-consign-price-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-consign-price-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-consign-price-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16110
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16110
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-consign-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-consign-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-consign-service
+    spec:
+      containers:
+        - name: ts-consign-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-consign-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-consign-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16111
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16111
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-contacts-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-contacts-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-contacts-service
+    spec:
+      containers:
+        - name: ts-contacts-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-contacts-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-contacts-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12347
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12347
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-delivery-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-delivery-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-delivery-service
+    spec:
+      containers:
+        - name: ts-delivery-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-delivery-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-delivery-mysql
+            - configMapRef:
+                name: rabbitmq
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18808
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18808
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-execute-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-execute-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-execute-service
+    spec:
+      containers:
+        - name: ts-execute-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-execute-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-execute-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12386
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12386
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-food-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-food-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-food-service
+    spec:
+      containers:
+        - name: ts-food-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-food-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-food-mysql
+            - configMapRef:
+                name: nacos
+            - configMapRef:
+                name: rabbitmq
+          ports:
+            - containerPort: 18856
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18856
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-gateway-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-gateway-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-gateway-service
+    spec:
+      containers:
+        - name: ts-gateway-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-gateway-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-gateway-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18888
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18888
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-inside-payment-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-inside-payment-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-inside-payment-service
+    spec:
+      containers:
+        - name: ts-inside-payment-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-inside-payment-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-inside-payment-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18673
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18673
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-news-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-news-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-news-service
+    spec:
+      containers:
+        - name: ts-news-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-news-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-news-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12862
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12862
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-notification-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-notification-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-notification-service
+    spec:
+      containers:
+        - name: ts-notification-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-notification-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-notification-mysql
+            - configMapRef:
+                name: nacos
+            - configMapRef:
+                name: rabbitmq
+          ports:
+            - containerPort: 17853
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 17853
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-order-other-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-order-other-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-order-other-service
+    spec:
+      containers:
+        - name: ts-order-other-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-order-other-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-order-other-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12032
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12032
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-order-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-order-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-order-service
+    spec:
+      containers:
+        - name: ts-order-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-order-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-order-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12031
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12031
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-payment-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-payment-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-payment-service
+    spec:
+      containers:
+        - name: ts-payment-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-payment-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-payment-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 19001
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 19001
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-preserve-other-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-preserve-other-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-preserve-other-service
+    spec:
+      containers:
+        - name: ts-preserve-other-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-preserve-other-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-preserve-other-mysql
+            - configMapRef:
+                name: nacos
+            - configMapRef:
+                name: rabbitmq
+          ports:
+            - containerPort: 14569
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14569
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-preserve-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-preserve-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-preserve-service
+    spec:
+      containers:
+        - name: ts-preserve-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-preserve-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-preserve-mysql
+            - configMapRef:
+                name: nacos
+            - configMapRef:
+                name: rabbitmq
+          ports:
+            - containerPort: 14568
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14568
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-price-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-price-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-price-service
+    spec:
+      containers:
+        - name: ts-price-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-price-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-price-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16579
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16579
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-rebook-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-rebook-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-rebook-service
+    spec:
+      containers:
+        - name: ts-rebook-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-rebook-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-rebook-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18886
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18886
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-route-plan-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-route-plan-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-route-plan-service
+    spec:
+      containers:
+        - name: ts-route-plan-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-route-plan-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-route-plan-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 14578
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14578
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-route-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-route-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-route-service
+    spec:
+      containers:
+        - name: ts-route-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-route-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-route-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 11178
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 11178
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-seat-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-seat-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-seat-service
+    spec:
+      containers:
+        - name: ts-seat-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-seat-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-seat-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18898
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18898
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-security-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-security-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-security-service
+    spec:
+      containers:
+        - name: ts-security-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-security-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-security-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 11188
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 11188
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-station-food-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-station-food-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-station-food-service
+    spec:
+      containers:
+        - name: ts-station-food-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-station-food-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-station-food-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18855
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18855
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-station-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-station-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-station-service
+    spec:
+      containers:
+        - name: ts-station-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-station-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-station-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12345
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12345
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-ticket-office-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-ticket-office-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-ticket-office-service
+    spec:
+      containers:
+        - name: ts-ticket-office-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-ticket-office-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-ticket-office-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16108
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16108
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-train-food-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-train-food-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-train-food-service
+    spec:
+      containers:
+        - name: ts-train-food-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-train-food-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-train-food-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 19999
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 19999
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-train-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-train-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-train-service
+    spec:
+      containers:
+        - name: ts-train-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-train-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-train-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 14567
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14567
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-travel-plan-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-travel-plan-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-travel-plan-service
+    spec:
+      containers:
+        - name: ts-travel-plan-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-travel-plan-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-travel-plan-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 14322
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14322
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-travel-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-travel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-travel-service
+    spec:
+      containers:
+        - name: ts-travel-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-travel-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-travel-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12346
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12346
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-travel2-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-travel2-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-travel2-service
+    spec:
+      containers:
+        - name: ts-travel2-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-travel2-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-travel2-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16346
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16346
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-user-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-user-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-user-service
+    spec:
+      containers:
+        - name: ts-user-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-user-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-user-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12342
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12342
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-verification-code-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-verification-code-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-verification-code-service
+    spec:
+      containers:
+        - name: ts-verification-code-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-verification-code-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-verification-code-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 15678
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15678
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-voucher-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-voucher-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-voucher-service
+    spec:
+      containers:
+        - name: ts-voucher-service
+          image: registry.cn-hangzhou.aliyuncs.com/train-ticket-reconstruction/ts-voucher-service:re-data
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-voucher-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16101
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16101
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---

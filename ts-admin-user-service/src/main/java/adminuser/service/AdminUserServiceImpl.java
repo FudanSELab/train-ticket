@@ -1,13 +1,11 @@
 package adminuser.service;
 
 import adminuser.dto.UserDto;
-import adminuser.entity.*;
+import edu.fudan.common.entity.User;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -36,13 +34,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 //    private final String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
 
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
 
     @Override
@@ -67,7 +59,12 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public Response deleteUser(String userId, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(null);
+        HttpHeaders newHeaders = new HttpHeaders();
+        String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
+        newHeaders.set(HttpHeaders.AUTHORIZATION, token);
+
+        HttpEntity<Response> requestEntity = new HttpEntity<>(newHeaders);
+
         String user_service_url = getServiceUrl("ts-user-service");
         String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
         ResponseEntity<Response> re = restTemplate.exchange(
@@ -86,7 +83,12 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public Response updateUser(UserDto userDto, HttpHeaders headers) {
         LOGGER.info("UPDATE USER: " + userDto.toString());
-        HttpEntity requestEntity = new HttpEntity(userDto, null);
+
+        HttpHeaders newHeaders = new HttpHeaders();
+        String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
+        newHeaders.set(HttpHeaders.AUTHORIZATION, token);
+
+        HttpEntity requestEntity = new HttpEntity(userDto, newHeaders);
         String user_service_url = getServiceUrl("ts-user-service");
         String USER_SERVICE_IP_URI = user_service_url + "/api/v1/userservice/users";
         ResponseEntity<Response> re = restTemplate.exchange(

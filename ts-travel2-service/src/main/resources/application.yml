@@ -12,8 +12,8 @@ spring:
   datasource:
     url: jdbc:mysql://${TRAVEL2_MYSQL_HOST:ts-travel2-mysql}:${TRAVEL2_MYSQL_PORT:3306}/${TRAVEL2_MYSQL_DATABASE:ts-travel2-mysql}?useSSL=false
     username: ${TRAVEL2_MYSQL_USER:root}
-    password: ${TRAVEL2_MYSQL_PASSWORD:root}
-    driver-class-name: com.mysql.jdbc.Driver
+    password: ${TRAVEL2_MYSQL_PASSWORD:Abcd1234#}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
@@ -23,18 +23,3 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 swagger:
   controllerPackage: travel2.controller
-
-train-service:
-  url: http://${TRAIN_SERVICE_HOST:ts-train-service}:${TRAIN_SERVICE_PORT:14567}
-
-order-other-service:
-  url: http://${ORDER_OTHER_SERVICE_HOST:ts-order-other-service}:${ORDER_OTHER_SERVICE_PORT:12032}
-
-route-service:
-  url: http://${ROUTE_SERVICE_HOST:ts-route-service}:${ROUTE_SERVICE_PORT:11178}
-
-basic-service:
-  url: http://${BASIC_SERVICE_HOST:ts-basic-service}:${BASIC_SERVICE_PORT:15680}
-
-seat-service:
-  url: http://${SEAT_SERVICE_HOST:ts-seat-service}:${SEAT_SERVICE_PORT:18898}

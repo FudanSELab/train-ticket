@@ -47,14 +47,9 @@ stationModule.controller("stationCtrl", function ($scope, $http, loadDataService
             onConfirm: function (options) {
                 $http({
                     method: "delete",
-                    url: "/api/v1/adminbasicservice/adminbasic/stations",
+                    url: "/api/v1/adminbasicservice/adminbasic/stations/"+station.id,
                     headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
                     withCredentials: true,
-                    data: {
-                        id: station.id,
-                        name: station.name,
-                        stayTime: station.stayTime
-                    }
                 }).success(function (data, status, headers, config) {
                     if (data.status ==1) {
                         alert("Delete station successfully!");
@@ -115,7 +110,6 @@ stationModule.controller("stationCtrl", function ($scope, $http, loadDataService
     };
 
     $scope.addStation = function () {
-        $('#add-station-id').val("");
         $('#add-station-name').val("");
         $('#add-station-stay-time').val("");
 
@@ -124,7 +118,6 @@ stationModule.controller("stationCtrl", function ($scope, $http, loadDataService
             onConfirm: function (options) {
                 if (parseInt($('#add-station-stay-time').val())) {
                     var data = new Object();
-                    data.id = $('#add-station-id').val();
                     data.name = $('#add-station-name').val();
                     data.stayTime = parseInt($('#add-station-stay-time').val());
                     // alert(JSON.stringify(data));

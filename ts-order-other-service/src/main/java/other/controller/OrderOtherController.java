@@ -1,12 +1,16 @@
 package other.controller;
 
+import edu.fudan.common.entity.Seat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
-import other.entity.*;
+
+
+import other.entity.Order;
+import other.entity.QueryInfo;
 import other.service.OrderOtherService;
 
 import java.util.Date;

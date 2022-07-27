@@ -1,5 +1,9 @@
 package rebook.service;
 
+import edu.fudan.common.entity.Seat;
+import edu.fudan.common.entity.Ticket;
+import edu.fudan.common.entity.TripAllDetail;
+import edu.fudan.common.entity.TripResponse;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,7 +17,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import rebook.entity.*;
+import edu.fudan.common.entity.*;
+import rebook.entity.RebookInfo;
 
 import java.util.Date;
 

@@ -2,7 +2,8 @@ package travelplan.service;
 
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
-import travelplan.entity.*;
+import edu.fudan.common.entity.*;
+import travelplan.entity.TransferTravelInfo;
 
 /**
  * @author fdse

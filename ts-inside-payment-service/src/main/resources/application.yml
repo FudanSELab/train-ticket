@@ -5,15 +5,15 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local
+        server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
   application:
     name: ts-inside-payment-service
 
   datasource:
     url: jdbc:mysql://${INSIDE_PAYMENT_MYSQL_HOST:ts-inside-payment-mysql}:${INSIDE_PAYMENT_MYSQL_PORT:3306}/${INSIDE_PAYMENT_MYSQL_DATABASE:ts-inside-payment-mysql}?useSSL=false
     username: ${INSIDE_PAYMENT_MYSQL_USER:root}
-    password: ${INSIDE_PAYMENT_MYSQL_PASSWORD:root}
-    driver-class-name: com.mysql.jdbc.Driver
+    password: ${INSIDE_PAYMENT_MYSQL_PASSWORD:Abcd1234#}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -24,12 +24,3 @@ spring:
 
 swagger:
   controllerPackage: inside_payment.controller
-
-order-service:
-  url: http://${ORDER_SERVICE_HOST:ts-order-service}:${ORDER_SERVICE_PORT:12031}
-
-order-other-service:
-  url: http://${ORDER_OTHER_SERVICE_HOST:ts-order-other-service}:${ORDER_OTHER_SERVICE_PORT:12032}
-
-payment-service:
-  url: http://${PAYMENT_SERVICE_HOST:ts-payment-service}:${PAYMENT_SERVICE_PORT:19001}

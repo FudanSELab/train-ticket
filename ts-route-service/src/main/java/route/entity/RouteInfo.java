@@ -2,14 +2,16 @@ package route.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author fdse
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class RouteInfo {
-    private String id;
+    private String Id;
 
     private String startStation;
 
@@ -18,9 +20,5 @@ public class RouteInfo {
     private String stationList;
 
     private String distanceList;
-
-    public RouteInfo() {
-        //Default Constructor
-    }
 
 }

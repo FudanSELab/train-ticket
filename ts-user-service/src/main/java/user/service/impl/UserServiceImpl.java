@@ -10,6 +10,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import user.dto.AuthDto;
 import user.dto.UserDto;
@@ -34,16 +35,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private DiscoveryClient discoveryClient;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
 
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
 
     @Override
@@ -86,6 +82,15 @@ public class UserServiceImpl implements UserService {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<AuthDto> entity = new HttpEntity<>(dto, null);
         String auth_service_url = getServiceUrl("ts-auth-service");
+
+        List<ServiceInstance> auth_svcs = discoveryClient.getInstances("ts-auth-service");
+        if(auth_svcs.size() >0 ){
+            ServiceInstance auth_svc = auth_svcs.get(0);
+            LOGGER.info("[createDefaultAuthUser][CALL TO AUTH][auth_svc host: {}][auth_svc port: {}]", auth_svc.getHost(), auth_svc.getPort());
+        }else{
+            LOGGER.info("[createDefaultAuthUser][CALL TO AUTH][can not get auth url]");
+        }
+
         ResponseEntity<Response<AuthDto>> res  = restTemplate.exchange(auth_service_url + "/api/v1/auth",
                 HttpMethod.POST,
                 entity,
@@ -125,6 +130,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Response deleteUser(String userId, HttpHeaders headers) {
         LOGGER.info("[deleteUser][DELETE USER BY ID][userId: {}]", userId);
         User user = userRepository.findByUserId(userId);
@@ -142,6 +148,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Response updateUser(UserDto userDto, HttpHeaders headers) {
         LOGGER.info("[updateUser][UPDATE USER: {}]", userDto.toString());
         User oldUser = userRepository.findByUserName(userDto.getUserName());
@@ -165,7 +172,12 @@ public class UserServiceImpl implements UserService {
     public void deleteUserAuth(String userId, HttpHeaders headers) {
         LOGGER.info("[deleteUserAuth][DELETE USER BY ID][userId: {}]", userId);
 
-        HttpEntity<Response> httpEntity = new HttpEntity<>(null);
+        HttpHeaders newHeaders = new HttpHeaders();
+        String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
+        newHeaders.set(HttpHeaders.AUTHORIZATION, token);
+
+        HttpEntity<Response> httpEntity = new HttpEntity<>(newHeaders);
+
         String auth_service_url = getServiceUrl("ts-auth-service");
         String AUTH_SERVICE_URI = auth_service_url + "/api/v1";
         restTemplate.exchange(AUTH_SERVICE_URI + "/users/" + userId,

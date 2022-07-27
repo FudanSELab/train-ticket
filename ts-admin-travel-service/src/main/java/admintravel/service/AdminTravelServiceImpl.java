@@ -1,13 +1,11 @@
 package admintravel.service;
 
-import admintravel.entity.AdminTrip;
-import admintravel.entity.TravelInfo;
+import edu.fudan.common.entity.AdminTrip;
+import edu.fudan.common.entity.TravelInfo;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author fdse
@@ -33,13 +30,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminTravelServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
 
     @Override
@@ -94,7 +85,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         String requestUrl;
         String travel_service_url = getServiceUrl("ts-travel-service");
         String travel2_service_url = getServiceUrl("ts-travel2-service");
-        if (request.getTrainTypeId().charAt(0) == 'G' || request.getTrainTypeId().charAt(0) == 'D') {
+        if (request.getTrainTypeName().charAt(0) == 'G' || request.getTrainTypeName().charAt(0) == 'D') {
             requestUrl = travel_service_url + "/api/v1/travelservice/trips";
         } else {
             requestUrl = travel2_service_url + "/api/v1/travel2service/trips";
@@ -123,7 +114,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         String requestUrl = "";
         String travel_service_url = getServiceUrl("ts-travel-service");
         String travel2_service_url = getServiceUrl("ts-travel2-service");
-        if (request.getTrainTypeId().charAt(0) == 'G' || request.getTrainTypeId().charAt(0) == 'D') {
+        if (request.getTrainTypeName().charAt(0) == 'G' || request.getTrainTypeName().charAt(0) == 'D') {
             requestUrl = travel_service_url + "/api/v1/travelservice/trips";
         } else {
             requestUrl = travel2_service_url + "/api/v1/travel2service/trips";

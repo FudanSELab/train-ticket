@@ -110,7 +110,7 @@ trainModule.controller("trainCtrl", function ($scope, $http, loadDataService, $w
     };
 
     $scope.addTrain = function () {
-        $('#add-train-id').val("");
+        $('#add-train-type-name').val("");
         $('#add-train-economy-class').val("");
         $('#add-train-confort-class').val("");
         $('#add-train-average-speed').val("");
@@ -120,7 +120,7 @@ trainModule.controller("trainCtrl", function ($scope, $http, loadDataService, $w
             onConfirm: function (options) {
                 if (parseInt($('#add-train-economy-class').val()) && parseInt($('#add-train-confort-class').val()) && parseInt($('#add-train-average-speed').val())) {
                     var data = new Object();
-                    data.id = $('#add-train-id').val();
+                    data.name = $('#add-train-type-name').val();
                     data.economyClass = parseInt($('#add-train-economy-class').val());
                     data.confortClass = parseInt($('#add-train-confort-class').val());
                     data.averageSpeed = parseInt($('#add-train-average-speed').val());

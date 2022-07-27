@@ -1,6 +1,11 @@
 package travel.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.common.entity.*;
+import edu.fudan.common.entity.TravelInfo;
+import edu.fudan.common.entity.TripAllDetailInfo;
+import edu.fudan.common.entity.TripInfo;
+import edu.fudan.common.entity.TripResponse;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,7 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import travel.entity.*;
+import travel.entity.Travel;
+import travel.entity.AdminTrip;
 import travel.service.TravelService;
 
 import java.util.ArrayList;
@@ -128,7 +134,7 @@ public class TravelControllerTest {
 
     @Test
     public void testQueryInfo2() throws Exception {
-        TripInfo info = new TripInfo("startingPlace", "endPlace", new Date());
+        TripInfo info = new TripInfo("startPlace", "endPlace", "");
         Mockito.when(service.query(Mockito.any(TripInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(info);
         String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/travelservice/trips/left").contentType(MediaType.APPLICATION_JSON).content(requestJson))

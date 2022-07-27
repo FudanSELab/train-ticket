@@ -4,12 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
 import java.util.UUID;
 
 /**
@@ -18,17 +14,18 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Table(indexes = {@Index(name = "route_type_idx", columnList = "train_type, route_id", unique = true)})
 public class PriceConfig {
 
     @Id
-    @GeneratedValue(generator = "jpa-uuid")
     @Column(length = 36)
     private String id;
 
+    @Column(name="train_type")
     private String trainType;
 
+    @Column(name="route_id", length = 36)
     private String routeId;
 
     private double basicPriceRate;
@@ -37,6 +34,7 @@ public class PriceConfig {
 
     public PriceConfig() {
         //Empty Constructor
+        this.id = UUID.randomUUID().toString();
     }
 
 }

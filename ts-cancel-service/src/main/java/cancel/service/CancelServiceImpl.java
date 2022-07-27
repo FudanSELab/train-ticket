@@ -1,12 +1,14 @@
 package cancel.service;
 
-import cancel.entity.*;
+import edu.fudan.common.entity.NotifyInfo;
+import edu.fudan.common.entity.OrderStatus;
+import edu.fudan.common.entity.Order;
+import edu.fudan.common.entity.SeatClass;
+import edu.fudan.common.entity.User;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -19,7 +21,6 @@ import org.springframework.web.client.RestTemplate;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author fdse
@@ -37,13 +38,7 @@ public class CancelServiceImpl implements CancelService {
     String orderStatusCancelNotPermitted = "Order Status Cancel Not Permitted";
 
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
 
     @Override
@@ -78,14 +73,14 @@ public class CancelServiceImpl implements CancelService {
                         NotifyInfo notifyInfo = new NotifyInfo();
                         notifyInfo.setDate(new Date().toString());
                         notifyInfo.setEmail(result.getData().getEmail());
-                        notifyInfo.setStartingPlace(order.getFrom());
+                        notifyInfo.setStartPlace(order.getFrom());
                         notifyInfo.setEndPlace(order.getTo());
                         notifyInfo.setUsername(result.getData().getUserName());
                         notifyInfo.setSeatNumber(order.getSeatNumber());
                         notifyInfo.setOrderNumber(order.getId().toString());
                         notifyInfo.setPrice(order.getPrice());
                         notifyInfo.setSeatClass(SeatClass.getNameByCode(order.getSeatClass()));
-                        notifyInfo.setStartingTime(order.getTravelTime().toString());
+                        notifyInfo.setStartTime(order.getTravelTime().toString());
 
                         // TODO: change to async message serivce
                         // sendEmail(notifyInfo, headers);

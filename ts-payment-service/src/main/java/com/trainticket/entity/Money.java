@@ -17,14 +17,15 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 @Entity
-@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Money {
     @Id
-    @Column(name = "money_id", length = 36)
+    @Column(length = 36)
     @GeneratedValue(generator = "jpa-uuid")
     private String id;
 
+    @Column(length = 36)
     private String userId;
     private String money; //NOSONAR
 

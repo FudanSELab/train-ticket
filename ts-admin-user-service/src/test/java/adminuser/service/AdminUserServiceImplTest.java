@@ -1,7 +1,7 @@
 package adminuser.service;
 
 import adminuser.dto.UserDto;
-import adminuser.entity.User;
+import edu.fudan.common.entity.User;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;

@@ -12,7 +12,7 @@ spring:
     url: jdbc:mysql://${CONTACTS_MYSQL_HOST:ts-contacts-mysql}:${CONTACTS_MYSQL_PORT:3306}/${CONTACTS_MYSQL_DATABASE:ts-contacts-mysql}?useSSL=false
     username: ${CONTACTS_MYSQL_USER:root}
     password: ${CONTACTS_MYSQL_PASSWORD:Abcd1234#}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update

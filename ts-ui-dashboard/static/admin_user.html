@@ -345,9 +345,11 @@
                                                                 <label for="add_user_gender"
                                                                     class="am-u-sm-5 am-form-label">Gender: </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_user_gender"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_user_gender">
+                                                                    <select id="add_user_gender" name="user_gender"
+                                                                            class="am-modal-prompt-input">
+                                                                        <option value="0">Male</option>
+                                                                        <option value="1">Female</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -364,9 +366,12 @@
                                                                     class="am-u-sm-5 am-form-label">Document Type:
                                                                 </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="add_user_document_type"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="add_user_document_type">
+                                                                    <select id="add_user_document_type" name="document_type"
+                                                                            class="am-modal-prompt-input">
+                                                                        <option value='1' selected = 'selected'>ID Card</option> +
+                                                                        <option value='2'>Passport</option> +
+                                                                        <option value='3'>Other</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">

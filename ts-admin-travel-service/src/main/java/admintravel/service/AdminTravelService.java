@@ -1,6 +1,6 @@
 package admintravel.service;
 
-import admintravel.entity.TravelInfo;
+import edu.fudan.common.entity.TravelInfo;
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
 

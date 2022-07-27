@@ -1,8 +1,11 @@
 package fdse.microservice.service;
 
+import edu.fudan.common.entity.Travel;
 import edu.fudan.common.util.Response;
-import fdse.microservice.entity.*;
+import edu.fudan.common.entity.*;
 import org.springframework.http.HttpHeaders;
+
+import java.util.List;
 
 /**
  * @author Chenjie
@@ -18,6 +21,8 @@ public interface BasicService {
      * @return Response
      */
     Response queryForTravel(Travel info, HttpHeaders headers);
+
+    Response queryForTravels(List<Travel> infos, HttpHeaders headers);
 
     /**
      * query for station id with station name

@@ -435,7 +435,7 @@ var appConsign = new Vue({
         },
         searchRouteList() {
             var travelQueryInfo = new Object();
-            travelQueryInfo.startingPlace = this.from;
+            travelQueryInfo.startPlace = this.from;
             travelQueryInfo.endPlace = this.to;
             travelQueryInfo.departureTime = this.dateOfToday;
             if (travelQueryInfo.departureTime == null || this.checkDateFormat(travelQueryInfo.departureTime) == false) {
@@ -499,7 +499,7 @@ var appConsign = new Vue({
                         that.tempSearchRoutes = obj;
                         // that.initSeatClass(size);
                         for (var i = 0; i < size; i++) {
-                            that.tempSearchRoutes[i].startingTime = that.convertNumberToTimeString(obj[i].startingTime);
+                            that.tempSearchRoutes[i].startTime = that.convertNumberToTimeString(obj[i].startTime);
                             that.tempSearchRoutes[i].endTime = that.convertNumberToTimeString(obj[i].endTime);
                         }
                         that.searchRoutes = that.searchRoutes.concat(that.tempSearchRoutes);
@@ -537,7 +537,7 @@ var appConsign = new Vue({
                         var size = obj.length;
                         for (var i = 0, l = obj.length; i < l; i++) {
                             that.tempSearchRoutes[i] = obj[i];
-                            that.tempSearchRoutes[i].startingTime = that.convertNumberToTimeString(that.tempSearchRoutes[i].startingTime);
+                            that.tempSearchRoutes[i].startTime = that.convertNumberToTimeString(that.tempSearchRoutes[i].startTime);
                             that.tempSearchRoutes[i].endTime = that.convertNumberToTimeString(that.tempSearchRoutes[i].endTime);
                         }
                         that.searchRoutes = that.searchRoutes.concat(that.tempSearchRoutes);

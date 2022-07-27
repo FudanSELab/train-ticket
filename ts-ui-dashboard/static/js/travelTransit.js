@@ -1,8 +1,8 @@
 $("#transit_search_button").click(function(){
     var transitSearchInfo = new Object();
-    transitSearchInfo.fromStationName = $("#transit_start_station").val();
-    transitSearchInfo.viaStationName = $("#transit_middle_station").val();
-    transitSearchInfo.toStationName = $("#transit_end_station").val();
+    transitSearchInfo.startStation = $("#transit_start_station").val();
+    transitSearchInfo.viaStation = $("#transit_middle_station").val();
+    transitSearchInfo.endStation = $("#transit_end_station").val();
     transitSearchInfo.travelDate = $("#transit_end_station_date").val();
     if(transitSearchInfo.travelDate  == null || checkDateFormat(transitSearchInfo.travelDate ) == false){
         alert("Departure Date Format Wrong.");
@@ -35,9 +35,9 @@ function queryForTransitTravelInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td >" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
                         "<td >" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td >" + obj[i]["startingStation"] + "</td>" +
+                        "<td >" + obj[i]["startStation"] + "</td>" +
                         "<td >" + obj[i]["terminalStation"] + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["economyClass"] + "</td>" +
                         "<td>" + obj[i]["confortClass"] + "</td>" +
@@ -61,9 +61,9 @@ function queryForTransitTravelInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td >" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
                         "<td >" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td >" + obj[i]["startingStation"] + "</td>" +
+                        "<td >" + obj[i]["startStation"] + "</td>" +
                         "<td >" + obj[i]["terminalStation"] + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["economyClass"] + "</td>" +
                         "<td>" + obj[i]["confortClass"] + "</td>" +

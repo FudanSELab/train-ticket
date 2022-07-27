@@ -21,8 +21,12 @@ public class TrainServiceImpl implements TrainService {
     @Override
     public boolean create(TrainType trainType, HttpHeaders headers) {
         boolean result = false;
-        if (!repository.findById(trainType.getId()).isPresent()) {
-            TrainType type = new TrainType(trainType.getId(), trainType.getEconomyClass(), trainType.getConfortClass());
+        if(trainType.getName().isEmpty()){
+            TrainServiceImpl.LOGGER.error("[create][Create train error][Train Type name not specified]");
+            return result;
+        }
+        if (repository.findByName(trainType.getName()) == null) {
+            TrainType type = new TrainType(trainType.getName(), trainType.getEconomyClass(), trainType.getConfortClass());
             type.setAverageSpeed(trainType.getAverageSpeed());
             repository.save(type);
             result = true;
@@ -44,10 +48,32 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
+    public TrainType retrieveByName(String name, HttpHeaders headers) {
+        TrainType tt = repository.findByName(name);
+        if (tt == null) {
+            TrainServiceImpl.LOGGER.error("[retrieveByName][RetrieveByName error][Train not found][TrainTypeName: {}]", name);
+            return null;
+        } else {
+            return tt;
+        }
+    }
+
+    @Override
+    public List<TrainType> retrieveByNames(List<String> names, HttpHeaders headers) {
+        List<TrainType> tt = repository.findByNames(names);
+        if (tt == null || tt.isEmpty()) {
+            TrainServiceImpl.LOGGER.error("[retrieveByNames][RetrieveByNames error][Train not found][TrainTypeNames: {}]", names);
+            return null;
+        } else {
+            return tt;
+        }
+    }
+
+    @Override
     public boolean update(TrainType trainType, HttpHeaders headers) {
         boolean result = false;
         if (repository.findById(trainType.getId()).isPresent()) {
-            TrainType type = new TrainType(trainType.getId(), trainType.getEconomyClass(), trainType.getConfortClass());
+            TrainType type = new TrainType(trainType.getName(), trainType.getEconomyClass(), trainType.getConfortClass());
             type.setAverageSpeed(trainType.getAverageSpeed());
             repository.save(type);
             result = true;

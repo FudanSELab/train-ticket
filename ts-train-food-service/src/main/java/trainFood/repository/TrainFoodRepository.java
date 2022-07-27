@@ -16,7 +16,7 @@ public interface TrainFoodRepository extends CrudRepository<TrainFood, String> {
     List<TrainFood> findAll();
 
 
-    List<TrainFood> findByTripId(String tripId);
+    TrainFood findByTripId(String tripId);
 
     void deleteById(UUID id);
 }

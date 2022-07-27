@@ -1,6 +1,8 @@
 package travelplan.entity;
 
+import edu.fudan.common.entity.TripResponse;
 import lombok.Data;
+import edu.fudan.common.entity.TripResponse;
 
 import java.util.List;
 

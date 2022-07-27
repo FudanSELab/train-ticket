@@ -30,13 +30,14 @@ public class InitUser implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         User whetherExistUser = userRepository.findByUserName("fdse_microservice");
         User user = User.builder()
-                .userId(UUID.fromString("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f").toString())
+                .userId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f")
                 .userName("fdse_microservice")
                 .password("111111")
                 .gender(1)
                 .documentType(1)
                 .documentNum("2135488099312X")
                 .email("trainticket_notify@163.com").build();
+        user.setUserId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
         if (whetherExistUser == null) {
             userRepository.save(user);
         }

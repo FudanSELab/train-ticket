@@ -11,7 +11,7 @@ spring:
     url: jdbc:mysql://${AUTH_MYSQL_HOST:ts-auth-mysql}:${AUTH_MYSQL_PORT:3306}/${AUTH_MYSQL_DATABASE:ts-auth-mysql}?useSSL=false
     username: ${AUTH_MYSQL_USER:root}
     password: ${AUTH_MYSQL_PASSWORD:Abcd1234#}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update

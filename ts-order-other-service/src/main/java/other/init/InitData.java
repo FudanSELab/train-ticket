@@ -1,6 +1,8 @@
 package other.init;
 
-import other.entity.*;
+import edu.fudan.common.entity.OrderStatus;
+import other.entity.Order;
+import edu.fudan.common.entity.SeatClass;
 import other.service.OrderOtherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

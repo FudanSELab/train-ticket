@@ -1,7 +1,7 @@
 package execute.serivce;
 
 import edu.fudan.common.util.Response;
-import execute.entity.*;
+import edu.fudan.common.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,16 +32,10 @@ public class ExecuteServiceImpl implements ExecuteService {
     String orderStatusWrong = "Order Status Wrong";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ExecuteServiceImpl.class);
-
     private String getServiceUrl(String serviceName) {
-        List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serviceName);
-        if(serviceInstances.size() > 0){
-            ServiceInstance serviceInstance = serviceInstances.get(0);
-            String service_url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
-            return service_url;
-        }
-        return "";
+        return "http://" + serviceName;
     }
+
 
     @Override
     public Response ticketExecute(String orderId, HttpHeaders headers) {

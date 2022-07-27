@@ -85,7 +85,7 @@ public class StationServiceImplTest {
         Station info = new Station();
         Mockito.when(repository.findById(Mockito.anyString()).get()).thenReturn(info);
         Mockito.doNothing().doThrow(new RuntimeException()).when(repository).delete(Mockito.any(Station.class));
-        Response result = stationServiceImpl.delete(info, headers);
+        Response result = stationServiceImpl.delete(info.getId(), headers);
         Assert.assertEquals("Delete success", result.getMsg());
     }
 
@@ -93,7 +93,7 @@ public class StationServiceImplTest {
     public void testDelete2() {
         Station info = new Station();
         Mockito.when(repository.findById(Mockito.anyString())).thenReturn(null);
-        Response result = stationServiceImpl.delete(info, headers);
+        Response result = stationServiceImpl.delete(info.getId(), headers);
         Assert.assertEquals(new Response<>(0, "Station not exist", null), result);
     }
 

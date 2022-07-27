@@ -37,6 +37,8 @@ router.get('/getAll', function(req, res, next) {
 });
 
 router.post('/getSpecificOffices', function(req, res, next) {
+    console.log("getSpecificOffices, req.body", req.body);
+    console.log(req.body.province, req.body.city, req.body.region);
     db.getSpecificOffices(req.body.province, req.body.city, req.body.region, function(result){
         res.set({'Content-Type':'text/json','Encodeing':'utf8'});
         console.log("getSpecificOffices=" + JSON.stringify(result));

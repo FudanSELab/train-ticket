@@ -1,10 +1,10 @@
 package order.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.common.entity.Seat;
 import edu.fudan.common.util.Response;
 import order.entity.Order;
 import order.entity.OrderInfo;
-import order.entity.Seat;
 import order.service.OrderService;
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,8 +1,8 @@
 package fdse.microservice.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.common.entity.Travel;
 import edu.fudan.common.util.Response;
-import fdse.microservice.entity.Travel;
 import fdse.microservice.service.BasicService;
 import org.junit.Assert;
 import org.junit.Before;

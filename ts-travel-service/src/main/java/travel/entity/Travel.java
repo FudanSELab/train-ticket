@@ -12,7 +12,7 @@ public class Travel {
 
     private Trip trip;
 
-    private String startingPlace;
+    private String startPlace;
 
     private String endPlace;
 

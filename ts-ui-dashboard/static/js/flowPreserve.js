@@ -94,7 +94,7 @@ function checkEmailFormat(email){
 
 $("#travel_booking_button").click(function(){
     var travelQueryInfo = new Object();
-    travelQueryInfo.startingPlace = $("#travel_booking_startingPlace").val();
+    travelQueryInfo.startPlace = $("#travel_booking_startingPlace").val();
     travelQueryInfo.endPlace = $("#travel_booking_terminalPlace").val();
     travelQueryInfo.departureTime = $("#travel_booking_date").val();
     if(travelQueryInfo.departureTime == null || checkDateFormat(travelQueryInfo.departureTime) == false){
@@ -144,9 +144,9 @@ function queryForTravelInfo(data,path) {
                         "<td>" + i + "</td>" +
                         "<td class='booking_tripId'>" + obj[i]["tripId"]["type"] + obj[i]["tripId"]["number"] + "</td>" +
                         "<td class='booking_trainTypeId'>" + obj[i]["trainTypeId"] + "</td>" +
-                        "<td class='booking_from'>" + obj[i]["startingStation"] + "</td>" +
+                        "<td class='booking_from'>" + obj[i]["startStation"] + "</td>" +
                         "<td class='booking_to'>" + obj[i]["terminalStation"] + "</td>" +
-                        "<td>" + convertNumberToTimeString(obj[i]["startingTime"]) + "</td>" +
+                        "<td>" + convertNumberToTimeString(obj[i]["startTime"]) + "</td>" +
                         "<td>" + convertNumberToTimeString(obj[i]["endTime"]) + "</td>" +
                         "<td>" + obj[i]["economyClass"] + "</td>" +
                         "<td>" + obj[i]["confortClass"] + "</td>" +
