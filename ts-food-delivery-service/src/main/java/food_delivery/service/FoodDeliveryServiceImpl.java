@@ -123,7 +123,7 @@ public class FoodDeliveryServiceImpl implements FoodDeliveryService {
     }
 
     @Override
-    public Response updateTripId(TripInfo tripInfo, HttpHeaders headers) {
+    public Response updateTripId(TripOrderInfo tripInfo, HttpHeaders headers) {
         String id = tripInfo.getOrderId();
         String tripId = tripInfo.getTripId();
         FoodDeliveryOrder t = foodDeliveryOrderRepository.findById(id).orElse(null);
