@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import preserveOther.mq.RabbitSend;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -109,9 +110,6 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         String fromStationName = oti.getFrom();
         String toStationName = oti.getTo();
 
-        String fromStationId = queryForStationId(fromStationName, httpHeaders);
-        String toStationId = queryForStationId(toStationName, httpHeaders);
-
         order.setFrom(fromStationName);
         order.setTo(toStationName);
         order.setBoughtDate(new Date());
@@ -136,6 +134,10 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
                 requestEntity,
                 new ParameterizedTypeReference<Response<TravelResult>>() {
                 });
+        if(re.getBody().getStatus() == 0){
+            PreserveOtherServiceImpl.LOGGER.info("[Preserve 3][Get basic travel response status is 0][response is: {}]", re.getBody());
+            return new Response<>(0, re.getBody().getMsg(), null);
+        }
         TravelResult resultForTravel = re.getBody().getData();
 
         order.setSeatClass(oti.getSeatType());
@@ -144,19 +146,22 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         order.setTravelTime(gtdr.getTripResponse().getStartTime());
 
         //Dispatch the seat
+        List<String> stationList = resultForTravel.getRoute().getStations();
         if (oti.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {
+            int firstClassTotalNum = resultForTravel.getTrainType().getConfortClass();
             Ticket ticket =
                     dipatchSeat(oti.getDate(),
-                            order.getTrainNumber(), fromStationId, toStationId,
-                            SeatClass.FIRSTCLASS.getCode(), httpHeaders);
+                            order.getTrainNumber(), fromStationName, toStationName,
+                            SeatClass.FIRSTCLASS.getCode(), firstClassTotalNum, stationList, httpHeaders);
             order.setSeatClass(SeatClass.FIRSTCLASS.getCode());
             order.setSeatNumber("" + ticket.getSeatNo());
             order.setPrice(resultForTravel.getPrices().get("confortClass"));
         } else {
+            int secondClassTotalNum = resultForTravel.getTrainType().getEconomyClass();
             Ticket ticket =
                     dipatchSeat(oti.getDate(),
-                            order.getTrainNumber(), fromStationId, toStationId,
-                            SeatClass.SECONDCLASS.getCode(), httpHeaders);
+                            order.getTrainNumber(), fromStationName, toStationName,
+                            SeatClass.SECONDCLASS.getCode(), secondClassTotalNum, stationList, httpHeaders);
             order.setSeatClass(SeatClass.SECONDCLASS.getCode());
             order.setSeatNumber("" + ticket.getSeatNo());
 
@@ -256,13 +261,15 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         return returnResponse;
     }
 
-    public Ticket dipatchSeat(Date date, String tripId, String startStationId, String endStataionId, int seatType, HttpHeaders httpHeaders) {
+    public Ticket dipatchSeat(Date date, String tripId, String startStationId, String endStataionId, int seatType, int totalNum, List<String> stationList, HttpHeaders httpHeaders) {
         Seat seatRequest = new Seat();
         seatRequest.setTravelDate(date);
         seatRequest.setTrainNumber(tripId);
         seatRequest.setStartStation(startStationId);
         seatRequest.setSeatType(seatType);
         seatRequest.setDestStation(endStataionId);
+        seatRequest.setTotalNum(totalNum);
+        seatRequest.setStations(stationList);
 
         HttpEntity requestEntityTicket = new HttpEntity(seatRequest, httpHeaders);
         String seat_service_url = getServiceUrl("ts-seat-service");

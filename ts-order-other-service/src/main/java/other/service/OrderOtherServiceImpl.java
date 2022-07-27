@@ -207,7 +207,6 @@ public class OrderOtherServiceImpl implements OrderOtherService {
             stationIds.add(order.getFrom());
             stationIds.add(order.getTo());
         }
-//        List<String> names = queryForStationId(stationIds, headers);
         for (int i = 0; i < orders.size(); i++) {
             orders.get(i).setFrom(stationIds.get(i * 2));
             orders.get(i).setTo(stationIds.get(i * 2 + 1));

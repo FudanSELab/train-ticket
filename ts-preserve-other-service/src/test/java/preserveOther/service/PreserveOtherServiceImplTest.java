@@ -141,7 +141,7 @@ public class PreserveOtherServiceImplTest {
     @Test
     public void testDipatchSeat() {
         long mills = System.currentTimeMillis();
-        Seat seatRequest = new Seat(new Date(mills), "G1234", "start_station", "dest_station", 2);
+        Seat seatRequest = new Seat(new Date(mills), "G1234", "start_station", "dest_station", 2, 100, null);
         HttpEntity requestEntityTicket = new HttpEntity<>(seatRequest, headers);
         Response<Ticket> response = new Response<>();
         ResponseEntity<Response<Ticket>> reTicket = new ResponseEntity<>(response, HttpStatus.OK);
@@ -151,7 +151,7 @@ public class PreserveOtherServiceImplTest {
                 requestEntityTicket,
                 new ParameterizedTypeReference<Response<Ticket>>() {
                 })).thenReturn(reTicket);
-        Ticket result = preserveOtherServiceImpl.dipatchSeat(new Date(mills), "G1234", "start_station", "dest_station", 2, headers);
+        Ticket result = preserveOtherServiceImpl.dipatchSeat(new Date(mills), "G1234", "start_station", "dest_station", 2, 100, null, headers);
         Assert.assertNull(result);
     }
 

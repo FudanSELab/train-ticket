@@ -95,7 +95,7 @@ public class TravelServiceImpl implements TravelService {
         TrainType trainType = null;
         Trip trip = repository.findByTripId(tripId1);
         if (trip != null) {
-            trainType = getTrainType(trip.getTrainTypeName(), headers);
+            trainType = getTrainTypeByName(trip.getTrainTypeName(), headers);
         } else {
             TravelServiceImpl.LOGGER.error("[getTrainTypeByTripId][Get Train Type by Trip id error][Trip not found][TripId: {}]", tripId);
         }
@@ -251,8 +251,6 @@ public class TravelServiceImpl implements TravelService {
         //Gets the start and arrival stations of the train number to query. The originating and arriving stations received here are both station names, so two requests need to be sent to convert to station ids
         String startPlaceName = info.getStartPlace();
         String endPlaceName = info.getEndPlace();
-//        String startingPlaceId = queryForStationId(startPlaceName, headers);
-//        String endPlaceId = queryForStationId(endPlaceName, headers);
 
         //This is the final result
         List<TripResponse> list = new ArrayList<>();
@@ -491,19 +489,6 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
-    private TrainType getTrainType(String trainTypeId, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(null);
-        String train_service_url = getServiceUrl("ts-train-service");
-        ResponseEntity<Response<TrainType>> re = restTemplate.exchange(
-                train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeId,
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<Response<TrainType>>() {
-                });
-
-        return re.getBody().getData();
-    }
-
     private TrainType getTrainTypeByName(String trainTypeName, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
         String train_service_url = getServiceUrl("ts-train-service");
@@ -514,24 +499,6 @@ public class TravelServiceImpl implements TravelService {
                 new ParameterizedTypeReference<Response<TrainType>>() {
                 });
 
-        return re.getBody().getData();
-    }
-
-
-    private String queryForStationId(String stationName, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(null);
-        String station_service_url=getServiceUrl("ts-station-service");
-        ResponseEntity<Response<String>> re = restTemplate.exchange(
-                station_service_url + "/api/v1/stationservice/stations/id/" + stationName,
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<Response<String>>() {
-                });
-        if (re.getBody().getStatus() != 1) {
-            String msg = re.getBody().getMsg();
-            TravelServiceImpl.LOGGER.warn("[queryForStationId][Query for stationId error][stationName: {}, message: {}]", stationName, msg);
-            return "";
-        }
         return re.getBody().getData();
     }
 

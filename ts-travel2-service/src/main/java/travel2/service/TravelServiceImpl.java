@@ -74,7 +74,7 @@ public class TravelServiceImpl implements TravelService {
         TrainType trainType = null;
         Trip trip = repository.findByTripId(tripId1);
         if (trip != null) {
-            trainType = getTrainType(trip.getTrainTypeName(), headers);
+            trainType = getTrainTypeByName(trip.getTrainTypeName(), headers);
         }
         else {
             TravelServiceImpl.LOGGER.error("[getTrainTypeByTripId[]Get Train Type by Trip id error][Trip not found][TripId: {}]",tripId);
@@ -403,15 +403,14 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
-    private TrainType getTrainType(String trainTypeId, HttpHeaders headers) {
-
+    private TrainType getTrainTypeByName(String trainTypeName, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
         String train_service_url = getServiceUrl("ts-train-service");
-        ResponseEntity<Response<edu.fudan.common.entity.TrainType>> re = restTemplate.exchange(
-                train_service_url + "/api/v1/trainservice/trains/byName" + trainTypeId,
+        ResponseEntity<Response<TrainType>> re = restTemplate.exchange(
+                train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeName,
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<Response<edu.fudan.common.entity.TrainType>>() {
+                new ParameterizedTypeReference<Response<TrainType>>() {
                 });
 
         return re.getBody().getData();
@@ -471,7 +470,7 @@ public class TravelServiceImpl implements TravelService {
             for (Trip trip : trips) {
                 AdminTrip adminTrip = new AdminTrip();
                 adminTrip.setRoute(getRouteByRouteId(trip.getRouteId(), headers));
-                adminTrip.setTrainType(getTrainType(trip.getTrainTypeName(), headers));
+                adminTrip.setTrainType(getTrainTypeByName(trip.getTrainTypeName(), headers));
                 adminTrip.setTrip(trip);
                 adminTrips.add(adminTrip);
             }
