@@ -459,7 +459,7 @@ services:
               - my-network
 
   ts-consign-price-mysql:
-            image: mysql
+            image: mysql:5.7
             networks:
               - my-network
 
