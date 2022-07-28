@@ -68,7 +68,7 @@ trainModule.controller("trainCtrl", function ($scope, $http, loadDataService, $w
     };
 
     $scope.updateTrain = function (train) {
-        $('#update-train-id').val(train.id);
+        $('#update-train-name').val(train.name);
         $('#update-train-economy-class').val(train.economyClass);
         $('#update-train-confort-class').val(train.confortClass);
         $('#update-train-average-speed').val(train.averageSpeed);
@@ -79,6 +79,7 @@ trainModule.controller("trainCtrl", function ($scope, $http, loadDataService, $w
                 if (parseInt($('#update-train-economy-class').val()) && parseInt($('#update-train-confort-class').val()) && parseInt($('#update-train-average-speed').val())) {
                     var data = new Object();
                     data.id = train.id;
+                    data.name = train.name;
                     data.economyClass = parseInt($('#update-train-economy-class').val());
                     data.confortClass = parseInt($('#update-train-confort-class').val());
                     data.averageSpeed = parseInt($('#update-train-average-speed').val());

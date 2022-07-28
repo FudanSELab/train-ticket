@@ -182,7 +182,7 @@
                                         <tr>
                                             <th class="table-set">Operation</th>
                                             <th class="table-title">Id</th>
-                                            <th class="table-title">TrainTypeId</th>
+                                            <th class="table-title">TrainTypeName</th>
                                             <th class="table-title">RouteId</th>
                                             <th class="table-title">startTime</th>
                                             <th class="table-title">startStation</th>
@@ -211,11 +211,11 @@
                                                 </div>
                                             </td>
                                             <td>{{record.trip.tripId.type + "" + record.trip.tripId.number}}</td>
-                                            <td>{{record.trip.trainTypeId}}</td>
+                                            <td>{{record.trainType.name}}</td>
                                             <td>{{record.trip.routeId}}</td>
                                             <td>{{record.trip.startTime}}</td>
-                                            <td>{{record.route.startStationName}}</td>
-                                            <td>{{record.route.terminalStationName}}</td>
+                                            <td>{{record.trip.startStationName}}</td>
+                                            <td>{{record.trip.terminalStationName}}</td>
                                             <td>{{record.route.stations}}</td>
                                             <td>{{record.route.distances}}</td>
                                             <td>{{record.trainType.economyClass}}</td>
@@ -247,9 +247,9 @@
                                                                     class="am-u-sm-5 am-form-label">TrainType Id:
                                                                 </label>
                                                                 <div class="am-u-sm-7">
-                                                                    <input type="text" id="update_travel_train_type_id"
-                                                                        class="am-modal-prompt-input"
-                                                                        ng-model="update_travel_train_type_id">
+                                                                    <select id="update_travel_train_type_id" name="update_train_type_id"
+                                                                            class="am-modal-prompt-input">
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
@@ -262,12 +262,48 @@
                                                                 </div>
                                                             </div>
                                                             <div class="am-form-group">
+                                                                <label for="update_travel_start_station"
+                                                                       class="am-u-sm-5 am-form-label">Start Station: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_travel_start_station"
+                                                                           class="am-modal-prompt-input"
+                                                                           ng-model="update_travel_start_station">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_travel_station_name"
+                                                                       class="am-u-sm-5 am-form-label">Station Name: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_travel_station_name"
+                                                                           class="am-modal-prompt-input"
+                                                                           ng-model="update_travel_station_name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="update_travel_terminal_station"
+                                                                       class="am-u-sm-5 am-form-label">Terminal Station: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_travel_terminal_station"
+                                                                           class="am-modal-prompt-input"
+                                                                           ng-model="update_travel_terminal_station">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
                                                                 <label for="update_travel_start_time"
                                                                     class="am-u-sm-5 am-form-label">Start Time: </label>
                                                                 <div class="am-u-sm-7">
                                                                     <input type="text" id="update_travel_start_time"
                                                                         class="am-modal-prompt-input"
                                                                         ng-model="update_travel_start_time">
+                                                                </div>
+                                                            </div>
+                                                            <div class="am-form-group">
+                                                                <label for="add_travel_end_time"
+                                                                       class="am-u-sm-5 am-form-label">End Time: </label>
+                                                                <div class="am-u-sm-7">
+                                                                    <input type="text" id="update_travel_end_time"
+                                                                           class="am-modal-prompt-input"
+                                                                           ng-model="update_travel_end_time">
                                                                 </div>
                                                             </div>
                                                         </form>
