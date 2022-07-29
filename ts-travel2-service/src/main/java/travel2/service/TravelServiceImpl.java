@@ -135,12 +135,17 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public Response update(edu.fudan.common.entity.TravelInfo info, HttpHeaders headers) {
         TripId ti = new TripId(info.getTripId());
-        if (repository.findByTripId(ti) != null) {
-            Trip trip = new Trip(ti, info.getTrainTypeName(), info.getStartStationName(),
-                    info.getStationsName(), info.getTerminalStationName(), info.getStartTime(), info.getEndTime());
-            trip.setRouteId(info.getRouteId());
-            repository.save(trip);
-            return new Response<>(1, "Update trip info:" + ti.toString(), trip);
+        Trip t = repository.findByTripId(ti);
+        if (t != null) {
+            t.setStartStationName(info.getTrainTypeName());
+            t.setStartStationName( info.getStartStationName());
+            t.setStationsName(info.getStationsName());
+            t.setTerminalStationName(info.getTerminalStationName());
+            t.setStartTime(info.getStartTime());
+            t.setEndTime(info.getEndTime());
+            t.setRouteId(info.getRouteId());
+            repository.save(t);
+            return new Response<>(1, "Update trip info:" + ti.toString(), t);
         } else {
             TravelServiceImpl.LOGGER.error("[update][Update trip error][Trip not found][TripId: {}]",info.getTripId());
             return new Response<>(1, "Trip" + info.getTripId() + "doesn 't exists", null);

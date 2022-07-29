@@ -1,7 +1,10 @@
 package admintravel.service;
 
 import edu.fudan.common.entity.AdminTrip;
+import edu.fudan.common.entity.Route;
+import edu.fudan.common.entity.TrainType;
 import edu.fudan.common.entity.TravelInfo;
+import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author fdse
@@ -81,11 +86,19 @@ public class AdminTravelServiceImpl implements AdminTravelService {
 
     @Override
     public Response addTravel(TravelInfo request, HttpHeaders headers) {
+        // check for travel info
+        Response response = checkTravelInfo(request, headers);
+        if(response.getStatus() == 0){
+            return response;
+        }
+
         Response result;
         String requestUrl;
+
         String travel_service_url = getServiceUrl("ts-travel-service");
         String travel2_service_url = getServiceUrl("ts-travel2-service");
-        if (request.getTrainTypeName().charAt(0) == 'G' || request.getTrainTypeName().charAt(0) == 'D') {
+        String tripId = request.getTripId();
+        if (tripId.charAt(0) == 'G' || tripId.charAt(0) == 'D'){
             requestUrl = travel_service_url + "/api/v1/travelservice/trips";
         } else {
             requestUrl = travel2_service_url + "/api/v1/travel2service/trips";
@@ -109,12 +122,18 @@ public class AdminTravelServiceImpl implements AdminTravelService {
 
     @Override
     public Response updateTravel(TravelInfo request, HttpHeaders headers) {
-        Response result;
+        // check for travel info
+        Response response = checkTravelInfo(request, headers);
+        if(response.getStatus() == 0){
+            return response;
+        }
 
+        Response result;
         String requestUrl = "";
         String travel_service_url = getServiceUrl("ts-travel-service");
         String travel2_service_url = getServiceUrl("ts-travel2-service");
-        if (request.getTrainTypeName().charAt(0) == 'G' || request.getTrainTypeName().charAt(0) == 'D') {
+        String tripId = request.getTripId();
+        if (tripId.charAt(0) == 'G' || tripId.charAt(0) == 'D'){
             requestUrl = travel_service_url + "/api/v1/travelservice/trips";
         } else {
             requestUrl = travel2_service_url + "/api/v1/travel2service/trips";
@@ -164,4 +183,107 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         AdminTravelServiceImpl.LOGGER.info("[deleteTravel][Admin delete travel success][trip id: {}]", tripId);
         return result;
     }
+
+    public Response checkTravelInfo(TravelInfo info, HttpHeaders headers) {
+        String start = info.getStartStationName();
+        String end = info.getTerminalStationName();
+        List<String> stations = new ArrayList<>();
+        stations.add(start);
+        stations.add(end);
+        Response response = checkStationsExists(stations, headers);
+        if(response.getStatus() ==0) {
+            return response;
+        }
+
+        TrainType trainType = queryTrainTypeByName(info.getTrainTypeName(), headers);
+        if (trainType == null) {
+            AdminTravelServiceImpl.LOGGER.warn(
+                    "[queryForTravel][traintype doesn't exist][trainTypeName: {}]",
+                    info.getTrainTypeName());
+            response.setStatus(0);
+            response.setMsg("Train type doesn't exist");
+            return response;
+        }
+        String routeId = info.getRouteId();
+        Route route = getRouteByRouteId(routeId, headers);
+        if (route == null) {
+            response.setStatus(0);
+            response.setMsg("Route doesn't exist");
+            return response;
+        }
+
+        // Check the route list for this train. Check that the required start and arrival stations are
+        // in the list of stops that are not on the route, and check that the location of the start
+        // station is before the stop
+        if (!route.getStations().contains(start)
+                || !route.getStations().contains(end)
+                || (route.getStations().indexOf(start) >= route.getStations().indexOf(end))) {
+            response.setStatus(0);
+            response.setMsg("Station not correct in Route");
+            return response;
+        }
+        response.setStatus(1);
+        return response;
+    }
+
+    public Response checkStationsExists(List<String> stationNames, HttpHeaders headers) {
+        AdminTravelServiceImpl.LOGGER.info("[checkStationsExists][Check Stations Exists][stationNames: {}]", stationNames);
+        HttpEntity requestEntity = new HttpEntity(stationNames, null);
+        String station_service_url=getServiceUrl("ts-station-service");
+        ResponseEntity<Response> re = restTemplate.exchange(
+                station_service_url + "/api/v1/stationservice/stations/idlist",
+                HttpMethod.POST,
+                requestEntity,
+                Response.class);
+        Response<Map<String, String>> r = re.getBody();
+        if(r.getStatus() == 0) {
+            return r;
+        }
+        Map<String, String> stationMap = r.getData();
+        List<String> notExists = new ArrayList<>();
+        for(Map.Entry<String, String> s : stationMap.entrySet()){
+            if(s.getValue() == null ){
+                // station not exist
+                notExists.add(s.getKey());
+            }
+        }
+        if(notExists.size() > 0) {
+            return new Response<>(0, "some station not exists", notExists);
+        }
+        return new Response<>(1, "check stations Exist succeed", null);
+    }
+
+    public TrainType queryTrainTypeByName(String trainTypeName, HttpHeaders headers) {
+        AdminTravelServiceImpl.LOGGER.info("[queryTrainTypeByName][Query Train Type][Train Type name: {}]", trainTypeName);
+        HttpEntity requestEntity = new HttpEntity(null);
+        String train_service_url=getServiceUrl("ts-train-service");
+        ResponseEntity<Response> re = restTemplate.exchange(
+                train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeName,
+                HttpMethod.GET,
+                requestEntity,
+                Response.class);
+        Response  response = re.getBody();
+
+        return JsonUtils.conveterObject(response.getData(), TrainType.class);
+    }
+
+    private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
+        AdminTravelServiceImpl.LOGGER.info("[getRouteByRouteId][Get Route By Id][Route ID：{}]", routeId);
+        HttpEntity requestEntity = new HttpEntity(null);
+        String route_service_url=getServiceUrl("ts-route-service");
+        ResponseEntity<Response> re = restTemplate.exchange(
+                route_service_url + "/api/v1/routeservice/routes/" + routeId,
+                HttpMethod.GET,
+                requestEntity,
+                Response.class);
+        Response result = re.getBody();
+        if ( result.getStatus() == 0) {
+            AdminTravelServiceImpl.LOGGER.warn("[getRouteByRouteId][Get Route By Id Failed][Fail msg: {}]", result.getMsg());
+            return null;
+        } else {
+            AdminTravelServiceImpl.LOGGER.info("[getRouteByRouteId][Get Route By Id][Success]");
+            return JsonUtils.conveterObject(result.getData(), Route.class);
+        }
+    }
+
 }

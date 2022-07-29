@@ -76,6 +76,7 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
     //首次加载显示数据
     loadDataService.loadRecordList(param).then(function (result) {
         $scope.records = result.travelRecords;
+        console.log(result.travelRecords)
         //$scope.decodeInfo(result.orderRecords[0]);
     });
 
@@ -133,7 +134,14 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
         $scope.update_travel_id = record.trip.tripId.type + "" + record.trip.tripId.number;
         $scope.update_travel_train_type_id = record.trip.trainTypeId;
         $scope.update_travel_route_id = record.trip.routeId;
+        $scope.update_travel_start_station = record.trip.startStationName;
+        $scope.update_travel_station_name = record.trip.stationsName;
+        $scope.update_travel_terminal_station = record.trip.terminalStationName;
         $scope.update_travel_start_time = record.trip.startTime;
+        $scope.update_travel_end_time = record.trip.endTime;
+
+        $("#update_travel_start_time").datetimepicker('setDate',new Date($scope.update_travel_start_time));
+        $("#update_travel_end_time").datetimepicker('setDate',new Date($scope.update_travel_end_time));
 
         $('#update_prompt').modal({
             relatedTarget: this,
@@ -145,9 +153,13 @@ app.controller('indexCtrl', function ($scope, $http, $window, loadDataService) {
                     withCredentials: true,
                     data: {
                         tripId: $scope.update_travel_id,
-                        trainTypeId: $scope.update_travel_train_type_id,
+                        trainTypeName: $('#update_travel_train_type_id').find("option:selected").val(),
                         routeId: $scope.update_travel_route_id,
-                        startTime: $scope.update_travel_start_time
+                        startStationName: $scope.update_travel_start_station,
+                        stationsName: $scope.update_travel_station_name,
+                        terminalStationName: $scope.update_travel_terminal_station,
+                        startTime: $('#update_travel_start_time').val(),
+                        endTime: $('#update_travel_end_time').val()
                     }
                 }).success(function (data, status, headers, config) {
                     if (data.status == 1) {
@@ -217,13 +229,15 @@ function getTrainTypes(){
         success: function (result) {
             if (result.status == 1) {
                 var obj = result.data;
-                var types = document.getElementById("add_travel_train_type_id");
+                var add_travel_train_type = document.getElementById("add_travel_train_type_id");
+                var update_travel_train_type = document.getElementById("update_travel_train_type_id");
                 //use data to build options
                 for (var i = 0, l = obj.length; i < l; i++) {
                     var opt = document.createElement("option");
                     opt.value = obj[i]["name"];
                     opt.innerText = obj[i]["name"];
-                    types.appendChild(opt);
+                    add_travel_train_type.appendChild(opt);
+                    update_travel_train_type.appendChild(opt.cloneNode(true));
                 }
             } else {
                 alert(result.msg);
@@ -319,30 +333,50 @@ function getStationList(){
     });
 }
 
-var travel_start_time=$("#add_travel_start_time")
-var travel_end_time=$("#add_travel_end_time")
+var add_travel_start_time=$("#add_travel_start_time")
+var add_travel_end_time=$("#add_travel_end_time")
+var update_travel_start_time=$("#update_travel_start_time")
+var update_travel_end_time=$("#update_travel_end_time")
 
-travel_start_time.datetimepicker({
+add_travel_start_time.datetimepicker({
     format : 'yyyy-mm-dd hh:ii:00',
     autoclose : true,
     startView : 4,
     minView : 0,
     minuteStep: 1
-}).on('changeDate',function(ev){
-    var datetimepicker=travel_start_time.val();
-    console.log(datetimepicker);
 });
 
-travel_end_time.datetimepicker({
+add_travel_end_time.datetimepicker({
     format : 'yyyy-mm-dd hh:ii:00',
     autoclose : true,
     startView : 4,
     minView : 0,
     minuteStep: 1
-}).on('changeDate',function(ev){
-    var datetimepicker=travel_end_time.val();
-    console.log(datetimepicker);
 });
 
-travel_start_time.datetimepicker('setDate',new Date());
-travel_end_time.datetimepicker('setDate',new Date());
+update_travel_start_time.datetimepicker({
+    format : 'yyyy-mm-dd hh:ii:00',
+    autoclose : true,
+    startView : 4,
+    minView : 0,
+    minuteStep: 1
+});
+
+update_travel_end_time.datetimepicker({
+    format : 'yyyy-mm-dd hh:ii:00',
+    autoclose : true,
+    startView : 4,
+    minView : 0,
+    minuteStep: 1
+});
+
+add_travel_start_time.datetimepicker('setDate',new Date());
+add_travel_end_time.datetimepicker('setDate',new Date());
+
+function parseTime(timeNumber){
+    var temp=timeNumber.split('T');
+    var date=temp[0];
+    var moment=temp[1].split('.')[0];
+    var result= date+ ' '+moment
+    return result;
+}

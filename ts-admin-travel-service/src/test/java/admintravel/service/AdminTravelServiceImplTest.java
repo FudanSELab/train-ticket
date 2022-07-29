@@ -80,7 +80,7 @@ public class AdminTravelServiceImplTest {
     @Test
     public void testAddTravel1() {
         TravelInfo request = new TravelInfo();
-        request.setTrainTypeId("G");
+        request.setTrainTypeName("G");
         HttpEntity requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response<>(0, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -96,7 +96,7 @@ public class AdminTravelServiceImplTest {
     @Test
     public void testAddTravel2() {
         TravelInfo request = new TravelInfo();
-        request.setTrainTypeId("G");
+        request.setTrainTypeName("G");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -112,7 +112,7 @@ public class AdminTravelServiceImplTest {
     @Test
     public void testAddTravel3() {
         TravelInfo request = new TravelInfo();
-        request.setTrainTypeId("K");
+        request.setTrainTypeName("K");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response<>(0, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -128,7 +128,7 @@ public class AdminTravelServiceImplTest {
     @Test
     public void testAddTravel4() {
         TravelInfo request = new TravelInfo();
-        request.setTrainTypeId("K");
+        request.setTrainTypeName("K");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -145,7 +145,7 @@ public class AdminTravelServiceImplTest {
     @Test
     public void testUpdateTravel1() {
         TravelInfo request = new TravelInfo();
-        request.setTrainTypeId("G");
+        request.setTrainTypeName("G");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
@@ -161,7 +161,7 @@ public class AdminTravelServiceImplTest {
     @Test
     public void testUpdateTravel2() {
         TravelInfo request = new TravelInfo();
-        request.setTrainTypeId("K");
+        request.setTrainTypeName("K");
         HttpEntity<TravelInfo> requestEntity2 = new HttpEntity<>(request, headers);
         Response response = new Response(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);

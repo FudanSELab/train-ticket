@@ -14,67 +14,66 @@ import java.util.UUID;
  */
 @Data
 public class Trip {
-    @Valid
     private String id;
 
     private TripId tripId;
 
-    @Valid
-    @NotNull
     private String trainTypeName;
 
     private String routeId;
-
-
-    @Valid
-    @NotNull
     private String startStationName;
 
-    @Valid
     private String stationsName;
 
-    @Valid
-    @NotNull
     private String terminalStationName;
 
-    @Valid
-    @NotNull
-    private Date startTime;
+    private String startTime;
 
-    @Valid
-    @NotNull
-    private Date endTime;
+    private String endTime;
 
-    public Trip(TripId tripId, String trainTypeName, String startStationName, String stationsName, String terminalStationId, Date startTime, Date endTime) {
-        this.id = UUID.randomUUID().toString();
+    public Trip(TripId tripId, String trainTypeName, String startStationName, String stationsName, String terminalStationName, Date startTime, Date endTime) {
         this.tripId = tripId;
         this.trainTypeName = trainTypeName;
         this.startStationName = StringUtils.String2Lower(startStationName);
         this.stationsName = StringUtils.String2Lower(stationsName);
         this.terminalStationName = StringUtils.String2Lower(terminalStationName);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = StringUtils.Date2String(startTime);
+        this.endTime = StringUtils.Date2String(endTime);
     }
 
     public Trip(TripId tripId, String trainTypeName, String routeId) {
-        this.id = UUID.randomUUID().toString();
         this.tripId = tripId;
         this.trainTypeName = trainTypeName;
         this.routeId = routeId;
         this.startStationName = "";
         this.terminalStationName = "";
-        this.startTime = new Date();
-        this.endTime = new Date();
+        this.startTime = "";
+        this.endTime = "";
     }
 
     public Trip(){
         //Default Constructor
-        this.id = UUID.randomUUID().toString();
         this.trainTypeName = "";
         this.startStationName = "";
         this.terminalStationName = "";
-        this.startTime = new Date();
-        this.endTime = new Date();
+        this.startTime = "";
+        this.endTime = "";
+    }
+
+    public Date getStartTime(){
+        return StringUtils.String2Date(this.startTime);
+    }
+
+    public Date getEndTime(){
+        return StringUtils.String2Date(this.endTime);
+    }
+
+    public void setStartTime(Date startTime){
+        this.startTime = StringUtils.Date2String(startTime);
+    }
+
+    public void setEndTime(Date endTime){
+        this.endTime = StringUtils.Date2String(endTime);
     }
 
 }

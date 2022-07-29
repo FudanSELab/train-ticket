@@ -48,11 +48,11 @@ public class Trip {
 
     @Valid
     @NotNull
-    private Date startTime;
+    private String startTime;
 
     @Valid
     @NotNull
-    private Date endTime;
+    private String endTime;
 
     public Trip(edu.fudan.common.entity.TripId tripId, String trainTypeName, String startStationName, String stationsName, String terminalStationName, Date startTime, Date endTime) {
         this.tripId = tripId;
@@ -60,8 +60,8 @@ public class Trip {
         this.startStationName = StringUtils.String2Lower(startStationName);
         this.stationsName = StringUtils.String2Lower(stationsName);
         this.terminalStationName = StringUtils.String2Lower(terminalStationName);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = StringUtils.Date2String(startTime);
+        this.endTime = StringUtils.Date2String(endTime);
     }
 
     public Trip(TripId tripId, String trainTypeName, String routeId) {
@@ -70,8 +70,8 @@ public class Trip {
         this.routeId = routeId;
         this.startStationName = "";
         this.terminalStationName = "";
-        this.startTime = new Date();
-        this.endTime = new Date();
+        this.startTime = "";
+        this.endTime = "";
     }
 
     public Trip(){
@@ -79,7 +79,23 @@ public class Trip {
         this.trainTypeName = "";
         this.startStationName = "";
         this.terminalStationName = "";
-        this.startTime = new Date();
-        this.endTime = new Date();
+        this.startTime = "";
+        this.endTime = "";
+    }
+
+    public Date getStartTime(){
+        return StringUtils.String2Date(this.startTime);
+    }
+
+    public Date getEndTime(){
+        return StringUtils.String2Date(this.endTime);
+    }
+
+    public void setStartTime(Date startTime){
+        this.startTime = StringUtils.Date2String(startTime);
+    }
+
+    public void setEndTime(Date endTime){
+        this.endTime = StringUtils.Date2String(endTime);
     }
 }

@@ -12,6 +12,10 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author fdse
  */
@@ -47,6 +51,19 @@ public class AdminRouteServiceImpl implements AdminRouteService {
 
     @Override
     public Response createAndModifyRoute(RouteInfo request, HttpHeaders headers) {
+        // check stations
+        String start = request.getStartStation();
+        String end = request.getEndStation();
+        List<String> stations = request.getStations();
+        if(!stations.contains(start) || !stations.contains(end)){
+            logger.error("[createAndModifyRoute][check stations][start or end not included in stationList][start: {}, end: {}]", start, end);
+            return new Response(0, "start or end station not include in stationList.", null);
+        }
+
+        Response response = checkStationsExists(stations, headers);
+        if(response.getStatus() ==0) {
+            return response;
+        }
 
         HttpEntity requestEntity = new HttpEntity(request, null);
         String route_service_url = getServiceUrl("ts-route-service");
@@ -77,5 +94,32 @@ public class AdminRouteServiceImpl implements AdminRouteService {
         }
         return re.getBody();
 
+    }
+
+    public Response checkStationsExists(List<String> stationNames, HttpHeaders headers) {
+        logger.info("[checkStationsExists][Check Stations Exists][stationNames: {}]", stationNames);
+        HttpEntity requestEntity = new HttpEntity(stationNames, null);
+        String station_service_url=getServiceUrl("ts-station-service");
+        ResponseEntity<Response> re = restTemplate.exchange(
+                station_service_url + "/api/v1/stationservice/stations/idlist",
+                HttpMethod.POST,
+                requestEntity,
+                Response.class);
+        Response<Map<String, String>> r = re.getBody();
+        if(r.getStatus() == 0) {
+            return r;
+        }
+        Map<String, String> stationMap = r.getData();
+        List<String> notExists = new ArrayList<>();
+        for(Map.Entry<String, String> s : stationMap.entrySet()){
+            if(s.getValue() == null ){
+                // station not exist
+                notExists.add(s.getKey());
+            }
+        }
+        if(notExists.size() > 0) {
+            return new Response<>(0, "some station not exists", notExists);
+        }
+        return new Response<>(1, "check stations Exist succeed", null);
     }
 }

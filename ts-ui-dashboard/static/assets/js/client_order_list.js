@@ -73,7 +73,7 @@ var appConsign = new Vue({
                         that.tempOrderList[i] = result.data[i];
                         // that.tempOrderList[i].from = that.getStationNameById(that.tempOrderList[i].from);
                         // that.tempOrderList[i].to = that.getStationNameById(that.tempOrderList[i].to);
-                        that.tempOrderList[i].boughtDate = that.convertNumberToDateTimeString(that.tempOrderList[i].boughtDate)
+                        // that.tempOrderList[i].boughtDate = that.convertNumberToDateTimeString(that.tempOrderList[i].boughtDate)
                     }
                     that.myOrderList = that.myOrderList.concat(that.tempOrderList);
                 }, error: function (e) {
