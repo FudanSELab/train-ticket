@@ -12,9 +12,12 @@ import waitorder.entity.WaitListOrderStatus;
 import waitorder.entity.WaitListOrderVO;
 import waitorder.service.WaitListOrderService;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class PollThread extends Thread{
+
+    private Date waitUntil;
 
     private WaitListOrderVO waitListOrderVO;
 
@@ -26,11 +29,12 @@ public class PollThread extends Thread{
 
     final static Integer INTERVAL_MINUTES=5;
 
-    public PollThread(WaitListOrderService service, WaitListOrderVO order, RestTemplate template, HttpHeaders headers){
+    public PollThread(Date waitUntilTime,WaitListOrderService service, WaitListOrderVO order, RestTemplate template, HttpHeaders headers){
         restTemplate=template;
         httpHeaders=headers;
         waitListOrderVO=order;
         waitListOrderService =service;
+        waitUntil=waitUntilTime;
     }
 
 
@@ -41,6 +45,12 @@ public class PollThread extends Thread{
 
         //TODO compare with waitUntilTime
         while(true){
+            long currentTime=System.currentTimeMillis();
+            if(waitUntil.getTime()>currentTime){
+                // expired
+                waitListOrderService.modifyWaitListOrderStatus(WaitListOrderStatus.EXPIRED.getCode(), waitListOrderVO.getAccountId());
+                break;
+            }
             Response postResult=doPreserve(service_url,requestEntityPreserve);
             if(postResult.getStatus()==0){
                 //预定失败
@@ -50,7 +60,7 @@ public class PollThread extends Thread{
                     e.printStackTrace();
                 }
             } else{
-                // 预定成功 更新订单状态
+                // preserve success
                 waitListOrderService.modifyWaitListOrderStatus(WaitListOrderStatus.COLLECTED.getCode(),waitListOrderVO.getAccountId());
                 break;
             }

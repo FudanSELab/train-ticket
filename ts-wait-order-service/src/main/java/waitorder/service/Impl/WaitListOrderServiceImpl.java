@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class WaitListListOrderServiceImpl implements WaitListOrderService {
+public class WaitListOrderServiceImpl implements WaitListOrderService {
 
     @Autowired
     private WaitListOrderRepository waitListOrderRepository;
@@ -32,7 +32,7 @@ public class WaitListListOrderServiceImpl implements WaitListOrderService {
     @Autowired
     private DiscoveryClient discoveryClient;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WaitListListOrderServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WaitListOrderServiceImpl.class);
 
     String success = "Success";
 
@@ -53,13 +53,13 @@ public class WaitListListOrderServiceImpl implements WaitListOrderService {
     @Override
     public Response create(WaitListOrderVO orderVO, HttpHeaders headers) {
         LOGGER.info("[create][Create Wait Order][Ready to Create Wait Order]");
-        Response<WaitListOrderVO> response=saveNewOrder(orderVO,headers);
+        Response<WaitListOrder> response=saveNewOrder(orderVO,headers);
         if(response.getStatus()==0){
             //未能正常保存到数据库
             return response;
         } else {
             //已保存到数据库 开始轮询
-            return triggerThread(orderVO,headers);
+            return triggerThread(response.getData(),orderVO,headers);
         }
     }
 
@@ -67,7 +67,7 @@ public class WaitListListOrderServiceImpl implements WaitListOrderService {
     public Response getAllOrders(HttpHeaders headers) {
         List<WaitListOrder> orderList= waitListOrderRepository.findAll();
         if (orderList != null && !orderList.isEmpty()) {
-            WaitListListOrderServiceImpl.LOGGER.warn("[getAllOrders][Find all orders Success][size:{}]",orderList.size());
+            WaitListOrderServiceImpl.LOGGER.warn("[getAllOrders][Find all orders Success][size:{}]",orderList.size());
             return new Response<>(1, "Success.", orderList);
         } else {
             LOGGER.warn("[getAllOrders][Find All Wait List Orders Fail][{}]","No content");
@@ -79,7 +79,7 @@ public class WaitListListOrderServiceImpl implements WaitListOrderService {
     public Response getAllWaitListOrders(HttpHeaders headers) {
         List<WaitListOrder> orderList= waitListOrderRepository.findAll();
         if (orderList != null && !orderList.isEmpty()) {
-            WaitListListOrderServiceImpl.LOGGER.warn("[getAllWaitListOrders][Find all orders Success][size:{}]",orderList.size());
+            WaitListOrderServiceImpl.LOGGER.warn("[getAllWaitListOrders][Find all orders Success][size:{}]",orderList.size());
             List<Integer> filterList=new ArrayList<>();
             filterList.add(WaitListOrderStatus.NOTPAID.getCode());
             filterList.add(WaitListOrderStatus.PAID.getCode());
@@ -128,11 +128,11 @@ public class WaitListListOrderServiceImpl implements WaitListOrderService {
         }
     }
 
-    private Response<WaitListOrderVO> saveNewOrder(WaitListOrderVO orderVO, HttpHeaders headers) {
+    private Response<WaitListOrder> saveNewOrder(WaitListOrderVO orderVO, HttpHeaders headers) {
         ArrayList<WaitListOrder> accountOrders= waitListOrderRepository.findByAccountId(orderVO.getAccountId());
         //if the order already exist
         if(WaitListOrderExist(accountOrders,orderVO)){
-            WaitListListOrderServiceImpl.LOGGER.error("[create][Create Wait Order Fail][Order already exists][AccountId: {} , TripId: {}]", orderVO.getAccountId(),orderVO.getTripId());
+            WaitListOrderServiceImpl.LOGGER.error("[create][Create Wait Order Fail][Order already exists][AccountId: {} , TripId: {}]", orderVO.getAccountId(),orderVO.getTripId());
             return new Response<>(0, "Order already exist", null);
         } else {
             WaitListOrder newWaitListOrder=new WaitListOrder();
@@ -140,8 +140,8 @@ public class WaitListListOrderServiceImpl implements WaitListOrderService {
             BeanUtils.copyProperties(newWaitListOrder,orderVO);
             newWaitListOrder.setTrainNumber(orderVO.getTripId());
             waitListOrderRepository.save(newWaitListOrder);
-            WaitListListOrderServiceImpl.LOGGER.info("[create][Create Wait Order Success][Order Price][AccountId: {} , TripId: {}]", orderVO.getAccountId(),orderVO.getTripId());
-            return new Response<>(1,success,orderVO);
+            WaitListOrderServiceImpl.LOGGER.info("[create][Create Wait Order Success][Order Price][AccountId: {} , TripId: {}]", orderVO.getAccountId(),orderVO.getTripId());
+            return new Response<>(1,success,newWaitListOrder);
         }
     }
 
@@ -159,10 +159,10 @@ public class WaitListListOrderServiceImpl implements WaitListOrderService {
         return false;
     }
 
-    private Response triggerThread(WaitListOrderVO orderVO,HttpHeaders headers){
+    private Response triggerThread(WaitListOrder orderPO,WaitListOrderVO orderVO,HttpHeaders headers){
         PollThread pollThread;
         try{
-            pollThread =new PollThread(this,orderVO,restTemplate, headers);
+            pollThread =new PollThread(orderPO.getWaitUtilTime(),this,orderVO,restTemplate, headers);
             pollThread.start();
         } catch (Exception e){
             return new Response<>(0, "Fail To Run A New Thread", null);
