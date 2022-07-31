@@ -1,6 +1,6 @@
 # HTTP Server
 server:
-  port: 12032  # HTTP (Tomcat) port
+  port: 17525  # HTTP (Tomcat) port
 
 spring:
   cloud:
@@ -10,9 +10,9 @@ spring:
   application:
     name: ts-wait-order-service
   datasource:
-    url: jdbc:mysql://${ORDER_MYSQL_HOST:10.176.122.1}:${ORDER_MYSQL_PORT:3306}/${ORDER_MYSQL_DATABASE:ts}?useSSL=false
-    username: ${ORDER_MYSQL_USER:root}
-    password: ${ORDER_MYSQL_PASSWORD:Abcd1234#}
+    url: jdbc:mysql://${WAIT_ORDER_MYSQL_HOST:10.176.122.1}:${WAIT_ORDER_MYSQL_PORT:3306}/${WAIT_ORDER_MYSQL_DATABASE:ts}?useSSL=false
+    username: ${WAIT_ORDER_MYSQL_USER:root}
+    password: ${WAIT_ORDER_PASSWORD:Abcd1234#}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -22,4 +22,4 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
 
 swagger:
-  controllerPackage: order.controller
+  controllerPackage: waitorder.controller
