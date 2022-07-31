@@ -33,11 +33,11 @@ public class TripAllDetailInfo {
         return StringUtils.String2Lower(this.to);
     }
 
-    public Date getTravelDate() {
-        return StringUtils.String2Date(travelDate);
-    }
-
-    public void setTravelDate(Date travelDate) {
-        this.travelDate = StringUtils.Date2String(travelDate);
-    }
+//    public Date getTravelDate() {
+//        return StringUtils.String2Date(travelDate);
+//    }
+//
+//    public void setTravelDate(Date travelDate) {
+//        this.travelDate = StringUtils.Date2String(travelDate);
+//    }
 }

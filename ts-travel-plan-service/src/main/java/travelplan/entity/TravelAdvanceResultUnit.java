@@ -29,9 +29,9 @@ public class TravelAdvanceResultUnit {
 
     private int numberOfRestTicketFirstClass;
 
-    private Date startTime;
+    private String startTime;
 
-    private Date endTime;
+    private String endTime;
 
     public TravelAdvanceResultUnit() {
         //Default Constructor

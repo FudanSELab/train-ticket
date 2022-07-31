@@ -23,12 +23,4 @@ public class Travel {
     public Travel(){
         //Default Constructor
     }
-
-    public Date getDepartureTime(){
-        return StringUtils.String2Date(this.departureTime);
-    }
-    public void setDepartureTime(Date departureTime){
-        this.departureTime = StringUtils.Date2String(departureTime);
-    }
-
 }

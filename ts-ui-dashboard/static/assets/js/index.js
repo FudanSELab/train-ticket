@@ -105,6 +105,8 @@ var reserveApp = new Vue({
                 alert("Departure Date Format Wrong.");
                 return;
             }
+            // add hh:mm:ss to date
+            travelQueryInfo.departureTime = this.selectedDate + " 00:00:00";
             var travelQueryData = JSON.stringify(travelQueryInfo);
             var train_type = this.selectedTrainType;
             this.tempTravelList = [];

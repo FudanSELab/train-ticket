@@ -1,6 +1,7 @@
 package preserveOther.service;
 
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class PreserveOtherServiceImplTest {
                 .contactsId(UUID.randomUUID().toString())
                 .from("from_station")
                 .to("to_station")
-                .date(new Date())
+                .date(StringUtils.Date2String(new Date()))
                 .handleDate("handle_date")
                 .tripId("G1255")
                 .seatType(2)
@@ -85,7 +86,7 @@ public class PreserveOtherServiceImplTest {
         //response for getTripAllDetailInformation()
         TripResponse tripResponse = new TripResponse();
         tripResponse.setConfortClass(1);
-        tripResponse.setStartTime(new Date());
+        tripResponse.setStartTime(StringUtils.Date2String(new Date()));
         TripAllDetail tripAllDetail = new TripAllDetail(true, "message", tripResponse, new Trip());
         Response<TripAllDetail> response3 = new Response<>(1, null, tripAllDetail);
         ResponseEntity<Response<TripAllDetail>> re3 = new ResponseEntity<>(response3, HttpStatus.OK);
@@ -110,7 +111,7 @@ public class PreserveOtherServiceImplTest {
         Order order = new Order();
         order.setId(UUID.randomUUID().toString());
         order.setAccountId(UUID.randomUUID().toString());
-        order.setTravelDate(new Date());
+        order.setTravelDate(StringUtils.Date2String(new Date()));
         order.setFrom("from_station");
         order.setTo("to_station");
         Response<Order> response7 = new Response<>(1, null, order);
@@ -141,7 +142,7 @@ public class PreserveOtherServiceImplTest {
     @Test
     public void testDipatchSeat() {
         long mills = System.currentTimeMillis();
-        Seat seatRequest = new Seat(new Date(mills), "G1234", "start_station", "dest_station", 2, 100, null);
+        Seat seatRequest = new Seat(StringUtils.Date2String(new Date()), "G1234", "start_station", "dest_station", 2, 100, null);
         HttpEntity requestEntityTicket = new HttpEntity<>(seatRequest, headers);
         Response<Ticket> response = new Response<>();
         ResponseEntity<Response<Ticket>> reTicket = new ResponseEntity<>(response, HttpStatus.OK);
@@ -151,7 +152,7 @@ public class PreserveOtherServiceImplTest {
                 requestEntityTicket,
                 new ParameterizedTypeReference<Response<Ticket>>() {
                 })).thenReturn(reTicket);
-        Ticket result = preserveOtherServiceImpl.dipatchSeat(new Date(mills), "G1234", "start_station", "dest_station", 2, 100, null, headers);
+        Ticket result = preserveOtherServiceImpl.dipatchSeat(StringUtils.Date2String(new Date()), "G1234", "start_station", "dest_station", 2, 100, null, headers);
         Assert.assertNull(result);
     }
 

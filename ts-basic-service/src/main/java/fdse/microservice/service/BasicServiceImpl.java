@@ -131,10 +131,10 @@ public class BasicServiceImpl implements BasicService {
         HashMap<String, List<String>> endTrips = new HashMap<>();
         HashMap<String, List<String>> routeTrips = new HashMap<>();
         HashMap<String, List<String>> typeTrips = new HashMap<>();
-        List<String> stationNames = new ArrayList<>();
-        List<String> trainTypeNames = new ArrayList<>();
-        List<String> routeIds = new ArrayList<>();
-        List<String> avaTrips = new ArrayList<>();
+        Set<String> stationNames = new HashSet<>();
+        Set<String> trainTypeNames = new HashSet<>();
+        Set<String> routeIds = new HashSet<>();
+        Set<String> avaTrips = new HashSet<>();
         for(Travel info: infos){
             stationNames.add(info.getStartPlace());
             stationNames.add(info.getEndPlace());
@@ -181,7 +181,7 @@ public class BasicServiceImpl implements BasicService {
         //List<String> invalidTrips = new ArrayList<>();
 
         // check if station exist to exclude invalid travel info
-        Map<String, String> stationMap = checkStationsExists(stationNames, headers);
+        Map<String, String> stationMap = checkStationsExists(new ArrayList<>(stationNames), headers);
         if(stationMap == null) {
             response.setStatus(0);
             response.setMsg("all stations don't exist");
@@ -206,7 +206,7 @@ public class BasicServiceImpl implements BasicService {
         }
 
         // check if train_type exist
-        List<TrainType> tts = queryTrainTypeByNames(trainTypeNames, headers);
+        List<TrainType> tts = queryTrainTypeByNames(new ArrayList<>(trainTypeNames), headers);
         if(tts == null){
             response.setStatus(0);
             response.setMsg("all train_type don't exist");
@@ -229,7 +229,7 @@ public class BasicServiceImpl implements BasicService {
         }
 
         // check if route exist to exclude invalid travel info
-        List<Route> routes = getRoutesByRouteIds(routeIds, headers);
+        List<Route> routes = getRoutesByRouteIds(new ArrayList<>(routeIds), headers);
         if(routes == null) {
             response.setStatus(0);
             response.setMsg("all routes don't exist");
@@ -270,22 +270,6 @@ public class BasicServiceImpl implements BasicService {
             routeIdAndTypes.add(routeId+":"+trainType);
         }
         Map<String, PriceConfig> pcMap = queryPriceConfigByRouteIdsAndTrainTypes(routeIdAndTypes, headers);
-        List<String> avaRouteType = new ArrayList<>(pcMap.keySet());
-
-        for(String tripNumber: new ArrayList<>(avaTrips)){
-            Trip trip = tripInfos.get(tripNumber).getTrip();
-            String routeId = trip.getRouteId();
-            String trainType = trip.getTrainTypeName();
-            if(!avaRouteType.contains(routeId+":"+trainType)){
-                avaTrips.remove(tripNumber);
-            }
-        }
-
-        if(avaTrips.size() == 0){
-            response.setStatus(0);
-            response.setMsg("no travel info available");
-            return response;
-        }
 
         Map<String, TravelResult> trMap = new HashMap<>();
         for(String tripNumber: avaTrips){
@@ -297,7 +281,13 @@ public class BasicServiceImpl implements BasicService {
             int indexStart = route.getStations().indexOf(info.getStartPlace());
             int indexEnd = route.getStations().indexOf(info.getEndPlace());
 
+            double basicPriceRate = 0.75;
+            double firstPriceRate = 1;
             PriceConfig priceConfig = pcMap.get(routeId+":"+trainType);
+            if(priceConfig != null){
+                basicPriceRate = priceConfig.getBasicPriceRate();
+                firstPriceRate = priceConfig.getFirstClassPriceRate();
+            }
 
             HashMap<String, String> prices = new HashMap<>();
             try {
@@ -306,8 +296,8 @@ public class BasicServiceImpl implements BasicService {
                 /**
                  * We need the price Rate and distance (starting station).
                  */
-                double priceForEconomyClass = distance * priceConfig.getBasicPriceRate();
-                double priceForConfortClass = distance * priceConfig.getFirstClassPriceRate();
+                double priceForEconomyClass = distance * basicPriceRate;
+                double priceForConfortClass = distance * firstPriceRate;
                 prices.put("economyClass", "" + priceForEconomyClass);
                 prices.put("confortClass", "" + priceForConfortClass);
             }catch (Exception e){

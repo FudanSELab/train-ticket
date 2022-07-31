@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -215,6 +216,7 @@ public class TravelServiceImpl implements TravelService {
             gtdr.setTripResponse(null);
             gtdr.setTrip(null);
             TravelServiceImpl.LOGGER.error("[getTripAllDetailInfo][Get trip detail error][Trip not found][TripId: {}]",gtdi.getTripId());
+            return new Response<>(0, "Trip not found", gtdr);
         } else {
             String endPlaceName = gtdi.getTo();
             String StartPlaceName = gtdi.getFrom();
@@ -223,6 +225,7 @@ public class TravelServiceImpl implements TravelService {
                 gtdr.setTrip(null);
                 gtdr.setTripResponse(null);
                 TravelServiceImpl.LOGGER.warn("[getTripAllDetailInfo][Query trip error][Tickets not found][start: {},end: {}]", gtdi.getTo(), gtdi.getFrom());
+                return new Response<>(0, "getTickets failed", gtdr);
             } else {
                 gtdr.setTripResponse(tripResponse);
                 gtdr.setTrip(repository.findByTripId(new TripId(gtdi.getTripId())));
@@ -231,12 +234,12 @@ public class TravelServiceImpl implements TravelService {
         return new Response<>(1, success, gtdr);
     }
 
-    private List<TripResponse> getTicketsByBatch(List<Trip> trips, String startPlaceName, String endPlaceName, Date departureTime, HttpHeaders headers) {
-
+    private List<TripResponse> getTicketsByBatch(List<Trip> trips, String startPlaceName, String endPlaceName, String departureTime, HttpHeaders headers) {
+        List<TripResponse> responses = new ArrayList<>();
         //Determine if the date checked is the same day and after
         if (!afterToday(departureTime)) {
             TravelServiceImpl.LOGGER.info("[getTickets][depaturetime not vailid][departuretime: {}]", departureTime);
-            return null;
+            return responses;
         }
 
         List<Travel> infos = new ArrayList<>();
@@ -265,7 +268,7 @@ public class TravelServiceImpl implements TravelService {
         Response r = re.getBody();
         if(r.getStatus() == 0){
             TravelServiceImpl.LOGGER.info("[getTicketsByBatch][Ts-basic-service response status is 0][response is: {}]", r);
-            return null;
+            return responses;
         }
         Map<String, TravelResult> trMap;
         ObjectMapper mapper = new ObjectMapper();
@@ -273,10 +276,9 @@ public class TravelServiceImpl implements TravelService {
             trMap = mapper.readValue(JsonUtils.object2Json(r.getData()), new TypeReference<Map<String, TravelResult>>(){});
         }catch(Exception e) {
             TravelServiceImpl.LOGGER.warn("[getTicketsByBatch][Ts-basic-service convert data failed][Fail msg: {}]", e.getMessage());
-            return null;
+            return responses;
         }
 
-        List<TripResponse> responses = new ArrayList<>();
         for(Map.Entry<String, TravelResult> trEntry: trMap.entrySet()){
             //Set the returned ticket information
             String tripNumber = trEntry.getKey();
@@ -290,7 +292,7 @@ public class TravelServiceImpl implements TravelService {
     }
 
 
-    private TripResponse getTickets(Trip trip, Route route1, String startPlaceName, String endPlaceName, Date departureTime, HttpHeaders headers) {
+    private TripResponse getTickets(Trip trip, Route route1, String startPlaceName, String endPlaceName, String departureTime, HttpHeaders headers) {
 
         //Determine if the date checked is the same day and after
         if (!afterToday(departureTime)) {
@@ -322,7 +324,7 @@ public class TravelServiceImpl implements TravelService {
         return setResponse(trip, resultForTravel, startPlaceName, endPlaceName, departureTime, headers);
     }
 
-    private TripResponse setResponse(Trip trip, TravelResult tr, String startPlaceName, String endPlaceName, Date departureTime, HttpHeaders headers){
+    private TripResponse setResponse(Trip trip, TravelResult tr, String startPlaceName, String endPlaceName, String departureTime, HttpHeaders headers){
         //Set the returned ticket information
         TripResponse response = new TripResponse();
         response.setConfortClass(50);
@@ -356,15 +358,15 @@ public class TravelServiceImpl implements TravelService {
         int minutesEnd = 60 * distanceEnd / trainType.getAverageSpeed();
 
         Calendar calendarStart = Calendar.getInstance();
-        calendarStart.setTime(trip.getStartTime());
+        calendarStart.setTime(StringUtils.String2Date(trip.getStartTime()));
         calendarStart.add(Calendar.MINUTE, minutesStart);
-        response.setStartTime(calendarStart.getTime());
+        response.setStartTime(StringUtils.Date2String(calendarStart.getTime()));
         TravelServiceImpl.LOGGER.info("[getTickets][Calculate distance][calculate time：{}  time: {}]", minutesStart, calendarStart.getTime());
 
         Calendar calendarEnd = Calendar.getInstance();
-        calendarEnd.setTime(trip.getStartTime());
+        calendarEnd.setTime(StringUtils.String2Date(trip.getStartTime()));
         calendarEnd.add(Calendar.MINUTE, minutesEnd);
-        response.setEndTime(calendarEnd.getTime());
+        response.setEndTime(StringUtils.Date2String(calendarEnd.getTime()));
         TravelServiceImpl.LOGGER.info("[getTickets][Calculate distance][calculate time：{}  time: {}]", minutesEnd, calendarEnd.getTime());
 
         response.setTripId(trip.getTripId());
@@ -385,13 +387,13 @@ public class TravelServiceImpl implements TravelService {
         return new Response<>(0, noCnontent, null);
     }
 
-    private static boolean afterToday(Date date) {
+    private static boolean afterToday(String date) {
         Calendar calDateA = Calendar.getInstance();
         Date today = new Date();
         calDateA.setTime(today);
 
         Calendar calDateB = Calendar.getInstance();
-        calDateB.setTime(date);
+        calDateB.setTime(StringUtils.String2Date(date));
 
         if (calDateA.get(Calendar.YEAR) > calDateB.get(Calendar.YEAR)) {
             return false;
@@ -441,7 +443,7 @@ public class TravelServiceImpl implements TravelService {
         }
     }
 
-    private int getRestTicketNumber(Date travelDate, String trainNumber, String startStationName, String endStationName, int seatType, int totalNum, List<String> stationList, HttpHeaders headers) {
+    private int getRestTicketNumber(String travelDate, String trainNumber, String startStationName, String endStationName, int seatType, int totalNum, List<String> stationList, HttpHeaders headers) {
         Seat seatRequest = new Seat();
 
         seatRequest.setDestStation(endStationName);

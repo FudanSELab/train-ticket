@@ -32,20 +32,20 @@ public class TravelInfo {
 
     private String endTime;
 
-    public Date getStartTime(){
-        return StringUtils.String2Date(this.startTime);
-    }
-
-    public Date getEndTime(){
-        return StringUtils.String2Date(this.endTime);
-    }
-
-    public String getStartStationName() {
-        return StringUtils.String2Lower(this.startStationName);
-    }
-
-    public String getTerminalStationName() {
-        return StringUtils.String2Lower(this.terminalStationName);
-    }
+//    public Date getStartTime(){
+//        return StringUtils.String2Date(this.startTime);
+//    }
+//
+//    public Date getEndTime(){
+//        return StringUtils.String2Date(this.endTime);
+//    }
+//
+//    public String getStartStationName() {
+//        return StringUtils.String2Lower(this.startStationName);
+//    }
+//
+//    public String getTerminalStationName() {
+//        return StringUtils.String2Lower(this.terminalStationName);
+//    }
 
 }

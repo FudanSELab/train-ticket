@@ -44,22 +44,6 @@ public class OrderInfo {
         this.loginId = loginId;
     }
 
-    public Date getTravelDateStart() {
-        return StringUtils.String2Date(travelDateStart);
-    }
-
-    public Date getTravelDateEnd() {
-        return StringUtils.String2Date(travelDateEnd);
-    }
-
-    public Date getBoughtDateStart() {
-        return StringUtils.String2Date(boughtDateStart);
-    }
-
-    public Date getBoughtDateEnd() {
-        return StringUtils.String2Date(boughtDateEnd);
-    }
-
     public int getState() {
         return state;
     }

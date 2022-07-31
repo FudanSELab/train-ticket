@@ -1,6 +1,7 @@
 package edu.fudan.common.entity;
 
 import edu.fudan.common.util.StringUtils;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
  * @author fdse
  */
 @Data
+@AllArgsConstructor
 public class RoutePlanInfo {
 
     private String startStation;
@@ -23,14 +25,11 @@ public class RoutePlanInfo {
         //Empty Constructor
     }
 
-    public RoutePlanInfo(String startStation, String endStation, String travelDate, int num) {
-        this.startStation = startStation;
-        this.endStation = endStation;
-        this.travelDate = travelDate;
-        this.num = num;
+    public String getStartStation() {
+        return StringUtils.String2Lower(this.startStation);
     }
 
-    public Date getTravelDate() {
-        return StringUtils.String2Date(travelDate);
+    public String getEndStation() {
+        return StringUtils.String2Lower(this.endStation);
     }
 }

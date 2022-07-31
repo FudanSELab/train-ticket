@@ -121,29 +121,4 @@ public class Order {
         return result;
     }
 
-    public Date getBoughtDate(){
-        return StringUtils.String2Date(boughtDate);
-    }
-
-    public Date getTravelDate(){
-        return StringUtils.String2Date(travelDate);
-    }
-
-    public Date getTravelTime(){
-        return StringUtils.String2Date(travelTime);
-    }
-
-    public void setBoughtDate(Date boughtDate){
-        this.boughtDate = StringUtils.Date2String(boughtDate);
-    }
-
-    public void setTravelDate(Date travelDate){
-        this.travelDate =  StringUtils.Date2String(travelDate);
-    }
-
-    public void setTravelTime(Date travelTime){
-        this.travelTime =  StringUtils.Date2String(travelTime);
-    }
-
-
 }

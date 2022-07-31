@@ -4,6 +4,7 @@ import edu.fudan.common.entity.TripId;
 import edu.fudan.common.entity.TripAllDetailInfo;
 import edu.fudan.common.entity.TripInfo;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -214,7 +215,7 @@ public class TravelServiceImplTest {
         gtdi.setTripId("Z1255");
         gtdi.setFrom("from_station");
         gtdi.setTo("to_station");
-        gtdi.setTravelDate(new Date(System.currentTimeMillis() - 86400000));
+        gtdi.setTravelDate(StringUtils.Date2String(new Date(System.currentTimeMillis() - 86400000)));
 
         Trip trip = new Trip();
         trip.setRouteId("route_id");

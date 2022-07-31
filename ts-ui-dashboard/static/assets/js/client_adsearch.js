@@ -38,6 +38,8 @@ var adSearch = new Vue({
                 alert("Departure Date Format Wrong.");
                 return;
             }
+            // add hh:mm:ss to date
+            advanceSearchInfo.departureTime = this.selectedDate + " 00:00:00";
             var advanceSearchData = JSON.stringify(advanceSearchInfo);
 
             var selectType = this.selectedSearchType;

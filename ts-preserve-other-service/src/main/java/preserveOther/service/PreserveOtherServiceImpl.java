@@ -3,6 +3,7 @@ package preserveOther.service;
 import edu.fudan.common.entity.*;
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +113,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
 
         order.setFrom(fromStationName);
         order.setTo(toStationName);
-        order.setBoughtDate(new Date());
+        order.setBoughtDate(StringUtils.Date2String(new Date()));
         order.setStatus(OrderStatus.NOTPAID.getCode());
         order.setContactsDocumentNumber(contacts.getDocumentNumber());
         order.setContactsName(contacts.getName());
@@ -123,7 +124,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         query.setTrip(trip);
         query.setStartPlace(oti.getFrom());
         query.setEndPlace(oti.getTo());
-        query.setDepartureTime(new Date());
+        query.setDepartureTime(StringUtils.Date2String(new Date()));
 
 
         HttpEntity requestEntity = new HttpEntity(query, httpHeaders);
@@ -261,7 +262,7 @@ public class PreserveOtherServiceImpl implements PreserveOtherService {
         return returnResponse;
     }
 
-    public Ticket dipatchSeat(Date date, String tripId, String startStationId, String endStataionId, int seatType, int totalNum, List<String> stationList, HttpHeaders httpHeaders) {
+    public Ticket dipatchSeat(String date, String tripId, String startStationId, String endStataionId, int seatType, int totalNum, List<String> stationList, HttpHeaders httpHeaders) {
         Seat seatRequest = new Seat();
         seatRequest.setTravelDate(date);
         seatRequest.setTrainNumber(tripId);

@@ -1,5 +1,6 @@
 package travelplan.service;
 
+import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
 import edu.fudan.common.util.StringUtils;
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import travelplan.entity.TransferTravelResult;
 import travelplan.entity.TravelAdvanceResultUnit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -88,7 +90,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         routePlanInfo.setNum(5);
         routePlanInfo.setStartStation(info.getStartPlace());
         routePlanInfo.setEndStation(info.getEndPlace());
-        routePlanInfo.setTravelDate(StringUtils.Date2String(info.getDepartureTime()));
+        routePlanInfo.setTravelDate(info.getDepartureTime());
         ArrayList<RoutePlanResultUnit> routePlanResultUnits = getRoutePlanResultCheapest(routePlanInfo, headers);
 
         if (!routePlanResultUnits.isEmpty()) {
@@ -101,17 +103,22 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 newUnit.setTrainTypeId(tempUnit.getTrainTypeName());
                 newUnit.setStartStation(tempUnit.getStartStation());
 
-                List<String> stops = transferStationIdToStationName(tempUnit.getStopStations(), headers);
+                List<String> stops = tempUnit.getStopStations();
                 newUnit.setStopStations(stops);
                 newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());
                 newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
                 newUnit.setStartTime(tempUnit.getStartTime());
                 newUnit.setEndTime(tempUnit.getEndTime());
+
+                TrainType trainType = queryTrainTypeByName(tempUnit.getTrainTypeName(), headers);
+                int firstClassTotalNum = trainType.getConfortClass();
+                int secondClassTotalNum = trainType.getEconomyClass();
+
                 int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.FIRSTCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.FIRSTCLASS.getCode(), firstClassTotalNum, tempUnit.getStopStations(), headers);
 
                 int second = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.SECONDCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.SECONDCLASS.getCode(), secondClassTotalNum, tempUnit.getStopStations(), headers);
                 newUnit.setNumberOfRestTicketFirstClass(first);
                 newUnit.setNumberOfRestTicketSecondClass(second);
                 lists.add(newUnit);
@@ -130,7 +137,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         routePlanInfo.setNum(5);
         routePlanInfo.setStartStation(info.getStartPlace());
         routePlanInfo.setEndStation(info.getEndPlace());
-        routePlanInfo.setTravelDate(StringUtils.Date2String(info.getDepartureTime()));
+        routePlanInfo.setTravelDate(info.getDepartureTime());
         ArrayList<RoutePlanResultUnit> routePlanResultUnits = getRoutePlanResultQuickest(routePlanInfo, headers);
 
 
@@ -145,18 +152,22 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 newUnit.setEndStation(tempUnit.getEndStation());
                 newUnit.setStartStation(tempUnit.getStartStation());
 
-                List<String> stops = transferStationIdToStationName(tempUnit.getStopStations(), headers);
+                List<String> stops = tempUnit.getStopStations();
                 newUnit.setStopStations(stops);
 
                 newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());
                 newUnit.setPriceForSecondClassSeat(tempUnit.getPriceForSecondClassSeat());
                 newUnit.setStartTime(tempUnit.getStartTime());
                 newUnit.setEndTime(tempUnit.getEndTime());
+
+                TrainType trainType = queryTrainTypeByName(tempUnit.getTrainTypeName(), headers);
+                int firstClassTotalNum = trainType.getConfortClass();
+                int secondClassTotalNum = trainType.getEconomyClass();
                 int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.FIRSTCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.FIRSTCLASS.getCode(), firstClassTotalNum, tempUnit.getStopStations(), headers);
 
                 int second = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.SECONDCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.SECONDCLASS.getCode(), secondClassTotalNum, tempUnit.getStopStations(),headers);
                 newUnit.setNumberOfRestTicketFirstClass(first);
                 newUnit.setNumberOfRestTicketSecondClass(second);
                 lists.add(newUnit);
@@ -174,7 +185,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         routePlanInfo.setNum(5);
         routePlanInfo.setStartStation(info.getStartPlace());
         routePlanInfo.setEndStation(info.getEndPlace());
-        routePlanInfo.setTravelDate(StringUtils.Date2String(info.getDepartureTime()));
+        routePlanInfo.setTravelDate(info.getDepartureTime());
         ArrayList<RoutePlanResultUnit> routePlanResultUnits = getRoutePlanResultMinStation(routePlanInfo, headers);
 
         if (!routePlanResultUnits.isEmpty()) {
@@ -188,7 +199,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 newUnit.setStartStation(tempUnit.getStartStation());
                 newUnit.setEndStation(tempUnit.getEndStation());
 
-                List<String> stops = transferStationIdToStationName(tempUnit.getStopStations(), headers);
+                List<String> stops = tempUnit.getStopStations();
                 newUnit.setStopStations(stops);
 
                 newUnit.setPriceForFirstClassSeat(tempUnit.getPriceForFirstClassSeat());
@@ -196,11 +207,15 @@ public class TravelPlanServiceImpl implements TravelPlanService {
                 newUnit.setEndTime(tempUnit.getEndTime());
                 newUnit.setStartTime(tempUnit.getStartTime());
 
+                TrainType trainType = queryTrainTypeByName(tempUnit.getTrainTypeName(), headers);
+                int firstClassTotalNum = trainType.getConfortClass();
+                int secondClassTotalNum = trainType.getEconomyClass();
+
                 int first = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.FIRSTCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.FIRSTCLASS.getCode(), firstClassTotalNum, tempUnit.getStopStations(), headers);
 
                 int second = getRestTicketNumber(info.getDepartureTime(), tempUnit.getTripId(),
-                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.SECONDCLASS.getCode(), headers);
+                        tempUnit.getStartStation(), tempUnit.getEndStation(), SeatClass.SECONDCLASS.getCode(), secondClassTotalNum, tempUnit.getStopStations(), headers);
                 newUnit.setNumberOfRestTicketFirstClass(first);
                 newUnit.setNumberOfRestTicketSecondClass(second);
                 lists.add(newUnit);
@@ -212,17 +227,16 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         }
     }
 
-    private int getRestTicketNumber(Date travelDate, String trainNumber, String startStationName, String endStationName, int seatType, HttpHeaders headers) {
+    private int getRestTicketNumber(String travelDate, String trainNumber, String startStationName, String endStationName, int seatType, int totalNum, List<String> stations, HttpHeaders headers) {
         Seat seatRequest = new Seat();
 
-        String fromId = queryForStationId(startStationName, headers);
-        String toId = queryForStationId(endStationName, headers);
-
-        seatRequest.setDestStation(toId);
-        seatRequest.setStartStation(fromId);
+        seatRequest.setDestStation(startStationName);
+        seatRequest.setStartStation(endStationName);
         seatRequest.setTrainNumber(trainNumber);
         seatRequest.setTravelDate(travelDate);
         seatRequest.setSeatType(seatType);
+        seatRequest.setStations(stations);
+        seatRequest.setTotalNum(totalNum);
 
         TravelPlanServiceImpl.LOGGER.info("[getRestTicketNumber][Seat Request][Seat Request is: {}]", seatRequest.toString());
         HttpEntity requestEntity = new HttpEntity(seatRequest, null);
@@ -300,30 +314,17 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         return re.getBody().getData();
     }
 
-    private String queryForStationId(String stationName, HttpHeaders headers) {
-
+    public TrainType queryTrainTypeByName(String trainTypeName, HttpHeaders headers) {
         HttpEntity requestEntity = new HttpEntity(null);
-        String basic_service_url=getServiceUrl("ts-basic-service");
-        ResponseEntity<Response<String>> re = restTemplate.exchange(
-                basic_service_url + "/api/v1/basicservice/basic/" + stationName,
+        String train_service_url=getServiceUrl("ts-train-service");
+        ResponseEntity<Response> re = restTemplate.exchange(
+                train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeName,
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<Response<String>>() {
-                });
+                Response.class);
+        Response  response = re.getBody();
 
-        return re.getBody().getData();
+        return JsonUtils.conveterObject(response.getData(), TrainType.class);
     }
 
-    private List<String> transferStationIdToStationName(List<String> stations, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(stations, null);
-        String station_service_url=getServiceUrl("ts-station-service");
-        ResponseEntity<Response<List<String>>> re = restTemplate.exchange(
-                station_service_url + "/api/v1/stationservice/stations/namelist",
-                HttpMethod.POST,
-                requestEntity,
-                new ParameterizedTypeReference<Response<List<String>>>() {
-                });
-
-        return re.getBody().getData();
-    }
 }

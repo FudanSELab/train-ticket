@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         TripInfo queryInfo = new TripInfo();
         queryInfo.setStartPlace(info.getStartStation());
         queryInfo.setEndPlace(info.getEndStation());
-        queryInfo.setDepartureTime(StringUtils.Date2String(info.getTravelDate()));
+        queryInfo.setDepartureTime(info.getTravelDate());
 
         ArrayList<TripResponse> highSpeed = getTripFromHighSpeedTravelServive(queryInfo, headers);
         ArrayList<TripResponse> normalTrain = getTripFromNormalTrainTravelService(queryInfo, headers);
@@ -98,7 +99,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         TripInfo queryInfo = new TripInfo();
         queryInfo.setStartPlace(info.getStartStation());
         queryInfo.setEndPlace(info.getEndStation());
-        queryInfo.setDepartureTime(StringUtils.Date2String(info.getTravelDate()));
+        queryInfo.setDepartureTime(info.getTravelDate());
 
         ArrayList<TripResponse> highSpeed = getTripFromHighSpeedTravelServive(queryInfo, headers);
         ArrayList<TripResponse> normalTrain = getTripFromNormalTrainTravelService(queryInfo, headers);
@@ -122,8 +123,10 @@ public class RoutePlanServiceImpl implements RoutePlanService {
             minTime = Long.MAX_VALUE;
             for (int j = 0; j < finalResult.size(); j++) {
                 TripResponse thisRes = finalResult.get(j);
-                if (thisRes.getEndTime().getTime() - thisRes.getStartTime().getTime() < minTime) {
-                    minTime = thisRes.getEndTime().getTime() - thisRes.getStartTime().getTime();
+                Date endTime = StringUtils.String2Date(thisRes.getEndTime());
+                Date startTime = StringUtils.String2Date(thisRes.getStartTime());
+                if (endTime.getTime() - startTime.getTime() < minTime) {
+                    minTime = endTime.getTime() - startTime.getTime();
                     minIndex = j;
                 }
             }

@@ -69,32 +69,4 @@ public class QueryInfo {
         enableTravelDateQuery = false;
         state = -1;
     }
-
-    public Date getTravelDateEnd(){
-        return StringUtils.String2Date(travelDateEnd);
-    }
-
-    public Date getTravelDateStart(){
-        return StringUtils.String2Date(travelDateStart);
-    }
-
-    public Date getBoughtDateStart(){
-        return StringUtils.String2Date(boughtDateStart);
-    }
-
-    public Date getBoughtDateEnd(){
-        return StringUtils.String2Date(boughtDateEnd);
-    }
-
-    public boolean isEnableTravelDateQuery() {
-        return enableTravelDateQuery;
-    }
-
-    public boolean isEnableBoughtDateQuery() {
-        return enableBoughtDateQuery;
-    }
-
-    public boolean isEnableStateQuery() {
-        return enableStateQuery;
-    }
 }

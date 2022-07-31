@@ -5,6 +5,7 @@ import edu.fudan.common.entity.Ticket;
 import edu.fudan.common.entity.TripAllDetail;
 import edu.fudan.common.entity.TripResponse;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +51,7 @@ public class RebookServiceImplTest {
         order.setFrom("from_station");
         order.setTo("to_station");
         order.setPrice("1.0");
-        Date date = new Date(System.currentTimeMillis());
+        String date = StringUtils.Date2String(new Date());
         order.setTravelDate(date);
         order.setTravelTime(date);
         Response<Order> response = new Response<>(1, null, order);
@@ -92,7 +93,7 @@ public class RebookServiceImplTest {
         info.setTripId("G");
         info.setOldTripId("G");
         info.setLoginId("login_id");
-        info.setDate(new Date());
+        info.setDate("");
         info.setSeatType(0);
 
         //mock getOrderByRebookInfo() and getTripAllDetailInformation()
@@ -128,8 +129,7 @@ public class RebookServiceImplTest {
 
     @Test
     public void testDipatchSeat() {
-        long mills = System.currentTimeMillis();
-        Seat seatRequest = new Seat(new Date(mills), "G1234", "start_station", "dest_station", 2);
+        Seat seatRequest = new Seat(StringUtils.Date2String(new Date()), "G1234", "start_station", "dest_station", 2, 100, null);
         HttpEntity requestEntityTicket = new HttpEntity<>(seatRequest, headers);
         Response<Ticket> response = new Response<>();
         ResponseEntity<Response<Ticket>> reTicket = new ResponseEntity<>(response, HttpStatus.OK);
@@ -139,7 +139,7 @@ public class RebookServiceImplTest {
                 requestEntityTicket,
                 new ParameterizedTypeReference<Response<Ticket>>() {
                 })).thenReturn(reTicket);
-        Ticket result = rebookServiceImpl.dipatchSeat(new Date(mills), "G1234", "start_station", "dest_station", 2, headers);
+        Ticket result = rebookServiceImpl.dipatchSeat(StringUtils.Date2String(new Date()), "G1234", "start_station", "dest_station", 2, 100, null,headers);
         Assert.assertNull(result);
     }
 

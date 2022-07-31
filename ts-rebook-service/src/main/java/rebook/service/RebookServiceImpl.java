@@ -4,7 +4,10 @@ import edu.fudan.common.entity.Trip;
 import edu.fudan.common.entity.TripAllDetail;
 import edu.fudan.common.entity.TripAllDetailInfo;
 import edu.fudan.common.entity.TripResponse;
+import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
+import edu.fudan.common.util.StringUtils;
+import org.apache.tomcat.jni.Time;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import rebook.entity.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author fdse
@@ -82,8 +86,8 @@ public class RebookServiceImpl implements RebookService {
         //The departure and destination cannot be changed, only the train number, seat and time can be changed
         //Check the info of seat availability and trains
         TripAllDetailInfo gtdi = new TripAllDetailInfo();
-        gtdi.setFrom(queryForStationName(order.getFrom(), httpHeaders));
-        gtdi.setTo(queryForStationName(order.getTo(), httpHeaders));
+        gtdi.setFrom(order.getFrom());
+        gtdi.setTo(order.getTo());
         gtdi.setTravelDate(info.getDate());
         gtdi.setTripId(info.getTripId());
         Response<TripAllDetail> gtdr = getTripAllDetailInformation(gtdi, info.getTripId(), httpHeaders);
@@ -150,8 +154,8 @@ public class RebookServiceImpl implements RebookService {
         Order order = (Order) queryOrderResult.getData();
 
         TripAllDetailInfo gtdi = new TripAllDetailInfo();
-        gtdi.setFrom(queryForStationName(order.getFrom(), httpHeaders));
-        gtdi.setTo(queryForStationName(order.getTo(), httpHeaders));
+        gtdi.setFrom(order.getFrom());
+        gtdi.setTo(order.getTo());
         gtdi.setTravelDate(info.getDate());
         gtdi.setTripId(info.getTripId());
         // TripAllDetail
@@ -182,25 +186,30 @@ public class RebookServiceImpl implements RebookService {
         Trip trip = gtdr.getTrip();
         String oldTripId = order.getTrainNumber();
         order.setTrainNumber(info.getTripId());
-        order.setBoughtDate(new Date());
+        order.setBoughtDate(StringUtils.Date2String(new Date()));
         order.setStatus(OrderStatus.CHANGE.getCode());
         order.setPrice(ticketPrice);//Set ticket price
         order.setSeatClass(info.getSeatType());
         order.setTravelDate(info.getDate());
         order.setTravelTime(trip.getStartTime());
 
+        Route route = getRouteByRouteId(trip.getRouteId(), httpHeaders);
+        TrainType trainType = queryTrainTypeByName(trip.getTrainTypeName(), httpHeaders);
+        List<String> stations = route.getStations();
+        int firstClassTotalNum = trainType.getConfortClass();
+        int secondClassTotalNum = trainType.getEconomyClass();
         if (info.getSeatType() == SeatClass.FIRSTCLASS.getCode()) {//Dispatch the seat
             Ticket ticket =
                     dipatchSeat(info.getDate(),
                             order.getTrainNumber(), order.getFrom(), order.getTo(),
-                            SeatClass.FIRSTCLASS.getCode(), httpHeaders);
+                            SeatClass.FIRSTCLASS.getCode(), firstClassTotalNum, stations, httpHeaders);
             order.setSeatClass(SeatClass.FIRSTCLASS.getCode());
             order.setSeatNumber("" + ticket.getSeatNo());
         } else {
             Ticket ticket =
                     dipatchSeat(info.getDate(),
                             order.getTrainNumber(), order.getFrom(), order.getTo(),
-                            SeatClass.SECONDCLASS.getCode(), httpHeaders);
+                            SeatClass.SECONDCLASS.getCode(), secondClassTotalNum, stations, httpHeaders);
             order.setSeatClass(SeatClass.SECONDCLASS.getCode());
             order.setSeatNumber("" + ticket.getSeatNo());
         }
@@ -225,13 +234,15 @@ public class RebookServiceImpl implements RebookService {
         }
     }
 
-    public Ticket dipatchSeat(Date date, String tripId, String startStationId, String endStataionId, int seatType, HttpHeaders httpHeaders) {
+    public Ticket dipatchSeat(String date, String tripId, String startStationId, String endStataionId, int seatType, int tatalNum, List<String> stations, HttpHeaders httpHeaders) {
         Seat seatRequest = new Seat();
         seatRequest.setTravelDate(date);
         seatRequest.setTrainNumber(tripId);
         seatRequest.setSeatType(seatType);
         seatRequest.setStartStation(startStationId);
         seatRequest.setDestStation(endStataionId);
+        seatRequest.setTotalNum(tatalNum);
+        seatRequest.setStations(stations);
 
         HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
         HttpEntity requestEntityTicket = new HttpEntity(seatRequest, newHeaders);
@@ -250,15 +261,15 @@ public class RebookServiceImpl implements RebookService {
         return tripId.startsWith("G") || tripId.startsWith("D");
     }
 
-    private boolean checkTime(Date travelDate, Date travelTime) {
+    private boolean checkTime(String travelDate, String travelTime) {
         boolean result = true;
         Calendar calDateA = Calendar.getInstance();
         Date today = new Date();
         calDateA.setTime(today);
         Calendar calDateB = Calendar.getInstance();
-        calDateB.setTime(travelDate);
+        calDateB.setTime(StringUtils.String2Date(travelDate));
         Calendar calDateC = Calendar.getInstance();
-        calDateC.setTime(travelTime);
+        calDateC.setTime(StringUtils.String2Date(travelTime));
         if (calDateA.get(Calendar.YEAR) > calDateB.get(Calendar.YEAR)) {
             result = false;
         } else if (calDateA.get(Calendar.YEAR) == calDateB.get(Calendar.YEAR)) {
@@ -388,17 +399,35 @@ public class RebookServiceImpl implements RebookService {
         return queryOrderResult;
     }
 
-    private String queryForStationName(String stationId, HttpHeaders httpHeaders) {
-        HttpHeaders newHeaders = getAuthorizationHeadersFrom(httpHeaders);
-        HttpEntity requestEntityQueryForStationName = new HttpEntity(newHeaders);
-        String station_service_url = getServiceUrl("ts-station-service");
-        ResponseEntity<Response> reQueryForStationName = restTemplate.exchange(
-                station_service_url + "/api/v1/stationservice/stations/name/" + stationId,
+    public TrainType queryTrainTypeByName(String trainTypeName, HttpHeaders headers) {
+        HttpEntity requestEntity = new HttpEntity(null);
+        String train_service_url=getServiceUrl("ts-train-service");
+        ResponseEntity<Response> re = restTemplate.exchange(
+                train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeName,
                 HttpMethod.GET,
-                requestEntityQueryForStationName,
+                requestEntity,
                 Response.class);
-        Response station = reQueryForStationName.getBody();
-        return (String) station.getData();
+        Response  response = re.getBody();
+
+        return JsonUtils.conveterObject(response.getData(), TrainType.class);
+    }
+
+    private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
+        HttpEntity requestEntity = new HttpEntity(null);
+        String route_service_url=getServiceUrl("ts-route-service");
+        ResponseEntity<Response> re = restTemplate.exchange(
+                route_service_url + "/api/v1/routeservice/routes/" + routeId,
+                HttpMethod.GET,
+                requestEntity,
+                Response.class);
+        Response result = re.getBody();
+        if ( result.getStatus() == 0) {
+            LOGGER.warn("[getRouteByRouteId][Get Route By Id Failed][Fail msg: {}]", result.getMsg());
+            return null;
+        } else {
+            LOGGER.info("[getRouteByRouteId][Get Route By Id][Success]");
+            return JsonUtils.conveterObject(result.getData(), Route.class);
+        }
     }
 
     private boolean payDifferentMoney(String orderId, String tripId, String userId, String money, HttpHeaders httpHeaders) {

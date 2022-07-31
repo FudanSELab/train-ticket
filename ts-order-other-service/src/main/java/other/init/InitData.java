@@ -27,7 +27,6 @@ public class InitData implements CommandLineRunner {
         Order order1 = new Order();
 
         order1.setAccountId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f");
-        order1.setBoughtDate(new Date());
         order1.setCoachNumber(5);
         order1.setContactsDocumentNumber("Test");
         order1.setContactsName("Test");
@@ -40,8 +39,8 @@ public class InitData implements CommandLineRunner {
         order1.setStatus(OrderStatus.PAID.getCode());
         order1.setTo("taiyuan");
         order1.setTrainNumber("K1235");
-        order1.setTravelDate(new Date(123456799));
-        order1.setTravelTime(new Date(123456799));
+        order1.setTravelDate("2022-10-01 00:00:00"); //NOSONAR
+        order1.setTravelTime("2022-10-01 00:00:00"); //NOSONAR
         service.create(order1,null);
     }
 

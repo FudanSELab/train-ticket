@@ -70,18 +70,18 @@ public class TripResponse {
         this.priceForConfortClass = "";
     }
 
-    public Date getStartTime(){
-        return StringUtils.String2Date(startTime);
-    }
-    public Date getEndTime(){
-        return StringUtils.String2Date(endTime);
-    }
-
-    public void setStartTime(Date startTime){
-        this.startTime = StringUtils.Date2String(startTime);
-    }
-    public void setEndTime(Date endTime){
-        this.endTime = StringUtils.Date2String(endTime);
-    }
+//    public Date getStartTime(){
+//        return StringUtils.String2Date(startTime);
+//    }
+//    public Date getEndTime(){
+//        return StringUtils.String2Date(endTime);
+//    }
+//
+//    public void setStartTime(Date startTime){
+//        this.startTime = StringUtils.Date2String(startTime);
+//    }
+//    public void setEndTime(Date endTime){
+//        this.endTime = StringUtils.Date2String(endTime);
+//    }
 
 }

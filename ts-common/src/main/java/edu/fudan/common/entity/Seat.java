@@ -42,7 +42,7 @@ public class Seat {
 
     public Seat(){
         //Default Constructor
-        this.travelDate = StringUtils.Date2String(new Date());
+        this.travelDate = "";
         this.trainNumber = "";
         this.startStation = "";
         this.destStation = "";
@@ -51,12 +51,5 @@ public class Seat {
         this.stations = null;
     }
 
-    public Date getTravelDate(){
-        return StringUtils.String2Date(travelDate);
-    }
-
-    public void setTravelDate(Date travelDate){
-        this.travelDate = StringUtils.Date2String(travelDate);
-    }
 
 }

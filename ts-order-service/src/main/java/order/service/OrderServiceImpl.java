@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Response getSoldTickets(Seat seatRequest, HttpHeaders headers) {
-        ArrayList<Order> list = orderRepository.findByTravelDateAndTrainNumber(StringUtils.Date2String(seatRequest.getTravelDate()),
+        ArrayList<Order> list = orderRepository.findByTravelDateAndTrainNumber(seatRequest.getTravelDate(),
                 seatRequest.getTrainNumber());
         if (list != null && !list.isEmpty()) {
             Set ticketSet = new HashSet();
@@ -146,9 +146,14 @@ public class OrderServiceImpl implements OrderService {
                 }
                 OrderServiceImpl.LOGGER.info("[queryOrders][Step 2][Check Status Fits End]");
                 //4.Check order travel date requirement.
+                Date boughtDate = StringUtils.String2Date(tempOrder.getBoughtDate());
+                Date travelDate = StringUtils.String2Date(tempOrder.getTravelDate());
+                Date travelDateEnd = StringUtils.String2Date(qi.getTravelDateEnd());
+                Date boughtDateStart = StringUtils.String2Date(qi.getBoughtDateStart());
+                Date boughtDateEnd = StringUtils.String2Date(qi.getBoughtDateEnd());
                 if (qi.isEnableTravelDateQuery()) {
-                    if (tempOrder.getTravelDate().before(qi.getTravelDateEnd()) &&
-                            tempOrder.getTravelDate().after(qi.getBoughtDateStart())) {
+                    if (travelDate.before(travelDateEnd) &&
+                            travelDate.after(boughtDateStart)) {
                         travelDatePassFlag = true;
                     } else {
                         travelDatePassFlag = false;
@@ -159,8 +164,8 @@ public class OrderServiceImpl implements OrderService {
                 OrderServiceImpl.LOGGER.info("[queryOrders][Step 2][Check Travel Date End]");
                 //5.Check order bought date requirement.
                 if (qi.isEnableBoughtDateQuery()) {
-                    if (tempOrder.getBoughtDate().before(qi.getBoughtDateEnd()) &&
-                            tempOrder.getBoughtDate().after(qi.getBoughtDateStart())) {
+                    if (boughtDate.before(boughtDateEnd) &&
+                            boughtDate.after(boughtDateStart)) {
                         boughtDatePassFlag = true;
                     } else {
                         boughtDatePassFlag = false;
@@ -390,7 +395,8 @@ public class OrderServiceImpl implements OrderService {
                     order.getStatus() == OrderStatus.COLLECTED.getCode()) {
                 countTotalValidOrder += 1;
             }
-            if (order.getBoughtDate().after(dateFrom)) {
+            Date boughtDate = StringUtils.String2Date(order.getBoughtDate());
+            if (boughtDate.after(dateFrom)) {
                 countOrderInOneHour += 1;
             }
         }
