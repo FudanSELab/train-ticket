@@ -14,6 +14,10 @@
         <version>2.3.12.RELEASE</version>
     </parent>
 
+    <properties>
+        <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
+    </properties>
+
     <modules>
         <module>ts-common</module>
         <module>ts-verification-code-service</module>
@@ -204,7 +208,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 
@@ -215,5 +218,11 @@
             <url>https://maven.pkg.github.com/FudanSELab/train-ticket</url>
         </repository>
     </distributionManagement>
-
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/FudanSELab/train-ticket</url>
+        </repository>
+    </repositories>
 </project>
