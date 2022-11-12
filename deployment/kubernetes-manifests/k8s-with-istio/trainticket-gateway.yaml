@@ -369,17 +369,17 @@ spec:
           number: 16114
   - match:
     - uri:
-        prefix: /
-    route:
-    - destination:
-        host: kafka
-        port:
-          number: 16116
-  - match:
-    - uri:
         prefix: /api/v1/adminuserservice/users
     route:
     - destination:
         host: ts-admin-user-service
         port:
           number: 16115
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: kafka
+        port:
+          number: 16116
