@@ -50,8 +50,8 @@ services:
     networks:
       - my-network
 
-  ts-auth-mongo:
-    image: mongo
+  ts-auth-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -64,8 +64,8 @@ services:
     networks:
       - my-network
 
-  ts-user-mongo:
-    image: mongo
+  ts-user-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -78,11 +78,6 @@ services:
     networks:
       - my-network
 
-  ts-account-mongo:
-    image: mongo
-    networks:
-      - my-network
-
   ts-route-service:
     build: ts-route-service
     image: ${IMG_REPO}/ts-route-service:${IMG_TAG}
@@ -92,8 +87,8 @@ services:
     networks:
       - my-network
 
-  ts-route-mongo:
-    image: mongo
+  ts-route-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -106,8 +101,8 @@ services:
     networks:
       - my-network
 
-  ts-contacts-mongo:
-    image: mongo
+  ts-contacts-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -120,8 +115,8 @@ services:
     networks:
       - my-network
 
-  ts-order-mongo:
-    image: mongo
+  ts-order-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -134,8 +129,8 @@ services:
     networks:
       - my-network
 
-  ts-order-other-mongo:
-    image: mongo
+  ts-order-other-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -148,8 +143,8 @@ services:
     networks:
       - my-network
 
-  ts-config-mongo:
-    image: mongo
+  ts-config-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -162,8 +157,8 @@ services:
     networks:
       - my-network
 
-  ts-station-mongo:
-    image: mongo
+  ts-station-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -176,8 +171,8 @@ services:
     networks:
       - my-network
 
-  ts-train-mongo:
-    image: mongo
+  ts-train-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -190,8 +185,8 @@ services:
     networks:
       - my-network
 
-  ts-travel-mongo:
-    image: mongo
+  ts-travel-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -204,8 +199,8 @@ services:
       networks:
         - my-network
 
-  ts-travel2-mongo:
-    image: mongo
+  ts-travel2-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -234,16 +229,7 @@ services:
       ports:
         - 15680:15680
       networks:
-          - my-network
-
-  ts-ticketinfo-service:
-        build: ts-ticketinfo-service
-        image: ${IMG_REPO}/ts-ticketinfo-service:${IMG_TAG}
-        restart: always
-        ports:
-          - 15681:15681
-        networks:
-          - my-network
+        - my-network
 
   ts-price-service:
         build: ts-price-service
@@ -254,9 +240,8 @@ services:
         networks:
           - my-network
 
-
-  ts-price-mongo:
-    image: mongo
+  ts-price-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -269,6 +254,11 @@ services:
         networks:
           - my-network
 
+  ts-notification-mysql:
+    image: mysql:5.7
+    networks:
+      - my-network
+
   ts-security-service:
         build: ts-security-service
         image: ${IMG_REPO}/ts-security-service:${IMG_TAG}
@@ -278,8 +268,8 @@ services:
         networks:
           - my-network
 
-  ts-security-mongo:
-    image: mongo
+  ts-security-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -292,8 +282,8 @@ services:
         networks:
           - my-network
 
-  ts-inside-payment-mongo:
-    image: mongo
+  ts-inside-payment-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -315,8 +305,8 @@ services:
         networks:
           - my-network
 
-  ts-payment-mongo:
-    image: mongo
+  ts-payment-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -329,8 +319,8 @@ services:
         networks:
           - my-network
 
-  ts-rebook-mongo:
-    image: mongo
+  ts-rebook-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -348,12 +338,12 @@ services:
         image: ${IMG_REPO}/ts-assurance-service:${IMG_TAG}
         restart: always
         ports:
-          - 18888:18888
+          - 18889:18889
         networks:
           - my-network
 
-  ts-assurance-mongo:
-    image: mongo
+  ts-assurance-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -384,8 +374,8 @@ services:
         networks:
           - my-network
 
-  ts-ticket-office-mongo:
-    image: mongo
+  ts-ticket-office-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -398,8 +388,8 @@ services:
     networks:
       - my-network
 
-  ts-news-mongo:
-    image: mongo
+  ts-news-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -424,20 +414,6 @@ services:
             - /var/lib/mysql
           networks:
             - my-network
-
-  ts-food-map-service:
-        build: ts-food-map-service
-        image: ${IMG_REPO}/ts-food-map-service:${IMG_TAG}
-        restart: always
-        ports:
-          - 18855:18855
-        networks:
-          - my-network
-
-  ts-food-map-mongo:
-    image: mongo
-    networks:
-      - my-network
 
   ts-route-plan-service:
           build: ts-route-plan-service
@@ -466,8 +442,8 @@ services:
             networks:
               - my-network
 
-  ts-consign-mongo:
-    image: mongo
+  ts-consign-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -480,13 +456,13 @@ services:
             networks:
               - my-network
 
-  ts-consign-price-mongo:
-    image: mongo
+  ts-consign-price-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
-  ts-food-mongo:
-    image: mongo
+  ts-food-mysql:
+    image: mysql:5.7
     networks:
       - my-network
 
@@ -548,12 +524,84 @@ services:
       - my-network
 
   ts-avatar-service:
-    image: ${NAMESPACE}/ts-avatar-service:${TAG}
+    image: ${IMG_REPO}/ts-avatar-service:${IMG_TAG}
     restart: always
     ports:
       - 17001:17001
     networks:
       - my-network
+
+  ts-delivery-service:
+    build: ts-delivery-service
+    image: ${IMG_REPO}/ts-delivery-service:${IMG_TAG}
+    restart: always
+    ports:
+      - 18808:18808
+    networks:
+      - my-network
+
+  ts-delivery-mysql:
+    image: mysql:5.7
+    networks:
+      - my-network
+
+  ts-food-delivery-service:
+    build: ts-food-delivery-service
+    image: ${IMG_REPO}/ts-food-delivery-service:${IMG_TAG}
+    restart: always
+    ports:
+      - 18957:18957
+    networks:
+      - my-network
+
+  ts-food-delivery-mysql:
+    image: mysql:5.7
+    networks:
+      - my-network
+
+  ts-gateway-service:
+    build: ts-gateway-service
+    image: ${IMG_REPO}/ts-gateway-service:${IMG_TAG}
+    restart: always
+    ports:
+      - 18888:18888
+    networks:
+      - my-network
+
+  ts-gateway-mysql:
+    image: mysql:5.7
+    networks:
+      - my-network
+
+  ts-station-food-service:
+    build: ts-station-food-service
+    image: ${IMG_REPO}/ts-station-food-service:${IMG_TAG}
+    restart: always
+    ports:
+      - 18855:18855
+    networks:
+      - my-network
+
+  ts-station-food-mysql:
+    image: mysql:5.7
+    networks:
+      - my-network
+
+
+  ts-train-food-service:
+    build: ts-train-food-service
+    image: ${IMG_REPO}/ts-train-food-service:${IMG_TAG}
+    restart: always
+    ports:
+      - 19999:19999
+    networks:
+      - my-network
+
+  ts-train-food-mysql:
+    image: mysql:5.7
+    networks:
+      - my-network
+
 
 networks:
   my-network:
