@@ -6,19 +6,37 @@ import os
 import pymysql
 import urllib
 import urllib.request
+import logging
+import sys
 
 mysql_config = {}
 
 class GetVoucherHandler(tornado.web.RequestHandler):
 
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.set_default_headers()
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin","*")
+        self.set_header("Access-Control-Allow-Credentials", "true")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with,Content-Type,authorization")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.set_header("Access-Control-Max-Age", 1000)
+        self.set_header("Content-type", "application/json")
+
+    def options(self):
+        self.set_status(200) 
+        self.finish()
+
     def post(self, *args, **kwargs):
         #Analyze the data transferred: order id and model indicator (0 stands for ordinary, 1 stands for bullet trains and high-speed trains)
+
         data = json.loads(self.request.body)
         orderId = data["orderId"]
         type = data["type"]
         #Query for the existence of a corresponding credential based on the order id
         queryVoucher = self.fetchVoucherByOrderId(orderId)
-
         if(queryVoucher == None):
             #Request the order details based on the order id
             orderResult = self.queryOrderByIdAndType(orderId,type)
@@ -97,9 +115,10 @@ class GetVoucherHandler(tornado.web.RequestHandler):
             conn.close()
 
 def make_app():
+    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     return tornado.web.Application([
         (r"/getVoucher", GetVoucherHandler)
-    ])
+        ])
 
 def initDatabase():
     # Create a connection
@@ -131,6 +150,7 @@ def initDatabase():
 def initMysqlConfig():
     global mysql_config
     host = "ts-voucher-mysql"
+    # host = "10.98.136.5"
     port = 3306
     user = "root"
     password = "Abcd1234#"
