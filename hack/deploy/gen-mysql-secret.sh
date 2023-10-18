@@ -68,7 +68,7 @@ function update_tt_dp_cm {
 
   cp $dp_sample_yaml $dp_yaml
 
-  if [ "$(uname)"="Darwin" ]; then
+  if [[ "$(uname)" == "Darwin" ]]; then
     sed -i "" "s/nacos/${nacosCM}/g" $dp_yaml
     sed -i "" "s/rabbitmq/${rabbitmqCM}/g" $dp_yaml
   else
@@ -82,7 +82,7 @@ function update_tt_sw_dp_cm {
   rabbitmqCM="$2"
 
   cp $sw_dp_sample_yaml $sw_dp_yaml
-  if [ "$(uname)"="Darwin" ]; then
+  if [[ "$(uname)" == "Darwin" ]]; then
     sed -i "" "s/nacos/${nacosCM}/g" $sw_dp_yaml
     sed -i "" "s/rabbitmq/${rabbitmqCM}/g" $sw_dp_yaml
   else
