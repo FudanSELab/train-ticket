@@ -485,3 +485,107 @@ spec:
       nodePort: 32677
   selector:
     app: ts-ui-dashboard
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-query
+  labels:
+    app: jaeger
+    app.kubernetes.io/name: jaeger
+    app.kubernetes.io/component: query
+spec:
+  type: NodePort
+  ports:
+    - name: query-http
+      port: 16686
+      protocol: TCP
+      nodePort: 32688
+  selector:
+    app.kubernetes.io/name: jaeger
+    app.kubernetes.io/component: all-in-one
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-collector
+  labels:
+    app: jaeger
+    app.kubernetes.io/name: jaeger
+    app.kubernetes.io/component: collector
+spec:
+  ports:
+    - name: jaeger-collector-tchannel
+      port: 14267
+      protocol: TCP
+      targetPort: 14267
+    - name: jaeger-collector-http
+      port: 14268
+      protocol: TCP
+      targetPort: 14268
+    - name: jaeger-collector-zipkin
+      port: 9411
+      protocol: TCP
+      targetPort: 9411
+  selector:
+    app.kubernetes.io/name: jaeger
+    app.kubernetes.io/component: all-in-one
+  type: ClusterIP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger
+  labels:
+    app: jaeger
+    app.kubernetes.io/name: jaeger
+    app.kubernetes.io/component: agent
+spec:
+  ports:
+    - name: agent-zipkin-thrift
+      port: 5775
+      protocol: UDP
+      targetPort: 5775
+    - name: agent-compact
+      port: 6831
+      protocol: UDP
+      targetPort: 6831
+    - name: agent-binary
+      port: 6832
+      protocol: UDP
+      targetPort: 6832
+    - name: agent-config
+      port: 5778
+      protocol: TCP
+      targetPort: 5778
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: jaeger
+    app.kubernetes.io/component: all-in-one
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: zipkin
+  labels:
+    app: jaeger
+    app.kubernetes.io/name: jaeger
+    app.kubernetes.io/component: zipkin
+spec:
+  ports:
+    - name: jaeger-collector-zipkin
+      port: 9411
+      protocol: TCP
+      targetPort: 9411
+  clusterIP: None
+  selector:
+    app.kubernetes.io/name: jaeger
+    app.kubernetes.io/component: all-in-one

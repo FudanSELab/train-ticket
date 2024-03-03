@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ts-admin-basic-info-service
-          image: codewisdom/ts-admin-basic-info-service:1.0.0
+          image: apollofighter/ts-admin-basic-info-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
         - name: ts-admin-order-service
-          image: codewisdom/ts-admin-order-service:1.0.1
+          image: apollofighter/ts-admin-order-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
         - name: ts-admin-route-service
-          image: codewisdom/ts-admin-route-service:1.0.0
+          image: apollofighter/ts-admin-route-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -140,7 +140,7 @@ spec:
     spec:
       containers:
         - name: ts-admin-travel-service
-          image: codewisdom/ts-admin-travel-service:1.0.0
+          image: apollofighter/ts-admin-travel-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -182,7 +182,7 @@ spec:
     spec:
       containers:
         - name: ts-admin-user-service
-          image: codewisdom/ts-admin-user-service:1.0.1
+          image: apollofighter/ts-admin-user-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -224,7 +224,7 @@ spec:
     spec:
       containers:
         - name: ts-assurance-service
-          image: codewisdom/ts-assurance-service:1.0.0
+          image: apollofighter/ts-assurance-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -268,7 +268,7 @@ spec:
     spec:
       containers:
         - name: ts-auth-service
-          image: codewisdom/ts-auth-service:1.0.0
+          image: apollofighter/ts-auth-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -312,7 +312,7 @@ spec:
     spec:
       containers:
         - name: ts-avatar-service
-          image: codewisdom/ts-avatar-service:0.2.0
+          image: apollofighter/ts-avatar-service:0.2.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -354,7 +354,7 @@ spec:
     spec:
       containers:
         - name: ts-basic-service
-          image: codewisdom/ts-basic-service:1.0.0
+          image: apollofighter/ts-basic-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -396,7 +396,7 @@ spec:
     spec:
       containers:
         - name: ts-cancel-service
-          image: codewisdom/ts-cancel-service:1.0.0
+          image: apollofighter/ts-cancel-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -438,7 +438,7 @@ spec:
     spec:
       containers:
         - name: ts-config-service
-          image: codewisdom/ts-config-service:1.0.0
+          image: apollofighter/ts-config-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -482,7 +482,7 @@ spec:
     spec:
       containers:
         - name: ts-consign-price-service
-          image: codewisdom/ts-consign-price-service:1.0.0
+          image: apollofighter/ts-consign-price-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -526,7 +526,7 @@ spec:
     spec:
       containers:
         - name: ts-consign-service
-          image: codewisdom/ts-consign-service:1.0.1
+          image: apollofighter/ts-consign-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -570,7 +570,7 @@ spec:
     spec:
       containers:
         - name: ts-contacts-service
-          image: codewisdom/ts-contacts-service:1.0.0
+          image: apollofighter/ts-contacts-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -614,7 +614,7 @@ spec:
     spec:
       containers:
         - name: ts-delivery-service
-          image: codewisdom/ts-delivery-service:1.0.0
+          image: apollofighter/ts-delivery-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -660,7 +660,7 @@ spec:
     spec:
       containers:
         - name: ts-execute-service
-          image: codewisdom/ts-execute-service:1.0.0
+          image: apollofighter/ts-execute-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -702,7 +702,7 @@ spec:
     spec:
       containers:
         - name: ts-food-service
-          image: codewisdom/ts-food-service:1.0.0
+          image: apollofighter/ts-food-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -748,7 +748,7 @@ spec:
     spec:
       containers:
         - name: ts-food-delivery-service
-          image: codewisdom/ts-food-delivery-service:1.0.0
+          image: apollofighter/ts-food-delivery-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -792,7 +792,7 @@ spec:
     spec:
       containers:
         - name: ts-gateway-service
-          image: codewisdom/ts-gateway-service:1.0.0
+          image: apollofighter/ts-gateway-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -834,7 +834,7 @@ spec:
     spec:
       containers:
         - name: ts-inside-payment-service
-          image: codewisdom/ts-inside-payment-service:1.0.0
+          image: apollofighter/ts-inside-payment-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -878,7 +878,7 @@ spec:
     spec:
       containers:
         - name: ts-news-service
-          image: codewisdom/ts-news-service:1.0.0
+          image: apollofighter/ts-news-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -920,7 +920,7 @@ spec:
     spec:
       containers:
         - name: ts-notification-service
-          image: codewisdom/ts-notification-service:1.0.0
+          image: apollofighter/ts-notification-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -966,7 +966,7 @@ spec:
     spec:
       containers:
         - name: ts-order-other-service
-          image: codewisdom/ts-order-other-service:1.0.1
+          image: apollofighter/ts-order-other-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1012,7 +1012,7 @@ spec:
     spec:
       containers:
         - name: ts-order-service
-          image: codewisdom/ts-order-service:1.0.1
+          image: apollofighter/ts-order-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1058,7 +1058,7 @@ spec:
     spec:
       containers:
         - name: ts-payment-service
-          image: codewisdom/ts-payment-service:1.0.0
+          image: apollofighter/ts-payment-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1102,7 +1102,7 @@ spec:
     spec:
       containers:
         - name: ts-preserve-other-service
-          image: codewisdom/ts-preserve-other-service:1.0.0
+          image: apollofighter/ts-preserve-other-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1146,7 +1146,7 @@ spec:
     spec:
       containers:
         - name: ts-preserve-service
-          image: codewisdom/ts-preserve-service:1.0.0
+          image: apollofighter/ts-preserve-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1190,7 +1190,7 @@ spec:
     spec:
       containers:
         - name: ts-price-service
-          image: codewisdom/ts-price-service:1.0.0
+          image: apollofighter/ts-price-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1234,7 +1234,7 @@ spec:
     spec:
       containers:
         - name: ts-rebook-service
-          image: codewisdom/ts-rebook-service:1.0.1
+          image: apollofighter/ts-rebook-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1278,7 +1278,7 @@ spec:
     spec:
       containers:
         - name: ts-route-plan-service
-          image: codewisdom/ts-route-plan-service:1.0.0
+          image: apollofighter/ts-route-plan-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1320,7 +1320,7 @@ spec:
     spec:
       containers:
         - name: ts-route-service
-          image: codewisdom/ts-route-service:1.0.0
+          image: apollofighter/ts-route-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1364,7 +1364,7 @@ spec:
     spec:
       containers:
         - name: ts-seat-service
-          image: codewisdom/ts-seat-service:1.0.0
+          image: apollofighter/ts-seat-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1406,7 +1406,7 @@ spec:
     spec:
       containers:
         - name: ts-security-service
-          image: codewisdom/ts-security-service:1.0.0
+          image: apollofighter/ts-security-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1450,7 +1450,7 @@ spec:
     spec:
       containers:
         - name: ts-station-food-service
-          image: codewisdom/ts-station-food-service:1.0.0
+          image: apollofighter/ts-station-food-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1494,7 +1494,7 @@ spec:
     spec:
       containers:
         - name: ts-station-service
-          image: codewisdom/ts-station-service:1.0.1
+          image: apollofighter/ts-station-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1538,7 +1538,7 @@ spec:
     spec:
       containers:
         - name: ts-ticket-office-service
-          image: codewisdom/ts-ticket-office-service:1.0.0
+          image: apollofighter/ts-ticket-office-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1582,7 +1582,7 @@ spec:
     spec:
       containers:
         - name: ts-train-food-service
-          image: codewisdom/ts-train-food-service:1.0.0
+          image: apollofighter/ts-train-food-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1626,7 +1626,7 @@ spec:
     spec:
       containers:
         - name: ts-train-service
-          image: codewisdom/ts-train-service:1.0.0
+          image: apollofighter/ts-train-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1670,7 +1670,7 @@ spec:
     spec:
       containers:
         - name: ts-travel-plan-service
-          image: codewisdom/ts-travel-plan-service:1.0.0
+          image: apollofighter/ts-travel-plan-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1712,7 +1712,7 @@ spec:
     spec:
       containers:
         - name: ts-travel-service
-          image: codewisdom/ts-travel-service:1.0.0
+          image: apollofighter/ts-travel-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1756,7 +1756,7 @@ spec:
     spec:
       containers:
         - name: ts-travel2-service
-          image: codewisdom/ts-travel2-service:1.0.0
+          image: apollofighter/ts-travel2-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1800,7 +1800,7 @@ spec:
     spec:
       containers:
         - name: ts-user-service
-          image: codewisdom/ts-user-service:1.0.1
+          image: apollofighter/ts-user-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1844,7 +1844,7 @@ spec:
     spec:
       containers:
         - name: ts-verification-code-service
-          image: codewisdom/ts-verification-code-service:1.0.0
+          image: apollofighter/ts-verification-code-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1886,7 +1886,7 @@ spec:
     spec:
       containers:
         - name: ts-voucher-service
-          image: codewisdom/ts-voucher-service:1.0.0
+          image: apollofighter/ts-voucher-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1930,7 +1930,7 @@ spec:
     spec:
       containers:
         - name: ts-wait-order-service
-          image: codewisdom/ts-wait-order-service:1.0.1
+          image: apollofighter/ts-wait-order-service:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1974,7 +1974,7 @@ spec:
     spec:
       containers:
         - name: ts-ui-dashboard
-          image: codewisdom/ts-ui-dashboard:1.0.1
+          image: apollofighter/ts-ui-dashboard:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
@@ -1985,3 +1985,56 @@ spec:
             limits:
               cpu: 500m
               memory: 500Mi
+
+---
+# Jaeger Deployment and Service.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger
+  labels:
+    app: jaeger
+    app.kubernetes.io/name: jaeger
+    app.kubernetes.io/component: all-in-one
+spec:
+  selector:
+    matchLabels:
+      app: jaeger
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jaeger
+        app.kubernetes.io/name: jaeger
+        app.kubernetes.io/component: all-in-one
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "16686"
+    spec:
+      containers:
+      - env:
+        - name: COLLECTOR_ZIPKIN_HTTP_PORT
+          value: "9411"
+        image: jaegertracing/all-in-one
+        name: jaeger
+        ports:
+          - containerPort: 5775
+            protocol: UDP
+          - containerPort: 6831
+            protocol: UDP
+          - containerPort: 6832
+            protocol: UDP
+          - containerPort: 5778
+            protocol: TCP
+          - containerPort: 16686
+            protocol: TCP
+          - containerPort: 9411
+            protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: "/"
+            port: 14269
+          initialDelaySeconds: 5
