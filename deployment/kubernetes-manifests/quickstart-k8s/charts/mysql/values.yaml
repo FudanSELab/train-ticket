@@ -40,9 +40,12 @@ mysql:
   ## connect to a MySQL 8 instance.
   args: []
 
+  ## bind address should be set to 0.0.0.0
+  ## see https://github.com/FudanSELab/train-ticket/issues/252#issuecomment-2188390298
   configFiles:
     node.cnf: |
       [mysqld]
+      bind-address = 0.0.0.0
       default_storage_engine=InnoDB
       max_connections=65535
 
