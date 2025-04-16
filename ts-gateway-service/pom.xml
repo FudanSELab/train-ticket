@@ -41,6 +41,20 @@
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.opentelemetry.javaagent</groupId>
+            <artifactId>opentelemetry-javaagent</artifactId>
+            <version>1.28.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk</artifactId>
+            <version>1.45.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
