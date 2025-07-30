@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+    tools {
+        jdk 'jdk8'
+        maven 'maven-3.9.11'
+    }
+    options {
+        // buildDiscarder(logRotator(numToKeepStr: '5'))    // 保留最新构建记录
+        disableConcurrentBuilds()                      // 串行执行
+    }
+    stages {
+        stage('Checkout') {
+            steps { 
+                checkout scm 
+            }
+        }
+        stage('Build JAR') {
+            steps {
+                script {
+                    if (env.GIT_BRANCH != 'origin/refactor/v2') {
+                        echo "This isn't refactor/v2 branch. Skip the JAR building step!"
+                        return
+                    }
+                    echo "Building JAR with Maven..."
+                    sh 'mvn clean package -DskipTests'
+                    echo "JAR built successfully!"
+                }
+            }
+        }
+        stage('Build Image & Push') {
+            agent {
+                label 'dind-agent'
+            }
+            steps {
+                echo "Build images"
+                script {
+                    if (env.GIT_BRANCH != 'origin/refactor/v2') {
+                        echo "This isn't refactor/v2 branch. Skip the docker building & pushing step!"
+                        return
+                    }
+                    
+                    // Wrap Docker commands with withEnv to set DOCKER_HOST
+                    withEnv(["DOCKER_HOST=tcp://localhost:2375"]) {
+                        echo "Docker Building..."
+                        dir('./refactor/test-push-image') {
+                            echo "Building Docker image for test..."
+                            def image = docker.build("xlcyun/jenkins-test-build:${env.BUILD_NUMBER}")
+                            docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                                image.push()
+                            }
+                            echo "Docker image built successfully: jenkins-test-build:${env.BUILD_NUMBER}"
+                        }
+                        echo "Building images Successful!"
+                    }
+                }
+            }
+        }
+    }
+}

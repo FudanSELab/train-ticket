@@ -1,0 +1,98 @@
+controller:
+  # 基本配置
+  image:
+    repository: xlcyun/jenkins-with-tools
+    tag: "latest"
+  
+  # 管理员账户
+  admin:
+    username: "admin"
+    password: "admin123"
+  
+  # 资源限制 (适合 minikube)
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
+  
+  # 持久化存储
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: standard
+  
+  # 服务类型 (NodePort for minikube)
+  serviceType: NodePort
+  nodePort: 32000
+  
+  # 安装基本插件 (不指定版本)
+  installPlugins:
+    - kubernetes
+    - docker-workflow
+    - workflow-job
+    - workflow-aggregator
+    - git
+    - github
+    - maven-plugin
+    - junit
+    - pipeline-stage-view
+    - configuration-as-code
+  
+  # JVM 配置
+  javaOpts: >-
+    -Xmx1024m
+    -Djava.awt.headless=true
+    -Djenkins.install.runSetupWizard=false
+    -Dhudson.security.csrf.GlobalCrumbIssuerConfiguration.DISABLE_CSRF_PROTECTION=true
+  
+  # Enable Docker-in-Docker (DinD) sidecar
+  # This allows Jenkins to use Docker without accessing the host's Docker daemon.
+  dind:
+    enabled: true
+    # The DinD container requires privileged mode to function.
+    # This may be blocked by cluster security policies (e.g., PodSecurityPolicy).
+    securityContext:
+      privileged: true
+
+# RBAC 配置
+rbac:
+  create: true
+  readSecrets: true
+
+serviceAccount:
+  create: true
+  name: jenkins
+
+# 关闭网络策略
+networkPolicy:
+  enabled: false
+  
+additionalAgents: 
+  dind:
+    podName: dind-agent
+    customJenkinsLabels: dind-agent
+    image: 
+      repository: docker.io/xlcyun/dind-client-jenkins-agent
+      tag: latest
+    envVars:
+     - name: DOCKER_HOST
+       value: "tcp://localhost:2375"
+    alwaysPullImage: true
+    yamlTemplate:  |- 
+     spec: 
+         containers:
+           - name: dind-daemon 
+             image: docker:28-dind
+             securityContext: 
+               privileged: true
+             env: 
+               - name: DOCKER_TLS_VERIFY
+                 value: ""
+             securityContext: 
+               privileged: true
+             env: 
+               - name: DOCKER_TLS_CERTDIR
+                 value: ""
