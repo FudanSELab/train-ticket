@@ -10,7 +10,11 @@ pipeline {
     }
     stages {
         stage('Checkout') {
-            steps { 
+            steps {
+                script {
+                    sh 'ping -c 5 -W 5 github.com'
+                    sh 'nslookup github.com'
+                }
                 checkout scm 
             }
         }
