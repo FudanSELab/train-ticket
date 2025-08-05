@@ -3,7 +3,19 @@ mirrors:
     endpoint:
       - "https://docker.m.daocloud.io"
       - "https://registry-1.docker.io"
+  # 添加阿里云容器镜像服务配置
+  "crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com":
+    endpoint:
+      - "https://crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com"
 configs:
   "docker.m.daocloud.io":
     tls:
       insecure_skip_verify: false
+  # 阿里云容器镜像服务配置
+  "crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com":
+    tls:
+      insecure_skip_verify: false
+    auth:
+      # 如果需要认证，在这里添加用户名和密码
+      # username: "your-username"
+      # password: "your-password"
