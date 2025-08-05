@@ -1,7 +1,7 @@
 controller:
   # 基本配置
   image:
-    repository: xlcyun/jenkins-with-tools
+    repository: jenkins/jenkins
     tag: "latest"
   
   # 管理员账户
@@ -22,7 +22,7 @@ controller:
   persistence:
     enabled: true
     size: 8Gi
-    storageClass: standard
+    storageClass: local-path
   
   # 服务类型 (NodePort for minikube)
   serviceType: NodePort
@@ -77,6 +77,7 @@ additionalAgents:
     image: 
       repository: docker.io/xlcyun/dind-client-jenkins-agent
       tag: latest
+    imagePullPolicy: Never
     envVars:
      - name: DOCKER_HOST
        value: "tcp://localhost:2375"

@@ -1,0 +1,9 @@
+mirrors:
+  docker.io:
+    endpoint:
+      - "https://docker.m.daocloud.io"
+      - "https://registry-1.docker.io"
+configs:
+  "docker.m.daocloud.io":
+    tls:
+      insecure_skip_verify: false
