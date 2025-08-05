@@ -12,6 +12,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
+                    echo 'test ping'
                     sh 'ping -c 5 -W 5 github.com'
                     sh 'nslookup github.com'
                 }
