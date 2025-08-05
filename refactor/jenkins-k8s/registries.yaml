@@ -15,7 +15,3 @@ configs:
   "crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com":
     tls:
       insecure_skip_verify: false
-    auth:
-      # 如果需要认证，在这里添加用户名和密码
-      # username: "your-username"
-      # password: "your-password"
