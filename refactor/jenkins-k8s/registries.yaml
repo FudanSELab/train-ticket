@@ -4,6 +4,7 @@ mirrors:
       - "https://crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com"
   docker.io:
     endpoint:
+      - "https://crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com"
       - "https://docker.m.daocloud.io"
       - "https://registry-1.docker.io"
   # 添加阿里云容器镜像服务配置
