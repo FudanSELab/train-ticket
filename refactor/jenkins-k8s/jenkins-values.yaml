@@ -1,8 +1,8 @@
 controller:
   # 基本配置
   image:
-    repository: jenkins/jenkins
-    tag: "latest"
+    repository: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/jenkins-with-tools
+    tag: "v0.0.1"
   
   # 管理员账户
   admin:
@@ -75,9 +75,9 @@ additionalAgents:
     podName: dind-agent
     customJenkinsLabels: dind-agent
     image: 
-      repository: docker.io/xlcyun/dind-client-jenkins-agent
-      tag: latest
-    imagePullPolicy: Never
+      repository: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/dind-client-jenkins-agent
+      tag: v0.0.1
+    imagePullPolicy: IfNotPresent
     envVars:
      - name: DOCKER_HOST
        value: "tcp://localhost:2375"
