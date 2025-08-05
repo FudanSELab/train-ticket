@@ -13,8 +13,10 @@ pipeline {
             steps {
                 script {
                     echo 'test'
-                    sh 'ping -c 5 -W 5 github.com'
-                    sh 'nslookup github.com'
+                    // 配置Git以解决HTTP/2问题
+                    sh '''
+                        git config --global http.version HTTP/1.1
+                    '''
                 }
                 checkout scm 
             }
