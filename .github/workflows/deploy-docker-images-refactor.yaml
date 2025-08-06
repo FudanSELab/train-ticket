@@ -27,7 +27,7 @@ jobs:
       - uses: docker/login-action@v3
         with:
           registry: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com
-          username: ${{ secrets.REFACTOR_ALIYUN_CR_USERNAME }}
+          username: xlcyun
           password: ${{ secrets.REFACTOR_ALIYUN_CR_PASSWORD }}
       - uses: docker/setup-buildx-action@v3
         with:
