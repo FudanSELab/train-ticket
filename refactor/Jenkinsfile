@@ -12,13 +12,12 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    echo 'test'
                     // 配置Git以解决HTTP/2问题
-                    sh '''
-                        git config --global http.version HTTP/1.1
-                    '''
+                    sh 'git config --global http.version HTTP/1.1'
                 }
-                checkout scm 
+                checkout scm
+                // 将源代码打包供其他agent使用
+                stash name: 'source-code', includes: '**/*'
             }
         }
         stage('Build JAR') {
@@ -31,6 +30,8 @@ pipeline {
                     echo "Building JAR with Maven..."
                     sh 'mvn clean package -DskipTests'
                     echo "JAR built successfully!"
+                    // 将构建产物也打包供Docker stage使用
+                    stash name: 'build-artifacts', includes: '**/target/**/*'
                 }
             }
         }
@@ -38,7 +39,21 @@ pipeline {
             agent {
                 label 'dind-agent'
             }
+            options {
+                skipDefaultCheckout(true)                  // 确保此stage不会自动checkout
+            }
             steps {
+                // 恢复源代码和构建产物
+                unstash 'source-code'
+                script {
+                    try {
+                        unstash 'build-artifacts'
+                        echo "Build artifacts restored successfully"
+                    } catch (Exception e) {
+                        echo "No build artifacts to restore: ${e.getMessage()}"
+                    }
+                }
+                
                 echo "Build images"
                 script {
                     if (env.GIT_BRANCH != 'origin/refactor/v2') {
