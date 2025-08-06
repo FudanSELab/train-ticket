@@ -40,4 +40,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       # tag=refactor-latest
-      - run: make package publish-image Repo=xlcyun_public Tag=latest
+      - run: make package publish-image Repo=crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public Tag=latest
