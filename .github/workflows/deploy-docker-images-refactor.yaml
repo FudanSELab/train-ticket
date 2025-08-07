@@ -39,7 +39,7 @@ jobs:
           key: ${{ runner.os }}-buildx-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-buildx-
-      # - run: make package publish-image Repo=crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public Tag=latest
+      - run: make package publish-image Repo=crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public Tag=latest
       - run: |
           curl -X POST \
             -H "X-Api-Key: ${{ secrets.REFACTOR_ROLLOUT_WEBHOOK_API_KEY }}" \
