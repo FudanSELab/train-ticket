@@ -6,6 +6,7 @@ dp_sample_yaml="deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml
 sw_dp_sample_yaml="deployment/kubernetes-manifests/quickstart-k8s/yamls/sw_deploy.yaml.sample"
 
 dp_yaml="deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml"
+dp_refactor_yaml="deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.refactor.yaml"
 sw_dp_yaml="deployment/kubernetes-manifests/quickstart-k8s/yamls/sw_deploy.yaml"
 
 
@@ -66,15 +67,25 @@ function update_tt_dp_cm {
   nacosCM="$1"
   rabbitmqCM="$2"
 
-  cp $dp_sample_yaml $dp_yaml
-
+  # refactor
   if [ "$(uname)"="Darwin" ]; then
-    sed -i "" "s/nacos/${nacosCM}/g" $dp_yaml
-    sed -i "" "s/rabbitmq/${rabbitmqCM}/g" $dp_yaml
+    sed -i "" "s/nacos/${nacosCM}/g" $dp_refactor_yaml
+    sed -i "" "s/rabbitmq/${rabbitmqCM}/g" $dp_refactor_yaml
   else
-    sed -i "s/nacos/${nacosCM}/g" $dp_yaml
-    sed -i "s/rabbitmq/${rabbitmqCM}/g" $dp_yaml
+    sed -i "s/nacos/${nacosCM}/g" $dp_refactor_yaml
+    sed -i "s/rabbitmq/${rabbitmqCM}/g" $dp_refactor_yaml
   fi
+
+  # refactor: comment for now
+  # cp $dp_sample_yaml $dp_yaml
+
+  # if [ "$(uname)"="Darwin" ]; then
+  #   sed -i "" "s/nacos/${nacosCM}/g" $dp_yaml
+  #   sed -i "" "s/rabbitmq/${rabbitmqCM}/g" $dp_yaml
+  # else
+  #   sed -i "s/nacos/${nacosCM}/g" $dp_yaml
+  #   sed -i "s/rabbitmq/${rabbitmqCM}/g" $dp_yaml
+  # fi
 }
 
 function update_tt_sw_dp_cm {
