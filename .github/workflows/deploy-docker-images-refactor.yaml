@@ -6,6 +6,10 @@ on:
     branches:
       - refactor/v2
 
+concurrency:
+  group: deploy-refactor
+  cancel-in-progress: true
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
