@@ -43,4 +43,4 @@ jobs:
       - run: |
           curl -X POST \
             -H "X-Api-Key: ${{ secrets.REFACTOR_ROLLOUT_WEBHOOK_API_KEY }}" \
-            "${{ secrets.REFACTOR_ROLLOUT_WEBHOOK_ENDPOINT }}/ruok"
+            "${{ secrets.REFACTOR_ROLLOUT_WEBHOOK_ENDPOINT }}/rollout"
