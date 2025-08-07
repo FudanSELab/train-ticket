@@ -41,3 +41,15 @@ jobs:
             ${{ runner.os }}-buildx-
       # tag=refactor-latest
       - run: make package publish-image Repo=crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public Tag=latest
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        id: install
+      - name: Configure Kubeconfig
+        env:
+          KUBECONFIG: ${{ secrets.REFACTOR_KUBECONFIG }}
+        run: |
+          echo "$KUBECONFIG" > kubeconfig
+          export KUBECONFIG="$PWD/kubeconfig"
+      - name: Update Kubernetes Deployment
+        run: |
+          kubectl rollout restart deployment -n default
