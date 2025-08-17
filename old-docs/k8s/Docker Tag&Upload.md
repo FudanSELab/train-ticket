@@ -12,7 +12,6 @@ docker tag ts/ts-assurance-service 10.141.211.160:5000/master/cluster-ts-assuran
 docker tag ts/ts-basic-service 10.141.211.160:5000/master/cluster-ts-basic-service    
 docker tag ts/ts-cancel-service 10.141.211.160:5000/master/cluster-ts-cancel-service    
 docker tag ts/ts-config-service 10.141.211.160:5000/master/cluster-ts-config-service    
-docker tag ts/ts-consign-price-service 10.141.211.160:5000/master/cluster-ts-consign-price-service    
 docker tag ts/ts-consign-service 10.141.211.160:5000/master/cluster-ts-consign-service    
 docker tag ts/ts-contacts-service 10.141.211.160:5000/master/cluster-ts-contacts-service    
 docker tag ts/ts-execute-service 10.141.211.160:5000/master/cluster-ts-execute-service    
@@ -21,7 +20,6 @@ docker tag ts/ts-food-booking-service 10.141.211.160:5000/master/cluster-ts-food
 docker tag ts/ts-inside-payment-service 10.141.211.160:5000/master/cluster-ts-inside-payment-service    
 docker tag ts/ts-login-service 10.141.211.160:5000/master/cluster-ts-login-service    
 docker tag ts/ts-notification-service 10.141.211.160:5000/master/cluster-ts-notification-service    
-docker tag ts/ts-order-other-service 10.141.211.160:5000/master/cluster-ts-order-other-service    
 docker tag ts/ts-order-service 10.141.211.160:5000/master/cluster-ts-order-service    
 docker tag ts/ts-payment-service 10.141.211.160:5000/master/cluster-ts-payment-service    
 docker tag ts/ts-preserve-other-service 10.141.211.160:5000/master/cluster-ts-preserve-other-service    
@@ -58,7 +56,6 @@ docker push 10.141.211.160:5000/master/cluster-ts-assurance-service
 docker push 10.141.211.160:5000/master/cluster-ts-basic-service    
 docker push 10.141.211.160:5000/master/cluster-ts-cancel-service    
 docker push 10.141.211.160:5000/master/cluster-ts-config-service    
-docker push 10.141.211.160:5000/master/cluster-ts-consign-price-service    
 docker push 10.141.211.160:5000/master/cluster-ts-consign-service    
 docker push 10.141.211.160:5000/master/cluster-ts-contacts-service    
 docker push 10.141.211.160:5000/master/cluster-ts-execute-service    
@@ -67,7 +64,6 @@ docker push 10.141.211.160:5000/master/cluster-ts-food-booking-service
 docker push 10.141.211.160:5000/master/cluster-ts-inside-payment-service    
 docker push 10.141.211.160:5000/master/cluster-ts-login-service    
 docker push 10.141.211.160:5000/master/cluster-ts-notification-service    
-docker push 10.141.211.160:5000/master/cluster-ts-order-other-service    
 docker push 10.141.211.160:5000/master/cluster-ts-order-service    
 docker push 10.141.211.160:5000/master/cluster-ts-payment-service    
 docker push 10.141.211.160:5000/master/cluster-ts-preserve-other-service    

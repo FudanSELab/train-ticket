@@ -447,19 +447,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ts-order-other-mongo-pvc
-spec:
-  accessModes: [ "ReadWriteMany" ]
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 1Gi
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: ts-config-mongo-pvc
 spec:
   accessModes: [ "ReadWriteMany" ]
@@ -616,19 +603,6 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: ts-consign-mongo-pvc
-spec:
-  accessModes: [ "ReadWriteMany" ]
-  storageClassName: nfs
-  resources:
-    requests:
-      storage: 1Gi
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: ts-consign-price-pvc
 spec:
   accessModes: [ "ReadWriteMany" ]
   storageClassName: nfs
@@ -820,40 +794,6 @@ spec:
         - name: mongo-persistent-storage
           persistentVolumeClaim:
             claimName: ts-order-mongo-pvc
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-order-other-mongo
-spec:
-  selector:
-    matchLabels:
-      app: ts-order-other-mongo
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-order-other-mongo
-    spec:
-      containers:
-      - name: ts-order-other-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 150m
-            memory: 200Mi
-        volumeMounts:
-          - name: mongo-persistent-storage
-            mountPath: /data/db
-      volumes:
-        - name: mongo-persistent-storage
-          persistentVolumeClaim:
-            claimName: ts-order-other-mongo-pvc
 
 ---
 
@@ -1305,40 +1245,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-consign-price-mongo
-spec:
-  selector:
-    matchLabels:
-      app: ts-consign-price-mongo
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-consign-price-mongo
-    spec:
-      containers:
-      - name: ts-consign-price-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 150m
-            memory: 200Mi
-        volumeMounts:
-          - name: mongo-persistent-storage
-            mountPath: /data/db
-      volumes:
-        - name: mongo-persistent-storage
-          persistentVolumeClaim:
-            claimName: ts-consign-price-pvc
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: ts-food-mongo
 spec:
   selector:
@@ -1424,18 +1330,6 @@ spec:
     - port: 27017
   selector:
    app: ts-order-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-order-other-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-   app: ts-order-other-mongo
 
 ---
 
@@ -1592,18 +1486,6 @@ spec:
     - port: 27017
   selector:
    app: ts-consign-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-consign-price-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-   app: ts-consign-price-mongo
 
 ---
 

@@ -36,6 +36,10 @@ public class ConsignServiceImpl implements ConsignService {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    // Local price service (merged from ts-consign-price-service)
+    @Autowired
+    private ConsignPriceService consignPriceService;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsignServiceImpl.class);
 
     private String getServiceUrl(String serviceName) {
@@ -61,16 +65,11 @@ public class ConsignServiceImpl implements ConsignService {
         consignRecord.setPhone(consignRequest.getPhone());
         consignRecord.setWeight(consignRequest.getWeight());
 
-        //get the price
-        HttpEntity requestEntity = new HttpEntity(null, headers);
-        String consign_price_service_url = getServiceUrl("ts-consign-price-service");
-        ResponseEntity<Response<Double>> re = restTemplate.exchange(
-                consign_price_service_url + "/api/v1/consignpriceservice/consignprice/" + consignRequest.getWeight() + "/" + consignRequest.isWithin(),
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<Response<Double>>() {
-                });
-        consignRecord.setPrice(re.getBody().getData());
+        // Calculate price locally
+        double price = (double) consignPriceService
+                .getPriceByWeightAndRegion(consignRequest.getWeight(), consignRequest.isWithin(), headers)
+                .getData();
+        consignRecord.setPrice(price);
 
         LOGGER.info("[insertConsignRecord][SAVE consign info][consignRecord : {}]", consignRecord.toString());
         ConsignRecord result = repository.save(consignRecord);
@@ -95,16 +94,10 @@ public class ConsignServiceImpl implements ConsignService {
         originalRecord.setPhone(consignRequest.getPhone());
         //Recalculate price
         if (originalRecord.getWeight() != consignRequest.getWeight()) {
-            HttpEntity requestEntity = new HttpEntity<>(null, headers);
-            String consign_price_service_url = getServiceUrl("ts-consign-price-service");
-            ResponseEntity<Response<Double>> re = restTemplate.exchange(
-                    consign_price_service_url + "/api/v1/consignpriceservice/consignprice/" + consignRequest.getWeight() + "/" + consignRequest.isWithin(),
-                    HttpMethod.GET,
-                    requestEntity,
-                    new ParameterizedTypeReference<Response<Double>>() {
-                    });
-
-            originalRecord.setPrice(re.getBody().getData());
+            double newPrice = (double) consignPriceService
+                    .getPriceByWeightAndRegion(consignRequest.getWeight(), consignRequest.isWithin(), headers)
+                    .getData();
+            originalRecord.setPrice(newPrice);
         } else {
             originalRecord.setPrice(originalRecord.getPrice());
         }

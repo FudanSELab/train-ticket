@@ -153,14 +153,6 @@ spec:
           number: 12031
   - match:
     - uri:
-        prefix: /api/v1/orderOtherService
-    route:
-    - destination:
-        host: ts-order-other-service
-        port:
-          number: 12032
-  - match:
-    - uri:
         prefix: /api/v1/travelservice
     route:
     - destination:
@@ -287,14 +279,6 @@ spec:
         host: ts-consign-service
         port:
           number: 16111
-  - match:
-    - uri:
-        prefix: /api/v1/consignpriceservice
-    route:
-    - destination:
-        host: ts-consign-price-service
-        port:
-          number: 16110
   - match:
     - uri:
         exact: /getVoucher

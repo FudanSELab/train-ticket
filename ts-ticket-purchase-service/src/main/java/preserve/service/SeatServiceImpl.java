@@ -56,9 +56,9 @@ public class SeatServiceImpl implements SeatService {
         } else {
             LOGGER.info("[distributeSeat][TrainNumber start][Other]");
             HttpEntity<?> requestEntity = new HttpEntity<>(seatRequest, null);
-            String order_other_service_url = getServiceUrl("ts-order-other-service");
+            String order_service_url = getServiceUrl("ts-order-service");
             re3 = restTemplate.exchange(
-                    order_other_service_url + "/api/v1/orderOtherService/orderOther/tickets",
+                    order_service_url + "/api/v1/orderservice/order/tickets",
                     HttpMethod.POST,
                     requestEntity,
                     new ParameterizedTypeReference<Response<LeftTicketInfo>>() {});
@@ -123,9 +123,9 @@ public class SeatServiceImpl implements SeatService {
             leftTicketInfo = re3.getBody().getData();
         } else {
             HttpEntity<?> requestEntity = new HttpEntity<>(seatRequest, null);
-            String order_other_service_url = getServiceUrl("ts-order-other-service");
+            String order_service_url = getServiceUrl("ts-order-service");
             re3 = restTemplate.exchange(
-                    order_other_service_url + "/api/v1/orderOtherService/orderOther/tickets",
+                    order_service_url + "/api/v1/orderservice/order/tickets",
                     HttpMethod.POST,
                     requestEntity,
                     new ParameterizedTypeReference<Response<LeftTicketInfo>>() {});

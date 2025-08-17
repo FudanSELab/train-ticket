@@ -119,21 +119,6 @@ services:
     networks:
       - my-network
 
-
-  ts-order-other-service:
-    image: ${NAMESPACE}/ts-order-other-service:${TAG}
-    restart: always
-    ports:
-      - 12032:12032
-    networks:
-      - my-network
-
-  ts-order-other-mysql:
-    image: mysql:5.7
-    networks:
-      - my-network
-
-
   ts-config-service:
     image: ${NAMESPACE}/ts-config-service:${TAG}
     restart: always
@@ -406,19 +391,6 @@ services:
       - my-network
 
   ts-consign-mysql:
-    image: mysql:5.7
-    networks:
-      - my-network
-
-  ts-consign-price-service:
-    image: ${NAMESPACE}/ts-consign-price-service:${TAG}
-    restart: always
-    ports:
-      - 16110:16110
-    networks:
-      - my-network
-
-  ts-consign-price-mysql:
     image: mysql:5.7
     networks:
       - my-network

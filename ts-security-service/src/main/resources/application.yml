@@ -28,6 +28,3 @@ swagger:
 
 order-service:
   url: http://${ORDER_SERVICE_HOST:ts-order-service}:${ORDER_SERVICE_PORT:12031}
-
-order-other-service:
-  url: http://${ORDER_OTHER_SERVICE_HOST:ts-order-other-service}:${ORDER_OTHER_SERVICE_PORT:12032}

@@ -125,20 +125,6 @@ services:
     networks:
       - my-network
 
-  ts-order-other-service:
-    build: ts-order-other-service
-    image: ${IMG_REPO}/ts-order-other-service:${IMG_TAG}
-    restart: always
-    ports:
-      - 12032:12032
-    networks:
-      - my-network
-
-  ts-order-other-mongo:
-    image: mongo
-    networks:
-      - my-network
-
   ts-config-service:
     build: ts-config-service
     image: ${IMG_REPO}/ts-config-service:${IMG_TAG}
@@ -343,20 +329,6 @@ services:
         networks:
           - my-network
 
-  ts-assurance-service:
-        build: ts-assurance-service
-        image: ${IMG_REPO}/ts-assurance-service:${IMG_TAG}
-        restart: always
-        ports:
-          - 18888:18888
-        networks:
-          - my-network
-
-  ts-assurance-mongo:
-    image: mongo
-    networks:
-      - my-network
-
   ts-seat-service:
         build: ts-seat-service
         image: ${IMG_REPO}/ts-seat-service:${IMG_TAG}
@@ -430,20 +402,6 @@ services:
               - my-network
 
   ts-consign-mongo:
-    image: mongo
-    networks:
-      - my-network
-
-  ts-consign-price-service:
-            build: ts-consign-price-service
-            image: ${IMG_REPO}/ts-consign-price-service:${IMG_TAG}
-            restart: always
-            ports:
-              - 16110:16110
-            networks:
-              - my-network
-
-  ts-consign-price-mongo:
     image: mongo
     networks:
       - my-network

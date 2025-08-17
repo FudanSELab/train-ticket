@@ -18,7 +18,6 @@
         <module>ts-common</module>
         <module>ts-contacts-service</module>
         <module>ts-order-service</module>
-        <module>ts-order-other-service</module>
         <module>ts-config-service</module>
         <module>ts-station-service</module>
         <module>ts-train-service</module>
@@ -36,7 +35,6 @@
         <module>ts-ticket-plan-service</module>
         <module>ts-food-booking-service</module>
         <module>ts-food-merchant-service</module>
-        <module>ts-consign-price-service</module>
         <module>ts-consign-service</module>
         <module>ts-auth-service</module>
         <module>ts-user-service</module>

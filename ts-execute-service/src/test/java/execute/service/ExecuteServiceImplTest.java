@@ -72,7 +72,7 @@ public class ExecuteServiceImplTest {
         Response<Order> response2 = new Response<>(1, null, order);
         ResponseEntity<Response<Order>> re2 = new ResponseEntity<>(response2, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/" + "order_id",
+                "http://ts-order-service:12032/api/v1/orderOtherService/orderOther/" + "order_id",
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {
@@ -81,7 +81,7 @@ public class ExecuteServiceImplTest {
         Response response3 = new Response(1, null, null);
         ResponseEntity<Response> re3 = new ResponseEntity<>(response3, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/status/" + "order_id" + "/" + 6,
+                "http://ts-order-service:12032/api/v1/orderOtherService/orderOther/status/" + "order_id" + "/" + 6,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re3);
@@ -131,7 +131,7 @@ public class ExecuteServiceImplTest {
         Response<Order> response2 = new Response<>(1, null, order);
         ResponseEntity<Response<Order>> re2 = new ResponseEntity<>(response2, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/" + "order_id",
+                "http://ts-order-service:12032/api/v1/orderOtherService/orderOther/" + "order_id",
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {
@@ -140,7 +140,7 @@ public class ExecuteServiceImplTest {
         Response response3 = new Response(1, null, null);
         ResponseEntity<Response> re3 = new ResponseEntity<>(response3, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-other-service:12032/api/v1/orderOtherService/orderOther/status/" + "order_id" + "/" + 2,
+                "http://ts-order-service:12032/api/v1/orderOtherService/orderOther/status/" + "order_id" + "/" + 2,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re3);

@@ -188,9 +188,9 @@ public class CancelServiceImpl implements CancelService {
         order.setStatus(OrderStatus.CANCEL.getCode());
         HttpHeaders newHeaders = getAuthorizationHeadersFrom(headers);
         HttpEntity<Order> requestEntity = new HttpEntity<>(order, newHeaders);
-        String order_other_service_url = getServiceUrl("ts-order-other-service");
+        String order_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                order_other_service_url + "/api/v1/orderOtherService/orderOther",
+                order_service_url + "/api/v1/orderservice/order",
                 HttpMethod.PUT,
                 requestEntity,
                 Response.class);
@@ -241,9 +241,9 @@ public class CancelServiceImpl implements CancelService {
         LOGGER.info("[getOrderByIdFromOrderOther][orderId: {}]", orderId);
         HttpHeaders newHeaders = getAuthorizationHeadersFrom(headers);
         HttpEntity<?> requestEntity = new HttpEntity<>(newHeaders);
-        String order_other_service_url = getServiceUrl("ts-order-other-service");
+        String order_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response<Order>> re = restTemplate.exchange(
-                order_other_service_url + "/api/v1/orderOtherService/orderOther/" + orderId,
+                order_service_url + "/api/v1/orderservice/order/" + orderId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {});

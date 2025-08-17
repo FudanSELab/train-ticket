@@ -13,11 +13,6 @@ spring:
         server-addr: ${NACOS_ADDRS:127.0.0.1:8848}
     gateway:
       routes:
-        - id: assurance
-          uri: lb://${ASSURANCE_SERVICE_HOST:ts-assurance-service}
-          predicates:
-            - Path=/api/v1/assuranceservice/**
-
         - id: auth
           uri: lb://${AUTH_SERVICE_HOST:ts-auth-service}
           predicates:
@@ -48,11 +43,6 @@ spring:
           predicates:
             - Path=/api/v1/configservice/**
 
-        - id: consign-price
-          uri: lb://${CONSIGN_PRICE_SERVICE_HOST:ts-consign-price-service}
-          predicates:
-            - Path=/api/v1/consignpriceservice/**
-
         - id: consign
           uri: lb://${CONSIGN_SERVICE_HOST:ts-consign-service}
           predicates:
@@ -82,11 +72,6 @@ spring:
           uri: lb://${NOTIFICATION_SERVICE_HOST:ts-notification-service}
           predicates:
             - Path=/api/v1/notifyservice/**
-
-        - id: order-other
-          uri: lb://${ORDER_OTHER_SERVICE_HOST:ts-order-other-service}
-          predicates:
-            - Path=/api/v1/orderOtherService/**
 
         - id: order
           uri: lb://${ORDER_SERVICE_HOST:ts-order-service}

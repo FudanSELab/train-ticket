@@ -119,21 +119,6 @@ services:
     networks:
       - my-network
 
-
-  ts-order-other-service:
-    image: codewisdom/ts-order-other-service-with-jaeger:v1
-    restart: always
-    ports:
-      - 12032:12032
-    networks:
-      - my-network
-
-  ts-order-other-mysql:
-    image: mysql:5.7
-    networks:
-      - my-network
-
-
   ts-config-service:
     image: codewisdom/ts-config-service-with-jaeger:v1
     restart: always
@@ -415,20 +400,6 @@ services:
             image: mysql:5.7
             networks:
               - my-network
-
-  ts-consign-price-service:
-            image: codewisdom/ts-consign-price-service-with-jaeger:v1
-            restart: always
-            ports:
-              - 16110:16110
-            networks:
-              - my-network
-
-  ts-consign-price-mysql:
-            image: mysql:5.7
-            networks:
-              - my-network
-
 
   ts-admin-basic-info-service:
         image: codewisdom/ts-admin-basic-info-service-with-jaeger:v1

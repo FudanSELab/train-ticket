@@ -354,42 +354,6 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 5
 ---
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-consign-price-service
-spec:
-  selector:
-    matchLabels:
-      app: ts-consign-price-service
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-consign-price-service
-    spec:
-      containers:
-      - name: ts-consign-price-service
-        image: codewisdom/ts-consign-price-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16110
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 16110
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -664,41 +628,6 @@ spec:
         readinessProbe:
           tcpSocket:
             port: 17853
-          initialDelaySeconds: 160
-          periodSeconds: 10
-          timeoutSeconds: 5
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-order-other-service
-spec:
-  selector:
-    matchLabels:
-      app: ts-order-other-service
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-order-other-service
-    spec:
-      containers:
-      - name: ts-order-other-service
-        image: codewisdom/ts-order-other-service:0.0.4
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12032
-        resources:
-          requests:
-            cpu: 50m
-            memory: 160Mi
-          limits:
-            cpu: 200m
-            memory: 500Mi
-        readinessProbe:
-          tcpSocket:
-            port: 12032
           initialDelaySeconds: 160
           periodSeconds: 10
           timeoutSeconds: 5
@@ -1490,19 +1419,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-consign-price-service
-spec:
-  ports:
-    - name: http
-      port: 16110
-  selector:
-   app: ts-consign-price-service
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-consign-service
 spec:
   ports:
@@ -1601,19 +1517,6 @@ spec:
       port: 17853
   selector:
    app: ts-notification-service
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-order-other-service
-spec:
-  ports:
-    - name: http
-      port: 12032
-  selector:
-   app: ts-order-other-service
 
 ---
 

@@ -49,7 +49,7 @@ class GetVoucherHandler(tornado.web.RequestHandler):
         type = int(type)
         #ordinary train
         order_url = 'http://ts-order-service:12031'
-        order_other_url = 'http://ts-order-other-service:12032'
+        order_other_url = 'http://ts-order-service:12032'
         if(os.getenv("ORDER_SERVICE_URL") is not None):
             order_url = os.getenv("ORDER_SERVICE_URL")
 

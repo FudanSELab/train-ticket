@@ -101,26 +101,6 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-order-other-mongo
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-order-other-mongo
-    spec:
-      containers:
-      - name: ts-order-other-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-
----
-
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
   name: ts-config-mongo
 spec:
   replicas: 1
@@ -385,26 +365,6 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-consign-price-mongo
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-consign-price-mongo
-    spec:
-      containers:
-      - name: ts-consign-price-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-
----
-
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
   name: ts-food-mongo
 spec:
   replicas: 1
@@ -479,18 +439,6 @@ spec:
     - port: 27017
   selector:
    app: ts-order-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-order-other-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-   app: ts-order-other-mongo
 
 ---
 
@@ -648,18 +596,6 @@ spec:
     - port: 27017
   selector:
    app: ts-consign-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-consign-price-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-   app: ts-consign-price-mongo
 
 ---
 

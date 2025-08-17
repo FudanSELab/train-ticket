@@ -312,9 +312,9 @@ public class PreserveServiceImpl implements PreserveService {
     private Response addAssuranceForOrder(int assuranceType, String orderId, HttpHeaders httpHeaders) {
         PreserveServiceImpl.LOGGER.info("[addAssuranceForOrder][Preserve Service][Add Assurance Type For Order]");
         HttpEntity requestAddAssuranceResult = new HttpEntity(httpHeaders);
-        String assurance_service_url = getServiceUrl("ts-assurance-service");
+        String assurance_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response> reAddAssuranceResult = restTemplate.exchange(
-                assurance_service_url + "/api/v1/assuranceservice/assurances/" + assuranceType + "/" + orderId,
+                assurance_service_url + "/api/v1/orderservice/assurance/assurances/" + assuranceType + "/" + orderId,
                 HttpMethod.GET,
                 requestAddAssuranceResult,
                 Response.class);

@@ -181,26 +181,6 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-consign-price-service
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-consign-price-service
-    spec:
-      containers:
-      - name: ts-consign-price-service
-        image: 10.141.211.160:5000/master/cluster-ts-consign-price-service
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16110
-
----
-
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
   name: ts-consign-service
 spec:
   replicas: 1
@@ -355,26 +335,6 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 17853
-
----
-
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: ts-order-other-service
-spec:
-  replicas: 5
-  template:
-    metadata:
-      labels:
-        app: ts-order-other-service
-    spec:
-      containers:
-      - name: ts-order-other-service
-        image: 10.141.211.160:5000/master/cluster-ts-order-other-service
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12032
 
 ---
 
@@ -878,19 +838,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-consign-price-service
-spec:
-  ports:
-    - name: http
-      port: 16110
-  selector:
-   app: ts-consign-price-service
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-consign-service
 spec:
   ports:
@@ -991,19 +938,6 @@ spec:
    app: ts-notification-service
 
 
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-order-other-service
-spec:
-  ports:
-    - name: http
-      port: 12032
-  selector:
-   app: ts-order-other-service
 
 ---
 

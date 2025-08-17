@@ -36,7 +36,6 @@ var collectTicket = new Vue({
             this.myOrderList = [];
             var myOrdersQueryData = JSON.stringify(myOrdersQueryInfo);
             this.queryForMyOrderThree("/api/v1/orderservice/order/refresh", myOrdersQueryData);
-            this.queryForMyOrderThree("/api/v1/orderOtherService/orderOther/refresh", myOrdersQueryData);
         },
         queryForMyOrderThree(path, data) {
 

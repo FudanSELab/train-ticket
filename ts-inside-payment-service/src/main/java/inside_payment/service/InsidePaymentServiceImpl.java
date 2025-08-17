@@ -49,11 +49,10 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
 
         String requestOrderURL = "";
         String order_service_url = getServiceUrl("ts-order-service");
-        String order_other_service_url = getServiceUrl("ts-order-other-service");
         if (info.getTripId().startsWith("G") || info.getTripId().startsWith("D")) {
             requestOrderURL =  order_service_url + "/api/v1/orderservice/order/" + info.getOrderId();
         } else {
-            requestOrderURL = order_other_service_url + "/api/v1/orderOtherService/orderOther/" + info.getOrderId();
+            requestOrderURL = order_service_url + "/api/v1/orderservice/order/" + info.getOrderId();
         }
         HttpEntity requestGetOrderResults = new HttpEntity(headers);
         ResponseEntity<Response<Order>> reGetOrderResults = restTemplate.exchange(
@@ -345,9 +344,9 @@ public class InsidePaymentServiceImpl implements InsidePaymentService {
 
         } else {
             HttpEntity requestEntityModifyOrderStatusResult = new HttpEntity(headers);
-            String order_other_service_url = getServiceUrl("ts-order-other-service");
+            String order_service_url = getServiceUrl("ts-order-service");
             ResponseEntity<Response> reModifyOrderStatusResult = restTemplate.exchange(
-                    order_other_service_url + "/api/v1/orderOtherService/orderOther/status/" + orderId + "/" + orderStatus,
+                    order_service_url + "/api/v1/orderservice/order/status/" + orderId + "/" + orderStatus,
                     HttpMethod.GET,
                     requestEntityModifyOrderStatusResult,
                     Response.class);

@@ -122,17 +122,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-consign-price-service
-spec:
-  ports:
-    - name: http
-      port: 16110
-  selector:
-    app: ts-consign-price-service
----
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-consign-service
 spec:
   ports:
@@ -220,17 +209,6 @@ spec:
       port: 17853
   selector:
     app: ts-notification-service
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-order-other-service
-spec:
-  ports:
-    - name: http
-      port: 12032
-  selector:
-    app: ts-order-other-service
 ---
 apiVersion: v1
 kind: Service
