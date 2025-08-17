@@ -18,6 +18,7 @@
         <module>ts-common</module>
         <module>ts-contacts-service</module>
         <module>ts-order-service</module>
+        <module>ts-order-query-service</module>
         <module>ts-config-service</module>
         <module>ts-station-service</module>
         <module>ts-train-service</module>

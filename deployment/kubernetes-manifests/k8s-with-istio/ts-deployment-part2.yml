@@ -671,6 +671,41 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: ts-order-query-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-order-query-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-order-query-service
+    spec:
+      containers:
+      - name: ts-order-query-service
+        image: codewisdom/ts-order-query-service:0.0.4
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 12031
+        resources:
+          requests:
+            cpu: 50m
+            memory: 160Mi
+          limits:
+            cpu: 200m
+            memory: 500Mi
+        readinessProbe:
+          tcpSocket:
+            port: 12032
+          initialDelaySeconds: 160
+          periodSeconds: 10
+          timeoutSeconds: 5
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: ts-payment-service
 spec:
   selector:
@@ -1530,7 +1565,18 @@ spec:
       port: 12031
   selector:
    app: ts-order-service
+---
 
+apiVersion: v1
+kind: Service
+metadata:
+  name: ts-order-query-service
+spec:
+  ports:
+    - name: http
+      port: 12032
+  selector:
+   app: ts-order-query-service
 ---
 
 apiVersion: v1

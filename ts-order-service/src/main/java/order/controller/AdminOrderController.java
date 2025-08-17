@@ -26,13 +26,6 @@ public class AdminOrderController {
         return "Welcome to [Admin Order Service] !";
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping("/adminorder")
-    public ResponseEntity<Response> getAllOrders(@RequestHeader HttpHeaders headers) {
-        LOGGER.info("[getAllOrders][Get all orders]");
-        return ok(adminOrderService.getAllOrders(headers));
-    }
-
     @PostMapping("/adminorder")
     public ResponseEntity<Response> addOrder(@RequestBody Order request, @RequestHeader HttpHeaders headers) {
         LOGGER.info("[addOrder][Add new order][AccountID: {}]", request.getAccountId());

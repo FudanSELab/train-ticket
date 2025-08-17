@@ -1455,6 +1455,77 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 5
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-order-query-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-order-query-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-order-query-service
+    spec:
+      volumes:
+        - name: skywalking-agent
+          emptyDir: {}
+      initContainers:
+        - name: agent-container
+          image: apache/skywalking-java-agent:8.8.0-alpine
+          volumeMounts:
+            - name: skywalking-agent
+              mountPath: /agent
+          command: [ "/bin/sh" ]
+          args: [ "-c", "cp -R /skywalking/agent /agent/" ]
+      containers:
+        - name: ts-order-query-service
+          image: codewisdom/ts-order-query-service:1.0.1
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: skywalking-agent
+              mountPath: /skywalking
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
+              value: "skywalking:11800"
+            - name: SW_GRPC_LOG_SERVER_HOST
+              value: "skywalking"
+            - name: SW_GRPC_LOG_SERVER_PORT
+              value: "11800"
+            - name: SW_AGENT_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app']
+            - name: JAVA_TOOL_OPTIONS
+              value: "-javaagent:/skywalking/agent/skywalking-agent.jar"
+          envFrom:
+            - secretRef:
+                name: ts-order-mysql
+            - configMapRef:
+                name: nacos
+            - configMapRef:
+                name: rabbitmq
+          ports:
+            - containerPort: 12032
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12032
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment

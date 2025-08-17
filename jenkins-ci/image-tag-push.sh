@@ -5,6 +5,7 @@ sudo docker push codewisdom/ts-user-service:latest
 sudo docker push codewisdom/ts-verification-code-service:latest
 sudo docker push codewisdom/ts-contacts-service:latest
 sudo docker push codewisdom/ts-order-service:latest
+sudo docker push codewisdom/ts-order-query-service:latest
 sudo docker push codewisdom/ts-config-service:latest
 sudo docker push codewisdom/ts-station-service:latest
 sudo docker push codewisdom/ts-travel-service:latest

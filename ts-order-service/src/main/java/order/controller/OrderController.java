@@ -34,11 +34,6 @@ public class OrderController {
 
     /***************************For Normal Use***************************/
 
-    @PostMapping(value = "/order/tickets")
-    public HttpEntity getTicketListByDateAndTripId(@RequestBody Seat seatRequest, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[getSoldTickets][Get Sold Ticket][Travel Date: {}]", seatRequest.getTravelDate().toString());
-        return ok(orderService.getSoldTickets(seatRequest, headers));
-    }
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/order")
@@ -54,39 +49,6 @@ public class OrderController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping(path = "/order/query")
-    public HttpEntity queryOrders(@RequestBody OrderInfo qi,
-                                  @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[queryOrders][Query Orders][for LoginId :{}]", qi.getLoginId());
-        return ok(orderService.queryOrders(qi, qi.getLoginId(), headers));
-    }
-
-    @CrossOrigin(origins = "*")
-    @PostMapping(path = "/order/refresh")
-    public HttpEntity queryOrdersForRefresh(@RequestBody OrderInfo qi,
-                                            @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[queryOrdersForRefresh][Query Orders][for LoginId:{}]", qi.getLoginId());
-        return ok(orderService.queryOrdersForRefresh(qi, qi.getLoginId(), headers));
-    }
-
-    @CrossOrigin(origins = "*")
-    @GetMapping(path = "/order/{travelDate}/{trainNumber}")
-    public HttpEntity calculateSoldTicket(@PathVariable String travelDate, @PathVariable String trainNumber,
-                                          @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[queryAlreadySoldOrders][Calculate Sold Tickets][Date: {} TrainNumber: {}]", travelDate, trainNumber);
-        return ok(orderService.queryAlreadySoldOrders(StringUtils.String2Date(travelDate), trainNumber, headers));
-    }
-
-    @CrossOrigin(origins = "*")
-    @GetMapping(path = "/order/price/{orderId}")
-    public HttpEntity getOrderPrice(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[getOrderPrice][Get Order Price][OrderId: {}]", orderId);
-        // String
-        return ok(orderService.getOrderPrice(orderId, headers));
-    }
-
-
-    @CrossOrigin(origins = "*")
     @GetMapping(path = "/order/orderPay/{orderId}")
     public HttpEntity payOrder(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
         OrderController.LOGGER.info("[payOrder][Pay Order][OrderId: {}]", orderId);
@@ -94,13 +56,6 @@ public class OrderController {
         return ok(orderService.payOrder(orderId, headers));
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping(path = "/order/{orderId}")
-    public HttpEntity getOrderById(@PathVariable String orderId, @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[getOrderById][Get Order By Id][OrderId: {}]", orderId);
-        // Order
-        return ok(orderService.getOrderById(orderId, headers));
-    }
 
     @CrossOrigin(origins = "*")
     @GetMapping(path = "/order/status/{orderId}/{status}")
@@ -111,13 +66,6 @@ public class OrderController {
     }
 
 
-    @CrossOrigin(origins = "*")
-    @GetMapping(path = "/order/security/{checkDate}/{accountId}")
-    public HttpEntity securityInfoCheck(@PathVariable String checkDate, @PathVariable String accountId,
-                                        @RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[checkSecurityAboutOrder][Security Info Get][AccountId:{}]", accountId);
-        return ok(orderService.checkSecurityAboutOrder(StringUtils.String2Date(checkDate), accountId, headers));
-    }
 
 
     @CrossOrigin(origins = "*")
@@ -146,14 +94,5 @@ public class OrderController {
         return ok(orderService.deleteOrder(orderId, headers));
     }
 
-    /***************For super admin(Single Service Test*******************/
-
-    @CrossOrigin(origins = "*")
-    @GetMapping(path = "/order")
-    public HttpEntity findAllOrder(@RequestHeader HttpHeaders headers) {
-        OrderController.LOGGER.info("[getAllOrders][Find All Order]");
-        // ArrayList<Order>
-        return ok(orderService.getAllOrders(headers));
-    }
 
 }

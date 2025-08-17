@@ -153,6 +153,14 @@ spec:
           number: 12031
   - match:
     - uri:
+        prefix: /api/v1/order-query
+    route:
+    - destination:
+        host: ts-order-query-service
+        port:
+          number: 12032
+  - match:
+    - uri:
         prefix: /api/v1/travelservice
     route:
     - destination:

@@ -114,6 +114,14 @@ services:
     networks:
       - my-network
 
+  ts-order-query-service:
+    image: ${NAMESPACE}/ts-order-query-service:${TAG}
+    restart: always
+    ports:
+      - 12032:12032
+    networks:
+      - my-network
+
   ts-order-mysql:
     image: mysql:5.7
     networks:

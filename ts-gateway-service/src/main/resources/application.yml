@@ -78,6 +78,11 @@ spring:
           predicates:
             - Path=/api/v1/orderservice/**
 
+        - id: order-query
+          uri: lb://${ORDER_QUERY_SERVICE_HOST:ts-order-query-service}
+          predicates:
+            - Path=/api/v1/order-query/**
+
         - id: payment
           uri: lb://${PAYMENT_SERVICE_HOST:ts-payment-service}
           predicates:

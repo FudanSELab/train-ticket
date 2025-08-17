@@ -5,6 +5,7 @@ sudo docker rmi codewisdom/ts-user-service:latest
 sudo docker rmi codewisdom/ts-verification-code-service:latest
 sudo docker rmi codewisdom/ts-contacts-service:latest
 sudo docker rmi codewisdom/ts-order-service:latest
+sudo docker rmi codewisdom/ts-order-query-service:latest
 sudo docker rmi codewisdom/ts-config-service:latest
 sudo docker rmi codewisdom/ts-station-service:latest
 sudo docker rmi codewisdom/ts-travel-service:latest
@@ -43,6 +44,7 @@ sudo docker rmi ts/ts-user-service:latest
 sudo docker rmi ts/ts-verification-code-service:latest
 sudo docker rmi ts/ts-contacts-service:latest
 sudo docker rmi ts/ts-order-service:latest
+sudo docker rmi ts/ts-order-query-service:latest
 sudo docker rmi ts/ts-config-service:latest
 sudo docker rmi ts/ts-station-service:latest
 sudo docker rmi ts/ts-travel-service:latest
