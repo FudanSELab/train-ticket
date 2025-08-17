@@ -518,6 +518,15 @@ services:
     networks:
       - my-network
 
+  ts-food-list-service:
+      build: ts-food-list-service
+      image: ${IMG_REPO}/ts-food-list-service:${IMG_TAG}
+      restart: always
+      ports:
+        - 18856:18856
+      networks:
+        - my-network
+
 networks:
   my-network:
     # driver: overlay

@@ -1,0 +1,62 @@
+stationId=shanghai
+storeName=KFC
+telephone=01-234567
+businessTime=10:00-20:00
+deliveryFee=20
+foodList=Hamburger,5_Cola,2_Chicken,10.5
+
+stationId=shanghai
+storeName=Good Taste
+telephone=6228480012
+businessTime=08:00-21:00
+deliveryFee=10
+foodList=Rice,1.2_Chicken Soup,2.5
+
+stationId=nanjing
+storeName=Burger King
+telephone=88348215681
+businessTime=08:00-23:00
+deliveryFee=15
+foodList=Big Burger,1.2_Bone Soup,2.5
+
+stationId=nanjing
+storeName=Pizza Hut
+telephone=2382614
+businessTime=08:00-23:00
+deliveryFee=15
+foodList=Big Burger,1.2_Bone Soup,2.5
+
+stationId=nanjing
+storeName=McDonald's
+telephone=2836485
+businessTime=08:00-23:00
+deliveryFee=15
+foodList=Big Mac,2.2_McChicken,1.5
+
+stationId=suzhou
+storeName=Roman Holiday
+telephone=3769464
+businessTime=09:00-23:00
+deliveryFee=15
+foodList=Big Burger,1.2_Bone Soup,2.5
+
+stationId=beijing
+storeName=Perfect
+telephone=975335664
+businessTime=08:00-23:00
+deliveryFee=15
+foodList=French Fries,1.2_Vegetable Seafood Soup,2.5
+
+stationId=beijing
+storeName=Delicious
+telephone=237452946
+businessTime=08:00-21:00
+deliveryFee=15
+foodList=Hot Chocolate,1.2_Pineapple Pie,2.5
+
+stationId=taiyuan
+storeName=GOODWILL
+telephone=23753855
+businessTime=08:00-21:00
+deliveryFee=15
+foodList=Karubi Beef,1.2_ Low Fat Yogurt Blackberry,2.5

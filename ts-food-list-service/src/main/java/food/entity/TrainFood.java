@@ -1,4 +1,4 @@
-package trainFood.entity;
+package food.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import edu.fudan.common.entity.Food;
@@ -6,10 +6,8 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -30,9 +28,8 @@ public class TrainFood {
     @CollectionTable(name = "train_food_list", joinColumns = @JoinColumn(name = "trip_id"))
     private List<Food> foodList;
 
-    public TrainFood(){
+    public TrainFood() {
         //Default Constructor
         this.tripId = "";
     }
-
 }

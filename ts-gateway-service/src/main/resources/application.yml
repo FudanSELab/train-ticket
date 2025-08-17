@@ -118,25 +118,15 @@ spring:
           predicates:
             - Path=/api/v1/securityservice/**
 
-        - id: station-food
-          uri: lb://${STATION_FOOD_SERVICE_HOST:ts-station-food-service}
-          predicates:
-            - Path=/api/v1/stationfoodservice/**
-
         - id: station
           uri: lb://${STATION_SERVICE_HOST:ts-station-service}
           predicates:
             - Path=/api/v1/stationservice/**
 
-        - id: train-food
-          uri: lb://${TRAIN_FOOD_SERVICE_HOST:ts-train-food-service}
+        - id: food-list
+          uri: lb://${FOOD_LIST_SERVICE_HOST:ts-food-list-service}
           predicates:
-            - Path=/api/v1/trainfoodservice/**
-
-        - id: train
-          uri: lb://${TRAIN_SERVICE_HOST:ts-train-service}
-          predicates:
-            - Path=/api/v1/trainservice/**
+            - Path=/api/v1/foodlist/**
 
         - id: ticket-plan
           uri: lb://${TICKET_PLAN_SERVICE_HOST:ts-ticket-plan-service}

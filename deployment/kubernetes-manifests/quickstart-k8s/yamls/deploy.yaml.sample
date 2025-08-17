@@ -1442,20 +1442,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-train-food-service
+  name: ts-food-list-service
 spec:
   selector:
     matchLabels:
-      app: ts-train-food-service
+      app: ts-food-list-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-train-food-service
+        app: ts-food-list-service
     spec:
       containers:
-        - name: ts-train-food-service
-          image: codewisdom/ts-train-food-service:1.0.0
+        - name: ts-food-list-service
+          image: codewisdom/ts-food-list-service:1.0.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
@@ -1464,7 +1464,7 @@ spec:
                   fieldPath: status.hostIP
           envFrom:
             - secretRef:
-                name: ts-train-food-mysql
+                name: ts-food-list-mysql
             - configMapRef:
                 name: nacos
           ports:

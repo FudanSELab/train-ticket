@@ -1,18 +1,18 @@
-package trainFood.service;
+package food.service;
 
 import edu.fudan.common.util.Response;
+import food.entity.TrainFood;
+import food.repository.TrainFoodRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-import trainFood.entity.*;
-import trainFood.repository.TrainFoodRepository;
 
 import java.util.List;
 
 @Service
-public class TrainFoodServiceImpl implements TrainFoodService{
+public class TrainFoodServiceImpl implements TrainFoodService {
 
     @Autowired
     TrainFoodRepository trainFoodRepository;
@@ -26,9 +26,9 @@ public class TrainFoodServiceImpl implements TrainFoodService{
     public TrainFood createTrainFood(TrainFood tf, HttpHeaders headers) {
         TrainFood tfTemp = trainFoodRepository.findByTripId(tf.getTripId());
         if (tfTemp != null) {
-            if(tfTemp.getFoodList().equals(tf.getFoodList())){
-                TrainFoodServiceImpl.LOGGER.error("[Init TrainFood] Already Exists TripId: {}", tf.getTripId());
-            }else{
+            if (tfTemp.getFoodList().equals(tf.getFoodList())) {
+                LOGGER.error("[Init TrainFood] Already Exists TripId: {}", tf.getTripId());
+            } else {
                 tfTemp.setFoodList(tf.getFoodList());
                 trainFoodRepository.save(tfTemp);
             }
@@ -44,7 +44,7 @@ public class TrainFoodServiceImpl implements TrainFoodService{
         if (trainFoodList != null && !trainFoodList.isEmpty()) {
             return new Response<>(1, success, trainFoodList);
         } else {
-            TrainFoodServiceImpl.LOGGER.error("List train food error: {}", noContent);
+            LOGGER.error("List train food error: {}", noContent);
             return new Response<>(0, noContent, null);
         }
     }
@@ -52,9 +52,9 @@ public class TrainFoodServiceImpl implements TrainFoodService{
     @Override
     public Response listTrainFoodByTripId(String tripId, HttpHeaders headers) {
         TrainFood tf = trainFoodRepository.findByTripId(tripId);
-        if(tf == null){
+        if (tf == null) {
             return new Response<>(0, noContent, null);
-        }else{
+        } else {
             return new Response<>(1, success, tf.getFoodList());
         }
     }

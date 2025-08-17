@@ -31,8 +31,8 @@ station-service:
 travel-service:
   url: http://${TRAVEL_SERVICE_HOST:ts-travel-service}:${TRAVEL_SERVICE_PORT:12346}
 
-train-food-service:
-  url: http://${TRAIN_FOOD_SERVICE_HOST:ts-train-food-service}:${TRAIN_FOOD_SERVICE_PORT:19999}
+food-list-service:
+  url: http://${FOOD_LIST_SERVICE_HOST:ts-food-list-service}:${FOOD_LIST_SERVICE_PORT:19999}
 
 station-food-service:
   url: http://${STATION_FOOD_SERVICE_HOST:ts-station-food-service}:${STATION_FOOD_SERVICE_PORT:18855}

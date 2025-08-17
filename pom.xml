@@ -41,7 +41,7 @@
         <module>ts-auth-service</module>
         <module>ts-user-service</module>
         <module>ts-delivery-service</module>
-        <module>ts-train-food-service</module>
+        <module>ts-food-list-service</module>
         <module>ts-gateway-service</module>
         <module>ts-food-delivery-service</module>
         <module>ts-wait-order-service</module>

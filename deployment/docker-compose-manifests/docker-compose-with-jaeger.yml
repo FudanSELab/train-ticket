@@ -544,16 +544,15 @@ services:
     image: mysql:5.7
     networks:
       - my-network
-
-  ts-train-food-service:
-    image: ${NAMESPACE}/ts-train-food-service-with-jaeger:v1
+  ts-food-list-service:
+    image: ${NAMESPACE}/ts-food-list-service-with-jaeger:v1
     restart: always
     ports:
-      - 19999:19999
+      - 19998:19998
     networks:
       - my-network
 
-  ts-train-food-mysql:
+  ts-food-list-mysql:
     image: mysql:5.7
     networks:
       - my-network

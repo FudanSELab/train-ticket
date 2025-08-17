@@ -1,17 +1,17 @@
-package trainFood.controller;
+package food.controller;
 
+import food.service.TrainFoodService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
-import trainFood.service.TrainFoodService;
 
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/trainfoodservice")
+@RequestMapping("/api/v1/foodlist")
 public class TrainFoodController {
 
     @Autowired
@@ -27,14 +27,14 @@ public class TrainFoodController {
     @CrossOrigin(origins = "*")
     @GetMapping("/trainfoods")
     public HttpEntity getAllTrainFood(@RequestHeader HttpHeaders headers) {
-        TrainFoodController.LOGGER.info("[Food Map Service][Get All TrainFoods]");
+        LOGGER.info("[Food Map Service][Get All TrainFoods]");
         return ok(trainFoodService.listTrainFood(headers));
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/trainfoods/{tripId}")
     public HttpEntity getTrainFoodOfTrip(@PathVariable String tripId, @RequestHeader HttpHeaders headers) {
-        TrainFoodController.LOGGER.info("[Food Map Service][Get TrainFoods By TripId]");
+        LOGGER.info("[Food Map Service][Get TrainFoods By TripId]");
         return ok(trainFoodService.listTrainFoodByTripId(tripId, headers));
     }
 }

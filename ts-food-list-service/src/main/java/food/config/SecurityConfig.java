@@ -1,4 +1,4 @@
-package trainFood.config;
+package food.config;
 
 import edu.fudan.common.security.jwt.JWTFilter;
 import org.springframework.context.annotation.Bean;
@@ -30,11 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      *  allow cors domain
-     * header 在默认的情况下只能从头部取出6个字段，想要其他字段只能自己在头里指定
-     * credentials 默认不发送Cookie, 如果需要Cookie,这个值只能为true
-     * 本次请求检查的有效期
-     *
-     * @return
      */
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -61,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/trainfoodservice/**").permitAll()
+                .antMatchers("/api/v1/foodlist/**").permitAll()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
                 .anyRequest().authenticated()

@@ -2,7 +2,7 @@ FROM eclipse-temurin:8-jre-alpine
 
 RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
-ADD ./target/ts-train-food-service-1.0.jar /app/
-CMD ["java", "-Xmx200m",  "-jar", "/app/ts-train-food-service-1.0.jar"]
+ADD ./target/ts-food-list-service-1.0.jar /app/
+CMD ["java", "-Xmx200m",  "-jar", "/app/ts-food-list-service-1.0.jar"]
 
 EXPOSE 19999

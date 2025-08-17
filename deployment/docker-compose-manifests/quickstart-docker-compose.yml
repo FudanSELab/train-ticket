@@ -542,15 +542,15 @@ services:
       - my-network
 
 
-  ts-train-food-service:
-    image: ${NAMESPACE}/ts-train-food-service:${TAG}
+  ts-food-list-service:
+    image: ${NAMESPACE}/ts-food-list-service:${TAG}
     restart: always
     ports:
       - 19999:19999
     networks:
       - my-network
 
-  ts-train-food-mysql:
+  ts-food-list-mysql:
     image: mysql:5.7
     networks:
       - my-network

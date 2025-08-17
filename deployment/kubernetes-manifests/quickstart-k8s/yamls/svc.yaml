@@ -356,13 +356,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-train-food-service
+  name: ts-food-list-service
 spec:
   ports:
     - name: http
       port: 19999
   selector:
-    app: ts-train-food-service
+    app: ts-food-list-service
 ---
 apiVersion: v1
 kind: Service

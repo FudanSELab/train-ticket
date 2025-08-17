@@ -7,11 +7,11 @@ spring:
       discovery:
         server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
   application:
-    name: ts-train-food-service
+    name: ts-food-list-service
   datasource:
-    url: jdbc:mysql://${TRAIN_FOOD_MYSQL_HOST:ts-train-food-mysql}:${TRAIN_FOOD_MYSQL_PORT:3306}/${TRAIN_FOOD_MYSQL_DATABASE:ts-train-food-mysql}?useSSL=false
-    username: ${TRAIN_FOOD_MYSQL_USER:root}
-    password: ${TRAIN_FOOD_MYSQL_PASSWORD:root}
+    url: jdbc:mysql://${FOOD_LIST_MYSQL_HOST:ts-food-list-mysql}:${FOOD_LIST_MYSQL_PORT:3306}/${FOOD_LIST_MYSQL_DATABASE:ts-food-list-mysql}?useSSL=false
+    username: ${FOOD_LIST_MYSQL_USER:root}
+    password: ${FOOD_LIST_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
