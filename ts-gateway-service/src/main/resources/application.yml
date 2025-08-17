@@ -13,31 +13,6 @@ spring:
         server-addr: ${NACOS_ADDRS:127.0.0.1:8848}
     gateway:
       routes:
-        - id: admin-basic-info
-          uri: lb://${ADMIN_BASIC_INFO_SERVICE_HOST:ts-admin-basic-info-service}
-          predicates:
-            - Path=/api/v1/adminbasicservice/**
-
-        - id: admin-order
-          uri: lb://${ADMIN_ORDER_SERVICE_HOST:ts-admin-order-service}
-          predicates:
-            - Path=/api/v1/adminorderservice/**
-
-        - id: admin-route
-          uri: lb://${ADMIN_ROUTE_SERVICE_HOST:ts-admin-route-service}
-          predicates:
-            - Path=/api/v1/adminrouteservice/**
-
-        - id: admin-travel
-          uri: lb://${ADMIN_TRAVEL_SERVICE_HOST:ts-admin-travel-service}
-          predicates:
-            - Path=/api/v1/admintravelservice/**
-
-        - id: admin-user
-          uri: lb://${ADMIN_USER_SERVICE_HOST:ts-admin-user-service}
-          predicates:
-            - Path=/api/v1/adminuserservice/users/**
-
         - id: assurance
           uri: lb://${ASSURANCE_SERVICE_HOST:ts-assurance-service}
           predicates:
@@ -53,6 +28,11 @@ spring:
           predicates:
             - Path=/api/v1/users/**
 
+        - id: verifycode
+          uri: lb://${AUTH_SERVICE_HOST:ts-auth-service}
+          predicates:
+            - Path=/api/v1/verifycode/**
+
         - id: avatar
           uri: lb://${AVATAR_SERVICE_HOST:ts-avatar-service}
           predicates:
@@ -62,11 +42,6 @@ spring:
           uri: lb://${BASIC_SERVICE_HOST:ts-basic-service}
           predicates:
             - Path=/api/v1/basicservice/**
-
-        - id: cancel
-          uri: lb://${CANCEL_SERVICE_HOST:ts-cancel-service}
-          predicates:
-            - Path=/api/v1/cancelservice/**
 
         - id: config
           uri: lb://${CONFIG_SERVICE_HOST:ts-config-service}
@@ -123,13 +98,8 @@ spring:
           predicates:
             - Path=/api/v1/paymentservice/**
 
-        - id: preserve-other
-          uri: lb://${PRESERVE_OTHER_SERVICE_HOST:ts-preserve-other-service}
-          predicates:
-            - Path=/api/v1/preserveotherservice/**
-
-        - id: preserve
-          uri: lb://${PRESERVE_SERVICE_HOST:ts-preserve-service}
+        - id: ticket-purchase
+          uri: lb://${TICKET_PURCHASE_SERVICE_HOST:ts-ticket-purchase-service}
           predicates:
             - Path=/api/v1/preserveservice/**
 
@@ -138,25 +108,10 @@ spring:
           predicates:
             - Path=/api/v1/priceservice/**
 
-        - id: rebook
-          uri: lb://${REBOOK_SERVICE_HOST:ts-rebook-service}
-          predicates:
-            - Path=/api/v1/rebookservice/**
-
-        - id: route-plan
-          uri: lb://${ROUTE_PLAN_SERVICE_HOST:ts-route-plan-service}
-          predicates:
-            - Path=/api/v1/routeplanservice/**
-
         - id: route
           uri: lb://${ROUTE_SERVICE_HOST:ts-route-service}
           predicates:
             - Path=/api/v1/routeservice/**
-
-        - id: seat
-          uri: lb://${SEAT_SERVICE_HOST:ts-seat-service}
-          predicates:
-            - Path=/api/v1/seatservice/**
 
         - id: security
           uri: lb://${SECURITY_SERVICE_HOST:ts-security-service}
@@ -183,27 +138,17 @@ spring:
           predicates:
             - Path=/api/v1/trainservice/**
 
-        - id: travel2
-          uri: lb://${TRAVEL2_SERVICE_HOST:ts-travel2-service}
+        - id: ticket-plan
+          uri: lb://${TICKET_PLAN_SERVICE_HOST:ts-ticket-plan-service}
           predicates:
-            - Path=/api/v1/travel2service/**
-
-        - id: travel-plan
-          uri: lb://${TRAVEL_PLAN_SERVICE_HOST:ts-travel-plan-service}
-          predicates:
-            - Path=/api/v1/travelplanservice/**
+            - Path=/api/v1/ticketplan/**
 
         - id: travel
-          uri: lb://${TRAVEL_SERVICE_HOST:ts-travel-service}
+          uri: lb://${TRAVEL_SERVICE_HOST:ts-ticket-query-service}
           predicates:
-            - Path=/api/v1/travelservice/**
+            - Path=/api/v1/ticketquery/**
 
         - id: user
           uri: lb://${USER_SERVICE_HOST:ts-user-service}
           predicates:
             - Path=/api/v1/userservice/users/**
-
-        - id: verification-code
-          uri: lb://${VERIFICATION_CODE_SERVICE_HOST:ts-verification-code-service}
-          predicates:
-            - Path=/api/v1/verifycode/**

@@ -281,10 +281,10 @@ spec:
           number: 16108
   - match:
     - uri:
-        prefix: /api/v1/travelplanservice
+        prefix: /api/v1/ticketplan
     route:
     - destination:
-        host: ts-travel-plan-service
+        host: ts-ticket-plan-service
         port:
           number: 14322
   - match:
@@ -311,14 +311,6 @@ spec:
         host: ts-voucher-service
         port:
           number: 16101
-  - match:
-    - uri:
-        prefix: /api/v1/routeplanservice
-    route:
-    - destination:
-        host: ts-route-plan-service
-        port:
-          number: 14578
   - match:
     - uri:
         prefix: /api/v1/foodservice

@@ -1265,48 +1265,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-route-plan-service
-spec:
-  selector:
-    matchLabels:
-      app: ts-route-plan-service
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-route-plan-service
-    spec:
-      containers:
-        - name: ts-route-plan-service
-          image: codewisdom/ts-route-plan-service:1.0.0
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-          envFrom:
-            - configMapRef:
-                name: nacos
-          ports:
-            - containerPort: 14578
-          resources:
-            requests:
-              cpu: 100m
-              memory: 300Mi
-            limits:
-              cpu: 500m
-              memory: 2000Mi
-          readinessProbe:
-            tcpSocket:
-              port: 14578
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: ts-route-service
 spec:
   selector:
@@ -1657,20 +1615,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-travel-plan-service
+  name: ts-ticket-plan-service
 spec:
   selector:
     matchLabels:
-      app: ts-travel-plan-service
+      app: ts-ticket-plan-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-travel-plan-service
+        app: ts-ticket-plan-service
     spec:
       containers:
-        - name: ts-travel-plan-service
-          image: codewisdom/ts-travel-plan-service:1.0.0
+        - name: ts-ticket-plan-service
+          image: codewisdom/ts-ticket-plan-service:1.0.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP

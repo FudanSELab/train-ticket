@@ -199,8 +199,8 @@ services:
       networks:
         - my-network
 
-  ts-preserve-service:
-    image: codewisdom/ts-preserve-service-with-jaeger:v1
+  ts-ticket-purchase-service:
+    image: codewisdom/ts-ticket-purchase-service-with-jaeger:v1
     restart: always
     ports:
       - 14568:14568
@@ -347,8 +347,8 @@ services:
         networks:
           - my-network
 
-  ts-travel-plan-service:
-        image: codewisdom/ts-travel-plan-service-with-jaeger:v1
+  ts-ticket-plan-service:
+        image: codewisdom/ts-ticket-plan-service-with-jaeger:v1
         restart: always
         ports:
           - 14322:14322
@@ -414,14 +414,6 @@ services:
 #          image: mongo
 #          networks:
 #            - my-network
-
-  ts-route-plan-service:
-          image: codewisdom/ts-route-plan-service-with-jaeger:v1
-          restart: always
-          ports:
-            - 14578:14578
-          networks:
-            - my-network
 
   ts-food-service:
       image: codewisdom/ts-food-service-with-jaeger:v1

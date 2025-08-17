@@ -112,15 +112,8 @@ var reserveApp = new Vue({
             this.tempTravelList = [];
             this.travelList =[];
 
-            if (train_type == 0) {
-                this.queryForTravelInfo(travelQueryData, "/api/v1/travelservice/trips/left");
-                this.queryForTravelInfo(travelQueryData, "/api/v1/travel2service/trips/left");
-            } else if (train_type == 1) {
-
-                this.queryForTravelInfo(travelQueryData, "/api/v1/travelservice/trips/left");
-            } else if (train_type == 2) {
-                this.queryForTravelInfo(travelQueryData, "/api/v1/travel2service/trips/left");
-            }
+            // Train type filter simplified after merging travel services
+            this.queryForTravelInfo(travelQueryData, "/api/v1/ticketquery/trips/left");
 
         },
         queryForTravelInfo(data, path) {

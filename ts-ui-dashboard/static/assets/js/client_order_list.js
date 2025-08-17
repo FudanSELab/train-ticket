@@ -447,16 +447,8 @@ var appConsign = new Vue({
             this.tempSearchRoutes = [];
             this.searchRoutes = [];
 
-            if (this.trainTypeSelected == 0) {
-                this.queryForTravelInfo(travelQueryData, "/api/v1/travel2service/trips/left");
-                this.queryForRebookTravelInfo(travelQueryData, "/api/v1/travelservice/trips/left");
-            }
-            if (this.trainTypeSelected == 1) {
-                this.queryForRebookTravelInfo(travelQueryData, "/api/v1/travelservice/trips/left");
-            }
-            if (this.trainTypeSelected == 2) {
-                this.queryForTravelInfo(travelQueryData, "/api/v1/travel2service/trips/left");
-            }
+            // Unified after removal of travel2 service
+            this.queryForRebookTravelInfo(travelQueryData, "/api/v1/ticketquery/trips/left");
         },
         checkNum(num) {
             if (num == "") {

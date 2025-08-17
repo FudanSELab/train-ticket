@@ -247,9 +247,9 @@ public class FoodServiceImpl implements FoodService {
         //车次途经的车站
         /**--------------------------------------------------------------------------------------*/
         HttpEntity requestEntityGetRouteResult = new HttpEntity(null, null);
-        String travel_service_url = getServiceUrl("ts-travel-service");
+        String travel_service_url = getServiceUrl("ts-ticket-query-service");
         ResponseEntity<Response<Route>> reGetRouteResult = restTemplate.exchange(
-                travel_service_url + "/api/v1/travelservice/routes/" + tripId,
+                travel_service_url + "/api/v1/ticketquery/routes/" + tripId,
                 HttpMethod.GET,
                 requestEntityGetRouteResult,
                 new ParameterizedTypeReference<Response<Route>>() {

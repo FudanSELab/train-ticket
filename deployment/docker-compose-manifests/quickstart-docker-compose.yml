@@ -199,8 +199,8 @@ services:
       networks:
         - my-network
 
-  ts-preserve-service:
-    image: ${NAMESPACE}/ts-preserve-service:${TAG}
+  ts-ticket-purchase-service:
+    image: ${NAMESPACE}/ts-ticket-purchase-service:${TAG}
     restart: always
     ports:
       - 14568:14568
@@ -347,8 +347,8 @@ services:
         networks:
           - my-network
 
-  ts-travel-plan-service:
-        image: ${NAMESPACE}/ts-travel-plan-service:${TAG}
+  ts-ticket-plan-service:
+        image: ${NAMESPACE}/ts-ticket-plan-service:${TAG}
         restart: always
         ports:
           - 14322:14322
@@ -414,14 +414,6 @@ services:
 #          image: mongo
 #          networks:
 #            - my-network
-
-  ts-route-plan-service:
-          image: ${NAMESPACE}/ts-route-plan-service:${TAG}
-          restart: always
-          ports:
-            - 14578:14578
-          networks:
-            - my-network
 
   ts-food-service:
     image: ${NAMESPACE}/ts-food-service:${TAG}

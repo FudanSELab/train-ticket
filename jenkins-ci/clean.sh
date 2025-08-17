@@ -10,7 +10,7 @@ sudo docker rmi codewisdom/ts-config-service:latest
 sudo docker rmi codewisdom/ts-station-service:latest
 sudo docker rmi codewisdom/ts-travel-service:latest
 sudo docker rmi codewisdom/ts-travel2-service:latest
-sudo docker rmi codewisdom/ts-preserve-service:latest
+sudo docker rmi codewisdom/ts-ticket-purchase-service:latest
 sudo docker rmi codewisdom/ts-preserve-other-service:latest
 sudo docker rmi codewisdom/ts-basic-service:latest
 sudo docker rmi codewisdom/ts-ticketinfo-service:latest
@@ -25,8 +25,7 @@ sudo docker rmi codewisdom/ts-cancel-service:latest
 sudo docker rmi codewisdom/ts-route-service:latest
 sudo docker rmi codewisdom/ts-assurance-service:latest
 sudo docker rmi codewisdom/ts-seat-service:latest
-sudo docker rmi codewisdom/ts-travel-plan-service:latest
-sudo docker rmi codewisdom/ts-route-plan-service:latest
+sudo docker rmi codewisdom/ts-ticket-plan-service:latest
 sudo docker rmi codewisdom/ts-food-map-service:latest
 sudo docker rmi codewisdom/ts-food-service:latest
 sudo docker rmi codewisdom/ts-consign-price-service:latest
@@ -52,7 +51,7 @@ sudo docker rmi ts/ts-config-service:latest
 sudo docker rmi ts/ts-station-service:latest
 sudo docker rmi ts/ts-travel-service:latest
 sudo docker rmi ts/ts-travel2-service:latest
-sudo docker rmi ts/ts-preserve-service:latest
+sudo docker rmi ts/ts-ticket-purchase-service:latest
 sudo docker rmi ts/ts-preserve-other-service:latest
 sudo docker rmi ts/ts-basic-service:latest
 sudo docker rmi ts/ts-ticketinfo-service:latest
@@ -67,8 +66,7 @@ sudo docker rmi ts/ts-cancel-service:latest
 sudo docker rmi ts/ts-route-service:latest
 sudo docker rmi ts/ts-assurance-service:latest
 sudo docker rmi ts/ts-seat-service:latest
-sudo docker rmi ts/ts-travel-plan-service:latest
-sudo docker rmi ts/ts-route-plan-service:latest
+sudo docker rmi ts/ts-ticket-plan-service:latest
 sudo docker rmi ts/ts-food-map-service:latest
 sudo docker rmi ts/ts-food-service:latest
 sudo docker rmi ts/ts-consign-price-service:latest

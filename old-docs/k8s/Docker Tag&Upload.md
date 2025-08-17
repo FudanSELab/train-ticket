@@ -30,7 +30,6 @@ docker tag ts/ts-preserve-service 10.141.211.160:5000/master/cluster-ts-preserve
 docker tag ts/ts-price-service 10.141.211.160:5000/master/cluster-ts-price-service    
 docker tag ts/ts-rebook-service 10.141.211.160:5000/master/cluster-ts-rebook-service    
 docker tag ts/ts-register-service 10.141.211.160:5000/master/cluster-ts-register-service    
-docker tag ts/ts-route-plan-service 10.141.211.160:5000/master/cluster-ts-route-plan-service    
 docker tag ts/ts-route-service 10.141.211.160:5000/master/cluster-ts-route-service    
 docker tag ts/ts-seat-service 10.141.211.160:5000/master/cluster-ts-seat-service    
 docker tag ts/ts-security-service 10.141.211.160:5000/master/cluster-ts-security-service    
@@ -41,7 +40,7 @@ docker tag ts/ts-ticketinfo-service 10.141.211.160:5000/master/cluster-ts-ticket
 docker tag ts/ts-train-service 10.141.211.160:5000/master/cluster-ts-train-service    
 docker tag ts/ts-travel2-service 10.141.211.160:5000/master/cluster-ts-travel2-service    
 docker tag ts/ts-travel-service 10.141.211.160:5000/master/cluster-ts-travel-service    
-docker tag ts/ts-travel-plan-service 10.141.211.160:5000/master/cluster-ts-travel-plan-service    
+docker tag ts/ts-ticket-plan-service 10.141.211.160:5000/master/cluster-ts-ticket-plan-service    
 docker tag ts/ts-ui-dashboard 10.141.211.160:5000/master/cluster-ts-ui-dashboard    
 docker tag ts/ts-verification-code-service 10.141.211.160:5000/master/cluster-ts-verification-code-service    
 docker tag ts/ts-voucher-service 10.141.211.160:5000/master/cluster-ts-voucher-service    
@@ -79,7 +78,6 @@ docker push 10.141.211.160:5000/master/cluster-ts-preserve-service
 docker push 10.141.211.160:5000/master/cluster-ts-price-service    
 docker push 10.141.211.160:5000/master/cluster-ts-rebook-service    
 docker push 10.141.211.160:5000/master/cluster-ts-register-service    
-docker push 10.141.211.160:5000/master/cluster-ts-route-plan-service    
 docker push 10.141.211.160:5000/master/cluster-ts-route-service    
 docker push 10.141.211.160:5000/master/cluster-ts-seat-service    
 docker push 10.141.211.160:5000/master/cluster-ts-security-service    
@@ -90,7 +88,7 @@ docker push 10.141.211.160:5000/master/cluster-ts-ticketinfo-service
 docker push 10.141.211.160:5000/master/cluster-ts-train-service    
 docker push 10.141.211.160:5000/master/cluster-ts-travel2-service    
 docker push 10.141.211.160:5000/master/cluster-ts-travel-service     
-docker push 10.141.211.160:5000/master/cluster-ts-travel-plan-service    
+docker push 10.141.211.160:5000/master/cluster-ts-ticket-plan-service    
 docker push 10.141.211.160:5000/master/cluster-ts-ui-dashboard    
 docker push 10.141.211.160:5000/master/cluster-ts-verification-code-service    
 docker push 10.141.211.160:5000/master/cluster-ts-voucher-service    

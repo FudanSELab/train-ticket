@@ -311,17 +311,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-route-plan-service
-spec:
-  ports:
-    - name: http
-      port: 14578
-  selector:
-    app: ts-route-plan-service
----
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-route-service
 spec:
   ports:
@@ -410,13 +399,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-travel-plan-service
+  name: ts-ticket-plan-service
 spec:
   ports:
     - name: http
       port: 14322
   selector:
-    app: ts-travel-plan-service
+    app: ts-ticket-plan-service
 ---
 apiVersion: v1
 kind: Service

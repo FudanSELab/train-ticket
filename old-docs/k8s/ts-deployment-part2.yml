@@ -541,26 +541,6 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-route-plan-service
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-route-plan-service
-    spec:
-      containers:
-      - name: ts-route-plan-service
-        image: 10.141.211.160:5000/master/cluster-ts-route-plan-service
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 14578
-
----
-
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
   name: ts-route-service
 spec:
   replicas: 1
@@ -741,17 +721,17 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-travel-plan-service
+  name: ts-ticket-plan-service
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-travel-plan-service
+        app: ts-ticket-plan-service
     spec:
       containers:
-      - name: ts-travel-plan-service
-        image: 10.141.211.160:5000/master/cluster-ts-travel-plan-service
+      - name: ts-ticket-plan-service
+        image: 10.141.211.160:5000/master/cluster-ts-ticket-plan-service
         imagePullPolicy: Always
         ports:
         - containerPort: 14322
@@ -1172,19 +1152,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-route-plan-service
-spec:
-  ports:
-    - name: http
-      port: 14578
-  selector:
-   app: ts-route-plan-service
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
   name: ts-route-service
 spec:
   ports:
@@ -1302,13 +1269,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-travel-plan-service
+  name: ts-ticket-plan-service
 spec:
   ports:
     - name: http
       port: 14322
   selector:
-   app: ts-travel-plan-service
+   app: ts-ticket-plan-service
 
 ---
 

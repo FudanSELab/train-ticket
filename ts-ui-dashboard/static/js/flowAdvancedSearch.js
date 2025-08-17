@@ -81,11 +81,11 @@ $("#flow_advance_reserve_booking_button").click(function() {
     var selectType = $("#flow_advance_reserve_select_searchType").val();
 
     if(selectType == 0){
-        advanceSearchForMinStopInfo(advanceSearchData,"/api/v1/travelplanservice/travelPlan/minStation");
+        advanceSearchForMinStopInfo(advanceSearchData,"/api/v1/ticketplan/travelPlan/minStation");
     }else if(selectType == 1){
-        advanceSearchForCheapestInfo(advanceSearchData,"/api/v1/travelplanservice/travelPlan/cheapest");
+        advanceSearchForCheapestInfo(advanceSearchData,"/api/v1/ticketplan/travelPlan/cheapest");
     }else if(selectType == 2){
-        advanceSearchForQuickestInfo(advanceSearchData,"/api/v1/travelplanservice/travelPlan/quickest");
+        advanceSearchForQuickestInfo(advanceSearchData,"/api/v1/ticketplan/travelPlan/quickest");
     }else{
         alert("Select Search Type Wrong");
     }

@@ -10,7 +10,7 @@ sudo docker push codewisdom/ts-config-service:latest
 sudo docker push codewisdom/ts-station-service:latest
 sudo docker push codewisdom/ts-travel-service:latest
 sudo docker push codewisdom/ts-travel2-service:latest
-sudo docker push codewisdom/ts-preserve-service:latest
+sudo docker push codewisdom/ts-ticket-purchase-service:latest
 sudo docker push codewisdom/ts-preserve-other-service:latest
 sudo docker push codewisdom/ts-basic-service:latest
 sudo docker push codewisdom/ts-ticketinfo-service:latest
@@ -25,8 +25,7 @@ sudo docker push codewisdom/ts-cancel-service:latest
 sudo docker push codewisdom/ts-route-service:latest
 sudo docker push codewisdom/ts-assurance-service:latest
 sudo docker push codewisdom/ts-seat-service:latest
-sudo docker push codewisdom/ts-travel-plan-service:latest
-sudo docker push codewisdom/ts-route-plan-service:latest
+sudo docker push codewisdom/ts-ticket-plan-service:latest
 sudo docker push codewisdom/ts-food-map-service:latest
 sudo docker push codewisdom/ts-food-service:latest
 sudo docker push codewisdom/ts-consign-price-service:latest
