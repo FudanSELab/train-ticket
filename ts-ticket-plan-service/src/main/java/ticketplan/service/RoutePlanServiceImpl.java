@@ -137,7 +137,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         LOGGER.info("[searchMinStopStations][Start and Finish][From Id: {} To: {}]", fromStationId, toStationId);
 
         HttpEntity<?> requestEntity = new HttpEntity<>(null);
-        String route_service_url = getServiceUrl("ts-route-service");
+        String route_service_url = getServiceUrl("ts-route-plan-service");
         ResponseEntity<Response<ArrayList<Route>>> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/" + info.getStartStation() + "/" + info.getEndStation(),
                 HttpMethod.GET,
@@ -231,7 +231,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
         HttpEntity<?> requestEntity = new HttpEntity<>(null);
-        String route_service_url = getServiceUrl("ts-route-service");
+        String route_service_url = getServiceUrl("ts-route-plan-service");
         ResponseEntity<Response<Route>> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/" + routeId,
                 HttpMethod.GET,

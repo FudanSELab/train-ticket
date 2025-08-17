@@ -31,7 +31,7 @@
         <module>ts-inside-payment-service</module>
         <module>ts-execute-service</module>
         <module>ts-payment-service</module>
-        <module>ts-route-service</module>
+        <module>ts-route-plan-service</module>
         <module>ts-assurance-service</module>
         <module>ts-ticket-plan-service</module>
         <module>ts-food-service</module>

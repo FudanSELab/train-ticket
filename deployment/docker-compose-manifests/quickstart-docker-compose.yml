@@ -80,8 +80,8 @@ services:
 #    networks:
 #      - my-network
 
-  ts-route-service:
-    image: ${NAMESPACE}/ts-route-service:${TAG}
+  ts-route-plan-service:
+    image: ${NAMESPACE}/ts-route-plan-service:${TAG}
     restart: always
     ports:
          - 11178:11178

@@ -109,7 +109,7 @@ spring:
             - Path=/api/v1/priceservice/**
 
         - id: route
-          uri: lb://${ROUTE_SERVICE_HOST:ts-route-service}
+          uri: lb://${ROUTE_PLAN_SERVICE_HOST:ts-route-plan-service}
           predicates:
             - Path=/api/v1/routeservice/**
 

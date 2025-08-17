@@ -311,13 +311,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-route-service
+  name: ts-route-plan-service
 spec:
   ports:
     - name: http
       port: 11178
   selector:
-    app: ts-route-service
+    app: ts-route-plan-service
 ---
 apiVersion: v1
 kind: Service

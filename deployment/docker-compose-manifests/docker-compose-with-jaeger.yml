@@ -80,8 +80,8 @@ services:
 #    networks:
 #      - my-network
 
-  ts-route-service:
-    image: codewisdom/ts-route-service-with-jaeger:v1
+  ts-route-plan-service:
+    image: codewisdom/ts-route-plan-service-with-jaeger:v1
     restart: always
     ports:
          - 11178:11178

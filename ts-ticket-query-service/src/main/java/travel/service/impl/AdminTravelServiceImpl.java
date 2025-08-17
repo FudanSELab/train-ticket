@@ -147,7 +147,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
     }
 
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
-        String route_service_url = getServiceUrl("ts-route-service");
+        String route_service_url = getServiceUrl("ts-route-plan-service");
         ResponseEntity<Response> re = restTemplate.exchange(route_service_url + "/api/v1/routeservice/routes/" + routeId, HttpMethod.GET, new HttpEntity<>(null), Response.class);
         if (re.getBody().getStatus() == 0) {
             return null;

@@ -953,20 +953,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-route-service
+  name: ts-route-plan-service
 spec:
   selector:
     matchLabels:
-      app: ts-route-service
+      app: ts-route-plan-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-route-service
+        app: ts-route-plan-service
     spec:
       containers:
-      - name: ts-route-service
-        image: codewisdom/ts-route-service:0.0.4
+      - name: ts-route-plan-service
+        image: codewisdom/ts-route-plan-service:0.0.4
         imagePullPolicy: Always
         ports:
         - containerPort: 11178
@@ -1745,13 +1745,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-route-service
+  name: ts-route-plan-service
 spec:
   ports:
     - name: http
       port: 11178
   selector:
-   app: ts-route-service
+   app: ts-route-plan-service
 
 ---
 

@@ -22,7 +22,7 @@ sudo docker rmi codewisdom/ts-execute-service:latest
 sudo docker rmi codewisdom/ts-payment-service:latest
 sudo docker rmi codewisdom/ts-rebook-service:latest
 sudo docker rmi codewisdom/ts-cancel-service:latest
-sudo docker rmi codewisdom/ts-route-service:latest
+sudo docker rmi codewisdom/ts-route-plan-service:latest
 sudo docker rmi codewisdom/ts-assurance-service:latest
 sudo docker rmi codewisdom/ts-seat-service:latest
 sudo docker rmi codewisdom/ts-ticket-plan-service:latest
@@ -63,7 +63,7 @@ sudo docker rmi ts/ts-execute-service:latest
 sudo docker rmi ts/ts-payment-service:latest
 sudo docker rmi ts/ts-rebook-service:latest
 sudo docker rmi ts/ts-cancel-service:latest
-sudo docker rmi ts/ts-route-service:latest
+sudo docker rmi ts/ts-route-plan-service:latest
 sudo docker rmi ts/ts-assurance-service:latest
 sudo docker rmi ts/ts-seat-service:latest
 sudo docker rmi ts/ts-ticket-plan-service:latest

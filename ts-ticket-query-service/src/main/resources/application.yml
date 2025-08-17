@@ -32,7 +32,7 @@ order-service:
   url: http://${ORDER_SERVICE_HOST:ts-order-service}:${ORDER_SERVICE_PORT:12031}
 
 route-service:
-  url: http://${ROUTE_SERVICE_HOST:ts-route-service}:${ROUTE_SERVICE_PORT:11178}
+  url: http://${ROUTE_PLAN_SERVICE_HOST:ts-route-plan-service}:${ROUTE_PLAN_SERVICE_PORT:11178}
 
 basic-service:
   url: http://${BASIC_SERVICE_HOST:ts-basic-service}:${BASIC_SERVICE_PORT:15680}

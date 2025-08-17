@@ -1265,20 +1265,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-route-service
+  name: ts-route-plan-service
 spec:
   selector:
     matchLabels:
-      app: ts-route-service
+      app: ts-route-plan-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-route-service
+        app: ts-route-plan-service
     spec:
       containers:
-        - name: ts-route-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-route-service:latest
+        - name: ts-route-plan-service
+          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-route-plan-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
@@ -1287,7 +1287,7 @@ spec:
                   fieldPath: status.hostIP
           envFrom:
             - secretRef:
-                name: ts-route-mysql
+                name: ts-route-plan-mysql
             - configMapRef:
                 name: nacos
           ports:

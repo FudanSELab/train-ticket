@@ -22,7 +22,7 @@ sudo docker push codewisdom/ts-execute-service:latest
 sudo docker push codewisdom/ts-payment-service:latest
 sudo docker push codewisdom/ts-rebook-service:latest
 sudo docker push codewisdom/ts-cancel-service:latest
-sudo docker push codewisdom/ts-route-service:latest
+sudo docker push codewisdom/ts-route-plan-service:latest
 sudo docker push codewisdom/ts-assurance-service:latest
 sudo docker push codewisdom/ts-seat-service:latest
 sudo docker push codewisdom/ts-ticket-plan-service:latest

@@ -517,7 +517,7 @@ public class TravelServiceImpl implements TravelService {
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
         TravelServiceImpl.LOGGER.info("[getRouteByRouteId][Get Route By Id][Route ID：{}]", routeId);
         HttpEntity requestEntity = new HttpEntity(null);
-        String route_service_url = getServiceUrl("ts-route-service");
+        String route_service_url = getServiceUrl("ts-route-plan-service");
         ResponseEntity<Response> re = restTemplate.exchange(
                 route_service_url + "/api/v1/routeservice/routes/" + routeId,
                 HttpMethod.GET,

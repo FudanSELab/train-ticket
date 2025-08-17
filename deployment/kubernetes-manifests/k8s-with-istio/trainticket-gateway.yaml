@@ -260,7 +260,7 @@ spec:
         prefix: /api/v1/routeservice
     route:
     - destination:
-        host: ts-route-service
+        host: ts-route-plan-service
         port:
           number: 11178
   - match:

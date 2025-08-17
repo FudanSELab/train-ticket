@@ -83,9 +83,9 @@ services:
     networks:
       - my-network
 
-  ts-route-service:
-    build: ts-route-service
-    image: ${IMG_REPO}/ts-route-service:${IMG_TAG}
+  ts-route-plan-service:
+    build: ts-route-plan-service
+    image: ${IMG_REPO}/ts-route-plan-service:${IMG_TAG}
     restart: always
     ports:
       - 11178:11178

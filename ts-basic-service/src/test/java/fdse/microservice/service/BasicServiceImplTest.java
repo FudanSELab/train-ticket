@@ -68,7 +68,7 @@ public class BasicServiceImplTest {
                 Response.class)).thenReturn(re);
         //mock getRouteByRouteId()
         Mockito.when(restTemplate.exchange(
-                "http://ts-route-service:11178/api/v1/routeservice/routes/" + "route_id",
+                "http://ts-route-plan-service:11178/api/v1/routeservice/routes/" + "route_id",
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re);
