@@ -15,7 +15,7 @@ sudo docker push codewisdom/ts-preserve-other-service:latest
 sudo docker push codewisdom/ts-basic-service:latest
 sudo docker push codewisdom/ts-ticketinfo-service:latest
 sudo docker push codewisdom/ts-price-service:latest
-sudo docker push codewisdom/ts-notification-service:latest
+sudo docker push codewisdom/ts-user-notification-service:latest
 sudo docker push codewisdom/ts-security-service:latest
 sudo docker push codewisdom/ts-inside-payment-service:latest
 sudo docker push codewisdom/ts-execute-service:latest

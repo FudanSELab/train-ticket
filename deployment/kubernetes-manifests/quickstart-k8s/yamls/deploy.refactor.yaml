@@ -821,20 +821,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-notification-service
+  name: ts-user-notification-service
 spec:
   selector:
     matchLabels:
-      app: ts-notification-service
+      app: ts-user-notification-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-notification-service
+        app: ts-user-notification-service
     spec:
       containers:
-        - name: ts-notification-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-notification-service:latest
+        - name: ts-user-notification-service
+          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-user-notification-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
@@ -843,7 +843,7 @@ spec:
                   fieldPath: status.hostIP
           envFrom:
             - secretRef:
-                name: ts-notification-mysql
+                name: ts-user-notification-mysql
             - configMapRef:
                 name: nacos
             - configMapRef:

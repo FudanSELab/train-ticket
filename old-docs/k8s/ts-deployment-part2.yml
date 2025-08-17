@@ -321,17 +321,17 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-notification-service
+  name: ts-user-notification-service
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-notification-service
+        app: ts-user-notification-service
     spec:
       containers:
-      - name: ts-notification-service
-        image: 10.141.211.160:5000/master/cluster-ts-notification-service
+      - name: ts-user-notification-service
+        image: 10.141.211.160:5000/master/cluster-ts-user-notification-service
         imagePullPolicy: Always
         ports:
         - containerPort: 17853
@@ -929,13 +929,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-notification-service
+  name: ts-user-notification-service
 spec:
   ports:
     - name: http
       port: 17853
   selector:
-   app: ts-notification-service
+   app: ts-user-notification-service
 
 
 

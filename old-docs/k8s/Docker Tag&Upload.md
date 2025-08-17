@@ -19,7 +19,7 @@ docker tag ts/ts-food-map-service 10.141.211.160:5000/master/cluster-ts-food-map
 docker tag ts/ts-food-booking-service 10.141.211.160:5000/master/cluster-ts-food-booking-service    
 docker tag ts/ts-inside-payment-service 10.141.211.160:5000/master/cluster-ts-inside-payment-service    
 docker tag ts/ts-login-service 10.141.211.160:5000/master/cluster-ts-login-service    
-docker tag ts/ts-notification-service 10.141.211.160:5000/master/cluster-ts-notification-service    
+docker tag ts/ts-user-notification-service 10.141.211.160:5000/master/cluster-ts-user-notification-service    
 docker tag ts/ts-order-service 10.141.211.160:5000/master/cluster-ts-order-service    
 docker tag ts/ts-payment-service 10.141.211.160:5000/master/cluster-ts-payment-service    
 docker tag ts/ts-preserve-other-service 10.141.211.160:5000/master/cluster-ts-preserve-other-service    
@@ -63,7 +63,7 @@ docker push 10.141.211.160:5000/master/cluster-ts-food-map-service
 docker push 10.141.211.160:5000/master/cluster-ts-food-booking-service    
 docker push 10.141.211.160:5000/master/cluster-ts-inside-payment-service    
 docker push 10.141.211.160:5000/master/cluster-ts-login-service    
-docker push 10.141.211.160:5000/master/cluster-ts-notification-service    
+docker push 10.141.211.160:5000/master/cluster-ts-user-notification-service    
 docker push 10.141.211.160:5000/master/cluster-ts-order-service    
 docker push 10.141.211.160:5000/master/cluster-ts-payment-service    
 docker push 10.141.211.160:5000/master/cluster-ts-preserve-other-service    

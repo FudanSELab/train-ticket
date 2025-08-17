@@ -202,13 +202,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-notification-service
+  name: ts-user-notification-service
 spec:
   ports:
     - name: http
       port: 17853
   selector:
-    app: ts-notification-service
+    app: ts-user-notification-service
 ---
 apiVersion: v1
 kind: Service

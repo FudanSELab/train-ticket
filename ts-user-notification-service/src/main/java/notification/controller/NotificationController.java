@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2017/6/15
  */
 @RestController
-@RequestMapping("/api/v1/notifyservice")
+@RequestMapping("/api/v1/user-notification")
 public class NotificationController {
 
     @Autowired

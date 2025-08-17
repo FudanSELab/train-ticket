@@ -238,15 +238,15 @@ services:
         networks:
           - my-network
 
-  ts-notification-service:
-        image: ${NAMESPACE}/ts-notification-service:${TAG}
+  ts-user-notification-service:
+        image: ${NAMESPACE}/ts-user-notification-service:${TAG}
         restart: always
         ports:
           - 17853:17853
         networks:
           - my-network
 
-  ts-notification-mysql:
+  ts-user-notification-mysql:
     image: mysql:5.7
     networks:
       - my-network

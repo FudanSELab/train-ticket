@@ -217,10 +217,10 @@ spec:
           number: 15681
   - match:
     - uri:
-        prefix: /api/v1/notifyservice
+        prefix: /api/v1/user-notification
     route:
     - destination:
-        host: ts-notification-service
+        host: ts-user-notification-service
         port:
           number: 17853
   - match:

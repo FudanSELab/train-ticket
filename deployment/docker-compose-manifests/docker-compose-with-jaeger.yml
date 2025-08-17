@@ -238,15 +238,16 @@ services:
         networks:
           - my-network
 
-  ts-notification-service:
-        image: codewisdom/ts-notification-service-with-jaeger:v1
-        restart: always
-        ports:
-          - 17853:17853
-        networks:
-          - my-network
+  ts-user-notification-service:
+    image: ${IMG_REPO}/ts-user-notification-service:${IMG_TAG}
+    container_name: ts-user-notification-service
+    restart: always
+    ports:
+      - "17853:17853"
+    networks:
+      - my-network
 
-  ts-notification-mysql:
+  ts-user-notification-mysql:
     image: mysql:5.7
     networks:
       - my-network

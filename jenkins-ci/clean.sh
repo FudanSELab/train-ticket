@@ -15,7 +15,7 @@ sudo docker rmi codewisdom/ts-preserve-other-service:latest
 sudo docker rmi codewisdom/ts-basic-service:latest
 sudo docker rmi codewisdom/ts-ticketinfo-service:latest
 sudo docker rmi codewisdom/ts-ticket-service:latest
-sudo docker rmi codewisdom/ts-notification-service:latest
+sudo docker rmi codewisdom/ts-user-notification-service:latest
 sudo docker rmi codewisdom/ts-security-service:latest
 sudo docker rmi codewisdom/ts-inside-payment-service:latest
 sudo docker rmi codewisdom/ts-execute-service:latest
@@ -54,7 +54,7 @@ sudo docker rmi ts/ts-preserve-other-service:latest
 sudo docker rmi ts/ts-basic-service:latest
 sudo docker rmi ts/ts-ticketinfo-service:latest
 sudo docker rmi ts/ts-ticket-service:latest
-sudo docker rmi ts/ts-notification-service:latest
+sudo docker rmi ts/ts-user-notification-service:latest
 sudo docker rmi ts/ts-security-service:latest
 sudo docker rmi ts/ts-inside-payment-service:latest
 sudo docker rmi ts/ts-execute-service:latest

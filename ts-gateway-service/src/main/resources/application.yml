@@ -68,10 +68,10 @@ spring:
           predicates:
             - Path=/api/v1/inside_pay_service/**
 
-        - id: notification
-          uri: lb://${NOTIFICATION_SERVICE_HOST:ts-notification-service}
+        - id: user-notification
+          uri: lb://${USER_NOTIFICATION_SERVICE_HOST:ts-user-notification-service}
           predicates:
-            - Path=/api/v1/notifyservice/**
+            - Path=/api/v1/user-notification/**
 
         - id: order
           uri: lb://${ORDER_SERVICE_HOST:ts-order-service}

@@ -255,9 +255,9 @@ services:
     networks:
       - my-network
 
-  ts-notification-service:
-        build: ts-notification-service
-        image: ${IMG_REPO}/ts-notification-service:${IMG_TAG}
+  ts-user-notification-service:
+        build: ts-user-notification-service
+        image: ${IMG_REPO}/ts-user-notification-service:${IMG_TAG}
         restart: always
         ports:
           - 17853:17853

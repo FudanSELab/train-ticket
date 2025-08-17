@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>fdse.microservice</groupId>
-	<artifactId>ts-notification-service</artifactId>
+	<artifactId>ts-user-notification-service</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>ts-notification-service</name>
-	<description>ts-notification-service</description>
+	<name>ts-user-notification-service</name>
+	<description>ts-user-notification-service</description>
 
 	<parent>
 		<groupId>org.services</groupId>
