@@ -209,17 +209,7 @@ spec:
   selector:
     app: ts-inside-payment-service
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-news-service
-spec:
-  ports:
-    - name: http
-      port: 12862
-  selector:
-    app: ts-news-service
----
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -362,17 +352,6 @@ spec:
       port: 12345
   selector:
     app: ts-station-service
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-ticket-office-service
-spec:
-  ports:
-    - name: http
-      port: 16108
-  selector:
-    app: ts-ticket-office-service
 ---
 apiVersion: v1
 kind: Service

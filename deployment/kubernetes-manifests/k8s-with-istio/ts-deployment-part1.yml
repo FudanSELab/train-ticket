@@ -425,35 +425,6 @@ spec:
           requests:
             cpu: 50m
             memory: 100Mi
-
----
-
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-ticket-office-mongo
-spec:
-  selector:
-    matchLabels:
-      app: ts-ticket-office-mongo
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-ticket-office-mongo
-    spec:
-      containers:
-      - name: ts-ticket-office-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
-
-
 ---
 
 apiVersion: apps/v1
@@ -781,18 +752,6 @@ spec:
     - port: 27017
   selector:
    app: ts-assurance-mongo
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-ticket-office-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-   app: ts-ticket-office-mongo
 
 ---
 

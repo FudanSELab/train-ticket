@@ -321,27 +321,6 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-ticket-office-mongo
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-ticket-office-mongo
-    spec:
-      containers:
-      - name: ts-ticket-office-mongo
-        image: mongo
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 27017
-
-
----
-
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
   name: ts-voucher-mysql
 spec:
   replicas: 1
@@ -635,17 +614,6 @@ spec:
 
 ---
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-ticket-office-mongo
-spec:
-  ports:
-    - port: 27017
-  selector:
-   app: ts-ticket-office-mongo
-
----
 
 apiVersion: v1
 kind: Service

@@ -375,34 +375,6 @@ services:
         networks:
           - my-network
 
-  ts-ticket-office-service:
-        build: ts-ticket-office-service
-        image: ${IMG_REPO}/ts-ticket-office-service:${IMG_TAG}
-        restart: always
-        ports:
-          - 16108:16108
-        networks:
-          - my-network
-
-  ts-ticket-office-mongo:
-    image: mongo
-    networks:
-      - my-network
-
-  ts-news-service:
-    build: ts-news-service
-    image: ${IMG_REPO}/ts-news-service:${IMG_TAG}
-    restart: always
-    ports:
-      - 12862:12862
-    networks:
-      - my-network
-
-  ts-news-mongo:
-    image: mongo
-    networks:
-      - my-network
-
   ts-voucher-mysql:
     image: mysql
     expose:

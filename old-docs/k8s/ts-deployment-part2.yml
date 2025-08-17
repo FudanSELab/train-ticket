@@ -341,26 +341,6 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-news-service
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-news-service
-    spec:
-      containers:
-      - name: ts-news-service
-        image: 10.141.211.160:5000/master/cluster-ts-news-service
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 12862
-
----
-
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
   name: ts-notification-service
 spec:
   replicas: 1
@@ -635,26 +615,6 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 12345
-
----
-
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: ts-ticket-office-service
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-ticket-office-service
-    spec:
-      containers:
-      - name: ts-ticket-office-service
-        image: 10.141.211.160:5000/master/cluster-ts-ticket-office-service
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 16108
 
 ---
 
@@ -1030,18 +990,7 @@ spec:
   selector:
    app: ts-notification-service
 
----
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-news-service
-spec:
-  ports:
-    - name: http
-      port: 12862
-  selector:
-   app: ts-news-service
 
 ---
 
@@ -1211,19 +1160,6 @@ spec:
       port: 12345
   selector:
    app: ts-station-service
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: ts-ticket-office-service
-spec:
-  ports:
-    - name: http
-      port: 16108
-  selector:
-   app: ts-ticket-office-service
 
 ---
 

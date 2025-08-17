@@ -273,14 +273,6 @@ spec:
           number: 18888
   - match:
     - uri:
-        prefix: /office/
-    route:
-    - destination:
-        host: ts-ticket-office-service
-        port:
-          number: 16108
-  - match:
-    - uri:
         prefix: /api/v1/ticketplan
     route:
     - destination:
@@ -319,14 +311,7 @@ spec:
         host: ts-food-service
         port:
           number: 18856
-  - match:
-    - uri:
-        prefix: /news-service/
-    route:
-    - destination:
-        host: ts-news-service
-        port:
-          number: 12862
+
   - match:
     - uri:
         prefix: /api/v1/adminbasicservice

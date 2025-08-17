@@ -35,6 +35,4 @@ sudo docker push codewisdom/ts-admin-basic-info-service:latest
 sudo docker push codewisdom/ts-admin-route-service:latest
 sudo docker push codewisdom/ts-admin-travel-service:latest
 sudo docker push codewisdom/ts-admin-user-service:latest
-sudo docker push codewisdom/ts-news-service:latest
-sudo docker push codewisdom/ts-ticket-office-service:latest
 sudo docker push codewisdom/ts-voucher-service:latest
