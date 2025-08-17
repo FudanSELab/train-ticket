@@ -246,6 +246,14 @@ services:
         networks:
           - my-network
 
+  ts-sms-notification-service:
+    image: ${NAMESPACE}/ts-sms-notification-service:${TAG}
+    restart: always
+    ports:
+      - 17854:17854
+    networks:
+      - my-network
+
   ts-user-notification-mysql:
     image: mysql:5.7
     networks:

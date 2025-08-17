@@ -264,6 +264,15 @@ services:
         networks:
           - my-network
 
+  ts-sms-notification-service:
+        build: ts-sms-notification-service
+        image: ${IMG_REPO}/ts-sms-notification-service:${IMG_TAG}
+        restart: always
+        ports:
+          - 17854:17854
+        networks:
+          - my-network
+
   ts-security-service:
         build: ts-security-service
         image: ${IMG_REPO}/ts-security-service:${IMG_TAG}
