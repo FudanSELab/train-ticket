@@ -334,13 +334,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-station-food-service
+  name: ts-food-merchant-service
 spec:
   ports:
     - name: http
       port: 18855
   selector:
-    app: ts-station-food-service
+    app: ts-food-merchant-service
 ---
 apiVersion: v1
 kind: Service

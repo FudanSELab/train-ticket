@@ -282,9 +282,9 @@ public class FoodServiceImpl implements FoodService {
             }
 
             HttpEntity requestEntityFoodStoresListResult = new HttpEntity(stations, null);
-            String station_food_service_url = getServiceUrl("ts-station-food-service");
+            String food_merchant_service_url = getServiceUrl("ts-food-list-service");
             ResponseEntity<Response<List<StationFoodStore>>> reFoodStoresListResult = restTemplate.exchange(
-                     station_food_service_url + "/api/v1/stationfoodservice/stationfoodstores",
+                     food_merchant_service_url + "/api/v1/foodlist/stationfood/stationfoodstores",
                     HttpMethod.POST,
                     requestEntityFoodStoresListResult,
                     new ParameterizedTypeReference<Response<List<StationFoodStore>>>() {

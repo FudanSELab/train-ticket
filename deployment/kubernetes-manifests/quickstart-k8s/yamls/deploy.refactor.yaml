@@ -1353,20 +1353,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-station-food-service
+  name: ts-food-merchant-service
 spec:
   selector:
     matchLabels:
-      app: ts-station-food-service
+      app: ts-food-merchant-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-station-food-service
+        app: ts-food-merchant-service
     spec:
       containers:
-        - name: ts-station-food-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-station-food-service:latest
+        - name: ts-food-merchant-service
+          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-food-merchant-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
@@ -1375,7 +1375,7 @@ spec:
                   fieldPath: status.hostIP
           envFrom:
             - secretRef:
-                name: ts-station-food-mysql
+                name: ts-food-merchant-mysql
             - configMapRef:
                 name: nacos
           ports:

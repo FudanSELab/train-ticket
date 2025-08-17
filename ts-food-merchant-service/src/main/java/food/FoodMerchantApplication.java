@@ -18,10 +18,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @IntegrationComponentScan
 @EnableSwagger2
 @EnableDiscoveryClient
-public class StationFoodApplication {
+public class FoodMerchantApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(StationFoodApplication.class, args);
+        SpringApplication.run(FoodMerchantApplication.class, args);
     }
 
     @LoadBalanced

@@ -34,5 +34,5 @@ travel-service:
 food-list-service:
   url: http://${FOOD_LIST_SERVICE_HOST:ts-food-list-service}:${FOOD_LIST_SERVICE_PORT:19999}
 
-station-food-service:
-  url: http://${STATION_FOOD_SERVICE_HOST:ts-station-food-service}:${STATION_FOOD_SERVICE_PORT:18855}
+food-merchant-service:
+  url: http://${FOOD_MERCHANT_SERVICE_HOST:ts-food-merchant-service}:${FOOD_MERCHANT_SERVICE_PORT:18855}

@@ -1,5 +1,5 @@
 #!/bin/bash
-svc_list="assurance auth config consign-price consign contacts delivery food food-delivery inside-payment notification order-other order payment price route security station-food station ticket-office food-list train travel travel2 user voucher wait-order"
+svc_list="assurance auth config consign-price consign contacts delivery food food-delivery inside-payment notification order-other order payment price route security food-merchant station ticket-office food-list train travel travel2 user voucher wait-order"
 
 secret_yaml="deployment/kubernetes-manifests/quickstart-k8s/yamls/secret.yaml"
 dp_sample_yaml="deployment/kubernetes-manifests/quickstart-k8s/yamls/deploy.yaml.sample"

@@ -2159,16 +2159,16 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-station-food-service
+  name: ts-food-merchant-service
 spec:
   selector:
     matchLabels:
-      app: ts-station-food-service
+      app: ts-food-merchant-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-station-food-service
+        app: ts-food-merchant-service
     spec:
       volumes:
         - name: skywalking-agent
@@ -2182,8 +2182,8 @@ spec:
           command: [ "/bin/sh" ]
           args: [ "-c", "cp -R /skywalking/agent /agent/" ]
       containers:
-        - name: ts-station-food-service
-          image: codewisdom/ts-station-food-service:1.0.0
+        - name: ts-food-merchant-service
+          image: codewisdom/ts-food-merchant-service:1.0.0
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: skywalking-agent
@@ -2207,7 +2207,7 @@ spec:
               value: "-javaagent:/skywalking/agent/skywalking-agent.jar"
           envFrom:
             - secretRef:
-                name: ts-station-food-mysql
+                name: ts-food-merchant-mysql
             - configMapRef:
                 name: nacos
           ports:

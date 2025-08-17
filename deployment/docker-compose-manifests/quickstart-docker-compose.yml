@@ -528,15 +528,15 @@ services:
       - my-network
 
 
-  ts-station-food-service:
-    image: ${NAMESPACE}/ts-station-food-service:${TAG}
+  ts-food-merchant-service:
+    image: ${NAMESPACE}/ts-food-merchant-service:${TAG}
     restart: always
     ports:
       - 18855:18855
     networks:
       - my-network
 
-  ts-station-food-mysql:
+  ts-food-merchant-mysql:
     image: mysql:5.7
     networks:
       - my-network

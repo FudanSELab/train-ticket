@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fdse.microservice</groupId>
-    <artifactId>ts-station-food-service</artifactId>
+    <artifactId>ts-food-merchant-service</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>ts-station-food-service</name>
+    <name>ts-food-merchant-service</name>
 
     <parent>
         <groupId>org.services</groupId>
@@ -51,6 +51,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
