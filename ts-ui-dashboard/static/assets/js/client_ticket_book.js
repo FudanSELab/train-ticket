@@ -191,7 +191,7 @@ function initFoodSelect(tripId, from, to, date) {
     // alert(JSON.stringify(data));
     $.ajax({
         type: "get",
-        url: "/api/v1/foodservice/foods/" + data.date + "/" + data.startStation + "/" + data.endStation + "/" + data.tripId,
+        url: "/api/v1/foodbooking/foods/" + data.date + "/" + data.startStation + "/" + data.endStation + "/" + data.tripId,
         contentType: "application/json",
         dataType: "json",
         headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},

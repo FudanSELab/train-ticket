@@ -177,13 +177,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-food-service
+  name: ts-food-booking-service
 spec:
   ports:
     - name: http
       port: 18856
   selector:
-    app: ts-food-service
+    app: ts-food-booking-service
 ---
 apiVersion: v1
 kind: Service

@@ -1175,16 +1175,16 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-food-service
+  name: ts-food-booking-service
 spec:
   selector:
     matchLabels:
-      app: ts-food-service
+      app: ts-food-booking-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-food-service
+        app: ts-food-booking-service
     spec:
       volumes:
         - name: skywalking-agent
@@ -1198,8 +1198,8 @@ spec:
           command: [ "/bin/sh" ]
           args: [ "-c", "cp -R /skywalking/agent /agent/" ]
       containers:
-        - name: ts-food-service
-          image: codewisdom/ts-food-service:1.0.0
+        - name: ts-food-booking-service
+          image: codewisdom/ts-food-booking-service:1.0.0
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - name: skywalking-agent
@@ -1227,7 +1227,7 @@ spec:
             - configMapRef:
                 name: rabbitmq
             - secretRef:
-                name: ts-food-mysql
+                name: ts-food-booking-mysql
           ports:
             - containerPort: 18856
           resources:

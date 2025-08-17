@@ -389,8 +389,8 @@ services:
 #          networks:
 #            - my-network
 
-  ts-food-service:
-      image: codewisdom/ts-food-service-with-jaeger:v1
+  ts-food-booking-service:
+      image: codewisdom/ts-food-booking-service-with-jaeger:v1
       restart: always
       ports:
         - 18856:18856
@@ -398,7 +398,7 @@ services:
         - my-network
 
 
-  ts-food-mysql:
+  ts-food-booking-mysql:
     image: mysql:5.7
     networks:
       - my-network

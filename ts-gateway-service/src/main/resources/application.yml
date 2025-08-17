@@ -69,9 +69,9 @@ spring:
             - Path=/api/v1/executeservice/**
 
         - id: food
-          uri: lb://${FOOD_SERVICE_HOST:ts-food-service}
+          uri: lb://${FOOD_SERVICE_HOST:ts-food-booking-service}
           predicates:
-            - Path=/api/v1/foodservice/**
+            - Path=/api/v1/foodbooking/**
 
         - id: inside-payment
           uri: lb://${INSIDE_PAYMENT_SERVICE_HOST:ts-inside-payment-service}

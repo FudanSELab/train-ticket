@@ -403,9 +403,9 @@ public class PreserveServiceImpl implements PreserveService {
         PreserveServiceImpl.LOGGER.info("[createFoodOrder][Preserve Service][Add Preserve food Order]");
 
         HttpEntity requestEntityAddFoodOrderResult = new HttpEntity(afi, httpHeaders);
-        String food_service_url = getServiceUrl("ts-food-service");
+        String food_service_url = getServiceUrl("ts-food-booking-service");
         ResponseEntity<Response> reAddFoodOrderResult = restTemplate.exchange(
-                food_service_url + "/api/v1/foodservice/orders",
+                food_service_url + "/api/v1/foodbooking/orders",
                 HttpMethod.POST,
                 requestEntityAddFoodOrderResult,
                 Response.class);

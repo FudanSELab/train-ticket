@@ -281,17 +281,17 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: ts-food-service
+  name: ts-food-booking-service
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-food-service
+        app: ts-food-booking-service
     spec:
       containers:
-      - name: ts-food-service
-        image: 10.141.211.160:5000/master/cluster-ts-food-service
+      - name: ts-food-booking-service
+        image: 10.141.211.160:5000/master/cluster-ts-food-booking-service
         imagePullPolicy: Always
         ports:
         - containerPort: 18856
@@ -943,13 +943,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-food-service
+  name: ts-food-booking-service
 spec:
   ports:
     - name: http
       port: 18856
   selector:
-   app: ts-food-service
+   app: ts-food-booking-service
 
 ---
 

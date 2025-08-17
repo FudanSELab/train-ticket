@@ -7,9 +7,9 @@ spring:
       discovery:
         server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
   application:
-    name: ts-food-service
+    name: ts-food-booking-service
   datasource:
-    url: jdbc:mysql://${FOOD_MYSQL_HOST:ts-food-mysql}:${FOOD_MYSQL_PORT:3306}/${FOOD_MYSQL_DATABASE:ts-food-mysql}?useSSL=false
+    url: jdbc:mysql://${FOOD_MYSQL_HOST:ts-food-booking-mysql}:${FOOD_MYSQL_PORT:3306}/${FOOD_MYSQL_DATABASE:ts-food-booking-mysql}?useSSL=false
     username: ${FOOD_MYSQL_USER:root}
     password: ${FOOD_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver

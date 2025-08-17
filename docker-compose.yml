@@ -411,9 +411,9 @@ services:
     networks:
       - my-network
 
-  ts-food-service:
-      build: ts-food-service
-      image: ${IMG_REPO}/ts-food-service:${IMG_TAG}
+  ts-food-booking-service:
+      build: ts-food-booking-service
+      image: ${IMG_REPO}/ts-food-booking-service:${IMG_TAG}
       restart: always
       ports:
         - 18856:18856

@@ -308,7 +308,7 @@ spec:
         prefix: /api/v1/foodservice
     route:
     - destination:
-        host: ts-food-service
+        host: ts-food-booking-service
         port:
           number: 18856
 

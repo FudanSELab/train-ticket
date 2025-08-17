@@ -533,20 +533,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-food-service
+  name: ts-food-booking-service
 spec:
   selector:
     matchLabels:
-      app: ts-food-service
+      app: ts-food-booking-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-food-service
+        app: ts-food-booking-service
     spec:
       containers:
-      - name: ts-food-service
-        image: codewisdom/ts-food-service-with-jaeger:v1
+      - name: ts-food-booking-service
+        image: codewisdom/ts-food-booking-service-with-jaeger:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 18856
@@ -1518,13 +1518,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: ts-food-service
+  name: ts-food-booking-service
 spec:
   ports:
     - name: http
       port: 18856
   selector:
-   app: ts-food-service
+   app: ts-food-booking-service
 
 ---
 

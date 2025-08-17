@@ -17,7 +17,7 @@ docker tag ts/ts-consign-service 10.141.211.160:5000/master/cluster-ts-consign-s
 docker tag ts/ts-contacts-service 10.141.211.160:5000/master/cluster-ts-contacts-service    
 docker tag ts/ts-execute-service 10.141.211.160:5000/master/cluster-ts-execute-service    
 docker tag ts/ts-food-map-service 10.141.211.160:5000/master/cluster-ts-food-map-service    
-docker tag ts/ts-food-service 10.141.211.160:5000/master/cluster-ts-food-service    
+docker tag ts/ts-food-booking-service 10.141.211.160:5000/master/cluster-ts-food-booking-service    
 docker tag ts/ts-inside-payment-service 10.141.211.160:5000/master/cluster-ts-inside-payment-service    
 docker tag ts/ts-login-service 10.141.211.160:5000/master/cluster-ts-login-service    
 docker tag ts/ts-notification-service 10.141.211.160:5000/master/cluster-ts-notification-service    
@@ -63,7 +63,7 @@ docker push 10.141.211.160:5000/master/cluster-ts-consign-service
 docker push 10.141.211.160:5000/master/cluster-ts-contacts-service    
 docker push 10.141.211.160:5000/master/cluster-ts-execute-service    
 docker push 10.141.211.160:5000/master/cluster-ts-food-map-service    
-docker push 10.141.211.160:5000/master/cluster-ts-food-service    
+docker push 10.141.211.160:5000/master/cluster-ts-food-booking-service    
 docker push 10.141.211.160:5000/master/cluster-ts-inside-payment-service    
 docker push 10.141.211.160:5000/master/cluster-ts-login-service    
 docker push 10.141.211.160:5000/master/cluster-ts-notification-service    

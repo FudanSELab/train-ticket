@@ -34,7 +34,7 @@
         <module>ts-route-plan-service</module>
         <module>ts-assurance-service</module>
         <module>ts-ticket-plan-service</module>
-        <module>ts-food-service</module>
+        <module>ts-food-booking-service</module>
         <module>ts-food-merchant-service</module>
         <module>ts-consign-price-service</module>
         <module>ts-consign-service</module>

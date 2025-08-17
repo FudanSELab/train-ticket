@@ -389,8 +389,8 @@ services:
 #          networks:
 #            - my-network
 
-  ts-food-service:
-    image: ${NAMESPACE}/ts-food-service:${TAG}
+  ts-food-booking-service:
+    image: ${NAMESPACE}/ts-food-booking-service:${TAG}
     restart: always
     ports:
       - 18856:18856
@@ -423,7 +423,7 @@ services:
     networks:
       - my-network
 
-  ts-food-mysql:
+  ts-food-booking-mysql:
     image: mysql:5.7
     networks:
       - my-network
