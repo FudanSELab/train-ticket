@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fdse.microservice</groupId>
-    <artifactId>ts-price-service</artifactId>
+    <artifactId>ts-ticket-service</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>ts-price-service</name>
+    <name>ts-ticket-service</name>
 
     <parent>
         <groupId>org.services</groupId>

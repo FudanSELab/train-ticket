@@ -232,8 +232,8 @@ services:
 #        networks:
 #          - my-network
 
-  ts-price-service:
-        image: ${NAMESPACE}/ts-price-service:${TAG}
+  ts-ticket-service:
+        image: ${NAMESPACE}/ts-ticket-service:${TAG}
         restart: always
         ports:
           - 16579:16579

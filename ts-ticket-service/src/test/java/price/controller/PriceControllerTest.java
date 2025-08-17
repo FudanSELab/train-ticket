@@ -38,7 +38,7 @@ public class PriceControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/priceservice/prices/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/ticket/prices/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Price Service ] !"));
     }
@@ -46,7 +46,7 @@ public class PriceControllerTest {
     @Test
     public void testQuery() throws Exception {
         Mockito.when(service.findByRouteIdAndTrainType(Mockito.anyString(), Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/priceservice/prices/route_id/train_type"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/ticket/prices/route_id/train_type"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -55,7 +55,7 @@ public class PriceControllerTest {
     @Test
     public void testQueryAll() throws Exception {
         Mockito.when(service.findAllPriceConfig(Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/priceservice/prices"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/ticket/prices"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -66,7 +66,7 @@ public class PriceControllerTest {
         PriceConfig info = new PriceConfig();
         Mockito.when(service.createNewPriceConfig(Mockito.any(PriceConfig.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(info);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/priceservice/prices").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticket/prices").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -77,7 +77,7 @@ public class PriceControllerTest {
         PriceConfig info = new PriceConfig();
         Mockito.when(service.deletePriceConfig(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(info);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/priceservice/prices").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/ticket/prices").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -88,7 +88,7 @@ public class PriceControllerTest {
         PriceConfig info = new PriceConfig();
         Mockito.when(service.updatePriceConfig(Mockito.any(PriceConfig.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(info);
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/priceservice/prices").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/ticket/prices").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));

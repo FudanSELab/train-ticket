@@ -193,7 +193,7 @@ spec:
           number: 14569
   - match:
     - uri:
-        prefix: /api/v1/priceservice
+        prefix: /api/v1/ticket
     route:
     - destination:
         host: ts-price-service

@@ -442,9 +442,9 @@ public class BasicServiceImpl implements BasicService {
     private PriceConfig queryPriceConfigByRouteIdAndTrainType(String routeId, String trainType, HttpHeaders headers) {
         BasicServiceImpl.LOGGER.info("[queryPriceConfigByRouteIdAndTrainType][Query For Price Config][RouteId: {} ,TrainType: {}]", routeId, trainType);
         HttpEntity requestEntity = new HttpEntity(null, null);
-        String price_service_url=getServiceUrl("ts-price-service");
+        String price_service_url=getServiceUrl("ts-ticket-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                price_service_url + "/api/v1/priceservice/prices/" + routeId + "/" + trainType,
+                price_service_url + "/api/v1/ticket/prices/" + routeId + "/" + trainType,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);
@@ -457,9 +457,9 @@ public class BasicServiceImpl implements BasicService {
     private Map<String, PriceConfig> queryPriceConfigByRouteIdsAndTrainTypes(List<String> routeIdsTypes, HttpHeaders headers) {
         BasicServiceImpl.LOGGER.info("[queryPriceConfigByRouteIdsAndTrainTypes][Query For Price Config][RouteId and TrainType: {}]", routeIdsTypes);
         HttpEntity requestEntity = new HttpEntity(routeIdsTypes, null);
-        String price_service_url=getServiceUrl("ts-price-service");
+        String price_service_url=getServiceUrl("ts-ticket-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                price_service_url + "/api/v1/priceservice/prices/byRouteIdsAndTrainTypes",
+                price_service_url + "/api/v1/ticket/prices/byRouteIdsAndTrainTypes",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);

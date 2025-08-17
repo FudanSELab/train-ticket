@@ -14,7 +14,7 @@ import price.service.PriceService;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/priceservice/admin")
+@RequestMapping("/api/v1/ticket/admin")
 public class AdminPriceController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminPriceController.class);

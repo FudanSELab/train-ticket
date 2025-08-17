@@ -232,7 +232,7 @@ services:
 #        networks:
 #          - my-network
 
-  ts-price-service:
+  ts-ticket-service:
         image: codewisdom/ts-price-service-with-jaeger:v1
         restart: always
         ports:

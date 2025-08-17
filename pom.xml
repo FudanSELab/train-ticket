@@ -25,7 +25,7 @@
         <module>ts-ticket-query-service</module>
         <module>ts-ticket-purchase-service</module>
         <module>ts-basic-service</module>
-        <module>ts-price-service</module>
+        <module>ts-ticket-service</module>
         <module>ts-notification-service</module>
         <module>ts-security-service</module>
         <module>ts-inside-payment-service</module>

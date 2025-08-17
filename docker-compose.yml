@@ -245,9 +245,9 @@ services:
         networks:
           - my-network
 
-  ts-price-service:
-        build: ts-price-service
-        image: ${IMG_REPO}/ts-price-service:${IMG_TAG}
+  ts-ticket-service:
+        build: ts-ticket-service
+        image: ${IMG_REPO}/ts-ticket-service:${IMG_TAG}
         restart: always
         ports:
           - 16579:16579

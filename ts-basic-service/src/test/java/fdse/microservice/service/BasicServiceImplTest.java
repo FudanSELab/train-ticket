@@ -77,7 +77,7 @@ public class BasicServiceImplTest {
         Response response2 = new Response<>(1, null, new PriceConfig(UUID.randomUUID(), "", "", 1.0, 2.0));
         ResponseEntity<Response> re2 = new ResponseEntity<>(response2, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-price-service:16579/api/v1/priceservice/prices/" + "route_id" + "/" + "",
+                "http://ts-ticket-service:16579/api/v1/ticket/prices/" + "route_id" + "/" + "",
                 HttpMethod.GET,
                 requestEntity2,
                 Response.class)).thenReturn(re2);

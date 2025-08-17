@@ -20,7 +20,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/priceservice")
+@RequestMapping("/api/v1/ticket")
 public class PriceController {
 
     @Autowired

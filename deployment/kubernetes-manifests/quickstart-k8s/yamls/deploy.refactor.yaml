@@ -1177,20 +1177,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-price-service
+  name: ts-ticket-service
 spec:
   selector:
     matchLabels:
-      app: ts-price-service
+      app: ts-ticket-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-price-service
+        app: ts-ticket-service
     spec:
       containers:
-        - name: ts-price-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-price-service:latest
+        - name: ts-ticket-service
+          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-ticket-service:latest
           imagePullPolicy: Always
           env:
             - name: NODE_IP
@@ -1199,7 +1199,7 @@ spec:
                   fieldPath: status.hostIP
           envFrom:
             - secretRef:
-                name: ts-price-mysql
+                name: ts-ticket-mysql
             - configMapRef:
                 name: nacos
           ports:

@@ -104,9 +104,9 @@ spring:
             - Path=/api/v1/preserveservice/**
 
         - id: price
-          uri: lb://${PRICE_SERVICE_HOST:ts-price-service}
+          uri: lb://${TICKET_SERVICE_HOST:ts-ticket-service}
           predicates:
-            - Path=/api/v1/priceservice/**
+            - Path=/api/v1/ticket/**
 
         - id: route
           uri: lb://${ROUTE_PLAN_SERVICE_HOST:ts-route-plan-service}
