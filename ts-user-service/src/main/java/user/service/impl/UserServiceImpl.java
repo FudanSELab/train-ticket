@@ -1,18 +1,14 @@
 package user.service.impl;
 
 import edu.fudan.common.util.Response;
+import edu.fudan.common.client.AuthClient;
+import edu.fudan.common.client.dto.AuthDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
-import user.dto.AuthDto;
 import user.dto.UserDto;
 import user.entity.User;
 import user.repository.UserRepository;
@@ -33,14 +29,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private DiscoveryClient discoveryClient;
-
-    @Autowired
-    private RestTemplate restTemplate;
-
-    private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
-    }
+    private AuthClient authClient;
 
     @Override
     public Response saveUser(UserDto userDto, HttpHeaders headers) {
@@ -79,24 +68,7 @@ public class UserServiceImpl implements UserService {
 
     private Response createDefaultAuthUser(AuthDto dto) {
         LOGGER.info("[createDefaultAuthUser][CALL TO AUTH][AuthDto: {}]", dto.toString());
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<AuthDto> entity = new HttpEntity<>(dto, null);
-        String auth_service_url = getServiceUrl("ts-auth-service");
-
-        List<ServiceInstance> auth_svcs = discoveryClient.getInstances("ts-auth-service");
-        if(auth_svcs.size() >0 ){
-            ServiceInstance auth_svc = auth_svcs.get(0);
-            LOGGER.info("[createDefaultAuthUser][CALL TO AUTH][auth_svc host: {}][auth_svc port: {}]", auth_svc.getHost(), auth_svc.getPort());
-        }else{
-            LOGGER.info("[createDefaultAuthUser][CALL TO AUTH][can not get auth url]");
-        }
-
-        ResponseEntity<Response<AuthDto>> res  = restTemplate.exchange(auth_service_url + "/api/v1/auth",
-                HttpMethod.POST,
-                entity,
-                new ParameterizedTypeReference<Response<AuthDto>>() {
-                });
-        return res.getBody();
+        return authClient.createDefaultUser(dto.getUserId(), dto.getUserName(), dto.getPassword());
     }
 
     @Override
@@ -171,19 +143,7 @@ public class UserServiceImpl implements UserService {
 
     public void deleteUserAuth(String userId, HttpHeaders headers) {
         LOGGER.info("[deleteUserAuth][DELETE USER BY ID][userId: {}]", userId);
-
-        HttpHeaders newHeaders = new HttpHeaders();
-        String token = headers.getFirst(HttpHeaders.AUTHORIZATION);
-        newHeaders.set(HttpHeaders.AUTHORIZATION, token);
-
-        HttpEntity<Response> httpEntity = new HttpEntity<>(newHeaders);
-
-        String auth_service_url = getServiceUrl("ts-auth-service");
-        String AUTH_SERVICE_URI = auth_service_url + "/api/v1";
-        restTemplate.exchange(AUTH_SERVICE_URI + "/users/" + userId,
-                HttpMethod.DELETE,
-                httpEntity,
-                Response.class);
+        authClient.deleteUser(userId, headers);
         LOGGER.info("[deleteUserAuth][DELETE USER AUTH SUCCESS][userId: {}]", userId);
     }
 }

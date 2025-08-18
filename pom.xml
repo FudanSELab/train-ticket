@@ -43,6 +43,7 @@
         <module>ts-gateway-service</module>
         <module>ts-food-delivery-service</module>
         <module>ts-wait-order-service</module>
+        <module>ts-client-sdk</module>
     </modules>
 
 
