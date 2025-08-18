@@ -1,0 +1,37 @@
+# 开发环境 docker-compose 文件
+# 在本地开发时，起一个 nacos 和 mysql 服务
+# 对于开发中的服务，可以自己根据需要通过 Dockerfile 构建后启动，也可以直接使用 jar 文件启动
+version: '3'
+services:
+  nacos:
+    image: nacos/nacos-server:v2.2.3
+    container_name: train-ticket-nacos
+    environment:
+      - MODE=standalone
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    networks:
+      - train-ticket-net
+
+  mysql:
+    image: mysql:8.0
+    container_name: train-ticket-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=Abcd1234#
+      - MYSQL_DATABASE=ts-mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/ts-mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - train-ticket-net
+
+networks:
+  train-ticket-net:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
