@@ -19,7 +19,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/orderservice")
+@RequestMapping("/api/v1/order")
 public class OrderController {
 
     @Autowired

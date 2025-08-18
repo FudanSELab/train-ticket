@@ -48,7 +48,7 @@ public class SeatServiceImpl implements SeatService {
             HttpEntity<?> requestEntity = new HttpEntity<>(seatRequest, null);
             String order_service_url = getServiceUrl("ts-order-service");
             re3 = restTemplate.exchange(
-                    order_service_url + "/api/v1/orderservice/order/tickets",
+                    order_service_url + "/api/v1/order/order/tickets",
                     HttpMethod.POST,
                     requestEntity,
                     new ParameterizedTypeReference<Response<LeftTicketInfo>>() {});
@@ -58,7 +58,7 @@ public class SeatServiceImpl implements SeatService {
             HttpEntity<?> requestEntity = new HttpEntity<>(seatRequest, null);
             String order_service_url = getServiceUrl("ts-order-service");
             re3 = restTemplate.exchange(
-                    order_service_url + "/api/v1/orderservice/order/tickets",
+                    order_service_url + "/api/v1/order/order/tickets",
                     HttpMethod.POST,
                     requestEntity,
                     new ParameterizedTypeReference<Response<LeftTicketInfo>>() {});
@@ -116,7 +116,7 @@ public class SeatServiceImpl implements SeatService {
             HttpEntity<?> requestEntity = new HttpEntity<>(seatRequest, null);
             String order_service_url = getServiceUrl("ts-order-service");
             re3 = restTemplate.exchange(
-                    order_service_url + "/api/v1/orderservice/order/tickets",
+                    order_service_url + "/api/v1/order/order/tickets",
                     HttpMethod.POST,
                     requestEntity,
                     new ParameterizedTypeReference<Response<LeftTicketInfo>>() {});
@@ -125,7 +125,7 @@ public class SeatServiceImpl implements SeatService {
             HttpEntity<?> requestEntity = new HttpEntity<>(seatRequest, null);
             String order_service_url = getServiceUrl("ts-order-service");
             re3 = restTemplate.exchange(
-                    order_service_url + "/api/v1/orderservice/order/tickets",
+                    order_service_url + "/api/v1/order/order/tickets",
                     HttpMethod.POST,
                     requestEntity,
                     new ParameterizedTypeReference<Response<LeftTicketInfo>>() {});
@@ -161,7 +161,7 @@ public class SeatServiceImpl implements SeatService {
         HttpEntity<?> requestEntity = new HttpEntity<>(null);
         String config_service_url = getServiceUrl("ts-config-service");
         ResponseEntity<Response<Config>> re = restTemplate.exchange(
-                config_service_url + "/api/v1/configservice/configs/" + configName,
+                config_service_url + "/api/v1/config/configs/" + configName,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Config>>() {});

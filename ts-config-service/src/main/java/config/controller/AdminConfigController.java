@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/configservice/admin")
+@RequestMapping("/api/v1/config/admin")
 public class AdminConfigController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminConfigController.class);

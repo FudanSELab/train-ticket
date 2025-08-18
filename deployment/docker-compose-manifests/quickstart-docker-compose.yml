@@ -534,7 +534,7 @@ services:
     image: ${NAMESPACE}/ts-food-list-service:${TAG}
     restart: always
     ports:
-      - 19999:19999
+      - 19998:19998
     networks:
       - my-network
 

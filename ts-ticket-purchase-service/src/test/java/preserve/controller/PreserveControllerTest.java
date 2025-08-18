@@ -38,7 +38,7 @@ public class PreserveControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/preserveservice/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/ticket-purchase/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Preserve Service ] !"));
     }
@@ -48,7 +48,7 @@ public class PreserveControllerTest {
         OrderTicketsInfo oti = new OrderTicketsInfo();
         Mockito.when(preserveService.preserve(Mockito.any(OrderTicketsInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(oti);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/preserveservice/preserve").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticket-purchase/preserve").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));

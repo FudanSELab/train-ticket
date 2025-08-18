@@ -38,7 +38,7 @@ public class BasicControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/basicservice/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/basic/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Basic Service ] !"));
     }
@@ -48,7 +48,7 @@ public class BasicControllerTest {
         Travel info = new Travel();
         Mockito.when(basicService.queryForTravel(Mockito.any(Travel.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(info);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/basicservice/basic/travel").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/basic/basic/travel").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -57,7 +57,7 @@ public class BasicControllerTest {
     @Test
     public void testQueryForStationId() throws Exception {
         Mockito.when(basicService.queryForStationId(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/basicservice/basic/stationName"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/basic/basic/stationName"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));

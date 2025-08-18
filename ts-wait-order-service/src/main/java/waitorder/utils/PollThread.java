@@ -73,7 +73,7 @@ public class PollThread extends Thread{
 
     private Response doPreserve(String url, HttpEntity requestParam){
         ResponseEntity<Response<Contacts>> rePostPreserveResult = restTemplate.exchange(
-                url + "/api/v1/contactservice/preserve",
+                url + "/api/v1/contact/preserve",
                 HttpMethod.POST,
                 requestParam,
                 new ParameterizedTypeReference<Response<Contacts>>() {

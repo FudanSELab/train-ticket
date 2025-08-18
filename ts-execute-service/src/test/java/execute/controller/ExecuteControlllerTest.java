@@ -40,7 +40,7 @@ public class ExecuteControlllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/executeservice/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/execute/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Execute Service ] !"));
     }
@@ -48,7 +48,7 @@ public class ExecuteControlllerTest {
     @Test
     public void testExecuteTicket() throws Exception {
         Mockito.when(executeService.ticketExecute(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/executeservice/execute/execute/order_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/execute/execute/execute/order_id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -57,7 +57,7 @@ public class ExecuteControlllerTest {
     @Test
     public void testCollectTicket() throws Exception {
         Mockito.when(executeService.ticketCollect(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/executeservice/execute/collected/order_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/execute/execute/collected/order_id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));

@@ -50,7 +50,7 @@ var appConsign = new Vue({
 
             this.myOrderList = [];
             var myOrdersQueryData = JSON.stringify(myOrdersQueryInfo);
-            this.queryForMyOrderThree("/api/v1/orderservice/order/refresh", myOrdersQueryData);
+            this.queryForMyOrderThree("/api/v1/order/order/refresh", myOrdersQueryData);
         },
         queryForMyOrderThree(path, data) {
             var that = this;
@@ -88,7 +88,7 @@ var appConsign = new Vue({
             var stationName;
             $.ajax({
                 type: "get",
-                url: "/api/v1/stationservice/stations/name/" + stationId,
+                url: "/api/v1/station/stations/name/" + stationId,
                 contentType: "application/json",
                 headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},
                 dataType: "json",
@@ -123,7 +123,7 @@ var appConsign = new Vue({
                     var data = JSON.stringify(info);
                     $.ajax({
                         type: "post",
-                        url: "/api/v1/inside_pay_service/inside_payment",
+                        url: "/api/v1/inside-payment/inside_payment",
                         contentType: "application/json",
                         headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},
                         dataType: "json",
@@ -362,7 +362,7 @@ var appConsign = new Vue({
 
                     $.ajax({
                         type: "put",
-                        url: "/api/v1/consignservice/consigns",
+                        url: "/api/v1/consign/consigns",
                         contentType: "application/json",
                         headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},
                         dataType: "json",
@@ -395,7 +395,7 @@ var appConsign = new Vue({
             var that = this;
             $.ajax({
                 type: "get",
-                url: "/api/v1/consignservice/consigns/order/" + orderId,
+                url: "/api/v1/consign/consigns/order/" + orderId,
                 contentType: "application/json",
                 headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},
                 dataType: "json",
@@ -447,7 +447,7 @@ var appConsign = new Vue({
             this.searchRoutes = [];
 
             // Unified after removal of travel2 service
-            this.queryForRebookTravelInfo(travelQueryData, "/api/v1/ticketquery/trips/left");
+            this.queryForRebookTravelInfo(travelQueryData, "/api/v1/ticket-query/trips/left");
         },
         checkNum(num) {
             if (num == "") {
@@ -560,7 +560,7 @@ var appConsign = new Vue({
             //发送请求
             $.ajax({
                 type: "post",
-                url: "/getVoucher",
+                url: "/api/v1/voucher/getVoucher",
                 contentType: "application/json",
                 headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},
                 dataType: "json",

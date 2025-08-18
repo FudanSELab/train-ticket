@@ -345,7 +345,7 @@ public class TravelServiceImpl implements TravelService {
         HttpEntity requestEntity = new HttpEntity(infos, null);
         String basic_service_url = getServiceUrl("ts-basic-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                basic_service_url + "/api/v1/basicservice/basic/travels",
+                basic_service_url + "/api/v1/basic/basic/travels",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
@@ -394,7 +394,7 @@ public class TravelServiceImpl implements TravelService {
         HttpEntity requestEntity = new HttpEntity(query, null);
         String basic_service_url = getServiceUrl("ts-basic-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                basic_service_url + "/api/v1/basicservice/basic/travel",
+                basic_service_url + "/api/v1/basic/basic/travel",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
@@ -505,7 +505,7 @@ public class TravelServiceImpl implements TravelService {
         HttpEntity requestEntity = new HttpEntity(null);
         String train_service_url = getServiceUrl("ts-train-service");
         ResponseEntity<Response<TrainType>> re = restTemplate.exchange(
-                train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeName,
+                train_service_url + "/api/v1/train/trains/byName/" + trainTypeName,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<TrainType>>() {
@@ -519,7 +519,7 @@ public class TravelServiceImpl implements TravelService {
         HttpEntity requestEntity = new HttpEntity(null);
         String route_service_url = getServiceUrl("ts-route-plan-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                route_service_url + "/api/v1/routeservice/routes/" + routeId,
+                route_service_url + "/api/v1/route-plan/routes/" + routeId,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);
@@ -550,7 +550,7 @@ public class TravelServiceImpl implements TravelService {
         HttpEntity requestEntity = new HttpEntity(seatRequest, null);
         String seat_service_url = getServiceUrl("ts-ticket-purchase-service");
         ResponseEntity<Response<Integer>> re = restTemplate.exchange(
-                seat_service_url + "/api/v1/preserveservice/seat/seats/left_tickets",
+                seat_service_url + "/api/v1/ticket-purchase/seat/seats/left_tickets",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Integer>>() {

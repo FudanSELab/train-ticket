@@ -210,7 +210,7 @@ public class OrderServiceImpl implements OrderService {
         HttpEntity requestEntity = new HttpEntity(ids, null);
         String station_service_url=getServiceUrl("ts-station-service");
         ResponseEntity<Response<List<String>>> re = restTemplate.exchange(
-                station_service_url + "/api/v1/stationservice/stations/namelist",
+                station_service_url + "/api/v1/station/stations/namelist",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<List<String>>>() {

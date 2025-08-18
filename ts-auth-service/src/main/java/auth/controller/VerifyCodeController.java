@@ -19,7 +19,7 @@ import java.util.Map;
  * Controller exposing endpoints for captcha generation and validation.
  */
 @RestController
-@RequestMapping("/api/v1/verifycode")
+@RequestMapping("/api/v1/auth/verifycode")
 public class VerifyCodeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VerifyCodeController.class);

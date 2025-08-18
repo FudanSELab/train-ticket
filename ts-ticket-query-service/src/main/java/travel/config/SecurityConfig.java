@@ -70,10 +70,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers(HttpMethod.PUT, "/api/v1/ticketquery/trips").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/ticketquery/trips/*").hasAnyRole("ADMIN")
-                .antMatchers("/api/v1/ticketquery/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/v1/ticketquery/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/v1/ticket-query/trips").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/v1/ticket-query/trips/*").hasAnyRole("ADMIN")
+                .antMatchers("/api/v1/ticket-query/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/ticket-query/**").permitAll()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
                 .anyRequest().authenticated()

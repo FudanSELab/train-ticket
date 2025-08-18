@@ -23,7 +23,7 @@ function onLoadBody(){
     //发送请求
     $.ajax({
         type: "post",
-        url: "/getVoucher",
+        url: "/api/v1/voucher/getVoucher",
         contentType: "application/json",
         dataType: "json",
         data:data,

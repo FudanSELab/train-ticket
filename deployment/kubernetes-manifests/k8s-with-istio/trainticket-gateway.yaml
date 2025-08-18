@@ -79,225 +79,82 @@ spec:
         host: ts-ui-dashboard
         port:
           number: 8080
+  
   - match:
     - uri:
-        prefix: /api/v1/users
+        prefix: /api/v1/auth
     route:
     - destination:
         host: ts-auth-service
         port:
           number: 12340
+
   - match:
     - uri:
-        prefix: /api/v1/verifycode
+        prefix: /api/v1/avatar
     route:
     - destination:
-        host: ts-verification-code-service
+        host: ts-avatar-service
         port:
-          number: 15678
+          number: 17001
+
   - match:
     - uri:
-        prefix: /api/v1/stationservice
-    route:
-    - destination:
-        host: ts-station-service
-        port:
-          number: 12345
-  - match:
-    - uri:
-        prefix:  /api/v1/trainservice
-    route:
-    - destination:
-        host: ts-train-service
-        port:
-          number: 14567
-  - match:
-    - uri:
-        prefix: /api/v1/configservice
-    route:
-    - destination:
-        host: ts-config-service
-        port:
-          number: 15679
-  - match:
-    - uri:
-        prefix: /api/v1/securityservice
-    route:
-    - destination:
-        host: ts-security-service
-        port:
-          number: 11188
-  - match:
-    - uri:
-        prefix: /api/v1/executeservice
-    route:
-    - destination:
-        host: ts-execute-service
-        port:
-          number: 12386
-  - match:
-    - uri:
-        prefix: /api/v1/contactservice
-    route:
-    - destination:
-        host: ts-contacts-service
-        port:
-          number: 12347
-  - match:
-    - uri:
-        prefix: /api/v1/orderservice
-    route:
-    - destination:
-        host: ts-order-service
-        port:
-          number: 12031
-  - match:
-    - uri:
-        prefix: /api/v1/order-query
-    route:
-    - destination:
-        host: ts-order-query-service
-        port:
-          number: 12032
-  - match:
-    - uri:
-        prefix: /api/v1/travelservice
-    route:
-    - destination:
-        host: ts-travel-service
-        port:
-          number: 12346
-  - match:
-    - uri:
-        prefix: /api/v1/travel2service
-    route:
-    - destination:
-        host: ts-travel2-service
-        port:
-          number: 16346
-  - match:
-    - uri:
-        prefix: /api/v1/preserveservice
-    route:
-    - destination:
-        host: ts-preserve-service
-        port:
-          number: 14568
-  - match:
-    - uri:
-        prefix: /api/v1/preserveotherservice
-    route:
-    - destination:
-        host: ts-preserve-other-service
-        port:
-          number: 14569
-  - match:
-    - uri:
-        prefix: /api/v1/ticket
-    route:
-    - destination:
-        host: ts-price-service
-        port:
-          number: 16579
-  - match:
-    - uri:
-        prefix: /api/v1/basicservice
+        prefix: /api/v1/basic
     route:
     - destination:
         host: ts-basic-service
         port:
           number: 15680
+
   - match:
     - uri:
-        prefix:  /api/v1/ticketinfoservice
+        prefix: /api/v1/config
     route:
     - destination:
-        host: ts-ticketinfo-service
+        host: ts-config-service
         port:
-          number: 15681
+          number: 15679
+
   - match:
     - uri:
-        prefix: /api/v1/user-notification
-    route:
-    - destination:
-        host: ts-user-notification-service
-        port:
-          number: 17853
-  - match:
-    - uri:
-        prefix: /api/v1/inside_pay_service
-    route:
-    - destination:
-        host: ts-inside-payment-service
-        port:
-          number: 18673
-  - match:
-    - uri:
-        prefix: /api/v1/paymentservice
-    route:
-    - destination:
-        host: ts-payment-service
-        port:
-          number: 19001
-  - match:
-    - uri:
-        prefix: /api/v1/rebookservice
-    route:
-    - destination:
-        host: ts-rebook-service
-        port:
-          number: 18886
-  - match:
-    - uri:
-        exact:  /api/v1/cancelservice
-    route:
-    - destination:
-        host: ts-cancel-service
-        port:
-          number: 18885
-  - match:
-    - uri:
-        prefix: /api/v1/routeservice
-    route:
-    - destination:
-        host: ts-route-plan-service
-        port:
-          number: 11178
-  - match:
-    - uri:
-        prefix: /api/v1/assuranceservice
-    route:
-    - destination:
-        host: ts-assurance-service
-        port:
-          number: 18888
-  - match:
-    - uri:
-        prefix: /api/v1/ticketplan
-    route:
-    - destination:
-        host: ts-ticket-plan-service
-        port:
-          number: 14322
-  - match:
-    - uri:
-        prefix: /api/v1/consignservice
+        prefix: /api/v1/consign
     route:
     - destination:
         host: ts-consign-service
         port:
           number: 16111
+
   - match:
     - uri:
-        exact: /getVoucher
+        prefix: /api/v1/contact
     route:
     - destination:
-        host: ts-voucher-service
+        host: ts-contacts-service
         port:
-          number: 16101
+          number: 12347
+
   - match:
     - uri:
-        prefix: /api/v1/foodservice
+        prefix: /api/v1/delivery
+    route:
+    - destination:
+        host: ts-delivery-service
+        port:
+          number: 18808
+
+  - match:
+    - uri:
+        prefix: /api/v1/execute
+    route:
+    - destination:
+        host: ts-execute-service
+        port:
+          number: 12386
+
+  - match:
+    - uri:
+        prefix: /api/v1/food-booking
     route:
     - destination:
         host: ts-food-booking-service
@@ -306,49 +163,180 @@ spec:
 
   - match:
     - uri:
-        prefix: /api/v1/adminbasicservice
+        prefix: /api/v1/food-delivery
     route:
     - destination:
-        host: ts-admin-basic-info-service
+        host: ts-food-delivery-service
         port:
-          number: 18767
+          number: 18957
+
   - match:
     - uri:
-        prefix: /api/v1/adminorderservice
+        prefix: /api/v1/food-list
     route:
     - destination:
-        host: ts-admin-order-service
+        host: ts-food-list-service
         port:
-          number: 16112
+          number: 19998
+
   - match:
     - uri:
-        prefix: /api/v1/adminrouteservice
+        prefix: /api/v1/food-merchant
     route:
     - destination:
-        host: ts-admin-route-service
+        host: ts-food-merchant-service
         port:
-          number: 16113
+          number: 18855
+
   - match:
     - uri:
-        prefix: /api/v1/admintravelservice
+        prefix: /api/v1/inside-payment
     route:
     - destination:
-        host: ts-admin-travel-service
+        host: ts-inside-payment-service
         port:
-          number: 16114
+          number: 18673
+
   - match:
     - uri:
-        prefix: /
+        prefix: /api/v1/order-query
     route:
     - destination:
-        host: kafka
+        host: ts-order-query-service
         port:
-          number: 16116
+          number: 12032
+
   - match:
     - uri:
-        prefix: /api/v1/adminuserservice/users
+        prefix: /api/v1/order
     route:
     - destination:
-        host: ts-admin-user-service
+        host: ts-order-service
         port:
-          number: 16115
+          number: 12031
+
+  - match:
+    - uri:
+        prefix: /api/v1/payment
+    route:
+    - destination:
+        host: ts-payment-service
+        port:
+          number: 19001
+
+  - match:
+    - uri:
+        prefix: /api/v1/route-plan
+    route:
+    - destination:
+        host: ts-route-plan-service
+        port:
+          number: 11178
+
+  - match:
+    - uri:
+        prefix: /api/v1/security
+    route:
+    - destination:
+        host: ts-security-service
+        port:
+          number: 11188
+
+  - match:
+    - uri:
+        prefix: /api/v1/sms-notification
+    route:
+    - destination:
+        host: ts-sms-notification-service
+        port:
+          number: 17854
+
+  - match:
+    - uri:
+        prefix: /api/v1/station
+    route:
+    - destination:
+        host: ts-station-service
+        port:
+          number: 12345
+
+  - match:
+    - uri:
+        prefix: /api/v1/ticket-plan
+    route:
+    - destination:
+        host: ts-ticket-plan-service
+        port:
+          number: 14322
+
+  - match:
+    - uri:
+        prefix: /api/v1/ticket-purchase
+    route:
+    - destination:
+        host: ts-ticket-purchase-service
+        port:
+          number: 14568
+
+  - match:
+    - uri:
+        prefix: /api/v1/ticket-query
+    route:
+    - destination:
+        host: ts-ticket-query-service
+        port:
+          number: 12346
+
+  - match:
+    - uri:
+        prefix: /api/v1/ticket
+    route:
+    - destination:
+        host: ts-ticket-service
+        port:
+          number: 16579
+
+  - match:
+    - uri:
+        prefix: /api/v1/train
+    route:
+    - destination:
+        host: ts-train-service
+        port:
+          number: 14567
+
+  - match:
+    - uri:
+        prefix: /api/v1/user-notification
+    route:
+    - destination:
+        host: ts-user-notification-service
+        port:
+          number: 17853
+
+  - match:
+    - uri:
+        prefix: /api/v1/user
+    route:
+    - destination:
+        host: ts-user-service
+        port:
+          number: 12342
+
+  - match:
+    - uri:
+        exact: /api/v1/voucher
+    route:
+    - destination:
+        host: ts-voucher-service
+        port:
+          number: 16101
+
+  - match:
+    - uri:
+        prefix: /api/v1/wait-order
+    route:
+    - destination:
+        host: ts-wait-order-service
+        port:
+          number: 17525

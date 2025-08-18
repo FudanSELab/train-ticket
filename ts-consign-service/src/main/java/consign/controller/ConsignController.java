@@ -17,7 +17,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/consignservice")
+@RequestMapping("/api/v1/consign")
 public class ConsignController {
 
     @Autowired

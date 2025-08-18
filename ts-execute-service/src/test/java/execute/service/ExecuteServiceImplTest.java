@@ -38,7 +38,7 @@ public class ExecuteServiceImplTest {
         Response<Order> response = new Response<>(1, null, order);
         ResponseEntity<Response<Order>> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-service:12031/api/v1/orderservice/order/" + "order_id",
+                "http://ts-order-service:12031/api/v1/order/order/" + "order_id",
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {
@@ -47,7 +47,7 @@ public class ExecuteServiceImplTest {
         Response response2 = new Response(1, null, null);
         ResponseEntity<Response> re2 = new ResponseEntity<>(response2, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-service:12031/api/v1/orderservice/order/status/" + "order_id" + "/" + 6,
+                "http://ts-order-service:12031/api/v1/order/order/status/" + "order_id" + "/" + 6,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re2);
@@ -61,7 +61,7 @@ public class ExecuteServiceImplTest {
         Response<Order> response = new Response<>(0, null, null);
         ResponseEntity<Response<Order>> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-service:12031/api/v1/orderservice/order/" + "order_id",
+                "http://ts-order-service:12031/api/v1/order/order/" + "order_id",
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {
@@ -97,7 +97,7 @@ public class ExecuteServiceImplTest {
         Response<Order> response = new Response<>(1, null, order);
         ResponseEntity<Response<Order>> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-service:12031/api/v1/orderservice/order/" + "order_id",
+                "http://ts-order-service:12031/api/v1/order/order/" + "order_id",
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {
@@ -106,7 +106,7 @@ public class ExecuteServiceImplTest {
         Response response2 = new Response(1, null, null);
         ResponseEntity<Response> re2 = new ResponseEntity<>(response2, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-service:12031/api/v1/orderservice/order/status/" + "order_id" + "/" + 2,
+                "http://ts-order-service:12031/api/v1/order/order/status/" + "order_id" + "/" + 2,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re2);
@@ -120,7 +120,7 @@ public class ExecuteServiceImplTest {
         Response<Order> response = new Response<>(0, null, null);
         ResponseEntity<Response<Order>> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-service:12031/api/v1/orderservice/order/" + "order_id",
+                "http://ts-order-service:12031/api/v1/order/order/" + "order_id",
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {

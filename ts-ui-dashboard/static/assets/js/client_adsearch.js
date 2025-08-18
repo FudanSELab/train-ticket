@@ -44,11 +44,11 @@ var adSearch = new Vue({
 
             var selectType = this.selectedSearchType;
             if (selectType == 0) {
-                this.advanceSearchForMinStopInfo(advanceSearchData, "/api/v1/ticketplan/travelPlan/minStation");
+                this.advanceSearchForMinStopInfo(advanceSearchData, "/api/v1/ticket-plan/travelPlan/minStation");
             } else if (selectType == 1) {
-                this.advanceSearchForCheapestInfo(advanceSearchData, "/api/v1/ticketplan/travelPlan/cheapest");
+                this.advanceSearchForCheapestInfo(advanceSearchData, "/api/v1/ticket-plan/travelPlan/cheapest");
             } else if (selectType == 2) {
-                this.advanceSearchForQuickestInfo(advanceSearchData, "/api/v1/ticketplan/travelPlan/quickest");
+                this.advanceSearchForQuickestInfo(advanceSearchData, "/api/v1/ticket-plan/travelPlan/quickest");
             } else {
                 alert("Select Search Type Wrong");
             }

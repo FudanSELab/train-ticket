@@ -22,7 +22,7 @@ import java.util.UUID;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v1/auth/users")
 public class UserController {
 
     @Autowired

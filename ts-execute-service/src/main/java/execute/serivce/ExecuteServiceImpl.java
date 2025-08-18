@@ -139,7 +139,7 @@ public class ExecuteServiceImpl implements ExecuteService {
         HttpEntity requestEntity = new HttpEntity(headers);
         String order_service_url=getServiceUrl("ts-order-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                order_service_url + "/api/v1/orderservice/order/status/" + orderId + "/" + status,
+                order_service_url + "/api/v1/order/order/status/" + orderId + "/" + status,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);
@@ -153,7 +153,7 @@ public class ExecuteServiceImpl implements ExecuteService {
         HttpEntity requestEntity = new HttpEntity(headers);
         String order_other_service_url=getServiceUrl("ts-order-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                order_other_service_url + "/api/v1/orderservice/order/status/" + orderId + "/" + status,
+                order_other_service_url + "/api/v1/order/order/status/" + orderId + "/" + status,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);
@@ -166,7 +166,7 @@ public class ExecuteServiceImpl implements ExecuteService {
         HttpEntity requestEntity = new HttpEntity(headers);
         String order_service_url=getServiceUrl("ts-order-service");
         ResponseEntity<Response<Order>> re = restTemplate.exchange(
-                order_service_url + "/api/v1/orderservice/order/" + orderId,
+                order_service_url + "/api/v1/order/order/" + orderId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {
@@ -180,7 +180,7 @@ public class ExecuteServiceImpl implements ExecuteService {
         HttpEntity requestEntity = new HttpEntity(headers);
         String order_other_service_url=getServiceUrl("ts-order-service");
         ResponseEntity<Response<Order>> re = restTemplate.exchange(
-                order_other_service_url + "/api/v1/orderservice/order/" + orderId,
+                order_other_service_url + "/api/v1/order/order/" + orderId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {

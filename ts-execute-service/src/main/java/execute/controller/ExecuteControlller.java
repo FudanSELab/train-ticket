@@ -14,7 +14,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/executeservice")
+@RequestMapping("/api/v1/execute")
 public class ExecuteControlller {
 
     @Autowired

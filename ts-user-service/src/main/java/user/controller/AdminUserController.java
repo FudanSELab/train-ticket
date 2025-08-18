@@ -17,7 +17,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * This replaces the standalone ts-admin-user-service.
  */
 @RestController
-@RequestMapping("/api/v1/userservice/admin/users")
+@RequestMapping("/api/v1/user/admin/users")
 public class AdminUserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminUserController.class);

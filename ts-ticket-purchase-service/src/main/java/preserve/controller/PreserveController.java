@@ -15,7 +15,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/preserveservice")
+@RequestMapping("/api/v1/ticket-purchase")
 public class PreserveController {
 
     @Autowired

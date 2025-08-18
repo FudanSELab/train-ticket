@@ -1424,7 +1424,7 @@ spec:
             - configMapRef:
                 name: nacos
           ports:
-            - containerPort: 19999
+            - containerPort: 19998
           resources:
             requests:
               cpu: 100m
@@ -1434,7 +1434,7 @@ spec:
               memory: 2000Mi
           readinessProbe:
             tcpSocket:
-              port: 19999
+              port: 19998
             initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 5

@@ -59,7 +59,7 @@ class GetVoucherHandler(tornado.web.RequestHandler):
         if(type == 0):
             url=order_other_url + '/api/v1/orderOtherService/orderOther/' + orderId
         else:
-            url=order_url + '/api/v1/orderservice/order/'+orderId
+            url=order_url + '/api/v1/order/order/'+orderId
         header_dict = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko',"Content-Type": "application/json"}
         req = urllib.request.Request(url=url,headers=header_dict)# Generate the full data for the page request
         response = urllib.request.urlopen(req)# Send page request
@@ -98,7 +98,7 @@ class GetVoucherHandler(tornado.web.RequestHandler):
 
 def make_app():
     return tornado.web.Application([
-        (r"/getVoucher", GetVoucherHandler)
+        (r"/api/v1/voucher/getVoucher", GetVoucherHandler)
     ])
 
 def initDatabase():

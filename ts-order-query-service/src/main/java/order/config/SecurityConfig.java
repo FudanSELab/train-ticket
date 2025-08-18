@@ -27,7 +27,7 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     String admin = "ADMIN";
-    String order = "/api/v1/orderservice/order";
+    String order = "/api/v1/order/order";
 
     /**
      * load password encoder
@@ -75,11 +75,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, order).hasAnyRole(admin, "USER")
                 .antMatchers(HttpMethod.PUT, order).hasAnyRole(admin, "USER")
                 .antMatchers(HttpMethod.DELETE, order).hasAnyRole(admin, "USER")
-                .antMatchers(HttpMethod.POST, "/api/v1/orderservice/order/admin").hasAnyRole(admin)
-                .antMatchers(HttpMethod.PUT, "/api/v1/orderservice/order/admin").hasAnyRole(admin)
-                .antMatchers("/api/v1/orderservice/admin/**").hasRole(admin)
-                .antMatchers("/api/v1/orderservice/order/**").permitAll()
-                .antMatchers("/api/v1/orderservice/assurance/**").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/api/v1/order/order/admin").hasAnyRole(admin)
+                .antMatchers(HttpMethod.PUT, "/api/v1/order/order/admin").hasAnyRole(admin)
+                .antMatchers("/api/v1/order/admin/**").hasRole(admin)
+                .antMatchers("/api/v1/order/order/**").permitAll()
+                .antMatchers("/api/v1/order/assurance/**").hasRole("USER")
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
                 .anyRequest().authenticated()

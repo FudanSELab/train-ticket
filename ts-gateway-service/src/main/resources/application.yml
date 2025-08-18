@@ -18,16 +18,6 @@ spring:
           predicates:
             - Path=/api/v1/auth/**
 
-        - id: auth-user
-          uri: lb://${AUTH_SERVICE_HOST:ts-auth-service}
-          predicates:
-            - Path=/api/v1/users/**
-
-        - id: verifycode
-          uri: lb://${AUTH_SERVICE_HOST:ts-auth-service}
-          predicates:
-            - Path=/api/v1/verifycode/**
-
         - id: avatar
           uri: lb://${AVATAR_SERVICE_HOST:ts-avatar-service}
           predicates:
@@ -36,104 +26,136 @@ spring:
         - id: basic
           uri: lb://${BASIC_SERVICE_HOST:ts-basic-service}
           predicates:
-            - Path=/api/v1/basicservice/**
+            - Path=/api/v1/basic/**
 
         - id: config
           uri: lb://${CONFIG_SERVICE_HOST:ts-config-service}
           predicates:
-            - Path=/api/v1/configservice/**
+            - Path=/api/v1/config/**
 
         - id: consign
           uri: lb://${CONSIGN_SERVICE_HOST:ts-consign-service}
           predicates:
-            - Path=/api/v1/consignservice/**
+            - Path=/api/v1/consign/**
 
         - id: contacts
           uri: lb://${CONTACTS_SERVICE_HOST:ts-contacts-service}
           predicates:
-            - Path=/api/v1/contactservice/**
+            - Path=/api/v1/contact/**
+
+        # delievery 其实是 mq 消费服务，并未暴露 HTTP 接口
+        - id: delivery
+          uri: lb://${DELIVERY_SERVICE_HOST:ts-delivery-service}
+          predicates:
+            - Path=/api/v1/delivery/**
 
         - id: execute
           uri: lb://${EXECUTE_SERVICE_HOST:ts-execute-service}
           predicates:
-            - Path=/api/v1/executeservice/**
+            - Path=/api/v1/execute/**
 
-        - id: food
+        - id: food-booking
           uri: lb://${FOOD_SERVICE_HOST:ts-food-booking-service}
           predicates:
-            - Path=/api/v1/foodbooking/**
+            - Path=/api/v1/food-booking/**
+
+        - id: food-delivery
+          uri: lb://${FOOD_DELIVERY_SERVICE_HOST:ts-food-delivery-service}
+          predicates:
+            - Path=/api/v1/food-delivery/**
+
+        - id: food-list
+          uri: lb://${FOOD_LIST_SERVICE_HOST:ts-food-list-service}
+          predicates:
+            - Path=/api/v1/food-list/**
+
+        - id: food-merchant
+          uri: lb://${FOOD_MERCHANT_SERVICE_HOST:ts-food-merchant-service}
+          predicates:
+            - Path=/api/v1/food-merchant/**
 
         - id: inside-payment
           uri: lb://${INSIDE_PAYMENT_SERVICE_HOST:ts-inside-payment-service}
           predicates:
-            - Path=/api/v1/inside_pay_service/**
-
-        - id: user-notification
-          uri: lb://${USER_NOTIFICATION_SERVICE_HOST:ts-user-notification-service}
-          predicates:
-            - Path=/api/v1/user-notification/**
-
-        - id: sms-notification
-          uri: lb://${SMS_NOTIFICATION_SERVICE_HOST:ts-sms-notification-service}
-          predicates:
-            - Path=/api/v1/sms-notification/**
-
-        - id: order
-          uri: lb://${ORDER_SERVICE_HOST:ts-order-service}
-          predicates:
-            - Path=/api/v1/orderservice/**
+            - Path=/api/v1/inside-payment/**
 
         - id: order-query
           uri: lb://${ORDER_QUERY_SERVICE_HOST:ts-order-query-service}
           predicates:
             - Path=/api/v1/order-query/**
 
+        - id: order
+          uri: lb://${ORDER_SERVICE_HOST:ts-order-service}
+          predicates:
+            - Path=/api/v1/order/**
+
         - id: payment
           uri: lb://${PAYMENT_SERVICE_HOST:ts-payment-service}
           predicates:
-            - Path=/api/v1/paymentservice/**
+            - Path=/api/v1/payment/**
 
-        - id: ticket-purchase
-          uri: lb://${TICKET_PURCHASE_SERVICE_HOST:ts-ticket-purchase-service}
-          predicates:
-            - Path=/api/v1/preserveservice/**
-
-        - id: price
-          uri: lb://${TICKET_SERVICE_HOST:ts-ticket-service}
-          predicates:
-            - Path=/api/v1/ticket/**
-
-        - id: route
+        - id: route-plan
           uri: lb://${ROUTE_PLAN_SERVICE_HOST:ts-route-plan-service}
           predicates:
-            - Path=/api/v1/routeservice/**
+            - Path=/api/v1/route-plan/**
 
         - id: security
           uri: lb://${SECURITY_SERVICE_HOST:ts-security-service}
           predicates:
-            - Path=/api/v1/securityservice/**
+            - Path=/api/v1/security/**
+
+        - id: sms-notification
+          uri: lb://${SMS_NOTIFICATION_SERVICE_HOST:ts-sms-notification-service}
+          predicates:
+            - Path=/api/v1/sms-notification/**
 
         - id: station
           uri: lb://${STATION_SERVICE_HOST:ts-station-service}
           predicates:
-            - Path=/api/v1/stationservice/**
-
-        - id: food-list
-          uri: lb://${FOOD_LIST_SERVICE_HOST:ts-food-list-service}
-          predicates:
-            - Path=/api/v1/foodlist/**
+            - Path=/api/v1/station/**
 
         - id: ticket-plan
           uri: lb://${TICKET_PLAN_SERVICE_HOST:ts-ticket-plan-service}
           predicates:
-            - Path=/api/v1/ticketplan/**
+            - Path=/api/v1/ticket-plan/**
 
-        - id: travel
+        - id: ticket-purchase
+          uri: lb://${TICKET_PURCHASE_SERVICE_HOST:ts-ticket-purchase-service}
+          predicates:
+            - Path=/api/v1/ticket-purchase/**
+
+
+        - id: ticket-query
           uri: lb://${TRAVEL_SERVICE_HOST:ts-ticket-query-service}
           predicates:
-            - Path=/api/v1/ticketquery/**
+            - Path=/api/v1/ticket-query/**
+
+        - id: ticket
+          uri: lb://${TICKET_SERVICE_HOST:ts-ticket-service}
+          predicates:
+            - Path=/api/v1/ticket/**
+
+        - id: train
+          uri: lb://${TRAIN_SERVICE_HOST:ts-train-service}
+          predicates:
+            - Path=/api/v1/train/**
+
+        - id: user-notification
+          uri: lb://${USER_NOTIFICATION_SERVICE_HOST:ts-user-notification-service}
+          predicates:
+            - Path=/api/v1/user-notification/**
 
         - id: user
           uri: lb://${USER_SERVICE_HOST:ts-user-service}
           predicates:
-            - Path=/api/v1/userservice/users/**
+            - Path=/api/v1/user/users/**
+
+        - id: voucher
+          uri: lb://${VOUCHER_SERVICE_HOST:ts-voucher-service}
+          predicates:
+            - Path=/api/v1/voucher/**
+
+        - id: wait-order
+          uri: lb://${WAIT_ORDER_SERVICE_HOST:ts-wait-order-service}
+          predicates:
+            - Path=/api/v1/waitorder/**

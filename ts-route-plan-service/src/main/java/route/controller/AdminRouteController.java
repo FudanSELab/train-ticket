@@ -13,7 +13,7 @@ import route.service.AdminRouteService;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/routeservice/admin")
+@RequestMapping("/api/v1/route-plan/admin")
 public class AdminRouteController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminRouteController.class);

@@ -15,7 +15,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * Cancel endpoints migrated from ts-cancel-service.
  */
 @RestController
-@RequestMapping("/api/v1/preserveservice/cancel")
+@RequestMapping("/api/v1/ticket-purchase/cancel")
 public class CancelController {
 
     @Autowired

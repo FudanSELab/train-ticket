@@ -39,7 +39,7 @@ public class TravelPlanControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/ticketplan/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/ticket-plan/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ TravelPlan Service ] !"));
     }
@@ -49,7 +49,7 @@ public class TravelPlanControllerTest {
         TransferTravelInfo info = new TransferTravelInfo();
         Mockito.when(travelPlanService.getTransferSearch(Mockito.any(TransferTravelInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(info);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticketplan/travelPlan/transferResult").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticket-plan/travelPlan/transferResult").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -60,7 +60,7 @@ public class TravelPlanControllerTest {
         TripInfo queryInfo = new TripInfo();
         Mockito.when(travelPlanService.getCheapest(Mockito.any(TripInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(queryInfo);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticketplan/travelPlan/cheapest").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticket-plan/travelPlan/cheapest").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -71,7 +71,7 @@ public class TravelPlanControllerTest {
         TripInfo queryInfo = new TripInfo();
         Mockito.when(travelPlanService.getQuickest(Mockito.any(TripInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(queryInfo);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticketplan/travelPlan/quickest").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticket-plan/travelPlan/quickest").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -82,7 +82,7 @@ public class TravelPlanControllerTest {
         TripInfo queryInfo = new TripInfo();
         Mockito.when(travelPlanService.getMinStation(Mockito.any(TripInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(queryInfo);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticketplan/travelPlan/minStation").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/ticket-plan/travelPlan/minStation").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));

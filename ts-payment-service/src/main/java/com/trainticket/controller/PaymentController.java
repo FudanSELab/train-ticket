@@ -16,7 +16,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @date 2017/4/7
  */
 @RestController
-@RequestMapping("/api/v1/paymentservice")
+@RequestMapping("/api/v1/payment")
 public class PaymentController {
 
     @Autowired

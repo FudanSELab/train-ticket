@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/fooddeliveryservice")
+@RequestMapping("/api/v1/food-delivery")
 public class FoodDeliveryController {
 
     @Autowired

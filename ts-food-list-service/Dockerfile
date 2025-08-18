@@ -5,4 +5,4 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shang
 ADD ./target/ts-food-list-service-1.0.jar /app/
 CMD ["java", "-Xmx200m",  "-jar", "/app/ts-food-list-service-1.0.jar"]
 
-EXPOSE 19999
+EXPOSE 19998

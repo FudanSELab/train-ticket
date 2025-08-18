@@ -5,4 +5,4 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shang
 ADD ./target/ts-user-notification-service-1.0.jar /app/
 CMD ["java", "-Xmx200m",  "-jar", "/app/ts-user-notification-service-1.0.jar"]
 
-EXPOSE 17853
+EXPOSE 17854

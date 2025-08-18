@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/orderservice/assurance")
+@RequestMapping("/api/v1/order/assurance")
 public class AssuranceController {
 
     @Autowired

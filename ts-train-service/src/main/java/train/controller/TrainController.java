@@ -16,7 +16,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 
 @RestController
-@RequestMapping("/api/v1/trainservice")
+@RequestMapping("/api/v1/train")
 public class TrainController {
 
 

@@ -13,7 +13,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/foodlist/stationfood")
+@RequestMapping("/api/v1/food-list/station-foods")
 public class StationFoodController {
 
     @Autowired

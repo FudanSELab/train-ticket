@@ -245,7 +245,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         HttpEntity requestEntity = new HttpEntity(seatRequest, null);
         String seat_service_url = getServiceUrl("ts-ticket-purchase-service");
         ResponseEntity<Response<Integer>> re = restTemplate.exchange(
-                seat_service_url + "/api/v1/preserveservice/seat/seats/left_tickets",
+                seat_service_url + "/api/v1/ticket-purchase/seat/seats/left_tickets",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Integer>>() {
@@ -270,7 +270,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         HttpEntity requestEntity = new HttpEntity(info, null);
         String travel_service_url=getServiceUrl("ts-ticket-query-service");
         ResponseEntity<Response<List<TripResponse>>> re = restTemplate.exchange(
-                travel_service_url + "/api/v1/ticketquery/trips/left",
+                travel_service_url + "/api/v1/ticket-query/trips/left",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<List<TripResponse>>>() {
@@ -283,7 +283,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         HttpEntity requestEntity = new HttpEntity(info, null);
         String travel_service_url = getServiceUrl("ts-ticket-query-service");
         ResponseEntity<Response<ArrayList<TripResponse>>> re = restTemplate.exchange(
-                travel_service_url + "/api/v1/ticketquery/trips/left",
+                travel_service_url + "/api/v1/ticket-query/trips/left",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<ArrayList<TripResponse>>>() {
@@ -296,7 +296,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         HttpEntity requestEntity = new HttpEntity(null);
         String train_service_url=getServiceUrl("ts-train-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeName,
+                train_service_url + "/api/v1/train/trains/byName/" + trainTypeName,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);

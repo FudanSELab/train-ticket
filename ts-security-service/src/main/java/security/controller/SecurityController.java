@@ -15,7 +15,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/securityservice")
+@RequestMapping("/api/v1/security")
 public class SecurityController {
 
     @Autowired

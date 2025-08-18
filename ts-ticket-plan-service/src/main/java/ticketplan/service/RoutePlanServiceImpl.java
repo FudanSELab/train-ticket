@@ -139,7 +139,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         HttpEntity<?> requestEntity = new HttpEntity<>(null);
         String route_service_url = getServiceUrl("ts-route-plan-service");
         ResponseEntity<Response<ArrayList<Route>>> re = restTemplate.exchange(
-                route_service_url + "/api/v1/routeservice/routes/" + info.getStartStation() + "/" + info.getEndStation(),
+                route_service_url + "/api/v1/route-plan/routes/" + info.getStartStation() + "/" + info.getEndStation(),
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<ArrayList<Route>>>() {
@@ -174,7 +174,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         requestEntity = new HttpEntity<>(resultRoutes, null);
         String travel_service_url = getServiceUrl("ts-ticket-query-service");
         ResponseEntity<Response<ArrayList<ArrayList<Trip>>>> re2 = restTemplate.exchange(
-                travel_service_url + "/api/v1/ticketquery/trips/routes",
+                travel_service_url + "/api/v1/ticket-query/trips/routes",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<ArrayList<ArrayList<Trip>>>>() {
@@ -198,7 +198,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
             allDetailInfo.setFrom(info.getStartStation());
             allDetailInfo.setTo(info.getEndStation());
             requestEntity = new HttpEntity<>(allDetailInfo, null);
-            String requestUrl = travel_service_url + "/api/v1/ticketquery/trip_detail";
+            String requestUrl = travel_service_url + "/api/v1/ticket-query/trip_detail";
             ResponseEntity<Response<TripAllDetail>> re3 = restTemplate.exchange(
                     requestUrl,
                     HttpMethod.POST,
@@ -233,7 +233,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         HttpEntity<?> requestEntity = new HttpEntity<>(null);
         String route_service_url = getServiceUrl("ts-route-plan-service");
         ResponseEntity<Response<Route>> re = restTemplate.exchange(
-                route_service_url + "/api/v1/routeservice/routes/" + routeId,
+                route_service_url + "/api/v1/route-plan/routes/" + routeId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Route>>() {
@@ -253,7 +253,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         HttpEntity<?> requestEntity = new HttpEntity<>(info, null);
         String travel_service_url = getServiceUrl("ts-ticket-query-service");
         ResponseEntity<Response<ArrayList<TripResponse>>> re = restTemplate.exchange(
-                travel_service_url + "/api/v1/ticketquery/trips/left",
+                travel_service_url + "/api/v1/ticket-query/trips/left",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<ArrayList<TripResponse>>>() {
@@ -267,7 +267,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
         HttpEntity<?> requestEntity = new HttpEntity<>(info, null);
         String travel_service_url = getServiceUrl("ts-ticket-query-service");
         ResponseEntity<Response<ArrayList<TripResponse>>> re = restTemplate.exchange(
-                travel_service_url + "/api/v1/ticketquery/trips/left",
+                travel_service_url + "/api/v1/ticket-query/trips/left",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<ArrayList<TripResponse>>>() {
@@ -279,7 +279,7 @@ public class RoutePlanServiceImpl implements RoutePlanService {
 
     private List<String> getStationList(String tripId, HttpHeaders headers) {
         String travel_service_url = getServiceUrl("ts-ticket-query-service");
-        String path = travel_service_url + "/api/v1/ticketquery/routes/" + tripId;
+        String path = travel_service_url + "/api/v1/ticket-query/routes/" + tripId;
         HttpEntity<?> requestEntity = new HttpEntity<>(null);
         ResponseEntity<Response<Route>> re = restTemplate.exchange(
                 path,

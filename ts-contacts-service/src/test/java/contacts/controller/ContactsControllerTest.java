@@ -40,7 +40,7 @@ public class ContactsControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/contactservice/contacts/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/contact/contacts/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Contacts Service ] !"));
     }
@@ -48,7 +48,7 @@ public class ContactsControllerTest {
     @Test
     public void testGetAllContacts() throws Exception {
         Mockito.when(contactsService.getAllContacts(Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/contactservice/contacts"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/contact/contacts"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -59,7 +59,7 @@ public class ContactsControllerTest {
         Contacts aci = new Contacts();
         Mockito.when(contactsService.create(Mockito.any(Contacts.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(aci);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/contactservice/contacts").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/contact/contacts").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -70,7 +70,7 @@ public class ContactsControllerTest {
         Contacts aci = new Contacts();
         Mockito.when(contactsService.createContacts(Mockito.any(Contacts.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(aci);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/contactservice/contacts/admin").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/contact/contacts/admin").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -80,7 +80,7 @@ public class ContactsControllerTest {
     public void testDeleteContacts() throws Exception {
         UUID contactsId = UUID.randomUUID();
         Mockito.when(contactsService.delete(Mockito.any(UUID.class).toString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/contactservice/contacts/" + contactsId.toString()))
+        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/contact/contacts/" + contactsId.toString()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -91,7 +91,7 @@ public class ContactsControllerTest {
         Contacts info = new Contacts();
         Mockito.when(contactsService.modify(Mockito.any(Contacts.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(info);
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/contactservice/contacts").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/contact/contacts").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -101,7 +101,7 @@ public class ContactsControllerTest {
     public void testFindContactsByAccountId() throws Exception {
         UUID accountId = UUID.randomUUID();
         Mockito.when(contactsService.findContactsByAccountId(Mockito.any(UUID.class).toString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/contactservice/contacts/account/" + accountId.toString()))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/contact/contacts/account/" + accountId.toString()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -111,7 +111,7 @@ public class ContactsControllerTest {
     public void testGetContactsByContactsId() throws Exception {
         UUID id = UUID.randomUUID();
         Mockito.when(contactsService.findContactsById(Mockito.any(UUID.class).toString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/contactservice/contacts/" + id.toString()))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/contact/contacts/" + id.toString()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));

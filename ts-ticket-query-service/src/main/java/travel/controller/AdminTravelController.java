@@ -13,7 +13,7 @@ import travel.service.AdminTravelService;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/ticketquery/admin")
+@RequestMapping("/api/v1/ticket-query/admin")
 public class AdminTravelController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminTravelController.class);

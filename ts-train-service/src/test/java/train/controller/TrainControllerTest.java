@@ -40,7 +40,7 @@ public class TrainControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/trainservice/trains/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Train Service ] !"));
     }
@@ -50,7 +50,7 @@ public class TrainControllerTest {
         TrainType trainType = new TrainType();
         Mockito.when(trainService.create(Mockito.any(TrainType.class), Mockito.any(HttpHeaders.class))).thenReturn(true);
         String requestJson = JSONObject.toJSONString(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/trainservice/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/train/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(new Response(1, "create success", null), JSONObject.parseObject(result, Response.class));
@@ -61,7 +61,7 @@ public class TrainControllerTest {
         TrainType trainType = new TrainType();
         Mockito.when(trainService.create(Mockito.any(TrainType.class), Mockito.any(HttpHeaders.class))).thenReturn(false);
         String requestJson = JSONObject.toJSONString(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/trainservice/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/train/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals("train type already exist", JSONObject.parseObject(result, Response.class).getMsg());
@@ -70,7 +70,7 @@ public class TrainControllerTest {
     @Test
     public void testRetrieve1() throws Exception {
         Mockito.when(trainService.retrieve(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(null);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/trainservice/trains/wrong_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains/wrong_id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(new Response(0, "here is no TrainType with the trainType id: wrong_id", null), JSONObject.parseObject(result, Response.class));
@@ -80,7 +80,7 @@ public class TrainControllerTest {
     public void testRetrieve2() throws Exception {
         TrainType trainType = new TrainType();
         Mockito.when(trainService.retrieve(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/trainservice/trains/id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains/id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals("success", JSONObject.parseObject(result, Response.class).getMsg());
@@ -91,7 +91,7 @@ public class TrainControllerTest {
         TrainType trainType = new TrainType();
         Mockito.when(trainService.update(Mockito.any(TrainType.class), Mockito.any(HttpHeaders.class))).thenReturn(true);
         String requestJson = JSONObject.toJSONString(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/trainservice/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/train/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(new Response(1, "update success", true), JSONObject.parseObject(result, Response.class));
@@ -102,7 +102,7 @@ public class TrainControllerTest {
         TrainType trainType = new TrainType();
         Mockito.when(trainService.update(Mockito.any(TrainType.class), Mockito.any(HttpHeaders.class))).thenReturn(false);
         String requestJson = JSONObject.toJSONString(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/trainservice/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/train/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(new Response(0, "there is no trainType with the trainType id", false), JSONObject.parseObject(result, Response.class));
@@ -111,7 +111,7 @@ public class TrainControllerTest {
     @Test
     public void testDelete1() throws Exception {
         Mockito.when(trainService.delete(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(true);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/trainservice/trains/id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/train/trains/id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(new Response(1, "delete success", true), JSONObject.parseObject(result, Response.class));
@@ -120,7 +120,7 @@ public class TrainControllerTest {
     @Test
     public void testDelete2() throws Exception {
         Mockito.when(trainService.delete(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(false);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/trainservice/trains/id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/train/trains/id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(new Response(0, "there is no train according to id", null), JSONObject.parseObject(result, Response.class));
@@ -131,7 +131,7 @@ public class TrainControllerTest {
         List<TrainType> trainTypes = new ArrayList<>();
         trainTypes.add(new TrainType());
         Mockito.when(trainService.query(Mockito.any(HttpHeaders.class))).thenReturn(trainTypes);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/trainservice/trains"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals("success", JSONObject.parseObject(result, Response.class).getMsg());
@@ -141,7 +141,7 @@ public class TrainControllerTest {
     public void testQuery2() throws Exception {
         List<TrainType> trainTypes = new ArrayList<>();
         Mockito.when(trainService.query(Mockito.any(HttpHeaders.class))).thenReturn(trainTypes);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/trainservice/trains"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals("no content", JSONObject.parseObject(result, Response.class).getMsg());

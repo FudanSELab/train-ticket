@@ -19,7 +19,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/userservice/users")
+@RequestMapping("/api/v1/user/users")
 public class UserController {
 
     @Autowired

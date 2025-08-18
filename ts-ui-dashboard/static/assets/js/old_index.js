@@ -289,7 +289,7 @@ function getOptionsData(){
 function getUserList(){
     $.ajax({
         type: "get",
-        url: "/api/v1/userservice/users",
+        url: "/api/v1/auth/userservice/users",
         contentType: "application/json",
         dataType: "json",
         headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
@@ -334,7 +334,7 @@ function getContactOptions(){
     var accountId=$('#add_order_account').find("option:selected").val();
     $.ajax({
         type: "get",
-        url: "/api/v1/contactservice/contacts/account/"+accountId,
+        url: "/api/v1/contact/contacts/account/"+accountId,
         contentType: "application/json",
         dataType: "json",
         headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},

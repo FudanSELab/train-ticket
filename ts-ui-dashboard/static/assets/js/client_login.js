@@ -20,7 +20,7 @@ var loginApp = new Vue({
         },
         reloadYZM() {
             console.log("brush verification code")
-            document.getElementById("flow_preserve_login_verification_code_img").src = "/api/v1/verifycode/generate?" +Math.random();
+            document.getElementById("flow_preserve_login_verification_code_img").src = "/api/v1/auth/verifycode/generate?" +Math.random();
         },
         login() {
             var loginInfo = new Object();
@@ -44,7 +44,7 @@ var loginApp = new Vue({
             var data = JSON.stringify(loginInfo);
             $.ajax({
                 type: "post",
-                url: "/api/v1/users/login",
+                url: "/api/v1/auth/users/login",
                 contentType: "application/json",
                 dataType: "json",
                 data: data,

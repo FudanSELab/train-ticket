@@ -38,7 +38,7 @@ public class RouteControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/routeservice/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/route-plan/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Route Service ] !"));
     }
@@ -48,7 +48,7 @@ public class RouteControllerTest {
         RouteInfo createAndModifyRouteInfo = new RouteInfo();
         Mockito.when(routeService.createAndModify(Mockito.any(RouteInfo.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(createAndModifyRouteInfo);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/routeservice/routes").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/route-plan/routes").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -57,7 +57,7 @@ public class RouteControllerTest {
     @Test
     public void testDeleteRoute() throws Exception {
         Mockito.when(routeService.deleteRoute(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/routeservice/routes/route_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/route-plan/routes/route_id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -66,7 +66,7 @@ public class RouteControllerTest {
     @Test
     public void testQueryById() throws Exception {
         Mockito.when(routeService.getRouteById(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/routeservice/routes/route_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/route-plan/routes/route_id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -75,7 +75,7 @@ public class RouteControllerTest {
     @Test
     public void testQueryAll() throws Exception {
         Mockito.when(routeService.getAllRoutes(Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/routeservice/routes"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/route-plan/routes"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -84,7 +84,7 @@ public class RouteControllerTest {
     @Test
     public void testQueryByStartAndTerminal() throws Exception {
         Mockito.when(routeService.getRouteByStartAndEnd(Mockito.anyString(), Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/routeservice/routes/start_id/terminal_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/route-plan/routes/start_id/terminal_id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));

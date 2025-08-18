@@ -8,7 +8,7 @@ controllerModule.controller("loginCtrl", function ($scope,$http) {
         var password = $scope.password;
         $http({
             method:"post",
-            url: "/api/v1/users/login",
+            url: "/api/v1/auth/users/login",
             withCredentials: true,
             data:{
                 username: username,

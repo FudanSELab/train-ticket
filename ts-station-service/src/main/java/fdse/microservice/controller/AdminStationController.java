@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/stationservice/admin")
+@RequestMapping("/api/v1/station/admin")
 public class AdminStationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminStationController.class);

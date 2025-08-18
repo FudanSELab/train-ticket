@@ -15,7 +15,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/inside_pay_service")
+@RequestMapping("/api/v1/inside-payment")
 public class InsidePaymentController {
 
     @Autowired

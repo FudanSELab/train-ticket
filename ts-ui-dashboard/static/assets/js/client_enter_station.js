@@ -34,7 +34,7 @@ var enterStation = new Vue({
 
             this.myOrderList = [];
             var myOrdersQueryData = JSON.stringify(myOrdersQueryInfo);
-            this.queryForMyOrderThree("/api/v1/orderservice/order/refresh", myOrdersQueryData);
+            this.queryForMyOrderThree("/api/v1/order/order/refresh", myOrdersQueryData);
         },
         queryForMyOrderThree(path, data) {
 
@@ -96,7 +96,7 @@ var enterStation = new Vue({
                 var data = JSON.stringify(executeInfo);
                 $.ajax({
                     type: "get",
-                    url: "/api/v1/executeservice/execute/execute/" + executeInfo.orderId,
+                    url: "/api/v1/execute/execute/execute/" + executeInfo.orderId,
                     contentType: "application/json",
                     dataType: "json",
                     headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},

@@ -219,7 +219,7 @@ function getOptionsData(){
 function getTrainTypes(){
     $.ajax({
         type: "get",
-        url: "/api/v1/trainservice/trains",
+        url: "/api/v1/train/trains",
         contentType: "application/json",
         dataType: "json",
         headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
@@ -258,7 +258,7 @@ function getTrainTypes(){
 function getRouteList(){
     $.ajax({
         type: "get",
-        url: "/api/v1/routeservice/routes",
+        url: "/api/v1/route-plan/routes",
         contentType: "application/json",
         dataType: "json",
         headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},
@@ -295,7 +295,7 @@ function getRouteList(){
 function getStationList(){
     $.ajax({
         type: "get",
-        url: "/api/v1/stationservice/stations",
+        url: "/api/v1/station/stations",
         contentType: "application/json",
         dataType: "json",
         headers: {"Authorization": "Bearer " + sessionStorage.getItem("admin_token")},

@@ -18,7 +18,7 @@ import java.util.UUID;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/foodbooking")
+@RequestMapping("/api/v1/food-booking")
 public class FoodController {
 
     @Autowired

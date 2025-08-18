@@ -18,7 +18,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @date 2017/6/6.
  */
 @RestController
-@RequestMapping("/api/v1/basicservice")
+@RequestMapping("/api/v1/basic")
 
 public class BasicController {
 

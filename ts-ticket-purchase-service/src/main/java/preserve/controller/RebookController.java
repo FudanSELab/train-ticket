@@ -11,7 +11,7 @@ import preserve.service.RebookService;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/preserveservice/rebook")
+@RequestMapping("/api/v1/ticket-purchase/rebook")
 public class RebookController {
 
     @Autowired

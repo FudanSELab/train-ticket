@@ -32,7 +32,7 @@ travel-service:
   url: http://${TRAVEL_SERVICE_HOST:ts-travel-service}:${TRAVEL_SERVICE_PORT:12346}
 
 food-list-service:
-  url: http://${FOOD_LIST_SERVICE_HOST:ts-food-list-service}:${FOOD_LIST_SERVICE_PORT:19999}
+  url: http://${FOOD_LIST_SERVICE_HOST:ts-food-list-service}:${FOOD_LIST_SERVICE_PORT:19998}
 
 food-merchant-service:
   url: http://${FOOD_MERCHANT_SERVICE_HOST:ts-food-merchant-service}:${FOOD_MERCHANT_SERVICE_PORT:18855}

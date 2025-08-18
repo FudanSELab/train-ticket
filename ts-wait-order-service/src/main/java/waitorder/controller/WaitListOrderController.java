@@ -17,7 +17,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * @author fdse
  */
 @RestController
-@RequestMapping("/api/v1/waitorderservice")
+@RequestMapping("/api/v1/wait-order")
 public class WaitListOrderController {
 
     @Autowired

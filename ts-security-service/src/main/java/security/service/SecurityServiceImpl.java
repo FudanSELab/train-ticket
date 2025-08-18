@@ -131,7 +131,7 @@ public class SecurityServiceImpl implements SecurityService {
         HttpEntity requestEntity = new HttpEntity(null);
         String order_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
-                order_service_url + "/api/v1/orderservice/order/security/" + checkDate + "/" + accountId,
+                order_service_url + "/api/v1/order/order/security/" + checkDate + "/" + accountId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<OrderSecurity>>() {
@@ -146,7 +146,7 @@ public class SecurityServiceImpl implements SecurityService {
         HttpEntity requestEntity = new HttpEntity(null);
         String order_other_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
-                order_other_service_url + "/api/v1/orderservice/order/security/" + checkDate + "/" + accountId,
+                order_other_service_url + "/api/v1/order/order/security/" + checkDate + "/" + accountId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<OrderSecurity>>() {

@@ -176,7 +176,7 @@ public class CancelServiceImpl implements CancelService {
         HttpEntity<Order> requestEntity = new HttpEntity<>(order, newHeaders);
         String order_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                order_service_url + "/api/v1/orderservice/order",
+                order_service_url + "/api/v1/order/order",
                 HttpMethod.PUT,
                 requestEntity,
                 Response.class);
@@ -190,7 +190,7 @@ public class CancelServiceImpl implements CancelService {
         HttpEntity<Order> requestEntity = new HttpEntity<>(order, newHeaders);
         String order_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                order_service_url + "/api/v1/orderservice/order",
+                order_service_url + "/api/v1/order/order",
                 HttpMethod.PUT,
                 requestEntity,
                 Response.class);
@@ -203,7 +203,7 @@ public class CancelServiceImpl implements CancelService {
         HttpEntity<?> requestEntity = new HttpEntity<>(newHeaders);
         String inside_payment_service_url = getServiceUrl("ts-inside-payment-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                inside_payment_service_url + "/api/v1/inside_pay_service/inside_payment/drawback/" + userId + "/" + money,
+                inside_payment_service_url + "/api/v1/inside-payment/inside_payment/drawback/" + userId + "/" + money,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);
@@ -217,7 +217,7 @@ public class CancelServiceImpl implements CancelService {
         HttpEntity<?> requestEntity = new HttpEntity<>(newHeaders);
         String user_service_url = getServiceUrl("ts-user-service");
         ResponseEntity<Response<User>> re = restTemplate.exchange(
-                user_service_url + "/api/v1/userservice/users/id/" + accountId,
+                user_service_url + "/api/v1/user/users/id/" + accountId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<User>>() {});
@@ -230,7 +230,7 @@ public class CancelServiceImpl implements CancelService {
         HttpEntity<?> requestEntity = new HttpEntity<>(newHeaders);
         String order_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response<Order>> re = restTemplate.exchange(
-                order_service_url + "/api/v1/orderservice/order/" + orderId,
+                order_service_url + "/api/v1/order/order/" + orderId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {});
@@ -243,7 +243,7 @@ public class CancelServiceImpl implements CancelService {
         HttpEntity<?> requestEntity = new HttpEntity<>(newHeaders);
         String order_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response<Order>> re = restTemplate.exchange(
-                order_service_url + "/api/v1/orderservice/order/" + orderId,
+                order_service_url + "/api/v1/order/order/" + orderId,
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<Order>>() {});

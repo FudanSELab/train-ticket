@@ -15,7 +15,7 @@ import static org.springframework.http.ResponseEntity.ok;
  * Seat endpoints migrated from ts-seat-service.
  */
 @RestController
-@RequestMapping("/api/v1/preserveservice/seat")
+@RequestMapping("/api/v1/ticket-purchase/seat")
 public class SeatController {
 
     @Autowired

@@ -131,7 +131,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestEntity = new HttpEntity(query, headers);
         String basic_service_url = getServiceUrl("ts-basic-service");
         ResponseEntity<Response<TravelResult>> re = restTemplate.exchange(
-                basic_service_url + "/api/v1/basicservice/basic/travel",
+                basic_service_url + "/api/v1/basic/basic/travel",
                 HttpMethod.POST,
                 requestEntity,
                 new ParameterizedTypeReference<Response<TravelResult>>() {
@@ -300,7 +300,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestEntitySendEmail = new HttpEntity(httpHeaders);
         String user_service_url = getServiceUrl("ts-user-service");
         ResponseEntity<Response<User>> getAccount = restTemplate.exchange(
-                user_service_url + "/api/v1/userservice/users/id/" + accountId,
+                user_service_url + "/api/v1/user/users/id/" + accountId,
                 HttpMethod.GET,
                 requestEntitySendEmail,
                 new ParameterizedTypeReference<Response<User>>() {
@@ -314,7 +314,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestAddAssuranceResult = new HttpEntity(httpHeaders);
         String assurance_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response> reAddAssuranceResult = restTemplate.exchange(
-                assurance_service_url + "/api/v1/orderservice/assurance/assurances/" + assuranceType + "/" + orderId,
+                assurance_service_url + "/api/v1/order/assurance/assurances/" + assuranceType + "/" + orderId,
                 HttpMethod.GET,
                 requestAddAssuranceResult,
                 Response.class);
@@ -329,7 +329,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestQueryForStationId = new HttpEntity(httpHeaders);
         String station_service_url = getServiceUrl("ts-station-service");
         ResponseEntity<Response<String>> reQueryForStationId = restTemplate.exchange(
-                station_service_url + "/api/v1/stationservice/stations/id/" + stationName,
+                station_service_url + "/api/v1/station/stations/id/" + stationName,
                 HttpMethod.GET,
                 requestQueryForStationId,
                 new ParameterizedTypeReference<Response<String>>() {
@@ -344,7 +344,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestCheckResult = new HttpEntity(httpHeaders);
         String security_service_url = getServiceUrl("ts-security-service");
         ResponseEntity<Response> reCheckResult = restTemplate.exchange(
-                security_service_url + "/api/v1/securityservice/securityConfigs/" + accountId,
+                security_service_url + "/api/v1/security/securityConfigs/" + accountId,
                 HttpMethod.GET,
                 requestCheckResult,
                 Response.class);
@@ -359,7 +359,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestGetTripAllDetailResult = new HttpEntity(gtdi, httpHeaders);
         String travel_service_url = getServiceUrl("ts-ticket-query-service");
         ResponseEntity<Response<TripAllDetail>> reGetTripAllDetailResult = restTemplate.exchange(
-                travel_service_url + "/api/v1/ticketquery/trip_detail",
+                travel_service_url + "/api/v1/ticket-query/trip_detail",
                 HttpMethod.POST,
                 requestGetTripAllDetailResult,
                 new ParameterizedTypeReference<Response<TripAllDetail>>() {
@@ -375,7 +375,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestGetContactsResult = new HttpEntity(httpHeaders);
         String contacts_service_url = getServiceUrl("ts-contacts-service");
         ResponseEntity<Response<Contacts>> reGetContactsResult = restTemplate.exchange(
-                contacts_service_url + "/api/v1/contactservice/contacts/" + contactsId,
+                contacts_service_url + "/api/v1/contact/contacts/" + contactsId,
                 HttpMethod.GET,
                 requestGetContactsResult,
                 new ParameterizedTypeReference<Response<Contacts>>() {
@@ -390,7 +390,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestEntityCreateOrderResult = new HttpEntity(coi, httpHeaders);
         String order_service_url = getServiceUrl("ts-order-service");
         ResponseEntity<Response<Order>> reCreateOrderResult = restTemplate.exchange(
-                order_service_url + "/api/v1/orderservice/order",
+                order_service_url + "/api/v1/order/order",
                 HttpMethod.POST,
                 requestEntityCreateOrderResult,
                 new ParameterizedTypeReference<Response<Order>>() {
@@ -405,7 +405,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestEntityAddFoodOrderResult = new HttpEntity(afi, httpHeaders);
         String food_service_url = getServiceUrl("ts-food-booking-service");
         ResponseEntity<Response> reAddFoodOrderResult = restTemplate.exchange(
-                food_service_url + "/api/v1/foodbooking/orders",
+                food_service_url + "/api/v1/food-booking/orders",
                 HttpMethod.POST,
                 requestEntityAddFoodOrderResult,
                 Response.class);
@@ -419,7 +419,7 @@ public class PreserveServiceImpl implements PreserveService {
         HttpEntity requestEntityResultForTravel = new HttpEntity(cr, httpHeaders);
         String consign_service_url = getServiceUrl("ts-consign-service");
         ResponseEntity<Response> reResultForTravel = restTemplate.exchange(
-                consign_service_url + "/api/v1/consignservice/consigns",
+                consign_service_url + "/api/v1/consign/consigns",
                 HttpMethod.POST,
                 requestEntityResultForTravel,
                 Response.class);

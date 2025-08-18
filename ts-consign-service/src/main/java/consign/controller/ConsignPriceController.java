@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/consignservice/price")
+@RequestMapping("/api/v1/consign/price")
 public class ConsignPriceController {
 
     @Autowired

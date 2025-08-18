@@ -326,7 +326,7 @@ public class BasicServiceImpl implements BasicService {
         HttpEntity requestEntity = new HttpEntity(null);
         String station_service_url=getServiceUrl("ts-station-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                station_service_url + "/api/v1/stationservice/stations/id/" + stationName,
+                station_service_url + "/api/v1/station/stations/id/" + stationName,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);
@@ -343,7 +343,7 @@ public class BasicServiceImpl implements BasicService {
         HttpEntity requestEntity = new HttpEntity(stationNames, null);
         String station_service_url=getServiceUrl("ts-station-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                station_service_url + "/api/v1/stationservice/stations/idlist",
+                station_service_url + "/api/v1/station/stations/idlist",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
@@ -360,7 +360,7 @@ public class BasicServiceImpl implements BasicService {
         HttpEntity requestEntity = new HttpEntity(null);
         String station_service_url=getServiceUrl("ts-station-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                station_service_url + "/api/v1/stationservice/stations/id/" + stationName,
+                station_service_url + "/api/v1/station/stations/id/" + stationName,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);
@@ -374,7 +374,7 @@ public class BasicServiceImpl implements BasicService {
         HttpEntity requestEntity = new HttpEntity(trainTypeNames, null);
         String train_service_url=getServiceUrl("ts-train-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                train_service_url + "/api/v1/trainservice/trains/byNames",
+                train_service_url + "/api/v1/train/trains/byNames",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
@@ -391,7 +391,7 @@ public class BasicServiceImpl implements BasicService {
         HttpEntity requestEntity = new HttpEntity(null);
         String train_service_url=getServiceUrl("ts-train-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeName,
+                train_service_url + "/api/v1/train/trains/byName/" + trainTypeName,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);
@@ -405,7 +405,7 @@ public class BasicServiceImpl implements BasicService {
         HttpEntity requestEntity = new HttpEntity(routeIds, null);
         String route_service_url=getServiceUrl("ts-route-plan-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                route_service_url + "/api/v1/routeservice/routes/byIds/",
+                route_service_url + "/api/v1/route-plan/routes/byIds/",
                 HttpMethod.POST,
                 requestEntity,
                 Response.class);
@@ -425,7 +425,7 @@ public class BasicServiceImpl implements BasicService {
         HttpEntity requestEntity = new HttpEntity(null);
         String route_service_url=getServiceUrl("ts-route-plan-service");
         ResponseEntity<Response> re = restTemplate.exchange(
-                route_service_url + "/api/v1/routeservice/routes/" + routeId,
+                route_service_url + "/api/v1/route-plan/routes/" + routeId,
                 HttpMethod.GET,
                 requestEntity,
                 Response.class);

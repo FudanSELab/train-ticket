@@ -113,7 +113,7 @@ var reserveApp = new Vue({
             this.travelList =[];
 
             // Train type filter simplified after merging travel services
-            this.queryForTravelInfo(travelQueryData, "/api/v1/ticketquery/trips/left");
+            this.queryForTravelInfo(travelQueryData, "/api/v1/ticket-query/trips/left");
 
         },
         queryForTravelInfo(data, path) {

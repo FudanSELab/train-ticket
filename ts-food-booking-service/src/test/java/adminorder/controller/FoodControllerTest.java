@@ -39,7 +39,7 @@ public class FoodControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/foodbooking/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/food-booking/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Food Service ] !"));
     }
@@ -47,7 +47,7 @@ public class FoodControllerTest {
     @Test
     public void testFindAllFoodOrder() throws Exception {
         Mockito.when(foodService.findAllFoodOrder(Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/foodbooking/orders"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/food-booking/orders"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -58,7 +58,7 @@ public class FoodControllerTest {
         FoodOrder addFoodOrder = new FoodOrder();
         Mockito.when(foodService.createFoodOrder(Mockito.any(FoodOrder.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(addFoodOrder);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/foodbooking/orders").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/food-booking/orders").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -69,7 +69,7 @@ public class FoodControllerTest {
         FoodOrder updateFoodOrder = new FoodOrder();
         Mockito.when(foodService.updateFoodOrder(Mockito.any(FoodOrder.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(updateFoodOrder);
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/foodbooking/orders").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/food-booking/orders").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -78,7 +78,7 @@ public class FoodControllerTest {
     @Test
     public void testDeleteFoodOrder() throws Exception {
         Mockito.when(foodService.deleteFoodOrder(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/foodbooking/orders/order_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/food-booking/orders/order_id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -87,7 +87,7 @@ public class FoodControllerTest {
     @Test
     public void testFindFoodOrderByOrderId() throws Exception {
         Mockito.when(foodService.findByOrderId(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/foodbooking/orders/order_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/food-booking/orders/order_id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
@@ -96,7 +96,7 @@ public class FoodControllerTest {
     @Test
     public void testGetAllFood() throws Exception {
         Mockito.when(foodService.getAllFood(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/foodbooking/foods/date/start_station/end_station/trip_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/food-booking/foods/date/start_station/end_station/trip_id"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));

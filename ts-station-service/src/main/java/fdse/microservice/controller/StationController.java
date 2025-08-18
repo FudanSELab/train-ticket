@@ -17,7 +17,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/stationservice")
+@RequestMapping("/api/v1/station")
 public class StationController {
 
     @Autowired

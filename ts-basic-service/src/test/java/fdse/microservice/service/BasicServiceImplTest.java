@@ -51,24 +51,24 @@ public class BasicServiceImplTest {
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         //mock checkStationExists() and queryForStationId()
         Mockito.when(restTemplate.exchange(
-                "http://ts-station-service:12345/api/v1/stationservice/stations/id/" + "starting_place",
+                "http://ts-station-service:12345/api/v1/station/stations/id/" + "starting_place",
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re);
         Mockito.when(restTemplate.exchange(
-                "http://ts-station-service:12345/api/v1/stationservice/stations/id/" + "end_place",
+                "http://ts-station-service:12345/api/v1/station/stations/id/" + "end_place",
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re);
         //mock queryTrainType()
         Mockito.when(restTemplate.exchange(
-                "http://ts-train-service:14567/api/v1/trainservice/trains/" + "",
+                "http://ts-train-service:14567/api/v1/train/trains/" + "",
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re);
         //mock getRouteByRouteId()
         Mockito.when(restTemplate.exchange(
-                "http://ts-route-plan-service:11178/api/v1/routeservice/routes/" + "route_id",
+                "http://ts-route-plan-service:11178/api/v1/route-plan/routes/" + "route_id",
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re);
@@ -91,7 +91,7 @@ public class BasicServiceImplTest {
         Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-station-service:12345/api/v1/stationservice/stations/id/" + "stationName",
+                "http://ts-station-service:12345/api/v1/station/stations/id/" + "stationName",
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re);
@@ -104,7 +104,7 @@ public class BasicServiceImplTest {
         Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-station-service:12345/api/v1/stationservice/stations/id/" + "stationName",
+                "http://ts-station-service:12345/api/v1/station/stations/id/" + "stationName",
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re);
@@ -117,7 +117,7 @@ public class BasicServiceImplTest {
         Response response = new Response<>(1, null, null);
         ResponseEntity<Response> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-train-service:14567/api/v1/trainservice/trains/byName/" + "trainTypeName",
+                "http://ts-train-service:14567/api/v1/train/trains/byName/" + "trainTypeName",
                 HttpMethod.GET,
                 requestEntity,
                 Response.class)).thenReturn(re);

@@ -41,7 +41,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         String travel_service_url = getServiceUrl("ts-ticket-query-service");
         ResponseEntity<Response<ArrayList<AdminTrip>>> re = restTemplate.exchange(
-                travel_service_url + "/api/v1/ticketquery/admin_trip",
+                travel_service_url + "/api/v1/ticket-query/admin_trip",
                 HttpMethod.GET,
                 requestEntity,
                 new ParameterizedTypeReference<Response<ArrayList<AdminTrip>>>() {});
@@ -64,7 +64,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         }
         String tripId = request.getTripId();
         String serviceUrl = getServiceUrl("ts-travel-service");
-        String url = serviceUrl + "/api/v1/ticketquery/trips";
+        String url = serviceUrl + "/api/v1/ticket-query/trips";
         HttpEntity<TravelInfo> requestEntity = new HttpEntity<>(request, headers);
         ResponseEntity<Response> re = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Response.class);
         if (re.getBody() != null && re.getBody().getStatus() == 1) {
@@ -83,7 +83,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
         }
         String tripId = request.getTripId();
         String serviceUrl = getServiceUrl("ts-travel-service");
-        String url = serviceUrl + "/api/v1/ticketquery/trips";
+        String url = serviceUrl + "/api/v1/ticket-query/trips";
         HttpEntity<TravelInfo> requestEntity = new HttpEntity<>(request, headers);
         ResponseEntity<Response> re = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Response.class);
         if (re.getBody() != null && re.getBody().getStatus() == 1) {
@@ -97,7 +97,7 @@ public class AdminTravelServiceImpl implements AdminTravelService {
     @Override
     public Response deleteTravel(String tripId, HttpHeaders headers) {
         String serviceUrl = getServiceUrl("ts-travel-service");
-        String url = serviceUrl + "/api/v1/ticketquery/trips/" + tripId;
+        String url = serviceUrl + "/api/v1/ticket-query/trips/" + tripId;
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<Response> re = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, Response.class);
         if (re.getBody() != null && re.getBody().getStatus() == 1) {
@@ -136,19 +136,19 @@ public class AdminTravelServiceImpl implements AdminTravelService {
     private Response checkStationsExists(List<String> stationNames, HttpHeaders headers) {
         HttpEntity<List<String>> requestEntity = new HttpEntity<>(stationNames, null);
         String station_service_url = getServiceUrl("ts-station-service");
-        ResponseEntity<Response> re = restTemplate.exchange(station_service_url + "/api/v1/stationservice/stations/idlist", HttpMethod.POST, requestEntity, Response.class);
+        ResponseEntity<Response> re = restTemplate.exchange(station_service_url + "/api/v1/station/stations/idlist", HttpMethod.POST, requestEntity, Response.class);
         return re.getBody();
     }
 
     private TrainType queryTrainTypeByName(String trainTypeName, HttpHeaders headers) {
         String train_service_url = getServiceUrl("ts-train-service");
-        ResponseEntity<Response> re = restTemplate.exchange(train_service_url + "/api/v1/trainservice/trains/byName/" + trainTypeName, HttpMethod.GET, new HttpEntity<>(null), Response.class);
+        ResponseEntity<Response> re = restTemplate.exchange(train_service_url + "/api/v1/train/trains/byName/" + trainTypeName, HttpMethod.GET, new HttpEntity<>(null), Response.class);
         return JsonUtils.conveterObject(re.getBody().getData(), TrainType.class);
     }
 
     private Route getRouteByRouteId(String routeId, HttpHeaders headers) {
         String route_service_url = getServiceUrl("ts-route-plan-service");
-        ResponseEntity<Response> re = restTemplate.exchange(route_service_url + "/api/v1/routeservice/routes/" + routeId, HttpMethod.GET, new HttpEntity<>(null), Response.class);
+        ResponseEntity<Response> re = restTemplate.exchange(route_service_url + "/api/v1/route-plan/routes/" + routeId, HttpMethod.GET, new HttpEntity<>(null), Response.class);
         if (re.getBody().getStatus() == 0) {
             return null;
         }

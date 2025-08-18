@@ -9,7 +9,7 @@ var appConsign = new Vue({
             var that = this;
             $.ajax({
                 type: "get",
-                url: "/api/v1/consignservice/consigns/account/" + accountid,
+                url: "/api/v1/consign/consigns/account/" + accountid,
                 dataType: "json",
                 headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},
                 xhrFields: {

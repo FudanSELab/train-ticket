@@ -227,7 +227,7 @@ public class FoodServiceImpl implements FoodService {
         HttpEntity requestEntityGetTrainFoodListResult = new HttpEntity(null);
         String train_food_service_url = getServiceUrl("ts-food-list-service");
         ResponseEntity<Response<List<Food>>> reGetTrainFoodListResult = restTemplate.exchange(
-                train_food_service_url + "/api/v1/foodlist/trainfoods/" + tripId,
+                train_food_service_url + "/api/v1/food-list/train-foods/" + tripId,
                 HttpMethod.GET,
                 requestEntityGetTrainFoodListResult,
                 new ParameterizedTypeReference<Response<List<Food>>>() {
@@ -249,7 +249,7 @@ public class FoodServiceImpl implements FoodService {
         HttpEntity requestEntityGetRouteResult = new HttpEntity(null, null);
         String travel_service_url = getServiceUrl("ts-ticket-query-service");
         ResponseEntity<Response<Route>> reGetRouteResult = restTemplate.exchange(
-                travel_service_url + "/api/v1/ticketquery/routes/" + tripId,
+                travel_service_url + "/api/v1/ticket-query/routes/" + tripId,
                 HttpMethod.GET,
                 requestEntityGetRouteResult,
                 new ParameterizedTypeReference<Response<Route>>() {
@@ -284,7 +284,7 @@ public class FoodServiceImpl implements FoodService {
             HttpEntity requestEntityFoodStoresListResult = new HttpEntity(stations, null);
             String food_merchant_service_url = getServiceUrl("ts-food-list-service");
             ResponseEntity<Response<List<StationFoodStore>>> reFoodStoresListResult = restTemplate.exchange(
-                     food_merchant_service_url + "/api/v1/foodlist/stationfood/stationfoodstores",
+                     food_merchant_service_url + "/api/v1/food-list/station-foods/stationfoodstores",
                     HttpMethod.POST,
                     requestEntityFoodStoresListResult,
                     new ParameterizedTypeReference<Response<List<StationFoodStore>>>() {

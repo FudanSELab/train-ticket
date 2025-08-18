@@ -13,7 +13,7 @@ import train.service.TrainService;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/trainservice/admin")
+@RequestMapping("/api/v1/train/admin")
 public class AdminTrainController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminTrainController.class);

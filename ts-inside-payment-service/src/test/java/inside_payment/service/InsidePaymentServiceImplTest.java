@@ -55,7 +55,7 @@ public class InsidePaymentServiceImplTest {
         Response<Order> response = new Response<>(1, null, order);
         ResponseEntity<Response<Order>> re = new ResponseEntity<>(response, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-service:12031/api/v1/orderservice/order/order_id",
+                "http://ts-order-service:12031/api/v1/order/order/order_id",
                 HttpMethod.GET,
                 httpEntity,
                 new ParameterizedTypeReference<Response<Order>>() {
@@ -72,7 +72,7 @@ public class InsidePaymentServiceImplTest {
         Response response2 = new Response(1, "", null);
         ResponseEntity<Response> re2 = new ResponseEntity<>(response2, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-order-service:12031/api/v1/orderservice/order/status/" + "order_id" + "/" + 1,
+                "http://ts-order-service:12031/api/v1/order/order/status/" + "order_id" + "/" + 1,
                 HttpMethod.GET,
                 httpEntity,
                 Response.class)).thenReturn(re2);

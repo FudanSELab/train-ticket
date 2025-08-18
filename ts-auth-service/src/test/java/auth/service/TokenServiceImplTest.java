@@ -54,7 +54,7 @@ public class TokenServiceImplTest {
         BasicAuthDto dto = new BasicAuthDto(null, null, "verifyCode");
         ResponseEntity<Boolean> re = new ResponseEntity<>(false, HttpStatus.OK);
         Mockito.when(restTemplate.exchange(
-                "http://ts-verification-code-service:15678/api/v1/verifycode/verify/" + "verifyCode",
+                "http://ts-verification-code-service:15678/api/v1/auth/verifycode/verify/" + "verifyCode",
                 HttpMethod.GET,
                 requestEntity,
                 Boolean.class)).thenReturn(re);

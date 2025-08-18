@@ -12,7 +12,7 @@ import plan.service.RoutePlanService;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/ticketplan/routeplan")
+@RequestMapping("/api/v1/ticket-plan/routeplan")
 public class RoutePlanController {
 
     @Autowired

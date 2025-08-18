@@ -55,7 +55,7 @@ function refresh_booking_contacts() {
     $("#refresh_booking_contacts_button").attr("disabled", true);
     $.ajax({
         type: "get",
-        url: "/api/v1/contactservice/contacts/account/" + sessionStorage.getItem("client_id"),
+        url: "/api/v1/contact/contacts/account/" + sessionStorage.getItem("client_id"),
         contentType: "application/json",
         dataType: "json",
         headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},
@@ -191,7 +191,7 @@ function initFoodSelect(tripId, from, to, date) {
     // alert(JSON.stringify(data));
     $.ajax({
         type: "get",
-        url: "/api/v1/foodbooking/foods/" + data.date + "/" + data.startStation + "/" + data.endStation + "/" + data.tripId,
+        url: "/api/v1/food-booking/foods/" + data.date + "/" + data.startStation + "/" + data.endStation + "/" + data.tripId,
         contentType: "application/json",
         dataType: "json",
         headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},
@@ -508,7 +508,7 @@ $("#ticket_select_contacts_confirm_btn").click(function () {
 
                 var tripType = orderTicketInfo.tripId.charAt(0);
                 if (tripType == 'G' || tripType == 'D') {
-                    path = "/api/v1/preserveservice/preserve";
+                    path = "/api/v1/ticket-purchase/preserve";
                 } else {
                     path = "/api/v1/preserveotherservice/preserveOther";
                 }
@@ -571,7 +571,7 @@ function preserveCreateNewContacts() {
     var data = JSON.stringify(addContactsInfo);
     $.ajax({
         type: "post",
-        url: "/api/v1/contactservice/contacts",
+        url: "/api/v1/contact/contacts",
         contentType: "application/json",
         headers: {"Authorization": "Bearer " + sessionStorage.getItem("client_token")},
         dataType: "json",

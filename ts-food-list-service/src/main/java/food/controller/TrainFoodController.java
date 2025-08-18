@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/foodlist")
+@RequestMapping("/api/v1/food-list/train-foods")
 public class TrainFoodController {
 
     @Autowired
@@ -19,20 +19,20 @@ public class TrainFoodController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TrainFoodController.class);
 
-    @GetMapping(path = "/trainfoods/welcome")
+    @GetMapping(path = "/welcome")
     public String home() {
         return "Welcome to [ Train Food Service ] !";
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/trainfoods")
+    @GetMapping("/")
     public HttpEntity getAllTrainFood(@RequestHeader HttpHeaders headers) {
         LOGGER.info("[Food Map Service][Get All TrainFoods]");
         return ok(trainFoodService.listTrainFood(headers));
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/trainfoods/{tripId}")
+    @GetMapping("/{tripId}")
     public HttpEntity getTrainFoodOfTrip(@PathVariable String tripId, @RequestHeader HttpHeaders headers) {
         LOGGER.info("[Food Map Service][Get TrainFoods By TripId]");
         return ok(trainFoodService.listTrainFoodByTripId(tripId, headers));
