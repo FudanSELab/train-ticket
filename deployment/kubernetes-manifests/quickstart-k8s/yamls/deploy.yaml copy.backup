@@ -1,3 +1,256 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-basic-info-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-basic-info-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-basic-info-service
+    spec:
+      containers:
+        - name: ts-admin-basic-info-service
+          image: codewisdom/ts-admin-basic-info-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18767
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18767
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-order-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-order-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-order-service
+    spec:
+      containers:
+        - name: ts-admin-order-service
+          image: codewisdom/ts-admin-order-service:1.0.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16112
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16112
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-route-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-route-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-route-service
+    spec:
+      containers:
+        - name: ts-admin-route-service
+          image: codewisdom/ts-admin-route-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16113
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16113
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-travel-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-travel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-travel-service
+    spec:
+      containers:
+        - name: ts-admin-travel-service
+          image: codewisdom/ts-admin-travel-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16114
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16114
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-admin-user-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-admin-user-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-admin-user-service
+    spec:
+      containers:
+        - name: ts-admin-user-service
+          image: codewisdom/ts-admin-user-service:1.0.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16115
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16115
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-assurance-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-assurance-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-assurance-service
+    spec:
+      containers:
+        - name: ts-assurance-service
+          image: codewisdom/ts-assurance-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-assurance-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18888
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18888
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -15,8 +268,8 @@ spec:
     spec:
       containers:
         - name: ts-auth-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-auth-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-auth-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -59,8 +312,8 @@ spec:
     spec:
       containers:
         - name: ts-avatar-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-avatar-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-avatar-service:0.2.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -101,8 +354,8 @@ spec:
     spec:
       containers:
         - name: ts-basic-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-basic-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-basic-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -130,6 +383,48 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: ts-cancel-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-cancel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-cancel-service
+    spec:
+      containers:
+        - name: ts-cancel-service
+          image: codewisdom/ts-cancel-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18885
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18885
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: ts-config-service
 spec:
   selector:
@@ -143,8 +438,8 @@ spec:
     spec:
       containers:
         - name: ts-config-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-config-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-config-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -187,8 +482,8 @@ spec:
     spec:
       containers:
         - name: ts-consign-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-consign-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-consign-service:1.0.1
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -231,8 +526,8 @@ spec:
     spec:
       containers:
         - name: ts-contacts-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-contacts-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-contacts-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -275,8 +570,8 @@ spec:
     spec:
       containers:
         - name: ts-delivery-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-delivery-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-delivery-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -321,8 +616,8 @@ spec:
     spec:
       containers:
         - name: ts-execute-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-execute-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-execute-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -363,8 +658,8 @@ spec:
     spec:
       containers:
         - name: ts-food-booking-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-food-booking-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-food-booking-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -409,8 +704,8 @@ spec:
     spec:
       containers:
         - name: ts-food-delivery-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-food-delivery-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-food-delivery-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -440,94 +735,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-food-list-service
-spec:
-  selector:
-    matchLabels:
-      app: ts-food-list-service
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-food-list-service
-    spec:
-      containers:
-        - name: ts-food-list-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-food-list-service:latest
-          imagePullPolicy: Always
-          env:
-            - name: NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-          envFrom:
-            - secretRef:
-                name: ts-food-list-mysql
-            - configMapRef:
-                name: nacos
-          ports:
-            - containerPort: 19998
-          resources:
-            requests:
-              cpu: 100m
-              memory: 300Mi
-            limits:
-              cpu: 500m
-              memory: 2000Mi
-          readinessProbe:
-            tcpSocket:
-              port: 19998
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-food-merchant-service
-spec:
-  selector:
-    matchLabels:
-      app: ts-food-merchant-service
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-food-merchant-service
-    spec:
-      containers:
-        - name: ts-food-merchant-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-food-merchant-service:latest
-          imagePullPolicy: Always
-          env:
-            - name: NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-          envFrom:
-            - secretRef:
-                name: ts-food-merchant-mysql
-            - configMapRef:
-                name: nacos
-          ports:
-            - containerPort: 18855
-          resources:
-            requests:
-              cpu: 100m
-              memory: 300Mi
-            limits:
-              cpu: 500m
-              memory: 2000Mi
-          readinessProbe:
-            tcpSocket:
-              port: 18855
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: ts-gateway-service
 spec:
   selector:
@@ -541,8 +748,8 @@ spec:
     spec:
       containers:
         - name: ts-gateway-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-gateway-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-gateway-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -583,8 +790,8 @@ spec:
     spec:
       containers:
         - name: ts-inside-payment-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-inside-payment-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-inside-payment-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -614,6 +821,52 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: ts-user-notification-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-user-notification-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-user-notification-service
+    spec:
+      containers:
+        - name: ts-user-notification-service
+          image: codewisdom/ts-user-notification-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-user-notification-mysql
+            - configMapRef:
+                name: nacos
+            - configMapRef:
+                name: rabbitmq
+          ports:
+            - containerPort: 17853
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 17853
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: ts-order-service
 spec:
   selector:
@@ -627,8 +880,8 @@ spec:
     spec:
       containers:
         - name: ts-order-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-order-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-order-service:1.0.1
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -656,6 +909,7 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 5
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -672,8 +926,8 @@ spec:
     spec:
       containers:
         - name: ts-order-query-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-order-query-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-order-query-service:1.0.1
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -702,7 +956,6 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -719,8 +972,8 @@ spec:
     spec:
       containers:
         - name: ts-payment-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-payment-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-payment-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -750,21 +1003,109 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-route-plan-service
+  name: ts-preserve-other-service
 spec:
   selector:
     matchLabels:
-      app: ts-route-plan-service
+      app: ts-preserve-other-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-route-plan-service
+        app: ts-preserve-other-service
     spec:
       containers:
-        - name: ts-route-plan-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-route-plan-service:latest
-          imagePullPolicy: Always
+        - name: ts-preserve-other-service
+          image: codewisdom/ts-preserve-other-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - configMapRef:
+                name: rabbitmq
+          ports:
+            - containerPort: 14569
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14569
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-preserve-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-preserve-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-preserve-service
+    spec:
+      containers:
+        - name: ts-preserve-service
+          image: codewisdom/ts-preserve-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - configMapRef:
+                name: rabbitmq
+          ports:
+            - containerPort: 14568
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 14568
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-price-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-price-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-price-service
+    spec:
+      containers:
+        - name: ts-price-service
+          image: codewisdom/ts-price-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -772,7 +1113,95 @@ spec:
                   fieldPath: status.hostIP
           envFrom:
             - secretRef:
-                name: ts-route-plan-mysql
+                name: ts-price-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16579
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16579
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-rebook-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-rebook-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-rebook-service
+    spec:
+      containers:
+        - name: ts-rebook-service
+          image: codewisdom/ts-rebook-service:1.0.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+            - configMapRef:
+                name: rabbitmq
+          ports:
+            - containerPort: 18886
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18886
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-route-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-route-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-route-service
+    spec:
+      containers:
+        - name: ts-route-service
+          image: codewisdom/ts-route-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-route-mysql
             - configMapRef:
                 name: nacos
           ports:
@@ -794,6 +1223,48 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: ts-seat-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-seat-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-seat-service
+    spec:
+      containers:
+        - name: ts-seat-service
+          image: codewisdom/ts-seat-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 18898
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 18898
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: ts-security-service
 spec:
   selector:
@@ -807,8 +1278,8 @@ spec:
     spec:
       containers:
         - name: ts-security-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-security-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-security-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -838,21 +1309,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-sms-notification-service
+  name: ts-food-merchant-service
 spec:
   selector:
     matchLabels:
-      app: ts-sms-notification-service
+      app: ts-food-merchant-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-sms-notification-service
+        app: ts-food-merchant-service
     spec:
       containers:
-        - name: ts-sms-notification-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-sms-notification-service:latest
-          imagePullPolicy: Always
+        - name: ts-food-merchant-service
+          image: codewisdom/ts-food-merchant-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -860,13 +1331,11 @@ spec:
                   fieldPath: status.hostIP
           envFrom:
             - secretRef:
-                name: ts-sms-notification-mysql
+                name: ts-food-merchant-mysql
             - configMapRef:
                 name: nacos
-            - configMapRef:
-                name: rabbitmq
           ports:
-            - containerPort: 17854
+            - containerPort: 18855
           resources:
             requests:
               cpu: 100m
@@ -876,7 +1345,7 @@ spec:
               memory: 2000Mi
           readinessProbe:
             tcpSocket:
-              port: 17854
+              port: 18855
             initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 5
@@ -897,8 +1366,8 @@ spec:
     spec:
       containers:
         - name: ts-station-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-station-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-station-service:1.0.1
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -924,112 +1393,26 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 5
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-ticket-plan-service
-spec:
-  selector:
-    matchLabels:
-      app: ts-ticket-plan-service
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-ticket-plan-service
-    spec:
-      containers:
-        - name: ts-ticket-plan-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-ticket-plan-service:latest
-          imagePullPolicy: Always
-          env:
-            - name: NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-          envFrom:
-            - configMapRef:
-                name: nacos
-          ports:
-            - containerPort: 14322
-          resources:
-            requests:
-              cpu: 100m
-              memory: 300Mi
-            limits:
-              cpu: 500m
-              memory: 2000Mi
-          readinessProbe:
-            tcpSocket:
-              port: 14322
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-ticket-purchase-service
-spec:
-  selector:
-    matchLabels:
-      app: ts-ticket-purchase-service
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-ticket-purchase-service
-    spec:
-      containers:
-        - name: ts-ticket-purchase-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-ticket-purchase-service:latest
-          imagePullPolicy: Always
-          env:
-            - name: NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-          envFrom:
-            - configMapRef:
-                name: nacos
-            - configMapRef:
-                name: rabbitmq
-          ports:
-            - containerPort: 14568
-          resources:
-            requests:
-              cpu: 100m
-              memory: 300Mi
-            limits:
-              cpu: 500m
-              memory: 2000Mi
-          readinessProbe:
-            tcpSocket:
-              port: 14568
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-ticket-query-service
+  name: ts-food-list-service
 spec:
   selector:
     matchLabels:
-      app: ts-ticket-query-service
+      app: ts-food-list-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-ticket-query-service
+        app: ts-food-list-service
     spec:
       containers:
-        - name: ts-ticket-query-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-ticket-query-service:latest
-          imagePullPolicy: Always
+        - name: ts-food-list-service
+          image: codewisdom/ts-food-list-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -1037,11 +1420,11 @@ spec:
                   fieldPath: status.hostIP
           envFrom:
             - secretRef:
-                name: ts-ticket-query-mysql
+                name: ts-food-list-mysql
             - configMapRef:
                 name: nacos
           ports:
-            - containerPort: 12346
+            - containerPort: 19998
           resources:
             requests:
               cpu: 100m
@@ -1051,56 +1434,10 @@ spec:
               memory: 2000Mi
           readinessProbe:
             tcpSocket:
-              port: 12346
+              port: 19998
             initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 5
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ts-ticket-service
-spec:
-  selector:
-    matchLabels:
-      app: ts-ticket-service
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: ts-ticket-service
-    spec:
-      containers:
-        - name: ts-ticket-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-ticket-service:latest
-          imagePullPolicy: Always
-          env:
-            - name: NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-          envFrom:
-            - secretRef:
-                name: ts-ticket-mysql
-            - configMapRef:
-                name: nacos
-          ports:
-            - containerPort: 16579
-          resources:
-            requests:
-              cpu: 100m
-              memory: 300Mi
-            limits:
-              cpu: 500m
-              memory: 2000Mi
-          readinessProbe:
-            tcpSocket:
-              port: 16579
-            initialDelaySeconds: 60
-            periodSeconds: 10
-            timeoutSeconds: 5
-
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -1118,8 +1455,8 @@ spec:
     spec:
       containers:
         - name: ts-train-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-train-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-train-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -1149,35 +1486,31 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ts-user-notification-service
+  name: ts-ticket-plan-service
 spec:
   selector:
     matchLabels:
-      app: ts-user-notification-service
+      app: ts-ticket-plan-service
   replicas: 1
   template:
     metadata:
       labels:
-        app: ts-user-notification-service
+        app: ts-ticket-plan-service
     spec:
       containers:
-        - name: ts-user-notification-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-user-notification-service:latest
-          imagePullPolicy: Always
+        - name: ts-ticket-plan-service
+          image: codewisdom/ts-ticket-plan-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
           envFrom:
-            - secretRef:
-                name: ts-user-notification-mysql
             - configMapRef:
                 name: nacos
-            - configMapRef:
-                name: rabbitmq
           ports:
-            - containerPort: 17853
+            - containerPort: 14322
           resources:
             requests:
               cpu: 100m
@@ -1187,11 +1520,98 @@ spec:
               memory: 2000Mi
           readinessProbe:
             tcpSocket:
-              port: 17853
+              port: 14322
             initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 5
-
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-travel-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-travel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-travel-service
+    spec:
+      containers:
+        - name: ts-travel-service
+          image: codewisdom/ts-travel-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-travel-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 12346
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 12346
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ts-travel2-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-travel2-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-travel2-service
+    spec:
+      containers:
+        - name: ts-travel2-service
+          image: codewisdom/ts-travel2-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - secretRef:
+                name: ts-travel2-mysql
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 16346
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 16346
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -1209,8 +1629,8 @@ spec:
     spec:
       containers:
         - name: ts-user-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-user-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-user-service:1.0.1
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -1240,6 +1660,48 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: ts-verification-code-service
+spec:
+  selector:
+    matchLabels:
+      app: ts-verification-code-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ts-verification-code-service
+    spec:
+      containers:
+        - name: ts-verification-code-service
+          image: codewisdom/ts-verification-code-service:1.0.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          envFrom:
+            - configMapRef:
+                name: nacos
+          ports:
+            - containerPort: 15678
+          resources:
+            requests:
+              cpu: 100m
+              memory: 300Mi
+            limits:
+              cpu: 500m
+              memory: 2000Mi
+          readinessProbe:
+            tcpSocket:
+              port: 15678
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 5
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: ts-voucher-service
 spec:
   selector:
@@ -1253,8 +1715,8 @@ spec:
     spec:
       containers:
         - name: ts-voucher-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-voucher-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-voucher-service:1.0.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -1297,8 +1759,8 @@ spec:
     spec:
       containers:
         - name: ts-wait-order-service
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-wait-order-service:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-wait-order-service:1.0.1
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_IP
               valueFrom:
@@ -1341,8 +1803,8 @@ spec:
     spec:
       containers:
         - name: ts-ui-dashboard
-          image: crpi-acfbb78v5d28coxq.cn-shenzhen.personal.cr.aliyuncs.com/xlcyun_public/ts-ui-dashboard:latest
-          imagePullPolicy: Always
+          image: codewisdom/ts-ui-dashboard:1.0.1
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
           resources:
