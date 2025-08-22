@@ -1,4 +1,4 @@
-package travelplan.config;
+package ticketplan.config;
 
 import edu.fudan.common.security.jwt.JWTFilter;
 import org.springframework.context.annotation.Bean;

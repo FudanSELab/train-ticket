@@ -24,9 +24,9 @@ spring:
             enable: true
             required: true
   datasource:
-    url: jdbc:mysql://${USER_NOTIFICATION_MYSQL_HOST:ts-user-notification-mysql}:${USER_NOTIFICATION_MYSQL_PORT:3306}/${USER_NOTIFICATION_MYSQL_DATABASE:ts-user-notification-mysql}?useSSL=false
-    username: ${USER_NOTIFICATION_MYSQL_USER:root}
-    password: ${USER_NOTIFICATION_MYSQL_PASSWORD:root}
+    url: jdbc:mysql://${SMS_NOTIFICATION_MYSQL_HOST:ts-sms-notification-mysql}:${SMS_NOTIFICATION_MYSQL_PORT:3306}/${SMS_NOTIFICATION_MYSQL_DATABASE:ts-sms-notification-mysql}?useSSL=false
+    username: ${SMS_NOTIFICATION_MYSQL_USER:root}
+    password: ${SMS_NOTIFICATION_MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

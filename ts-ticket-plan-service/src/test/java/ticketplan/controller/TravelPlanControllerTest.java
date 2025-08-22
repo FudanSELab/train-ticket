@@ -1,4 +1,4 @@
-package travelplan.controller;
+package ticketplan.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import edu.fudan.common.util.Response;
@@ -16,9 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import travelplan.entity.TransferTravelInfo;
+import ticketplan.entity.TransferTravelInfo;
 import edu.fudan.common.entity.TripInfo;
-import travelplan.service.TravelPlanService;
+import ticketplan.service.TravelPlanService;
 
 @RunWith(JUnit4.class)
 public class TravelPlanControllerTest {

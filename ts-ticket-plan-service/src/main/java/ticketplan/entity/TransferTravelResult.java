@@ -1,4 +1,4 @@
-package travelplan.entity;
+package ticketplan.entity;
 
 import edu.fudan.common.entity.TripResponse;
 import lombok.Data;

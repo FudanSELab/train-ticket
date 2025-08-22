@@ -1,4 +1,4 @@
-package travelplan.service;
+package ticketplan.service;
 
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
@@ -14,7 +14,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import edu.fudan.common.entity.*;
-import travelplan.entity.TransferTravelInfo;
+import ticketplan.entity.TransferTravelInfo;
 
 import java.util.ArrayList;
 import java.util.Date;

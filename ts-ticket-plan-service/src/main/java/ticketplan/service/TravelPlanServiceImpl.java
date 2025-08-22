@@ -1,4 +1,4 @@
-package travelplan.service;
+package ticketplan.service;
 
 import edu.fudan.common.util.JsonUtils;
 import edu.fudan.common.util.Response;
@@ -17,10 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import edu.fudan.common.entity.*;
-import travelplan.entity.TransferTravelInfo;
-import travelplan.entity.TransferTravelResult;
-import travelplan.entity.TravelAdvanceResultUnit;
-import plan.service.RoutePlanService;
+import ticketplan.entity.TransferTravelInfo;
+import ticketplan.entity.TransferTravelResult;
+import ticketplan.entity.TravelAdvanceResultUnit;
+import ticketplan.service.RoutePlanService;
 
 import java.util.ArrayList;
 import java.util.Arrays;

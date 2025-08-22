@@ -1,4 +1,4 @@
-package plan.service;
+package ticketplan.service;
 
 import edu.fudan.common.entity.RoutePlanInfo;
 import edu.fudan.common.util.Response;

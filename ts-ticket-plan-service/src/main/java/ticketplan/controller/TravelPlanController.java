@@ -1,4 +1,4 @@
-package travelplan.controller;
+package ticketplan.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +7,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import edu.fudan.common.entity.TripInfo;
-import travelplan.entity.TransferTravelInfo;
-import travelplan.service.TravelPlanService;
+import ticketplan.entity.TransferTravelInfo;
+import ticketplan.service.TravelPlanService;
 
 import static org.springframework.http.ResponseEntity.ok;
 
