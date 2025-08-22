@@ -6,10 +6,7 @@ spring:
   application:
     name: ts-route-plan-service
   datasource:
-    url: jdbc:mysql://${ROUTE_MYSQL_HOST:ts-route-plan-mysql}:${ROUTE_MYSQL_PORT:3306}/${ROUTE_MYSQL_DATABASE:ts-route-plan-mysql}?useSSL=false
-    username: ${ROUTE_MYSQL_USER:root}
-    password: ${ROUTE_MYSQL_PASSWORD:Abcd1234#}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${ROUTE_PLAN_MYSQL_HOST:ts-route-plan-mysql}:${ROUTE_PLAN_MYSQL_PORT:3306}/${ROUTE_PLAN_MYSQL_DATABASE:ts-route-plan-mysql}?useSSL=false username: ${ROUTE_PLAN_MYSQL_USER:root} password: ${ROUTE_PLAN_MYSQL_PASSWORD:Abcd1234#} driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
