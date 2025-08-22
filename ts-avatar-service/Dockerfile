@@ -4,7 +4,7 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shang
 
 RUN apt update -y
 RUN apt install -y cmake
-RUN apt install -y libgl1-mesa-glx
+RUN apt install -y libgl1 libglx-mesa0
 
 ENV PYTHONUNBUFFERED=TRUE
 
