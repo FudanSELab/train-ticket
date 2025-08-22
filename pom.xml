@@ -28,6 +28,7 @@
         <module>ts-ticket-service</module>
         <module>ts-user-notification-service</module>
         <module>ts-security-service</module>
+        <module>ts-sms-notification-service</module>
         <module>ts-inside-payment-service</module>
         <module>ts-execute-service</module>
         <module>ts-payment-service</module>
