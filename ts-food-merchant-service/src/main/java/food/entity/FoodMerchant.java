@@ -5,10 +5,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Entity
+@GenericGenerator(name = "jpa-uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class FoodMerchant {
-   
+	@Id
+	@GeneratedValue(generator = "jpa-uuid")
+	@Column(length = 36)
+	private String id;
+
+	public FoodMerchant() {
+		// Default constructor
+	}
 }
