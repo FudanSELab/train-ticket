@@ -2,13 +2,13 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ${NACOS_ADDRS:127.0.0.1:8848}
+        server-addr: ${NACOS_ADDRS:nacos-0.nacos-headless.default.svc.cluster.local,nacos-1.nacos-headless.default.svc.cluster.local,nacos-2.nacos-headless.default.svc.cluster.local}
   application:
     name: ts-ticket-service
   datasource:
-    url: jdbc:mysql://${PRICE_MYSQL_HOST:10.176.122.1}:${PRICE_MYSQL_PORT:3306}/${PRICE_MYSQL_DATABASE:ts}?useSSL=false
-    username: ${PRICE_MYSQL_USER:root}
-    password: ${PRICE_MYSQL_PASSWORD:Abcd1234#}
+    url: jdbc:mysql://${TICKET_MYSQL_HOST:ts-ticket-mysql}:${TICKET_MYSQL_PORT:3306}/${TICKET_MYSQL_DATABASE:ts-ticket-mysql}?useSSL=false
+    username: ${TICKET_MYSQL_USER:root}
+    password: ${TICKET_MYSQL_PASSWORD:Abcd1234#}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

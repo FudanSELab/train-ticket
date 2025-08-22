@@ -10,7 +10,7 @@ spring:
     name: ts-food-merchant-service
   datasource:
 #    url: jdbc:mysql://localhost:3306/ts-food-merchant-mysql?useSSL=false
-    url: jdbc:mysql://${FOOD_MERCHANT_MYSQL_HOST:10.176.122.1}:${FOOD_MERCHANT_MYSQL_PORT:3306}/${FOOD_MERCHANT_MYSQL_DATABASE:ts}?useSSL=false
+    url: jdbc:mysql://${FOOD_MERCHANT_MYSQL_HOST:ts-food-merchant-mysql}:${FOOD_MERCHANT_MYSQL_PORT:3306}/${FOOD_MERCHANT_MYSQL_DATABASE:ts-food-merchant-mysql}?useSSL=false
     username: ${FOOD_MERCHANT_MYSQL_USER:root}
     password: ${FOOD_MERCHANT_MYSQL_PASSWORD:Abcd1234#}
     driver-class-name: com.mysql.cj.jdbc.Driver
