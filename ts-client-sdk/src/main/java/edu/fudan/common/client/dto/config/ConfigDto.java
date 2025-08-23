@@ -1,6 +1,7 @@
-package edu.fudan.common.client.dto;
+package edu.fudan.common.client.dto.config;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
  * DTO for Config entity exchanged with config service.
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConfigDto {

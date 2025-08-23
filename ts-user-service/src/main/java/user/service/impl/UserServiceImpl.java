@@ -2,7 +2,7 @@ package user.service.impl;
 
 import edu.fudan.common.util.Response;
 import edu.fudan.common.client.AuthClient;
-import edu.fudan.common.client.dto.AuthDto;
+import edu.fudan.common.client.dto.auth.AuthDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

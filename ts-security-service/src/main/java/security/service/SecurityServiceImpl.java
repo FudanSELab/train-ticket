@@ -1,160 +1,112 @@
 package security.service;
 
-import edu.fudan.common.entity.OrderSecurity;
+import edu.fudan.common.client.ConfigClient;
+import edu.fudan.common.client.OrderClient;
+import edu.fudan.common.client.dto.config.ConfigDto;
+import edu.fudan.common.client.dto.order.OrderSecurityDto;
 import edu.fudan.common.util.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
-import security.entity.SecurityConfig;
-import security.repository.SecurityRepository;
 
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
-/**
- * @author fdse
- */
+@Slf4j
 @Service
 public class SecurityServiceImpl implements SecurityService {
-
     @Autowired
-    private SecurityRepository securityRepository;
-
+    private ConfigClient configClient;
     @Autowired
-    RestTemplate restTemplate;
+    private OrderClient orderClient;
 
-    @Autowired
-    private DiscoveryClient discoveryClient;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityServiceImpl.class);
-
-    private String getServiceUrl(String serviceName) {
-        return "http://" + serviceName;
-    }
-
-    String success = "Success";
+    public static final String MAX_ORDER_ONE_HOUR = "security_max_order_1_hour";
+    public static final String MAX_ORDER_NOT_USE = "security_max_order_not_use";
+    public static final int DEFAULT_MAX_ORDER_ONE_HOUR = 20;
+    public static final int DEFAULT_MAX_ORDER_NOT_USE = 10;
 
     @Override
-    public Response findAllSecurityConfig(HttpHeaders headers) {
-        ArrayList<SecurityConfig> securityConfigs = securityRepository.findAll();
-        if (securityConfigs != null && !securityConfigs.isEmpty()) {
-            return new Response<>(1, success, securityConfigs);
+    public Response<String> check(String accountId, HttpHeaders headers) {
+        log.debug("[check][Get Order Num Info]: accountId: {}", accountId);
+        OrderSecurityDto orderResult = orderClient.getOrderSecurity(new Date(), accountId, headers).getData();
+        if (orderResult == null) {
+            log.warn("[check][OrderSecurityDto is null][AccountId: {}]", accountId);
+            return new Response<>(0, "Failed to get order security info", accountId);
         }
-        SecurityServiceImpl.LOGGER.warn("[findAllSecurityConfig][Find all security config warn][{}]","No content");
-        return new Response<>(0, "No Content", null);
+        int oneHourOrderCount = orderResult.getOrderNumInLastOneHour();
+        int totalValidOrderCount = orderResult.getOrderNumOfValidOrder();
+
+        if (exceedOneHourLimit(oneHourOrderCount, headers)) {
+            log.warn("[check][OneHourLimitExceeded][AccountId: {}] count={} limit exceeded", accountId, oneHourOrderCount);
+            return new Response<>(0, "Too many orders in the last one hour", accountId);
+        }
+
+        if (exceedNotUsedLimit(totalValidOrderCount, headers)) {
+            log.warn("[check][NotUsedLimitExceeded][AccountId: {}] count={} limit exceeded", accountId, totalValidOrderCount);
+            return new Response<>(0, "Too many valid orders not used yet", accountId);
+        }
+
+        return new Response<>(1, "Success", accountId);
     }
 
+
+
     @Override
-    public Response addNewSecurityConfig(SecurityConfig info, HttpHeaders headers) {
-        SecurityConfig sc = securityRepository.findByName(info.getName());
-        if (sc != null) {
-            SecurityServiceImpl.LOGGER.warn("[addNewSecurityConfig][Add new Security config warn][Security config already exist][SecurityConfigId: {},Name: {}]",sc.getId(),info.getName());
-            return new Response<>(0, "Security Config Already Exist", null);
-        } else {
-            SecurityConfig config = new SecurityConfig();
-            config.setId(UUID.randomUUID().toString());
-            config.setName(info.getName());
-            config.setValue(info.getValue());
-            config.setDescription(info.getDescription());
-            securityRepository.save(config);
-            return new Response<>(1, success, config);
-        }
+    public Response<Boolean> updateMaxOrderOneHour(Integer value, HttpHeaders headers) {
+        return updateConfig(MAX_ORDER_ONE_HOUR, "Max order one hour", value.toString(), headers);
     }
 
     @Override
-    public Response modifySecurityConfig(SecurityConfig info, HttpHeaders headers) {
-        SecurityConfig sc = securityRepository.findById(info.getId()).orElse(null);
-        if (sc == null) {
-            SecurityServiceImpl.LOGGER.error("[modifySecurityConfig][Modify Security config error][Security config not found][SecurityConfigId: {},Name: {}]",info.getId(),info.getName());
-            return new Response<>(0, "Security Config Not Exist", null);
-        } else {
-            sc.setName(info.getName());
-            sc.setValue(info.getValue());
-            sc.setDescription(info.getDescription());
-            securityRepository.save(sc);
-            return new Response<>(1, success, sc);
+    public Response<Boolean> updateMaxOrderNotUse(Integer value, HttpHeaders headers) {
+        return updateConfig(MAX_ORDER_NOT_USE, "Max order not use", value.toString(), headers);
+    }
+
+    /**
+     * Check whether orders placed in the last hour exceed the configured upper bound.
+     */
+    private boolean exceedOneHourLimit(int oneHourOrderCount, HttpHeaders headers) {
+        int limit = getConfig(headers, MAX_ORDER_ONE_HOUR, DEFAULT_MAX_ORDER_ONE_HOUR);
+        log.info("[exceedOneHourLimit] limit={}, current={}", limit, oneHourOrderCount);
+        return oneHourOrderCount > limit;
+    }
+
+    /**
+     * Check whether total valid (unused) orders exceed the configured upper bound.
+     */
+    private boolean exceedNotUsedLimit(int totalValidOrderCount, HttpHeaders headers) {
+        int limit = getConfig(headers, MAX_ORDER_NOT_USE, DEFAULT_MAX_ORDER_NOT_USE);
+        log.info("[exceedNotUsedLimit] limit={}, current={}", limit, totalValidOrderCount);
+        return totalValidOrderCount > limit;
+    }
+
+    /**
+     * Get the configuration value from the config service.
+     */
+    private int getConfig(HttpHeaders headers, String configName, int defaultValue) {
+        try {
+            Response<ConfigDto> respHour = configClient.getConfigByName(configName, headers);
+            if (respHour != null && respHour.getStatus() == 1) {
+                return Integer.parseInt(respHour.getData().getValue());
+            }
+        } catch (Exception e) {
+            log.error("[getConfig] config name: {}, error: {}", configName, e);
         }
+        log.warn("[getConfig] config name: {}, use default value: {}", configName, defaultValue);
+        return defaultValue;
     }
 
-    @Transactional
-    @Override
-    public Response deleteSecurityConfig(String id, HttpHeaders headers) {
-        securityRepository.deleteById(id);
-        SecurityConfig sc = securityRepository.findById(id).orElse(null);
-        if (sc == null) {
-            return new Response<>(1, success, id);
-        } else {
-            SecurityServiceImpl.LOGGER.error("[deleteSecurityConfig][Delete Security config error][Reason not clear][SecurityConfigId: {}]",id);
-            return new Response<>(0, "Reason Not clear", id);
-        }
-    }
-
-    @Override
-    public Response check(String accountId, HttpHeaders headers) {
-        //1.Get the orders in the past one hour and the total effective votes
-        SecurityServiceImpl.LOGGER.debug("[check][Get Order Num Info]");
-        OrderSecurity orderResult = getSecurityOrderInfoFromOrder(new Date(), accountId, headers);
-        OrderSecurity orderOtherResult = getSecurityOrderOtherInfoFromOrder(new Date(), accountId, headers);
-        int orderInOneHour = orderOtherResult.getOrderNumInLastOneHour() + orderResult.getOrderNumInLastOneHour();
-        int totalValidOrder = orderOtherResult.getOrderNumOfValidOrder() + orderResult.getOrderNumOfValidOrder();
-        //2. get critical configuration information
-        SecurityServiceImpl.LOGGER.debug("[check][Get Security Config Info]");
-        SecurityConfig configMaxInHour = securityRepository.findByName("max_order_1_hour");
-        SecurityConfig configMaxNotUse = securityRepository.findByName("max_order_not_use");
-        SecurityServiceImpl.LOGGER.info("[check][Max][Max In One Hour: {}  Max Not Use: {}]", configMaxInHour.getValue(), configMaxNotUse.getValue());
-        int oneHourLine = Integer.parseInt(configMaxInHour.getValue());
-        int totalValidLine = Integer.parseInt(configMaxNotUse.getValue());
-        if (orderInOneHour > oneHourLine || totalValidOrder > totalValidLine) {
-            SecurityServiceImpl.LOGGER.warn("[check][Check Security config warn][Too much order in last one hour or too much valid order][AccountId: {}]",accountId);
-            return new Response<>(0, "Too much order in last one hour or too much valid order", accountId);
-        } else {
-            return new Response<>(1, "Success.r", accountId);
-        }
-    }
-
-    private OrderSecurity getSecurityOrderInfoFromOrder(Date checkDate, String accountId, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(null);
-        String order_service_url = getServiceUrl("ts-order-service");
-        ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
-                order_service_url + "/api/v1/order/order/security/" + checkDate + "/" + accountId,
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<Response<OrderSecurity>>() {
-                });
-        Response<OrderSecurity> response = re.getBody();
-        OrderSecurity result =  response.getData();
-        SecurityServiceImpl.LOGGER.info("[getSecurityOrderInfoFromOrder][Get Order Info For Security][Last One Hour: {}  Total Valid Order: {}]", result.getOrderNumInLastOneHour(), result.getOrderNumOfValidOrder());
-        return result;
-    }
-
-    private OrderSecurity getSecurityOrderOtherInfoFromOrder(Date checkDate, String accountId, HttpHeaders headers) {
-        HttpEntity requestEntity = new HttpEntity(null);
-        String order_other_service_url = getServiceUrl("ts-order-service");
-        ResponseEntity<Response<OrderSecurity>> re = restTemplate.exchange(
-                order_other_service_url + "/api/v1/order/order/security/" + checkDate + "/" + accountId,
-                HttpMethod.GET,
-                requestEntity,
-                new ParameterizedTypeReference<Response<OrderSecurity>>() {
-                });
-        Response<OrderSecurity> response = re.getBody();
-        OrderSecurity result =  response.getData();
-        SecurityServiceImpl.LOGGER.info("[getSecurityOrderOtherInfoFromOrder][Get Order Other Info For Security][Last One Hour: {}  Total Valid Order: {}]", result.getOrderNumInLastOneHour(), result.getOrderNumOfValidOrder());
-        return result;
-    }
-
+    private Response<Boolean> updateConfig(String configName, String description, String value, HttpHeaders headers) {
+      log.info("[updateConfig] config name: {}, value: {}", configName, value);
+      ConfigDto dto = new ConfigDto(configName, value, description);
+      try {
+          Response<ConfigDto> resp = configClient.updateConfig(dto, headers);
+          boolean success = resp != null && resp.getStatus() == 1;
+          log.info("[updateConfig] config name: {}, value: {} success: {}", configName, value, success);
+          return new Response<>(success ? 1 : 0, resp != null ? resp.getMsg() : "Fail", success);
+      } catch (Exception e) {
+          log.error("[updateConfigInternal] error", e);
+          return new Response<>(0, e.getMessage(), false);
+      }
+  }
 }

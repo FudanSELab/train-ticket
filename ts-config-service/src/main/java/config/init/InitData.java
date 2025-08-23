@@ -24,5 +24,15 @@ public class InitData implements CommandLineRunner{
         config.setDescription("Allocation Proportion Of The Direct Ticket - From Start To End");
         service.create(config,null);
 
+        // ts-security-service 风控服务初始化配置
+        config.setName("security_max_order_1_hour");
+        config.setValue("10");
+        config.setDescription("Max order in 1 hour");
+        service.create(config,null);
+
+        config.setName("security_max_order_not_use");
+        config.setValue("10");
+        config.setDescription("Max order not used");
+        service.create(config,null);
     }
 }

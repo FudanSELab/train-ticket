@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * @author fdse
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"security", "edu.fudan.common.client"})
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableAsync
 @IntegrationComponentScan
@@ -25,12 +25,6 @@ public class SecurityApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SecurityApplication.class, args);
-    }
-
-    @LoadBalanced
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
     }
 
 }

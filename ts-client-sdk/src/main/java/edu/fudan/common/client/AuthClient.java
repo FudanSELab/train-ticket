@@ -1,10 +1,10 @@
 package edu.fudan.common.client;
 
 import edu.fudan.common.util.Response;
-import edu.fudan.common.client.dto.AuthDto;
-import edu.fudan.common.client.dto.BasicAuthDto;
-import edu.fudan.common.client.dto.TokenDto;
-import edu.fudan.common.client.dto.UserDto;
+import edu.fudan.common.client.dto.auth.AuthDto;
+import edu.fudan.common.client.dto.auth.BasicAuthDto;
+import edu.fudan.common.client.dto.auth.TokenDto;
+import edu.fudan.common.client.dto.user.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 

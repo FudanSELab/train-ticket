@@ -1,4 +1,4 @@
-package edu.fudan.common.client.dto;
+package edu.fudan.common.client.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

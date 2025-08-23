@@ -1,6 +1,6 @@
 package edu.fudan.common.client;
 
-import edu.fudan.common.client.dto.ConfigDto;
+import edu.fudan.common.client.dto.config.ConfigDto;
 import edu.fudan.common.util.Response;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;

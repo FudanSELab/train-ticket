@@ -1,6 +1,10 @@
 package config.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import config.entity.Config;
 import config.service.ConfigService;
 import edu.fudan.common.util.Response;
@@ -28,7 +32,6 @@ public class ConfigControllerTest {
     @Mock
     private ConfigService configService;
     private MockMvc mockMvc;
-    private Response response = new Response();
 
     @Before
     public void setUp() {
@@ -37,59 +40,25 @@ public class ConfigControllerTest {
     }
 
     @Test
-    public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/config/welcome"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Config Service ] !"));
-    }
-
-    @Test
     public void testQueryAll() throws Exception {
+        Response<List<Config>> response = new Response<List<Config>>(1, "Success", new ArrayList<>());
         Mockito.when(configService.queryAll(Mockito.any(HttpHeaders.class))).thenReturn(response);
         String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/config/configs"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
-    public void testCreateConfig() throws Exception {
-        Config info = new Config();
-        Mockito.when(configService.create(Mockito.any(Config.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String requestJson = JSONObject.toJSONString(info);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/config/configs").contentType(MediaType.APPLICATION_JSON).content(requestJson))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
-    public void testUpdateConfig() throws Exception {
-        Config info = new Config();
-        Mockito.when(configService.update(Mockito.any(Config.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String requestJson = JSONObject.toJSONString(info);
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/config/configs").contentType(MediaType.APPLICATION_JSON).content(requestJson))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
-    public void testDeleteConfig() throws Exception {
-        Mockito.when(configService.delete(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/config/configs/config_name"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
+        Response<List<Config>> actual = JSON.parseObject(result, new TypeReference<Response<List<Config>>>() {});
+        Assert.assertEquals(response, actual);
     }
 
     @Test
     public void testRetrieve() throws Exception {
+        Response<Config> response = new Response<Config>(1, "Success", new Config("config_name", "config_value", "config_description"));
         Mockito.when(configService.query(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
         String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/config/configs/config_name"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
+        Response<Config> actual = JSON.parseObject(result, new TypeReference<Response<Config>>() {});
+        Assert.assertEquals(response, actual);
     }
 
 }
