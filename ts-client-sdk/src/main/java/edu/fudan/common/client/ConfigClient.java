@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 public class ConfigClient {
 
     private static final String SERVICE_NAME = "ts-config-service";
-    private static final String BASE_URL = "/api/v1/configservice";
+    private static final String BASE_URL = "/api/v1/config";
     private static final String ADMIN_BASE_URL = "/api/v1/config/admin";
 
     @Autowired
