@@ -1,6 +1,6 @@
 package auth.controller;
 
-import auth.dto.AuthDto;
+import edu.fudan.common.client.dto.auth.AuthDto;
 import auth.service.UserService;
 import com.alibaba.fastjson.JSONObject;
 import edu.fudan.common.util.Response;
@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 public class AuthControllerTest {
 
     @InjectMocks
-    private AuthController authController;
+    private UserController userController;
 
     @Mock
     private UserService userService;
@@ -33,25 +33,24 @@ public class AuthControllerTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(authController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
     @Test
     public void testGetHello() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/hello"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/users/hello"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("hello"));
+                .andExpect(MockMvcResultMatchers.content().string("Hello"));
     }
 
     @Test
     public void testCreateDefaultUser() throws Exception {
-        AuthDto authDto = new AuthDto();
+        AuthDto authDto =  AuthDto.builder().userName("test").password("test00").build();
         Mockito.when(userService.createDefaultAuthUser(Mockito.any(AuthDto.class))).thenReturn(null);
         String requestJson = JSONObject.toJSONString(authDto);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/users").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         Assert.assertEquals("SUCCESS", JSONObject.parseObject(result, Response.class).getMsg());
     }
-
 }

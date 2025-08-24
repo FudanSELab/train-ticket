@@ -31,8 +31,6 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-
     @Autowired
     @Qualifier("userDetailServiceImpl")
     private UserDetailsService userDetailsService;
@@ -83,15 +81,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth", "/api/v1/auth/hello", "/api/v1/user/hello").permitAll()
+                .antMatchers("/api/v1/auth/users/hello").permitAll()
                 .antMatchers("/api/v1/auth/users/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/auth/users").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/auth/users/*").hasRole("ADMIN")
-                // create user and role while user register
-                .antMatchers("/user/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/auth/users").permitAll()
+                .antMatchers("/api/v1/auth/verifycode/**").permitAll()
+                .antMatchers("/api/v1/auth/admin/**").hasRole("ADMIN")
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
-                .antMatchers("/api/v1/auth/verifycode/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class);

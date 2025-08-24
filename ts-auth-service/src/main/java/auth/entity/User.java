@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 @Table(name = "auth_user")
 public class User implements UserDetails {
     @Id
+    @GeneratedValue(generator = "jpa-uuid")
     @Column(length=36, name = "user_id")
     private String userId;
 
@@ -36,6 +37,7 @@ public class User implements UserDetails {
 
     @ElementCollection
     @CollectionTable(joinColumns = @JoinColumn(name = "user_id"))
+    @Builder.Default
     private Set<String> roles = new HashSet<>();
 
     @Override

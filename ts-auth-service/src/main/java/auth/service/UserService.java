@@ -1,12 +1,14 @@
 package auth.service;
 
-import auth.dto.AuthDto;
+import edu.fudan.common.client.dto.auth.AuthDto;
+import edu.fudan.common.client.dto.auth.TokenDto;
 import auth.entity.User;
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
 
 import java.util.List;
-import java.util.UUID;
+import edu.fudan.common.client.dto.auth.BasicAuthDto;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author fdse
@@ -44,6 +46,14 @@ public interface UserService {
      * @param headers headers
      * @return Response
      */
-    Response deleteByUserId(String userId, HttpHeaders headers);
+    Response<?> deleteByUserId(String userId, HttpHeaders headers);
+
+    /**
+     * login and get token
+     * @param dto basic auth dto
+     * @param headers http headers
+     * @return Response containing token dto
+     */
+    Response<TokenDto> getToken(HttpServletRequest request, BasicAuthDto dto);
 
 }

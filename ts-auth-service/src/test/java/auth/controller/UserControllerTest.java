@@ -1,8 +1,6 @@
 package auth.controller;
 
-import auth.dto.BasicAuthDto;
-import auth.entity.User;
-import auth.service.TokenService;
+import edu.fudan.common.client.dto.auth.BasicAuthDto;
 import auth.service.UserService;
 import com.alibaba.fastjson.JSONObject;
 import edu.fudan.common.util.Response;
@@ -15,15 +13,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.*;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
+import edu.fudan.common.client.dto.auth.TokenDto;
 
 @RunWith(JUnit4.class)
 public class UserControllerTest {
@@ -33,10 +30,9 @@ public class UserControllerTest {
 
     @Mock
     private UserService userService;
-    @Mock
-    private TokenService tokenService;
+    // TokenService removed
     private MockMvc mockMvc;
-    private Response response = new Response();
+    private final Response<TokenDto> response = new Response<>();
 
     @Before
     public void setUp() {
@@ -54,7 +50,7 @@ public class UserControllerTest {
     @Test
     public void testGetToken() throws Exception {
         BasicAuthDto dao = new BasicAuthDto();
-        Mockito.when(tokenService.getToken(Mockito.any(BasicAuthDto.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
+        Mockito.when(userService.getToken(Mockito.any(HttpServletRequest.class), Mockito.any(BasicAuthDto.class))).thenReturn(response);
         String requestJson = JSONObject.toJSONString(dao);
         String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/users/login").contentType(MediaType.APPLICATION_JSON).content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -62,24 +58,6 @@ public class UserControllerTest {
         Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
     }
 
-    @Test
-    public void testGetAllUser() throws Exception {
-        List<User> userList = new ArrayList<>();
-        Mockito.when(userService.getAllUser(Mockito.any(HttpHeaders.class))).thenReturn(userList);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/users"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(userList, JSONObject.parseObject(result, List.class));
-    }
-
-    @Test
-    public void testDeleteUserById() throws Exception {
-        UUID userId = UUID.randomUUID();
-        Mockito.when(userService.deleteByUserId(Mockito.any(UUID.class).toString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/auth/users/" + userId.toString()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
+    // Tests for admin endpoints moved to UserAdminControllerTest
 
 }
