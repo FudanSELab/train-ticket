@@ -24,131 +24,135 @@ import java.util.List;
 @Component
 public class AuthClient {
 
-    private static final String SERVICE_NAME = "ts-auth-service";
-    private static final String BASE_URL = "/api/v1/auth";
+	private static final String SERVICE_NAME = "ts-auth-service";
+	private static final String BASE_URL = "/api/v1/auth";
 
-    @Autowired
-    private RestTemplate restTemplate;
+	@Autowired
+	private RestTemplate restTemplate;
 
-    private String getServiceUrl() {
-        return "http://" + SERVICE_NAME;
-    }
+	private String getServiceUrl() {
+		return "http://" + SERVICE_NAME;
+	}
 
-    /**
-     * Create a default user in the auth service
-     *
-     * @param userId User ID
-     * @param userName Username
-     * @param password Password
-     * @return Response containing the created auth user
-     */
-    public Response<AuthDto> createDefaultUser(String userId, String userName, String password) {
-        log.info("[createDefaultUser][Creating default auth user][UserId: {}, UserName: {}]", userId, userName);
-        
-        AuthDto authDto = new AuthDto(userId, userName, password);
-        HttpEntity<AuthDto> entity = new HttpEntity<>(authDto);
+	/**
+	 * Admin: Delete user by ID
+	 * <p>
+	 * Calls the admin endpoint ("/admin/users/{userId}") exposed by the
+	 * auth-service.
+	 *
+	 * @param userId  ID of the user to delete
+	 * @param headers HTTP headers containing authentication / authorization info
+	 * @return Response indicating success or failure
+	 */
+	public Response<String> adminDeleteUser(String userId, HttpHeaders headers) {
+		log.info("[adminDeleteUser][Admin deleting user][userId: {}]", userId);
 
-        ResponseEntity<Response<AuthDto>> response = restTemplate.exchange(
-            getServiceUrl() + BASE_URL,
-            HttpMethod.POST,
-            entity,
-            new ParameterizedTypeReference<Response<AuthDto>>() {}
-        );
+		HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        return response.getBody();
-    }
+		ResponseEntity<Response<String>> response = restTemplate.exchange(
+				getServiceUrl() + BASE_URL + "/admin/users/" + userId,
+				HttpMethod.DELETE,
+				entity,
+				new ParameterizedTypeReference<Response<String>>() {
+				});
 
-    /**
-     * Login user and get authentication token
-     *
-     * @param userName Username
-     * @param password Password
-     * @param verificationCode Optional verification code
-     * @param headers HTTP headers
-     * @return Response containing the authentication token
-     */
-    public Response<TokenDto> login(String userName, String password, String verificationCode, HttpHeaders headers) {
-        log.info("[login][User login request][UserName: {}]", userName);
-        
-        BasicAuthDto authDto = new BasicAuthDto();
-        authDto.setUsername(userName);
-        authDto.setPassword(password);
-        authDto.setVerificationCode(verificationCode);
+		return response.getBody();
+	}
 
-        HttpEntity<BasicAuthDto> entity = new HttpEntity<>(authDto, headers);
+	/**
+	 * Admin: Get all users
+	 * <p>
+	 * Calls the admin endpoint ("/admin/users") exposed by the auth-service.
+	 *
+	 * @param headers HTTP headers containing authentication / authorization info
+	 * @return List of all users managed by auth-service
+	 */
+	public List<UserDto> adminGetAllUsers(HttpHeaders headers) {
+		log.info("[adminGetAllUsers][Admin request to get all users]");
 
-        ResponseEntity<Response<TokenDto>> response = restTemplate.exchange(
-            getServiceUrl() + BASE_URL + "/users/login",
-            HttpMethod.POST,
-            entity,
-            new ParameterizedTypeReference<Response<TokenDto>>() {}
-        );
+		HttpEntity<?> entity = new HttpEntity<>(headers);
 
-        return response.getBody();
-    }
+		ResponseEntity<List<UserDto>> response = restTemplate.exchange(
+				getServiceUrl() + BASE_URL + "/admin/users",
+				HttpMethod.GET,
+				entity,
+				new ParameterizedTypeReference<List<UserDto>>() {
+				});
 
-    /**
-     * Get all users
-     *
-     * @param headers HTTP headers (for authentication)
-     * @return List of users
-     */
-    public List<UserDto> getAllUsers(HttpHeaders headers) {
-        log.info("[getAllUsers][Getting all users]");
-        
-        HttpEntity<?> entity = new HttpEntity<>(headers);
+		return response.getBody();
+	}
 
-        ResponseEntity<List<UserDto>> response = restTemplate.exchange(
-            getServiceUrl() + BASE_URL + "/users",
-            HttpMethod.GET,
-            entity,
-            new ParameterizedTypeReference<List<UserDto>>() {}
-        );
+	/**
+	 * Create a default user in the auth service
+	 *
+	 * @param userId   User ID
+	 * @param userName Username
+	 * @param password Password
+	 * @return Response containing the created auth user
+	 */
+	public Response<AuthDto> createDefaultUser(String userId, String userName, String password) {
+		log.info("[createDefaultUser][Creating default auth user][UserId: {}, UserName: {}]", userId, userName);
 
-        return response.getBody();
-    }
+		AuthDto authDto = new AuthDto(userId, userName, password);
+		HttpEntity<AuthDto> entity = new HttpEntity<>(authDto);
 
-    /**
-     * Delete user by ID
-     *
-     * @param userId User ID to delete
-     * @param headers HTTP headers (for authentication)
-     * @return Response indicating success or failure
-     */
-    public Response<Void> deleteUser(String userId, HttpHeaders headers) {
-        log.info("[deleteUser][Deleting user][userId: {}]", userId);
-        
-        HttpEntity<?> entity = new HttpEntity<>(headers);
+		ResponseEntity<Response<AuthDto>> response = restTemplate.exchange(
+				getServiceUrl() + BASE_URL + "/users",
+				HttpMethod.POST,
+				entity,
+				new ParameterizedTypeReference<Response<AuthDto>>() {
+				});
 
-        ResponseEntity<Response<Void>> response = restTemplate.exchange(
-            getServiceUrl() + BASE_URL + "/users/" + userId,
-            HttpMethod.DELETE,
-            entity,
-            new ParameterizedTypeReference<Response<Void>>() {}
-        );
+		return response.getBody();
+	}
 
-        return response.getBody();
-    }
+	/**
+	 * Login user and get authentication token
+	 *
+	 * @param userName         Username
+	 * @param password         Password
+	 * @param verificationCode Optional verification code
+	 * @param headers          HTTP headers
+	 * @return Response containing the authentication token
+	 */
+	public Response<TokenDto> login(String userName, String password, String verificationCode, HttpHeaders headers) {
+		log.info("[login][User login request][UserName: {}]", userName);
 
-    /**
-     * Verify a verification code
-     *
-     * @param code The verification code to verify
-     * @param headers HTTP headers
-     * @return true if the code is valid, false otherwise
-     */
-    public boolean verifyCode(String code, HttpHeaders headers) {
-        log.info("[verifyCode][Verifying code: {}]", code);
-        
-        HttpEntity<?> entity = new HttpEntity<>(headers);
+		BasicAuthDto authDto = new BasicAuthDto();
+		authDto.setUsername(userName);
+		authDto.setPassword(password);
+		authDto.setVerificationCode(verificationCode);
 
-        ResponseEntity<Boolean> response = restTemplate.exchange(
-            getServiceUrl() + BASE_URL + "/verifycode/verify/" + code,
-            HttpMethod.GET,
-            entity,
-            Boolean.class
-        );
+		HttpEntity<BasicAuthDto> entity = new HttpEntity<>(authDto, headers);
 
-        return Boolean.TRUE.equals(response.getBody());
-    }
+		ResponseEntity<Response<TokenDto>> response = restTemplate.exchange(
+				getServiceUrl() + BASE_URL + "/users/login",
+				HttpMethod.POST,
+				entity,
+				new ParameterizedTypeReference<Response<TokenDto>>() {
+				});
+
+		return response.getBody();
+	}
+
+	/**
+	 * Verify a verification code
+	 *
+	 * @param code    The verification code to verify
+	 * @param headers HTTP headers
+	 * @return true if the code is valid, false otherwise
+	 */
+	public boolean verifyCode(String code, HttpHeaders headers) {
+		log.info("[verifyCode][Verifying code: {}]", code);
+
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+
+		ResponseEntity<Boolean> response = restTemplate.exchange(
+				getServiceUrl() + BASE_URL + "/verifycode/verify/" + code,
+				HttpMethod.GET,
+				entity,
+				Boolean.class);
+
+		return Boolean.TRUE.equals(response.getBody());
+	}
 }

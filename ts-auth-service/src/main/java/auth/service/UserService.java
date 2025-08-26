@@ -46,7 +46,7 @@ public interface UserService {
      * @param headers headers
      * @return Response
      */
-    Response<?> deleteByUserId(String userId, HttpHeaders headers);
+    Response<String> deleteByUserId(String userId, HttpHeaders headers);
 
     /**
      * login and get token

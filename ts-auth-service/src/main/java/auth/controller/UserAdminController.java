@@ -35,7 +35,7 @@ public class UserAdminController {
      * Delete user by id.
      */
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Response<?>> deleteUserById(@PathVariable String userId, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Response<String>> deleteUserById(@PathVariable String userId, @RequestHeader HttpHeaders headers) {
         log.info("[Admin][deleteUserById][Delete user][userId: {}]", userId);
         return ResponseEntity.ok(userService.deleteByUserId(userId, headers));
     }
