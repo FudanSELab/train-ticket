@@ -70,8 +70,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/user/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/v1/user/users/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/v1/user/users/*").hasAnyRole("ADMIN", "USER")
+                // allow public registration and health-check endpoints
+                .antMatchers(HttpMethod.GET, "/api/v1/user/hello").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/user/register").permitAll()
+                // user-specific endpoints require at least USER role
+                .antMatchers("/api/v1/user/**").authenticated()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
                 .anyRequest().authenticated()

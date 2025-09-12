@@ -53,7 +53,7 @@ public class UserServiceImplTest {
 
     @Test
     public void testCreateDefaultAuthUser() {
-        AuthDto dto = new AuthDto(UUID.randomUUID().toString(), "username", "password");
+        AuthDto dto = AuthDto.builder().userId(UUID.randomUUID().toString()).userName("username").password("password").build();
         User user = new User();
         Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
         Mockito.when(passwordEncoder.encode(dto.getPassword())).thenReturn("password");

@@ -4,7 +4,6 @@ import edu.fudan.common.util.Response;
 import edu.fudan.common.client.dto.auth.AuthDto;
 import edu.fudan.common.client.dto.auth.BasicAuthDto;
 import edu.fudan.common.client.dto.auth.TokenDto;
-import edu.fudan.common.client.dto.user.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -67,16 +66,16 @@ public class AuthClient {
 	 * @param headers HTTP headers containing authentication / authorization info
 	 * @return List of all users managed by auth-service
 	 */
-	public List<UserDto> adminGetAllUsers(HttpHeaders headers) {
+	public List<AuthDto> adminGetAllUsers(HttpHeaders headers) {
 		log.info("[adminGetAllUsers][Admin request to get all users]");
 
 		HttpEntity<?> entity = new HttpEntity<>(headers);
 
-		ResponseEntity<List<UserDto>> response = restTemplate.exchange(
+		ResponseEntity<List<AuthDto>> response = restTemplate.exchange(
 				getServiceUrl() + BASE_URL + "/admin/users",
 				HttpMethod.GET,
 				entity,
-				new ParameterizedTypeReference<List<UserDto>>() {
+				new ParameterizedTypeReference<List<AuthDto>>() {
 				});
 
 		return response.getBody();
@@ -93,7 +92,7 @@ public class AuthClient {
 	public Response<AuthDto> createDefaultUser(String userId, String userName, String password) {
 		log.info("[createDefaultUser][Creating default auth user][UserId: {}, UserName: {}]", userId, userName);
 
-		AuthDto authDto = new AuthDto(userId, userName, password);
+		AuthDto authDto = AuthDto.builder().userId(userId).userName(userName).password(password).build();
 		HttpEntity<AuthDto> entity = new HttpEntity<>(authDto);
 
 		ResponseEntity<Response<AuthDto>> response = restTemplate.exchange(

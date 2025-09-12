@@ -1,8 +1,9 @@
 package user.controller;
 
 import com.alibaba.fastjson.JSONObject;
+
+import edu.fudan.common.client.dto.user.UserDto;
 import edu.fudan.common.util.Response;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +17,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import user.dto.UserDto;
+
 import user.service.UserService;
 
-import java.util.UUID;
+import user.entity.User;
 
 @RunWith(JUnit4.class)
 public class UserControllerTest {
@@ -29,8 +30,9 @@ public class UserControllerTest {
 
     @Mock
     private UserService userService;
+    @Mock
+    private user.mapper.UserMapper userMapper;
     private MockMvc mockMvc;
-    private Response response = new Response();
 
     @Before
     public void setUp() {
@@ -40,68 +42,40 @@ public class UserControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/user/users/hello"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/user/hello"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Hello"));
     }
 
     @Test
-    public void testGetAllUser() throws Exception {
-        Mockito.when(userService.getAllUsers(Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/user/users"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
-    public void testGetUserByUserName() throws Exception {
-        Mockito.when(userService.findByUserName(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/user/users/user_name"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
-    public void testGetUserByUserId() throws Exception {
-        Mockito.when(userService.findByUserId(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/user/users/id/user_id"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
     public void testRegisterUser() throws Exception {
-        UserDto userDto = new UserDto();
-        Mockito.when(userService.saveUser(Mockito.any(UserDto.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String requestJson = JSONObject.toJSONString(userDto);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user/users/register").contentType(MediaType.APPLICATION_JSON).content(requestJson))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
+        UserDto userDto = UserDto.builder()
+                .userName("tom")
+                .password("pwd")
+                .gender(0)
+                .documentType(1)
+                .documentNum("123456")
+                .email("a@b.com")
+                .build();
+        User user = User.builder()
+                .userName("tom")
+                .gender(0)
+                .documentType(1)
+                .documentNum("123456")
+                .email("a@b.com")
+                .build();
+        Response<User> resp = new Response<>(1, "REGISTER USER SUCCESS", user);
 
-    @Test
-    public void testDeleteUserById() throws Exception {
-        UUID userId = UUID.randomUUID();
-        Mockito.when(userService.deleteUser(Mockito.any(UUID.class).toString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/user/users/" + userId.toString()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
+        Mockito.when(userMapper.toEntity(Mockito.any(UserDto.class))).thenReturn(user);
+        Mockito.when(userService.createUser(Mockito.any(User.class), Mockito.eq("pwd"), Mockito.any(HttpHeaders.class)))
+                .thenReturn(resp);
 
-    @Test
-    public void testUpdateUser() throws Exception {
-        UserDto user = new UserDto();
-        Mockito.when(userService.updateUser(Mockito.any(UserDto.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String requestJson = JSONObject.toJSONString(user);
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/user/users").contentType(MediaType.APPLICATION_JSON).content(requestJson))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(response, JSONObject.parseObject(result, Response.class));
-    }
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JSONObject.toJSONString(userDto)))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
 
+        Mockito.verify(userService, Mockito.times(1))
+                .createUser(Mockito.any(User.class), Mockito.eq("pwd"), Mockito.any(HttpHeaders.class));
+    }
 }

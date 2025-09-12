@@ -5,9 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * DTO for creating a default user in auth service
- */
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,4 +16,6 @@ public class AuthDto {
     private String userId;
     private String userName;
     private String password;
+    @Builder.Default
+    private Set<String> roles = new HashSet<>();
 }

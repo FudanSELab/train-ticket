@@ -1,22 +1,26 @@
 package edu.fudan.common.client.dto.user;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.HashSet;
-import java.util.Set;
+import lombok.*;
 
 /**
- * DTO for auth user information
+ * @author fdse
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class UserDto {
     private String userId;
-    private String username;
-    private Set<String> roles = new HashSet<>();
+    
+    private String userName;
+
+    private String password;
+
+    private int gender;
+
+    private int documentType;
+
+    private String documentNum;
+
+    private String email;
 }

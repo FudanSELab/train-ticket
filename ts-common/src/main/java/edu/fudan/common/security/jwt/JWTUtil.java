@@ -86,6 +86,32 @@ public class JWTUtil {
         return (List<String>) (claimsJws.getBody().get("roles", List.class));
     }
 
+    /**
+     * Extract userId claim from a JWT token string.
+     *
+     * @param token the JWT string (no "Bearer " prefix)
+     * @return userId or null if absent
+     */
+    public static String getUserId(String token) {
+        if (token == null) {
+            return null;
+        }
+        Jws<Claims> claimsJws = getClaims(token);
+        return claimsJws.getBody().get("id", String.class);
+    }
+
+    /**
+     * Convenience method: obtain userId from Authorization header of the incoming request.
+     * Returns null if header missing / token invalid.
+     */
+    public static String getUserIdFromHeader(HttpServletRequest request) {
+        String token = getTokenFromHeader(request);
+        if (token != null && validateToken(token)) {
+            return getUserId(token);
+        }
+        return null;
+    }
+
     private static String getTokenFromHeader(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {

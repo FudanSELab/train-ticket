@@ -32,7 +32,6 @@ public class InitUser implements CommandLineRunner {
         User user = User.builder()
                 .userId("4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f")
                 .userName("fdse_microservice")
-                .password("111111")
                 .gender(1)
                 .documentType(1)
                 .documentNum("2135488099312X")

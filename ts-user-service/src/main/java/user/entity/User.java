@@ -20,13 +20,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class User {
-
-    //    private UUID userId;
     @Id
     @Column(length = 36, name = "user_id")
     private String userId;
     @Column(name = "user_name")
     private String userName;
+
+    /** password saved in auth service, will not be saved in user service */
+    @javax.persistence.Transient
     private String password;
 
     private int gender;
@@ -40,5 +41,4 @@ public class User {
     public User() {
         this.userId = UUID.randomUUID().toString();
     }
-
 }
