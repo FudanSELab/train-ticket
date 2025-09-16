@@ -51,3 +51,13 @@ clean:
 .PHONY: clean-image
 clean-image:
 	@hack/clean-image.sh $(Repo)
+
+# bundle OpenAPI definitions for all services
+.PHONY: bundle-openapi
+bundle-openapi:
+	@script/bundle-openapi.sh
+
+# upload OpenAPI bundle to remote (suffix as environment/service etc.)
+.PHONY: upload-openapi-%
+upload-openapi-%:
+	@script/upload-openapi.sh $*

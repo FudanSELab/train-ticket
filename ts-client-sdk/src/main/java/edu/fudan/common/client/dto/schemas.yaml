@@ -1,5 +1,16 @@
 components:
   schemas:
+    # --- Common DTO Schemas ---
+    Response:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        data:
+          nullable: true
+
     # --- Auth DTO Schemas ---
     AuthDto:
       $ref: 'auth/schemas.yaml#/components/schemas/AuthDto'

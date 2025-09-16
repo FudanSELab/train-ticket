@@ -19,25 +19,18 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Config'
-    ApiResponse:
-      type: object
-      properties:
-        status:
-          type: integer
-        message:
-          type: string
-        data:
-          nullable: true
-    ApiResponseConfig:
+    Response:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/Response'
+    ResponseConfig:
       allOf:
-        - $ref: '#/components/schemas/ApiResponse'
+        - $ref: '#/components/schemas/Response'
         - type: object
           properties:
             data:
               $ref: '#/components/schemas/Config'
-    ApiResponseConfigList:
+    ResponseConfigList:
       allOf:
-        - $ref: '#/components/schemas/ApiResponse'
+        - $ref: '#/components/schemas/Response'
         - type: object
           properties:
             data:
@@ -66,7 +59,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseConfigList'
+                $ref: '#/components/schemas/ResponseConfigList'
   /api/v1/config/configs/{configName}:
     get:
       tags:
@@ -84,7 +77,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseConfig'
+                $ref: '#/components/schemas/ResponseConfig'
   /api/v1/config/admin/configs:
     post:
       tags:
@@ -102,7 +95,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseConfig'
+                $ref: '#/components/schemas/ResponseConfig'
     put:
       tags:
         - AdminConfig
@@ -119,7 +112,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseConfig'
+                $ref: '#/components/schemas/ResponseConfig'
   /api/v1/config/admin/configs/{name}:
     delete:
       tags:
@@ -137,4 +130,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponseConfig'
+                $ref: '#/components/schemas/ResponseConfig'
