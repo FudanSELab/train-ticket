@@ -1,0 +1,61 @@
+components:
+  schemas:
+    AuthDto:
+      type: object
+      description: Authentication information about a user, including credentials and granted roles.
+      properties:
+        userId:
+          type: string
+          description: Unique identifier of the user.
+        userName:
+          type: string
+          description: Display name of the user.
+        password:
+          type: string
+          format: password
+          description: Raw or hashed password of the user.
+        roles:
+          type: array
+          description: Set of roles granted to the user.
+          items:
+            type: string
+      required:
+        - userId
+        - userName
+        - password
+
+    BasicAuthDto:
+      type: object
+      description: Payload for basic username & password authentication.
+      properties:
+        username:
+          type: string
+          description: Username for login.
+        password:
+          type: string
+          format: password
+          description: Password for login.
+        verificationCode:
+          type: string
+          description: Optional captcha or two-factor authentication code.
+      required:
+        - username
+        - password
+
+    TokenDto:
+      type: object
+      description: Authentication token response after successful login.
+      properties:
+        userId:
+          type: string
+          description: Unique identifier of the authenticated user.
+        username:
+          type: string
+          description: Username of the authenticated user.
+        token:
+          type: string
+          description: JWT or other access token issued to the caller.
+      required:
+        - userId
+        - username
+        - token

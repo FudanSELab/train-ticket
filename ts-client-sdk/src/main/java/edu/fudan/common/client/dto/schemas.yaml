@@ -1,0 +1,21 @@
+components:
+  schemas:
+    # --- Auth DTO Schemas ---
+    AuthDto:
+      $ref: 'auth/schemas.yaml#/components/schemas/AuthDto'
+    BasicAuthDto:
+      $ref: 'auth/schemas.yaml#/components/schemas/BasicAuthDto'
+    TokenDto:
+      $ref: 'auth/schemas.yaml#/components/schemas/TokenDto'
+
+    # --- Config DTO Schema ---
+    ConfigDto:
+      $ref: 'config/schemas.yaml#/components/schemas/ConfigDto'
+
+    # --- Order DTO Schema ---
+    OrderSecurityDto:
+      $ref: 'order/schemas.yaml#/components/schemas/OrderSecurityDto'
+
+    # --- User DTO Schema ---
+    UserDto:
+      $ref: 'user/schemas.yaml#/components/schemas/UserDto'

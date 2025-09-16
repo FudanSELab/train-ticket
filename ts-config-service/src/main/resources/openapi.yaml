@@ -14,20 +14,7 @@ tags:
 components:
   schemas:
     Config:
-      type: object
-      required:
-        - name
-        - value
-      properties:
-        name:
-          type: string
-          description: Configuration key
-        value:
-          type: string
-          description: Configuration value
-        description:
-          type: string
-          description: Description of the configuration
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/ConfigDto'
     ConfigList:
       type: array
       items:

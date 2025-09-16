@@ -1,0 +1,18 @@
+components:
+  schemas:
+    ConfigDto:
+      type: object
+      description: Configuration key-value pair exchanged with config service.
+      properties:
+        name:
+          type: string
+          description: Name of the configuration item.
+        value:
+          type: string
+          description: Value associated with the configuration item.
+        description:
+          type: string
+          description: Human-readable description of the configuration.
+      required:
+        - name
+        - value

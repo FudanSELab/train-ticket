@@ -1,0 +1,35 @@
+components:
+  schemas:
+    UserDto:
+      type: object
+      description: Basic user information data transfer object.
+      properties:
+        userId:
+          type: string
+          description: Unique identifier of the user.
+        userName:
+          type: string
+          description: Username or display name.
+        password:
+          type: string
+          format: password
+          description: Password of the user.
+        gender:
+          type: integer
+          format: int32
+          description: Gender of the user; 0 for unknown, 1 for male, 2 for female.
+        documentType:
+          type: integer
+          format: int32
+          description: Type of identification document.
+        documentNum:
+          type: string
+          description: Identification document number.
+        email:
+          type: string
+          format: email
+          description: Contact email address.
+      required:
+        - userId
+        - userName
+        - password

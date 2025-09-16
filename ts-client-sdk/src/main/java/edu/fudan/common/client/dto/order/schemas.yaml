@@ -1,0 +1,17 @@
+components:
+  schemas:
+    OrderSecurityDto:
+      type: object
+      description: Summary security statistics of orders returned by order-service.
+      properties:
+        orderNumInLastOneHour:
+          type: integer
+          format: int32
+          description: Number of orders placed in the last one hour.
+        orderNumOfValidOrder:
+          type: integer
+          format: int32
+          description: Number of valid (unused) orders in total.
+      required:
+        - orderNumInLastOneHour
+        - orderNumOfValidOrder
