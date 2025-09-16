@@ -1,0 +1,153 @@
+openapi: 3.0.1
+info:
+  title: Config Service API
+  description: API definition for Config Service in Train Ticket system.
+  version: 1.0.0
+servers:
+  - url: http://localhost:15679
+    description: Local server
+tags:
+  - name: Config
+    description: Public configuration endpoints
+  - name: AdminConfig
+    description: Administrative configuration endpoints
+components:
+  schemas:
+    Config:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+          description: Configuration key
+        value:
+          type: string
+          description: Configuration value
+        description:
+          type: string
+          description: Description of the configuration
+    ConfigList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Config'
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+        message:
+          type: string
+        data:
+          nullable: true
+    ApiResponseConfig:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Config'
+    ApiResponseConfigList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ConfigList'
+paths:
+  /api/v1/config/welcome:
+    get:
+      tags:
+        - Config
+      summary: Welcome message
+      responses:
+        '200':
+          description: Welcome string
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/v1/config/configs:
+    get:
+      tags:
+        - Config
+      summary: Retrieve all configurations
+      responses:
+        '200':
+          description: List of configs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConfigList'
+  /api/v1/config/configs/{configName}:
+    get:
+      tags:
+        - Config
+      summary: Retrieve configuration by name
+      parameters:
+        - name: configName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConfig'
+  /api/v1/config/admin/configs:
+    post:
+      tags:
+        - AdminConfig
+      summary: Create a config
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Config'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConfig'
+    put:
+      tags:
+        - AdminConfig
+      summary: Update a config
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Config'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConfig'
+  /api/v1/config/admin/configs/{name}:
+    delete:
+      tags:
+        - AdminConfig
+      summary: Delete a config
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConfig'
