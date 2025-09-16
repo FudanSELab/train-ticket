@@ -1,0 +1,111 @@
+openapi: 3.0.1
+info:
+  title: Security Service API
+  description: API definition for Security Service in Train Ticket system.
+  version: 1.0.0
+servers:
+  - url: http://localhost:11188
+    description: Local server
+
+tags:
+  - name: Security
+    description: Public security endpoints
+  - name: AdminSecurity
+    description: Administrative security endpoints
+
+components:
+  schemas:
+    # Reference common Response wrapper from client-sdk
+    Response:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/Response'
+
+    ResponseString:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: string
+
+    ResponseBoolean:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: boolean
+
+paths:
+  /api/v1/security/welcome:
+    get:
+      tags:
+        - Security
+      summary: Welcome message
+      responses:
+        '200':
+          description: Welcome string
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /api/v1/security/securityConfigs/{accountId}:
+    get:
+      tags:
+        - Security
+      summary: Check security config by account id
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Security config string wrapped in response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseString'
+
+  /api/v1/security/admin/config/maxOrderOneHour/{value}:
+    put:
+      tags:
+        - AdminSecurity
+      summary: Update maxOrderOneHour configuration value
+      parameters:
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Operation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseBoolean'
+
+  /api/v1/security/admin/config/maxOrderNotUse/{value}:
+    put:
+      tags:
+        - AdminSecurity
+      summary: Update maxOrderNotUse configuration value
+      parameters:
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+      responses:
+        '200':
+          description: Operation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseBoolean'

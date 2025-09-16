@@ -3,6 +3,8 @@ package config.controller;
 import com.alibaba.fastjson.JSONObject;
 import config.entity.Config;
 import config.service.ConfigService;
+import edu.fudan.common.client.dto.config.ConfigDto;
+import config.mapper.ConfigMapper;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,10 +33,12 @@ public class ConfigAdminControllerTest {
 
     @Mock
     private ConfigService configService;
+    @Mock
+    private ConfigMapper configMapper;
 
     private MockMvc mockMvc;
 
-    private Response<Config> response = new Response<>();
+    private Response<ConfigDto> response = new Response<>();
 
     @Before
     public void setUp() {
@@ -44,9 +48,12 @@ public class ConfigAdminControllerTest {
 
     @Test
     public void testAddConfig() throws Exception {
-        Config info = new Config();
-        Mockito.when(configService.create(Mockito.any(Config.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String requestJson = JSONObject.toJSONString(info);
+        ConfigDto dto = new ConfigDto();
+        Response<Config> respEntity = new Response<>();
+        Mockito.when(configMapper.toEntity(Mockito.any(ConfigDto.class))).thenReturn(new Config());
+        Mockito.when(configService.create(Mockito.any(Config.class), Mockito.any(HttpHeaders.class))).thenReturn(respEntity);
+        Mockito.when(configMapper.toDtoResponse(respEntity)).thenReturn(response);
+        String requestJson = JSONObject.toJSONString(dto);
         String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/config/admin/configs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
@@ -57,9 +64,12 @@ public class ConfigAdminControllerTest {
 
     @Test
     public void testModifyConfig() throws Exception {
-        Config info = new Config();
-        Mockito.when(configService.update(Mockito.any(Config.class), Mockito.any(HttpHeaders.class))).thenReturn(response);
-        String requestJson = JSONObject.toJSONString(info);
+        ConfigDto dto = new ConfigDto();
+        Response<Config> respEntity = new Response<>();
+        Mockito.when(configMapper.toEntity(Mockito.any(ConfigDto.class))).thenReturn(new Config());
+        Mockito.when(configService.update(Mockito.any(Config.class), Mockito.any(HttpHeaders.class))).thenReturn(respEntity);
+        Mockito.when(configMapper.toDtoResponse(respEntity)).thenReturn(response);
+        String requestJson = JSONObject.toJSONString(dto);
         String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/config/admin/configs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
@@ -70,7 +80,9 @@ public class ConfigAdminControllerTest {
 
     @Test
     public void testDeleteConfig() throws Exception {
-        Mockito.when(configService.delete(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
+        Response<Config> respEntity = new Response<>();
+        Mockito.when(configService.delete(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(respEntity);
+        Mockito.when(configMapper.toDtoResponse(respEntity)).thenReturn(response);
         String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/config/admin/configs/config_name"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();

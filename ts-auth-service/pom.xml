@@ -53,6 +53,10 @@
             <artifactId>ts-client-sdk</artifactId>
             <version>0.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

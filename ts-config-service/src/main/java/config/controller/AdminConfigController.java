@@ -1,6 +1,6 @@
 package config.controller;
 
-import config.entity.Config;
+import edu.fudan.common.client.dto.config.ConfigDto;
 import config.service.ConfigService;
 import edu.fudan.common.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
+import config.entity.Config;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -18,22 +19,28 @@ import static org.springframework.http.ResponseEntity.ok;
 public class AdminConfigController {
     @Autowired
     private ConfigService configService;
+    @Autowired
+    private config.mapper.ConfigMapper configMapper;
 
     @PostMapping("/configs")
-    public ResponseEntity<Response<Config>> addConfig(@RequestBody Config config,@RequestHeader HttpHeaders headers){
-        log.info("[addConfig][Admin add config][name: {}]",config.getName());
-        return new ResponseEntity<>(configService.create(config, headers), HttpStatus.CREATED);
+    public ResponseEntity<Response<ConfigDto>> addConfig(@RequestBody ConfigDto dto,@RequestHeader HttpHeaders headers){
+        log.info("[addConfig][Admin add config][name: {}]",dto.getName());
+        Config entity = configMapper.toEntity(dto);
+        Response<Config> resp = configService.create(entity, headers);
+        return new ResponseEntity<>(configMapper.toDtoResponse(resp), HttpStatus.CREATED);
     }
 
     @PutMapping("/configs")
-    public ResponseEntity<Response<Config>> modifyConfig(@RequestBody Config config,@RequestHeader HttpHeaders headers){
-        log.info("[modifyConfig][Admin modify config][name: {}]",config.getName());
-        return ok(configService.update(config, headers));
+    public ResponseEntity<Response<ConfigDto>> modifyConfig(@RequestBody ConfigDto dto,@RequestHeader HttpHeaders headers){
+        log.info("[modifyConfig][Admin modify config][name: {}]",dto.getName());
+        Response<Config> resp = configService.update(configMapper.toEntity(dto), headers);
+        return ok(configMapper.toDtoResponse(resp));
     }
 
     @DeleteMapping("/configs/{name}")
-    public ResponseEntity<Response<Config>> deleteConfig(@PathVariable String name,@RequestHeader HttpHeaders headers){
+    public ResponseEntity<Response<ConfigDto>> deleteConfig(@PathVariable String name,@RequestHeader HttpHeaders headers){
         log.info("[deleteConfig][Admin delete config][name: {}]",name);
-        return ok(configService.delete(name, headers));
+        Response<Config> resp = configService.delete(name, headers);
+        return ok(configMapper.toDtoResponse(resp));
     }
 }

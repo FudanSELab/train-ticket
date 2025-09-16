@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import edu.fudan.common.client.dto.config.ConfigDto;
+import config.mapper.ConfigMapper;
 import config.entity.Config;
 import config.service.ConfigService;
 import edu.fudan.common.util.Response;
@@ -31,6 +33,8 @@ public class ConfigControllerTest {
 
     @Mock
     private ConfigService configService;
+    @Mock
+    private ConfigMapper configMapper;
     private MockMvc mockMvc;
 
     @Before
@@ -41,24 +45,28 @@ public class ConfigControllerTest {
 
     @Test
     public void testQueryAll() throws Exception {
-        Response<List<Config>> response = new Response<List<Config>>(1, "Success", new ArrayList<>());
-        Mockito.when(configService.queryAll(Mockito.any(HttpHeaders.class))).thenReturn(response);
+        Response<List<Config>> entityResp = new Response<>(1, "Success", new ArrayList<>());
+        Response<List<ConfigDto>> dtoResp = new Response<>(1, "Success", new ArrayList<>());
+        Mockito.when(configService.queryAll(Mockito.any(HttpHeaders.class))).thenReturn(entityResp);
+        Mockito.when(configMapper.toDtoListResponse(entityResp)).thenReturn(dtoResp);
         String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/config/configs"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        Response<List<Config>> actual = JSON.parseObject(result, new TypeReference<Response<List<Config>>>() {});
-        Assert.assertEquals(response, actual);
+        Response<List<ConfigDto>> actual = JSON.parseObject(result, new TypeReference<Response<List<ConfigDto>>>() {});
+        Assert.assertEquals(dtoResp, actual);
     }
 
     @Test
     public void testRetrieve() throws Exception {
-        Response<Config> response = new Response<Config>(1, "Success", new Config("config_name", "config_value", "config_description"));
-        Mockito.when(configService.query(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(response);
+        Response<Config> entityResp = new Response<>(1, "Success", new Config("config_name", "config_value", "config_description"));
+        Response<ConfigDto> dtoResp = new Response<>(1, "Success", new ConfigDto("config_name", "config_value", "config_description"));
+        Mockito.when(configService.query(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(entityResp);
+        Mockito.when(configMapper.toDtoResponse(entityResp)).thenReturn(dtoResp);
         String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/config/configs/config_name"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        Response<Config> actual = JSON.parseObject(result, new TypeReference<Response<Config>>() {});
-        Assert.assertEquals(response, actual);
+        Response<ConfigDto> actual = JSON.parseObject(result, new TypeReference<Response<ConfigDto>>() {});
+        Assert.assertEquals(dtoResp, actual);
     }
 
 }

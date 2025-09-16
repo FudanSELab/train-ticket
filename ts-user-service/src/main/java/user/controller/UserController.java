@@ -15,8 +15,6 @@ import edu.fudan.common.client.dto.user.UserDto;
 import edu.fudan.common.security.jwt.JWTUtil;
 import javax.servlet.http.HttpServletRequest;
 
-import java.util.UUID;
-
 import static org.springframework.http.ResponseEntity.ok;
 
 /**
@@ -39,21 +37,24 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Response<User>> registerUser(@RequestBody UserDto userDto, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Response<UserDto>> registerUser(@RequestBody UserDto userDto, @RequestHeader HttpHeaders headers) {
         log.info("[registerUser][Register user][UserName: {}]",userDto.getUserName());
         User user = userMapper.toEntity(userDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(user, userDto.getPassword(), headers));
+        Response<User> resp = userService.createUser(user, userDto.getPassword(), headers);
+        return ResponseEntity
+          .status(HttpStatus.CREATED)
+          .body(userMapper.toDtoResponse(resp));
     }
 
     @GetMapping("/me")
-    public ResponseEntity<Response<User>> getMe(HttpServletRequest request, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Response<UserDto>> getMe(HttpServletRequest request, @RequestHeader HttpHeaders headers) {
         String userId = JWTUtil.getUserIdFromHeader(request);
         log.info("[getMe][Get current user][userId: {}]", userId);
-        return ok(userService.findByUserId(userId, headers));
+        return ok(userMapper.toDtoResponse(userService.findByUserId(userId, headers)));
     }
 
     @PutMapping("/me")
-    public ResponseEntity<Response<User>> updateMe(@RequestBody UserDto userDto,
+    public ResponseEntity<Response<UserDto>> updateMe(@RequestBody UserDto userDto,
                                                    HttpServletRequest request,
                                                    @RequestHeader HttpHeaders headers) {
         String userId = JWTUtil.getUserIdFromHeader(request);
@@ -71,6 +72,7 @@ public class UserController {
         }
 
         log.info("[updateMe][Update me][UserId: {}]", userId);
-        return ok(userService.updateUser(userMapper.toEntity(userDto), headers));
+        Response<User> resp = userService.updateUser(userMapper.toEntity(userDto), headers);
+        return ok(userMapper.toDtoResponse(resp));
     }
 }

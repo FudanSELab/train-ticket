@@ -1,7 +1,8 @@
 package auth.controller;
 
-import auth.entity.User;
 import auth.service.UserService;
+import edu.fudan.common.client.dto.user.UserDto;
+import auth.mapper.UserMapper;
 import edu.fudan.common.util.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,17 @@ public class UserAdminController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * Get all users.
      */
     @GetMapping
-    public ResponseEntity<List<User>> getAllUser(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<List<UserDto>> getAllUser(@RequestHeader HttpHeaders headers) {
         log.info("[Admin][getAllUser][Get all users]");
-        return ResponseEntity.ok(userService.getAllUser(headers));
+        List<UserDto> list = userMapper.toDtoList(userService.getAllUser(headers));
+        return ResponseEntity.ok(list);
     }
 
     /**

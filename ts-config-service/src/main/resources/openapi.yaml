@@ -13,28 +13,28 @@ tags:
     description: Administrative configuration endpoints
 components:
   schemas:
-    Config:
+    ConfigDto:
       $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/ConfigDto'
-    ConfigList:
+    ConfigListDto:
       type: array
       items:
-        $ref: '#/components/schemas/Config'
+        $ref: '#/components/schemas/ConfigDto'
     Response:
       $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/Response'
-    ResponseConfig:
+    ResponseConfigDto:
       allOf:
         - $ref: '#/components/schemas/Response'
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/Config'
-    ResponseConfigList:
+              $ref: '#/components/schemas/ConfigDto'
+    ResponseConfigListDto:
       allOf:
         - $ref: '#/components/schemas/Response'
         - type: object
           properties:
             data:
-              $ref: '#/components/schemas/ConfigList'
+              $ref: '#/components/schemas/ConfigListDto'
 paths:
   /api/v1/config/welcome:
     get:
@@ -59,7 +59,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseConfigList'
+                $ref: '#/components/schemas/ResponseConfigListDto'
   /api/v1/config/configs/{configName}:
     get:
       tags:
@@ -77,7 +77,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseConfig'
+                $ref: '#/components/schemas/ResponseConfigDto'
   /api/v1/config/admin/configs:
     post:
       tags:
@@ -88,14 +88,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Config'
+              $ref: '#/components/schemas/ConfigDto'
       responses:
         '201':
           description: Created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseConfig'
+                $ref: '#/components/schemas/ResponseConfigDto'
     put:
       tags:
         - AdminConfig
@@ -105,14 +105,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Config'
+              $ref: '#/components/schemas/ConfigDto'
       responses:
         '200':
           description: Updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseConfig'
+                $ref: '#/components/schemas/ResponseConfigDto'
   /api/v1/config/admin/configs/{name}:
     delete:
       tags:
@@ -130,4 +130,4 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseConfig'
+                $ref: '#/components/schemas/ResponseConfigDto'

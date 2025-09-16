@@ -3,7 +3,9 @@ package auth.controller;
 import auth.entity.User;
 import auth.service.UserService;
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.common.client.dto.user.UserDto;
 import edu.fudan.common.util.Response;
+import auth.mapper.UserMapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,12 +36,14 @@ public class UserAdminControllerTest {
 
     @Mock
     private UserService userService;
+    @Mock
+    private UserMapper userMapper;
 
     private MockMvc mockMvc;
 
     private HttpHeaders headers;
 
-    private final Response<?> response = new Response<>();
+    private final Response<String> response = new Response<>();
 
     @Before
     public void setUp() {
@@ -52,17 +56,19 @@ public class UserAdminControllerTest {
     @Test
     public void testGetAllUser() throws Exception {
         List<User> userList = new ArrayList<>();
+        List<UserDto> dtoList = new ArrayList<>();
         Mockito.when(userService.getAllUser(Mockito.any(HttpHeaders.class))).thenReturn(userList);
+        Mockito.when(userMapper.toDtoList(userList)).thenReturn(dtoList);
         String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/auth/admin/users"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(userList, JSONObject.parseObject(result, List.class));
+        Assert.assertEquals(dtoList, JSONObject.parseObject(result, List.class));
     }
 
     @Test
     public void testDeleteUserById() throws Exception {
         UUID userId = UUID.randomUUID();
-        Mockito.when(userService.deleteByUserId(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn((Response) response);
+        Mockito.when(userService.deleteByUserId(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn((Response<String>) response);
         String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/auth/admin/users/" + userId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();

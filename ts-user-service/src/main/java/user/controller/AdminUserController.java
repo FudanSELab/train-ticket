@@ -36,29 +36,29 @@ public class AdminUserController {
     }
 
     @GetMapping("/id/{userId}")
-    public ResponseEntity<Response<User>> getUserByUserId(@PathVariable String userId, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Response<UserDto>> getUserByUserId(@PathVariable String userId, @RequestHeader HttpHeaders headers) {
         log.info("[getUserByUserId][Get user by user id][UserId: {}]",userId);
-        return ok(userService.findByUserId(userId, headers));
+        return ok(userMapper.toDtoResponse(userService.findByUserId(userId, headers)));
     }
 
     @GetMapping
-    public ResponseEntity<Response<List<User>>> getAllUsers(@RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Response<List<UserDto>>> getAllUsers(@RequestHeader HttpHeaders headers) {
         log.info("[getAllUsers][Get all users]");
-        return ok(userService.getAllUsers(headers));
+        return ok(userMapper.toDtoListResponse(userService.getAllUsers(headers)));
     }
 
     @PutMapping
-    public ResponseEntity<Response<User>> updateUser(@RequestBody UserDto userDto, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Response<UserDto>> updateUser(@RequestBody UserDto userDto, @RequestHeader HttpHeaders headers) {
         log.info("[updateUser][Update User][userName: {}]", userDto.getUserName());
         User user = userMapper.toEntity(userDto);
-        return ok(userService.updateUser(user, headers));
+        return ok(userMapper.toDtoResponse(userService.updateUser(user, headers)));
     }
 
     @PostMapping
-    public ResponseEntity<Response<User>> addUser(@RequestBody UserDto userDto, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Response<UserDto>> addUser(@RequestBody UserDto userDto, @RequestHeader HttpHeaders headers) {
         log.info("[addUser][Add user][userName: {}]", userDto.getUserName());
         User user = userMapper.toEntity(userDto);
-        return ok(userService.createUser(user, userDto.getPassword(), headers));
+        return ok(userMapper.toDtoResponse(userService.createUser(user, userDto.getPassword(), headers)));
     }
 
     @DeleteMapping(value = "/{userId}")

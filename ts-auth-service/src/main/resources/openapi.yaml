@@ -1,0 +1,181 @@
+openapi: 3.0.1
+info:
+  title: Auth Service API
+  description: API definition for Auth Service in Train Ticket system.
+  version: 1.0.0
+servers:
+  - url: http://localhost:12340
+    description: Local server
+
+tags:
+  - name: Auth
+    description: Public authentication endpoints
+  - name: AdminAuth
+    description: Administrative authentication endpoints
+  - name: VerifyCode
+    description: Captcha generation & validation endpoints
+
+components:
+  schemas:
+    # Import shared data transfer objects
+    AuthDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/AuthDto'
+    BasicAuthDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/BasicAuthDto'
+    TokenDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/TokenDto'
+    UserDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/UserDto'
+    Response:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/Response'
+
+    ResponseAuthDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/AuthDto'
+
+    ResponseTokenDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/TokenDto'
+
+    ResponseString:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: string
+
+    ResponseBoolean:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: boolean
+
+paths:
+  /api/v1/auth/users/hello:
+    get:
+      tags:
+        - Auth
+      summary: Hello endpoint for testing connectivity
+      responses:
+        '200':
+          description: Plain hello string
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /api/v1/auth/users:
+    post:
+      tags:
+        - Auth
+      summary: Create a default authentication user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthDto'
+      responses:
+        '201':
+          description: Created user wrapped in response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAuthDto'
+
+  /api/v1/auth/users/login:
+    post:
+      tags:
+        - Auth
+      summary: Login and retrieve authentication token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasicAuthDto'
+      responses:
+        '200':
+          description: Token data wrapped in response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseTokenDto'
+
+  /api/v1/auth/admin/users:
+    get:
+      tags:
+        - AdminAuth
+      summary: Retrieve all auth users
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+
+  /api/v1/auth/admin/users/{userId}:
+    delete:
+      tags:
+        - AdminAuth
+      summary: Delete user by ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Operation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseString'
+
+  /api/v1/auth/verifycode/generate:
+    get:
+      tags:
+        - VerifyCode
+      summary: Generate captcha image
+      responses:
+        '200':
+          description: Captcha image
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+
+  /api/v1/auth/verifycode/verify/{verifyCode}:
+    get:
+      tags:
+        - VerifyCode
+      summary: Verify captcha code
+      parameters:
+        - name: verifyCode
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseBoolean'

@@ -1,7 +1,7 @@
 package config.controller;
 
 import java.util.List;
-import config.entity.Config;
+import edu.fudan.common.client.dto.config.ConfigDto;
 import config.service.ConfigService;
 import edu.fudan.common.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,8 @@ import static org.springframework.http.ResponseEntity.ok;
 public class ConfigController {
     @Autowired
     private ConfigService configService;
+    @Autowired
+    private config.mapper.ConfigMapper configMapper;
 
     @GetMapping(path = "/welcome")
     public String home(@RequestHeader HttpHeaders headers) {
@@ -29,14 +31,14 @@ public class ConfigController {
     }
 
     @GetMapping(value = "/configs")
-    public HttpEntity<Response<List<Config>>> queryAll(@RequestHeader HttpHeaders headers) {
+    public HttpEntity<Response<List<ConfigDto>>> queryAll(@RequestHeader HttpHeaders headers) {
         log.info("[queryAll][Query all configs]");
-        return ok(configService.queryAll(headers));
+        return ok(configMapper.toDtoListResponse(configService.queryAll(headers)));
     }
 
     @GetMapping(value = "/configs/{configName}")
-    public HttpEntity<Response<Config>> retrieve(@PathVariable String configName, @RequestHeader HttpHeaders headers) {
+    public HttpEntity<Response<ConfigDto>> retrieve(@PathVariable String configName, @RequestHeader HttpHeaders headers) {
         log.info("[retrieve][Retrieve config][configName: {}]", configName);
-        return ok(configService.query(configName, headers));
+        return ok(configMapper.toDtoResponse(configService.query(configName, headers)));
     }
 }
