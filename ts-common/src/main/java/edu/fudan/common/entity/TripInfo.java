@@ -1,8 +1,6 @@
 package edu.fudan.common.entity;
 
 import edu.fudan.common.util.StringUtils;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -11,8 +9,6 @@ import java.util.Date;
 /**
  * @author fdse
  */
-@Data
-@AllArgsConstructor
 public class TripInfo {
     @Valid
     @NotNull
@@ -33,12 +29,34 @@ public class TripInfo {
         this.departureTime = "";
     }
 
+    public TripInfo(String startPlace, String endPlace, String departureTime) {
+        this.startPlace = startPlace;
+        this.endPlace = endPlace;
+        this.departureTime = departureTime;
+    }
+
     public String getStartPlace() {
         return StringUtils.String2Lower(this.startPlace);
     }
 
+    public void setStartPlace(String startPlace) {
+        this.startPlace = startPlace;
+    }
+
     public String getEndPlace() {
         return StringUtils.String2Lower(this.endPlace);
+    }
+
+    public void setEndPlace(String endPlace) {
+        this.endPlace = endPlace;
+    }
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
     }
 
 //    public Date getDepartureTime(){

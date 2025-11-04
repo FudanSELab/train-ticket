@@ -40,11 +40,11 @@ public class Contacts {
             return false;
         }
         Contacts other = (Contacts) obj;
-        return name.equals(other.getName())
-                && accountId .equals( other.getAccountId() )
-                && documentNumber.equals(other.getDocumentNumber())
-                && phoneNumber.equals(other.getPhoneNumber())
-                && documentType == other.getDocumentType();
+        return name.equals(other.name)
+                && accountId .equals( other.accountId )
+                && documentNumber.equals(other.documentNumber)
+                && phoneNumber.equals(other.phoneNumber)
+                && documentType == other.documentType;
     }
 
     @Override
