@@ -20,6 +20,7 @@ import java.util.List;
 public class UserClient {
 
     private static final String SERVICE_NAME = "ts-user-service";
+    private static final String INTERNAL_BASE_URL = "/internal";
     private static final String BASE_USER = "/api/v1/user";
     private static final String BASE_ADMIN = "/api/v1/user/admin/users";
 
@@ -85,5 +86,11 @@ public class UserClient {
     public Response<Void> adminDeleteUser(String userId, HttpHeaders headers) {
         return exchange(getServiceUrl() + BASE_ADMIN + "/" + userId, HttpMethod.DELETE, null, headers,
                 new ParameterizedTypeReference<Response<Void>>() {});
+    }
+
+    /* ---------- internal endpoints ---------- */
+    public Response<UserDto> internalGetUserById(String userId, HttpHeaders headers) {
+        return exchange(getServiceUrl() + INTERNAL_BASE_URL + "/id/" + userId, HttpMethod.GET, null, headers,
+                new ParameterizedTypeReference<Response<UserDto>>() {});
     }
 }

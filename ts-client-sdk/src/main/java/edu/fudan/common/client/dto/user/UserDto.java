@@ -23,4 +23,6 @@ public class UserDto {
     private String documentNum;
 
     private String email;
+
+    private String cellphone;
 }

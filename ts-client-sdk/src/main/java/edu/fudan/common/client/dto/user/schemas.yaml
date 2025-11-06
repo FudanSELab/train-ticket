@@ -29,6 +29,9 @@ components:
           type: string
           format: email
           description: Contact email address.
+        cellphone:
+          type: string
+          description: Contact cellphone number.
       required:
         - userId
         - userName
