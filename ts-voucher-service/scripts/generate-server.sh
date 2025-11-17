@@ -1,0 +1,1 @@
+openapi-generator generate -i openapi.yaml -g python-fastapi -o .
