@@ -1,0 +1,48 @@
+openapi: 3.0.3
+info:
+  description: API documentation for the Train Ticket Voucher microservice. This service
+    provides an endpoint for retrieving or generating reimbursement vouchers based
+    on order information.
+  title: Voucher Service API
+  version: 1.0.0
+servers:
+- description: Local development server
+  url: http://localhost:16101
+paths:
+  /api/v1/vouchers:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoucherRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoucherDto'
+          description: Successful voucher retrieval
+        "400":
+          description: Invalid request payload
+        "500":
+          description: Internal server error
+      summary: Generate a voucher if not exist for a train ticket order and return
+        the voucher information
+components:
+  schemas:
+    VoucherRequest:
+      example:
+        orderId: orderId
+      properties:
+        orderId:
+          description: The unique identifier of the order.
+          title: orderId
+          type: string
+      required:
+      - orderId
+      title: VoucherRequest
+      type: object
+    VoucherDto:
+      $ref: '../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/voucher/schemas.yaml#/components/schemas/VoucherDto'
