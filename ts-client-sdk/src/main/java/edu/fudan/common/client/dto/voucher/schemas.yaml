@@ -1,0 +1,55 @@
+components:
+  schemas:
+    VoucherDto:
+      type: object
+      description: Voucher information data transfer object.
+      properties:
+        voucherId:
+          type: integer
+          format: int32
+          description: Primary key of voucher record.
+        orderId:
+          type: string
+          description: Order id to which this voucher is bound.
+        travelDate:
+          type: string
+          format: date
+          description: Travel date in yyyy-MM-dd format.
+        travelTime:
+          type: string
+          description: Travel time string, e.g. "08:30".
+        contactName:
+          type: string
+          description: Contact person name.
+        trainNumber:
+          type: string
+          description: Train number, e.g. "G1234".
+        seatClass:
+          type: integer
+          format: int32
+          description: Seat class code, aligns with order-service seatClass.
+        seatNumber:
+          type: string
+          description: Seat number string.
+        startStation:
+          type: string
+          description: Departure station.
+        destStation:
+          type: string
+          description: Destination station.
+        price:
+          type: number
+          format: float
+          description: Ticket price.
+      required:
+        - voucherId
+        - orderId
+        - travelDate
+        - travelTime
+        - contactName
+        - trainNumber
+        - seatClass
+        - seatNumber
+        - startStation
+        - destStation
+        - price
