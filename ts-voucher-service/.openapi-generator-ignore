@@ -23,4 +23,9 @@
 #!docs/README.md
 
 Dockerfile
+docker-compose.yaml
 openapi.yaml
+setup.cfg
+pyproject.toml
+.flake8
+README.md

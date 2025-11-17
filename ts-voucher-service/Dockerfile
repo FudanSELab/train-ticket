@@ -1,37 +1,40 @@
-FROM python:3.7 AS builder
+# Use a Python image with uv pre-installed
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
-WORKDIR /usr/src/app
+# Setup a non-root user
+RUN groupadd --system --gid 999 nonroot \
+ && useradd --system --gid 999 --uid 999 --create-home nonroot
 
-RUN python3 -m venv /venv
-ENV PATH="/venv/bin:$PATH"
-
-RUN pip install --upgrade pip
-
-COPY . .
-RUN pip install --no-cache-dir .
-
-
-FROM python:3.7 AS test_runner
-WORKDIR /tmp
-COPY --from=builder /venv /venv
-COPY --from=builder /usr/src/app/tests tests
-ENV PATH=/venv/bin:$PATH
-
-# install test dependencies
-RUN pip install pytest
-
-# run tests
-RUN pytest tests
-
-
-FROM python:3.7 AS service
+# Install the project into `/app`
 WORKDIR /app
 
-COPY --from=test_runner /venv /venv
+# Enable bytecode compilation
+ENV UV_COMPILE_BYTECODE=1
 
-ENV PATH=/venv/bin:$PATH \
-    PYTHONUNBUFFERED=1
+# Copy from the cache instead of linking since it's a mounted volume
+ENV UV_LINK_MODE=copy
+
+# Ensure installed tools can be executed out of the box
+ENV UV_TOOL_BIN_DIR=/usr/local/bin
+
+# Install the project's dependencies using the lockfile and settings
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-dev
+
+# Then, add the rest of the project source code and install it
+# Installing separately from its dependencies allows optimal layer caching
+COPY . /app
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev
+
+# Place executables in the environment at the front of the path
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Reset the entrypoint, don't invoke `uv`
+ENTRYPOINT []
 
 EXPOSE 8080
 
-CMD ["uvicorn", "openapi_server.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uv", "run", "uvicorn", "openapi_server.main:app", "--host", "0.0.0.0", "--port", "8080"]

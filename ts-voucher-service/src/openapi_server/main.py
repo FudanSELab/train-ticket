@@ -11,15 +11,18 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 from fastapi import FastAPI
 
 from openapi_server.apis.default_api import router as DefaultApiRouter
+from openapi_server.impl.jwt_middleware import setup_jwt_middleware
 
 app = FastAPI(
     title="Voucher Service API",
     description="API documentation for the Train Ticket Voucher microservice. This service provides an endpoint for retrieving or generating reimbursement vouchers based on order information.",
     version="1.0.0",
 )
+
+
+setup_jwt_middleware(app)
 
 app.include_router(DefaultApiRouter)
