@@ -1,15 +1,9 @@
-.flake8
 .gitignore
-README.md
-docker-compose.yaml
-pyproject.toml
 requirements.txt
-setup.cfg
 src/openapi_server/apis/__init__.py
 src/openapi_server/apis/default_api.py
 src/openapi_server/apis/default_api_base.py
 src/openapi_server/impl/__init__.py
-src/openapi_server/main.py
 src/openapi_server/models/__init__.py
 src/openapi_server/models/extra_models.py
 src/openapi_server/models/voucher_dto.py

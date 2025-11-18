@@ -29,3 +29,4 @@ setup.cfg
 pyproject.toml
 .flake8
 README.md
+src/openapi_server/main.py
