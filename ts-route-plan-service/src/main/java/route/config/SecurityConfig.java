@@ -3,7 +3,6 @@ package route.config;
 import edu.fudan.common.security.jwt.JWTFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -71,8 +70,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/v1/route-plan/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/v1/route-plan/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/route-plan/routes").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/v1/route-plan/routes/*").hasAnyRole("ADMIN")
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
                 .anyRequest().authenticated()

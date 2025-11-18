@@ -29,6 +29,7 @@ public class RouteServiceImpl implements RouteService {
     String success = "Success";
 
     @Override
+    // FIXME should be RouteDto instead of RouteInfo
     public Response createAndModify(RouteInfo info, HttpHeaders headers) {
         RouteServiceImpl.LOGGER.info("[createAndModify][Create and modify start and end][Start: {} End: {}]", info.getStartStation(), info.getEndStation());
 

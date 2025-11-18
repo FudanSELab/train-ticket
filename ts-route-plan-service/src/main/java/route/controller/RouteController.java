@@ -30,18 +30,6 @@ public class RouteController {
         return "Welcome to [ Route Service ] !";
     }
 
-    @PostMapping(path = "/routes")
-    public ResponseEntity<Response> createAndModifyRoute(@RequestBody RouteInfo createAndModifyRouteInfo, @RequestHeader HttpHeaders headers) {
-        RouteController.LOGGER.info("[createAndModify][Create route][start: {}, end: {}]", createAndModifyRouteInfo.getStartStation(),createAndModifyRouteInfo.getEndStation());
-        return ok(routeService.createAndModify(createAndModifyRouteInfo, headers));
-    }
-
-    @DeleteMapping(path = "/routes/{routeId}")
-    public HttpEntity deleteRoute(@PathVariable String routeId, @RequestHeader HttpHeaders headers) {
-        RouteController.LOGGER.info("[deleteRoute][Delete route][RouteId: {}]", routeId);
-        return ok(routeService.deleteRoute(routeId, headers));
-    }
-
     @GetMapping(path = "/routes/{routeId}")
     public HttpEntity queryById(@PathVariable String routeId, @RequestHeader HttpHeaders headers) {
         RouteController.LOGGER.info("[getRouteById][Query route by id][RouteId: {}]", routeId);
@@ -67,5 +55,4 @@ public class RouteController {
         RouteController.LOGGER.info("[getRouteByStartAndEnd][Query routes][start: {}, end: {}]", start, end);
         return ok(routeService.getRouteByStartAndEnd(start, end, headers));
     }
-
 }

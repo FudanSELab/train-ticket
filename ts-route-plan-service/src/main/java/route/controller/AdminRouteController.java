@@ -8,40 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import route.service.AdminRouteService;
+import route.service.RouteService;
 
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/api/v1/route-plan/admin")
 public class AdminRouteController {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminRouteController.class);
 
     @Autowired
-    private AdminRouteService adminRouteService;
+    private RouteService routeService;
 
-    @GetMapping("/welcome")
-    public String home(@RequestHeader HttpHeaders headers) {
-        return "Welcome to [ AdminRoute Service ] !";
-    }
-
-    @CrossOrigin(origins = "*")
-    @GetMapping("/adminroute")
-    public ResponseEntity<Response> getAllRoutes(@RequestHeader HttpHeaders headers) {
-        LOGGER.info("[getAllRoutes][Get all routes]");
-        return ok(adminRouteService.getAllRoutes(headers));
-    }
-
-    @PostMapping("/adminroute")
+    @PostMapping("/routes")
     public ResponseEntity<Response> addRoute(@RequestBody RouteInfo request, @RequestHeader HttpHeaders headers) {
         LOGGER.info("[addRoute][Create route][route id: {}]", request.getId());
-        return ok(adminRouteService.createAndModifyRoute(request, headers));
+        return ok(routeService.createAndModifyRoute(request, headers));
     }
 
-    @DeleteMapping("/adminroute/{routeId}")
+    @PutMapping("/routes")
+    public ResponseEntity<Response> updateRoute(@RequestBody RouteInfo request, @RequestHeader HttpHeaders headers) {
+        LOGGER.info("[addRoute][Create route][route id: {}]", request.getId());
+        return ok(routeService.createAndModifyRoute(request, headers));
+    }
+
+    @DeleteMapping("/routes/{routeId}")
     public ResponseEntity<Response> deleteRoute(@PathVariable String routeId, @RequestHeader HttpHeaders headers) {
         LOGGER.info("[deleteRoute][Delete route][route id: {}]", routeId);
-        return ok(adminRouteService.deleteRoute(routeId, headers));
+        return ok(routeService.deleteRoute(routeId, headers));
     }
 }
