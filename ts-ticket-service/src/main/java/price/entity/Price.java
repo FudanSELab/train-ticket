@@ -16,7 +16,7 @@ import java.util.UUID;
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(indexes = {@Index(name = "route_type_idx", columnList = "train_type, route_id", unique = true)})
-public class PriceConfig {
+public class Price {
 
     @Id
     @Column(length = 36)
@@ -32,7 +32,7 @@ public class PriceConfig {
 
     private double firstClassPriceRate;
 
-    public PriceConfig() {
+    public Price() {
         //Empty Constructor
         this.id = UUID.randomUUID().toString();
     }

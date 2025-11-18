@@ -3,7 +3,6 @@ package price.config;
 import edu.fudan.common.security.jwt.JWTFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,9 +24,7 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     String admin = "ADMIN";
-    String prices = "/api/v1/priceservice/prices";
 
     /**
      * load password encoder
@@ -72,11 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/priceservice/admin/**").hasRole(admin)
-                .antMatchers("/api/v1/priceservice/**").permitAll()
-                .antMatchers(HttpMethod.POST, prices).hasAnyRole(admin)
-                .antMatchers(HttpMethod.DELETE, prices).hasAnyRole(admin)
-                .antMatchers(HttpMethod.PUT, prices).hasAnyRole(admin)
+                .antMatchers("/api/v1/ticket/admin/**").hasRole(admin)
+                .antMatchers("/api/v1/ticket/**").permitAll()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
                 .anyRequest().authenticated()

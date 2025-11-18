@@ -11,11 +11,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpHeaders;
-import price.entity.PriceConfig;
+import price.entity.Price;
 import price.repository.PriceConfigRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RunWith(JUnit4.class)
@@ -36,91 +37,109 @@ public class PriceServiceImplTest {
 
     @Test
     public void testCreateNewPriceConfig1() {
-        PriceConfig createAndModifyPriceConfig = new PriceConfig();
-        Mockito.when(priceConfigRepository.save(Mockito.any(PriceConfig.class))).thenReturn(null);
-        Response result = priceServiceImpl.createNewPriceConfig(createAndModifyPriceConfig, headers);
+        Price payload = new Price();
+        Mockito.when(priceConfigRepository.save(Mockito.any(Price.class))).thenReturn(null);
+        Response<Price> result = priceServiceImpl.createPrice(payload, headers);
         Assert.assertNotNull(result.getData());
+        Assert.assertEquals(Integer.valueOf(1), result.getStatus());
+        Assert.assertEquals("Create success", result.getMsg());
     }
 
     @Test
     public void testCreateNewPriceConfig2() {
-        PriceConfig createAndModifyPriceConfig = new PriceConfig(UUID.randomUUID().toString(), "G", "G1255", 1.0, 2.0);
-        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString())).thenReturn(null);
-        Mockito.when(priceConfigRepository.save(Mockito.any(PriceConfig.class))).thenReturn(null);
-        Response result = priceServiceImpl.createNewPriceConfig(createAndModifyPriceConfig, headers);
-        Assert.assertEquals(new Response<>(1, "Create success", createAndModifyPriceConfig), result);
+        Price payload = new Price(UUID.randomUUID().toString(), "G", "G1255", 1.0, 2.0);
+        Mockito.when(priceConfigRepository.save(Mockito.any(Price.class))).thenReturn(null);
+        Response<Price> result = priceServiceImpl.createPrice(payload, headers);
+        Assert.assertEquals(Integer.valueOf(1), result.getStatus());
+        Assert.assertEquals("Create success", result.getMsg());
+        Price created = result.getData();
+        Assert.assertEquals(payload.getRouteId(), created.getRouteId());
+        Assert.assertEquals(payload.getTrainType(), created.getTrainType());
+        Assert.assertEquals(payload.getBasicPriceRate(), created.getBasicPriceRate(), 0.0);
+        Assert.assertEquals(payload.getFirstClassPriceRate(), created.getFirstClassPriceRate(), 0.0);
     }
 
     @Test
     public void testFindById() {
-        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString())).thenReturn(null);
-        PriceConfig result = priceServiceImpl.findById(UUID.randomUUID().toString(), headers);
+        Mockito.when(priceConfigRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
+        Price result = priceServiceImpl.findById(UUID.randomUUID().toString(), headers);
         Assert.assertNull(result);
     }
 
     @Test
     public void testFindByRouteIdAndTrainType1() {
         Mockito.when(priceConfigRepository.findByRouteIdAndTrainType(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
-        Response result = priceServiceImpl.findByRouteIdAndTrainType("route_id", "train_type", headers);
+        Response<Price> result = priceServiceImpl.findByRouteIdAndTrainType("route_id", "train_type", headers);
         Assert.assertEquals(new Response<>(0, "No that config", null), result);
     }
 
     @Test
     public void testFindByRouteIdAndTrainType2() {
-        PriceConfig priceConfig = new PriceConfig();
+        Price priceConfig = new Price();
         Mockito.when(priceConfigRepository.findByRouteIdAndTrainType(Mockito.anyString(), Mockito.anyString())).thenReturn(priceConfig);
-        Response result = priceServiceImpl.findByRouteIdAndTrainType("route_id", "train_type", headers);
+        Response<Price> result = priceServiceImpl.findByRouteIdAndTrainType("route_id", "train_type", headers);
         Assert.assertEquals(new Response<>(1, "Success", priceConfig), result);
     }
 
     @Test
     public void testFindAllPriceConfig1() {
         Mockito.when(priceConfigRepository.findAll()).thenReturn(null);
-        Response result = priceServiceImpl.findAllPriceConfig(headers);
-        Assert.assertEquals(new Response<>(0, "No price config", null), result);
+        Response<List<Price>> result = priceServiceImpl.findAllPrice(headers);
+        Assert.assertEquals(new Response<>(1, "Success", null), result);
     }
 
     @Test
     public void testFindAllPriceConfig2() {
-        List<PriceConfig> list = new ArrayList<>();
-        list.add(new PriceConfig());
+        List<Price> list = new ArrayList<>();
+        list.add(new Price());
         Mockito.when(priceConfigRepository.findAll()).thenReturn(list);
-        Response result = priceServiceImpl.findAllPriceConfig(headers);
+        Response<List<Price>> result = priceServiceImpl.findAllPrice(headers);
         Assert.assertEquals(new Response<>(1, "Success", list), result);
     }
 
     @Test
     public void testDeletePriceConfig1() {
-        PriceConfig c = new PriceConfig();
-        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString())).thenReturn(null);
-        Response result = priceServiceImpl.deletePriceConfig(c.getId(), headers);
+        Mockito.when(priceConfigRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
+        Response<Price> result = priceServiceImpl.deletePrice(UUID.randomUUID().toString(), headers);
         Assert.assertEquals(new Response<>(0, "No that config", null), result);
     }
 
     @Test
     public void testDeletePriceConfig2() {
-        PriceConfig c = new PriceConfig();
-        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString()).get()).thenReturn(c);
-        Mockito.doNothing().doThrow(new RuntimeException()).when(priceConfigRepository).delete(Mockito.any(PriceConfig.class));
-        Response result = priceServiceImpl.deletePriceConfig(c.getId(), headers);
-        Assert.assertEquals(new Response<>(1, "Delete success", c), result);
+        Price price = new Price();
+        Mockito.when(priceConfigRepository.findById(price.getId())).thenReturn(Optional.of(price));
+        Mockito.doNothing().when(priceConfigRepository).delete(price);
+        Response<Price> result = priceServiceImpl.deletePrice(price.getId(), headers);
+        Assert.assertEquals(new Response<>(1, "Delete success", price), result);
+        Mockito.verify(priceConfigRepository).delete(price);
     }
 
     @Test
     public void testUpdatePriceConfig1() {
-        PriceConfig c = new PriceConfig();
-        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString())).thenReturn(null);
-        Response result = priceServiceImpl.updatePriceConfig(c, headers);
+        Price price = new Price();
+        Mockito.when(priceConfigRepository.findById(Mockito.anyString())).thenReturn(Optional.empty());
+        Response<Price> result = priceServiceImpl.updatePrice(price, headers);
         Assert.assertEquals(new Response<>(0, "No that config", null), result);
     }
 
     @Test
     public void testUpdatePriceConfig2() {
-        PriceConfig c = new PriceConfig();
-        Mockito.when(priceConfigRepository.findById(Mockito.any(UUID.class).toString()).get()).thenReturn(c);
-        Mockito.when(priceConfigRepository.save(Mockito.any(PriceConfig.class))).thenReturn(null);
-        Response result = priceServiceImpl.updatePriceConfig(c, headers);
-        Assert.assertEquals(new Response<>(1, "Update success", c), result);
+        Price payload = new Price();
+        payload.setRouteId("route");
+        payload.setTrainType("G");
+        payload.setBasicPriceRate(1.0);
+        payload.setFirstClassPriceRate(2.0);
+
+        Price persisted = new Price(payload.getId(), "old", "oldRoute", 0.5, 0.6);
+        Mockito.when(priceConfigRepository.findById(payload.getId())).thenReturn(Optional.of(persisted));
+        Mockito.when(priceConfigRepository.save(Mockito.any(Price.class))).thenReturn(persisted);
+
+        Response<Price> result = priceServiceImpl.updatePrice(payload, headers);
+        Assert.assertEquals(new Response<>(1, "Update success", persisted), result);
+        Assert.assertEquals(payload.getRouteId(), persisted.getRouteId());
+        Assert.assertEquals(payload.getTrainType(), persisted.getTrainType());
+        Assert.assertEquals(payload.getBasicPriceRate(), persisted.getBasicPriceRate(), 0.0);
+        Assert.assertEquals(payload.getFirstClassPriceRate(), persisted.getFirstClassPriceRate(), 0.0);
     }
 
 }

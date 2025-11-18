@@ -1,0 +1,24 @@
+components:
+  schemas:
+    PriceDto:
+      type: object
+      description: Price configuration for a route and train type.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the price configuration.
+        trainType:
+          type: string
+          description: Train type identifier.
+        routeId:
+          type: string
+          description: Route identifier.
+        basicPriceRate:
+          type: number
+          format: double
+          description: Multiplier applied to calculate basic ticket price.
+        firstClassPriceRate:
+          type: number
+          format: double
+          description: Multiplier applied to calculate first-class ticket price.
+

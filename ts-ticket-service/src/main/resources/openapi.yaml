@@ -1,0 +1,173 @@
+openapi: 3.0.1
+info:
+  title: Ticket Service API
+  description: API definition for Ticket Service price endpoints in the Train Ticket system.
+  version: 1.0.0
+servers:
+  - url: http://localhost:16579
+    description: Local server
+tags:
+  - name: Ticket
+    description: Public price query endpoints
+  - name: AdminTicket
+    description: Administrative price management endpoints
+components:
+  schemas:
+    Response:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/Response'
+    PriceDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/PriceDto'
+    PriceDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/PriceDto'
+    PriceDtoMap:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/PriceDto'
+    RouteTrainIdList:
+      type: array
+      description: List pairing routeIds and trainTypes (e.g. ["routeId&trainType"]).
+      items:
+        type: string
+    ResponsePriceDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PriceDto'
+    ResponsePriceDtoList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PriceDtoList'
+    ResponsePriceDtoMap:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PriceDtoMap'
+paths:
+  /api/v1/ticket/prices/welcome:
+    get:
+      tags:
+        - Ticket
+      summary: Welcome message
+      responses:
+        '200':
+          description: Welcome string
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/v1/ticket/prices/{routeId}/{trainType}:
+    get:
+      tags:
+        - Ticket
+      summary: Get price by route and train type
+      parameters:
+        - name: routeId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: trainType
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Price configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePriceDto'
+  /api/v1/ticket/prices/byRouteIdsAndTrainTypes:
+    post:
+      tags:
+        - Ticket
+      summary: Batch query prices by routeId/trainType pairs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RouteTrainIdList'
+      responses:
+        '200':
+          description: Map of route/train identifiers to prices
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePriceDtoMap'
+  /api/v1/ticket/prices:
+    get:
+      tags:
+        - Ticket
+      summary: Get all price configurations
+      responses:
+        '200':
+          description: List of price configurations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePriceDtoList'
+  /api/v1/ticket/admin/prices:
+    post:
+      tags:
+        - AdminTicket
+      summary: Create a price configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceDto'
+      responses:
+        '201':
+          description: Created price configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePriceDto'
+    put:
+      tags:
+        - AdminTicket
+      summary: Update a price configuration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceDto'
+      responses:
+        '200':
+          description: Updated price configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePriceDto'
+  /api/v1/ticket/admin/prices/{priceId}:
+    delete:
+      tags:
+        - AdminTicket
+      summary: Delete a price configuration
+      parameters:
+        - name: priceId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted price configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponsePriceDto'
+

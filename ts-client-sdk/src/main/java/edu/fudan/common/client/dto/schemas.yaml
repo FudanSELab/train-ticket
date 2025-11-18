@@ -23,6 +23,10 @@ components:
     ConfigDto:
       $ref: 'config/schemas.yaml#/components/schemas/ConfigDto'
 
+    # --- Ticket DTO Schema ---
+    PriceDto:
+      $ref: 'ticket/schemas.yaml#/components/schemas/PriceDto'
+
     # --- Order DTO Schema ---
     OrderSecurityDto:
       $ref: 'order/schemas.yaml#/components/schemas/OrderSecurityDto'

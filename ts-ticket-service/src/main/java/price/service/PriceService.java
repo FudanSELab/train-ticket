@@ -3,7 +3,7 @@ package price.service;
 import edu.fudan.common.util.Response;
 import org.springframework.http.HttpHeaders;
 
-import price.entity.PriceConfig;
+import price.entity.Price;
 
 import java.util.List;
 import java.util.Map;
@@ -14,18 +14,16 @@ import java.util.Map;
  */
 public interface PriceService {
 
-    Response createNewPriceConfig(PriceConfig priceConfig, HttpHeaders headers);
+    Response<Price> createPrice(Price priceConfig, HttpHeaders headers);
 
-    PriceConfig findById(String id, HttpHeaders headers);
+    Response<Map<String, Price>> findByRouteIdsAndTrainTypes(List<String> ridsAndTts, HttpHeaders headers);
 
-    Response findByRouteIdsAndTrainTypes(List<String> ridsAndTts, HttpHeaders headers);
+    Response<Price> findByRouteIdAndTrainType(String routeId, String trainType, HttpHeaders headers);
 
-    Response findByRouteIdAndTrainType(String routeId, String trainType, HttpHeaders headers);
+    Response<List<Price>> findAllPrice(HttpHeaders headers);
 
-    Response findAllPriceConfig(HttpHeaders headers);
+    Response<Price> deletePrice(String pcId, HttpHeaders headers);
 
-    Response deletePriceConfig(String pcId, HttpHeaders headers);
-
-    Response updatePriceConfig(PriceConfig c, HttpHeaders headers);
+    Response<Price> updatePrice(Price c, HttpHeaders headers);
 
 }
