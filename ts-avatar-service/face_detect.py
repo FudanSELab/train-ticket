@@ -33,17 +33,26 @@ def check(img):
         height = d.bottom() - d.top()
         width = d.right() - d.left()
 
-        # 根据人脸大小生成空的图像
+        # 根据人脸大小生成空的图像并裁剪
         img_blank = np.zeros((height, width, 3), np.uint8)
-
         for i in range(height):
             for j in range(width):
                 img_blank[i][j] = img[d.top() + i][d.left() + j]
 
-        print("Save to:", path_save + "img_face_" + str(k + 1) + ".jpg")
-        cv2.imwrite(path_save + "img_face_" + str(k + 1) + ".jpg", img_blank)
+        # 将头像缩放到 50x50
+        avatar_50 = cv2.resize(img_blank, (50, 50), interpolation=cv2.INTER_AREA)
 
-        base64_str = cv2.imencode('.jpg',img_blank)[1].tostring()
+        # 保存（可选）
+        save_path = f"{path_save}img_face_{k + 1}.jpg"
+        print("Save to:", save_path)
+        cv2.imwrite(save_path, avatar_50)
+
+        # 编码为 base64 返回
+        base64_str = cv2.imencode('.jpg', avatar_50)[1].tobytes()
         base64_str = base64.b64encode(base64_str)
+        print(f'length: {len(base64_str)}')
         return base64_str
 
+if __name__ == "__main__":
+    img = cv2.imread("./images/test.png")
+    print(check(img))

@@ -6,6 +6,8 @@ import os
 import json
 import base64
 import traceback
+import jwt
+from datetime import datetime, timezone
 
 from face_detect import check
 
@@ -21,9 +23,40 @@ app = Flask(__name__)
 
 receive_path = r"./received/"
 
+# Secret key should be kept in environment variable in production
+JWT_SECRET = os.environ.get("JWT_SECRET", "secret")
+JWT_ALG = os.environ.get("JWT_ALG", "HS256")
+
+
+def decode_jwt_from_header(req):
+    """Extract and validate JWT from Authorization header. Returns claims dict or None."""
+    auth = req.headers.get("Authorization")
+    if not auth or not auth.startswith("Bearer "):
+        return None
+    token = auth[7:]
+    try:
+        claims = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALG])
+        # check expiration
+        exp = claims.get("exp")
+        if exp and datetime.fromtimestamp(exp, tz=timezone.utc) < datetime.now(tz=timezone.utc):
+            return None
+        return claims
+    except jwt.PyJWTError:
+        return None
+
+def get_user_info(req):
+    claims = decode_jwt_from_header(req)
+    if claims is None:
+        return None
+    return claims.get("id")
 
 @app.route('/api/v1/avatar', methods=["POST"])
 def hello():
+    # jwt auth
+    user_id = get_user_info(request)
+    if user_id is None:
+        return jsonify({"msg": "Invalid or missing token"}), 401
+
     # receive file
     data = request.get_data().decode('utf-8')
     data = json.loads(data)
@@ -42,6 +75,7 @@ def hello():
     if type(result) == dict and result.get("msg") is not None:
         return jsonify(result), 400
 
+    # attach user info if needed
     return result, 200
 
 
