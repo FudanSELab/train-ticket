@@ -38,3 +38,7 @@ components:
     # --- Train DTO Schema ---
     TrainTypeDto:
       $ref: 'train/schemas.yaml#/components/schemas/TrainTypeDto'
+
+    # --- Station DTO Schema ---
+    StationDto:
+      $ref: 'station/schemas.yaml#/components/schemas/StationDto'

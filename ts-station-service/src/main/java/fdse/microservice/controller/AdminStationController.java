@@ -1,52 +1,57 @@
 package fdse.microservice.controller;
 
-import fdse.microservice.entity.Station;
+import edu.fudan.common.client.dto.station.StationDto;
 import edu.fudan.common.util.Response;
+import fdse.microservice.entity.Station;
+import fdse.microservice.mapper.StationMapper;
 import fdse.microservice.service.StationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import static org.springframework.http.ResponseEntity.ok;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/station/admin")
+@RequiredArgsConstructor
 public class AdminStationController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminStationController.class);
+    private final StationService stationService;
 
-    @Autowired
-    private StationService stationService;
+    private final StationMapper stationMapper;
 
-    @GetMapping("/welcome")
-    public String home(@RequestHeader HttpHeaders headers){
-        return "Welcome to [ AdminStation Service ] !";
-    }
-
-    @GetMapping("/stations")
-    public ResponseEntity<Response> getAllStations(@RequestHeader HttpHeaders headers){
-        LOGGER.info("[getAllStations][Admin get all stations]");
-        return ok(stationService.query(headers));
+    private ResponseEntity<Response<StationDto>> respond(Response<Station> response) {
+        return ok(stationMapper.toDtoResponse(response));
     }
 
     @PostMapping("/stations")
-    public ResponseEntity<Response> addStation(@RequestBody Station station,@RequestHeader HttpHeaders headers){
-        LOGGER.info("[addStation][Admin add station][id: {}]",station.getId());
-        return ok(stationService.create(station, headers));
+    public ResponseEntity<Response<StationDto>> addStation(@RequestBody StationDto stationDto,
+            @RequestHeader HttpHeaders headers) {
+        log.info("[addStation][Admin add station][station: {}]", stationDto);
+        if (stationDto.getName().isEmpty()) {
+            return new ResponseEntity<>(new Response<>(0, "Name not specify", null), HttpStatus.BAD_REQUEST);
+        }
+        return respond(stationService.create(stationMapper.toEntity(stationDto), headers));
     }
 
     @PutMapping("/stations")
-    public ResponseEntity<Response> modifyStation(@RequestBody Station station,@RequestHeader HttpHeaders headers){
-        LOGGER.info("[modifyStation][Admin modify station][id: {}]",station.getId());
-        return ok(stationService.update(station, headers));
+    public ResponseEntity<Response<StationDto>> modifyStation(@RequestBody StationDto stationDto,
+            @RequestHeader HttpHeaders headers) {
+        log.info("[modifyStation][Admin modify station][id: {}]", stationDto.getId());
+        if (stationDto.getId().isEmpty()) {
+            return new ResponseEntity<>(new Response<>(0, "Id not specify", null), HttpStatus.BAD_REQUEST);
+        }
+        return respond(stationService.update(stationMapper.toEntity(stationDto), headers));
     }
 
     @DeleteMapping("/stations/{stationId}")
-    public ResponseEntity<Response> deleteStation(@PathVariable String stationId,@RequestHeader HttpHeaders headers){
-        LOGGER.info("[deleteStation][Admin delete station][id: {}]",stationId);
-        return ok(stationService.delete(stationId, headers));
+    public ResponseEntity<Response<StationDto>> deleteStation(@PathVariable String stationId,
+            @RequestHeader HttpHeaders headers) {
+        log.info("[deleteStation][Admin delete station][id: {}]", stationId);
+        return respond(stationService.delete(stationId, headers));
     }
 }

@@ -1,29 +1,29 @@
 package fdse.microservice.controller;
 
+import edu.fudan.common.client.dto.station.StationDto;
 import edu.fudan.common.util.Response;
-import fdse.microservice.entity.*;
+import fdse.microservice.mapper.StationMapper;
 import fdse.microservice.service.StationService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import static org.springframework.http.ResponseEntity.ok;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/station")
+@RequiredArgsConstructor
 public class StationController {
 
-    @Autowired
-    private StationService stationService;
+    private final StationService stationService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(StationController.class);
+		private final StationMapper stationMapper;
 
     @GetMapping(path = "/welcome")
     public String home(@RequestHeader HttpHeaders headers) {
@@ -31,62 +31,39 @@ public class StationController {
     }
 
     @GetMapping(value = "/stations")
-    public HttpEntity query(@RequestHeader HttpHeaders headers) {
-        return ok(stationService.query(headers));
+    public ResponseEntity<Response<List<StationDto>>> query(@RequestHeader HttpHeaders headers) {
+        return ok(stationMapper.toDtoListResponse(stationService.query(headers)));
     }
-
-    @PostMapping(value = "/stations")
-    public ResponseEntity<Response> create(@RequestBody Station station, @RequestHeader HttpHeaders headers) {
-        StationController.LOGGER.info("[create][Create station][name: {}]",station.getName());
-        return new ResponseEntity<>(stationService.create(station, headers), HttpStatus.CREATED);
-    }
-
-    @PutMapping(value = "/stations")
-    public HttpEntity update(@RequestBody Station station, @RequestHeader HttpHeaders headers) {
-        StationController.LOGGER.info("[update][Update station][StationId: {}]",station.getId());
-        return ok(stationService.update(station, headers));
-    }
-
-    @DeleteMapping(value = "/stations/{stationsId}")
-    public ResponseEntity<Response> delete(@PathVariable String stationsId, @RequestHeader HttpHeaders headers) {
-        StationController.LOGGER.info("[delete][Delete station][StationId: {}]",stationsId);
-        return ok(stationService.delete(stationsId, headers));
-    }
-
-
 
     // according to station name ---> query station id
     @GetMapping(value = "/stations/id/{stationNameForId}")
-    public HttpEntity queryForStationId(@PathVariable(value = "stationNameForId")
+    public ResponseEntity<Response<String>> queryForStationId(@PathVariable(value = "stationNameForId")
                                                 String stationName, @RequestHeader HttpHeaders headers) {
         // string
-        StationController.LOGGER.info("[queryForId][Query for station id][StationName: {}]",stationName);
+        log.info("[queryForId][Query for station id][StationName: {}]",stationName);
         return ok(stationService.queryForId(stationName, headers));
     }
 
     // according to station name list --->  query all station ids
-    @CrossOrigin(origins = "*")
     @PostMapping(value = "/stations/idlist")
-    public HttpEntity queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) {
-        StationController.LOGGER.info("[queryForIdBatch][Query stations for id batch][StationNameNumbers: {}]",stationNameList.size());
+    public ResponseEntity<Response<Map<String, String>>> queryForIdBatch(@RequestBody List<String> stationNameList, @RequestHeader HttpHeaders headers) {
+        log.info("[queryForIdBatch][Query stations for id batch][StationNameNumbers: {}]",stationNameList.size());
         return ok(stationService.queryForIdBatch(stationNameList, headers));
     }
 
     // according to station id ---> query station name
-    @CrossOrigin(origins = "*")
     @GetMapping(value = "/stations/name/{stationIdForName}")
-    public HttpEntity queryById(@PathVariable(value = "stationIdForName")
+    public ResponseEntity<Response<String>> queryById(@PathVariable(value = "stationIdForName")
                                         String stationId, @RequestHeader HttpHeaders headers) {
-        StationController.LOGGER.info("[queryById][Query stations By Id][Id: {}]", stationId);
+        log.info("[queryById][Query stations By Id][Id: {}]", stationId);
         // string
         return ok(stationService.queryById(stationId, headers));
     }
 
     // according to station id list  ---> query all station names
-    @CrossOrigin(origins = "*")
     @PostMapping(value = "/stations/namelist")
-    public HttpEntity queryForNameBatch(@RequestBody List<String> stationIdList, @RequestHeader HttpHeaders headers) {
-        StationController.LOGGER.info("[queryByIdBatch][Query stations for name batch][StationIdNumbers: {}]",stationIdList.size());
+    public ResponseEntity<Response<List<String>>> queryForNameBatch(@RequestBody List<String> stationIdList, @RequestHeader HttpHeaders headers) {
+        log.info("[queryByIdBatch][Query stations for name batch][StationIdNumbers: {}]",stationIdList.size());
         return ok(stationService.queryByIdBatch(stationIdList, headers));
     }
 

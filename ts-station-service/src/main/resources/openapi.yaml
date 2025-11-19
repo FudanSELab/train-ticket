@@ -1,0 +1,234 @@
+openapi: 3.0.1
+info:
+  title: Station Service API
+  description: Public and administrative endpoints for managing station definitions.
+  version: 1.0.0
+servers:
+  - url: http://localhost:12345
+    description: Local server
+tags:
+  - name: Station
+    description: Public station query endpoints
+  - name: AdminStation
+    description: Administrative station management endpoints
+components:
+  schemas:
+    Response:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/Response'
+    StationDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/StationDto'
+    StationDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/StationDto'
+    StationIdList:
+      type: array
+      description: Collection of station identifiers for batch name lookups.
+      items:
+        type: string
+    StationNameList:
+      type: array
+      description: Collection of station names for batch identifier lookups.
+      items:
+        type: string
+    StationIdMap:
+      type: object
+      description: Mapping from station names to their resolved identifiers.
+      additionalProperties:
+        type: string
+    ResponseStationDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/StationDto'
+    ResponseStationDtoList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/StationDtoList'
+    ResponseStationIdMap:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/StationIdMap'
+    ResponseStationNameList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/StationNameList'
+    ResponseString:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: string
+paths:
+  /api/v1/station/welcome:
+    get:
+      tags:
+        - Station
+      summary: Welcome message
+      responses:
+        '200':
+          description: Welcome string
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /api/v1/station/stations:
+    get:
+      tags:
+        - Station
+      summary: List all stations
+      responses:
+        '200':
+          description: List of stations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStationDtoList'
+
+  /api/v1/station/stations/id/{stationNameForId}:
+    get:
+      tags:
+        - Station
+      summary: Retrieve station identifier by name
+      parameters:
+        - name: stationNameForId
+          in: path
+          required: true
+          description: Canonical station name used for lookup.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Station identifier
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseString'
+
+  /api/v1/station/stations/idlist:
+    post:
+      tags:
+        - Station
+      summary: Batch retrieve station identifiers by names
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StationNameList'
+      responses:
+        '200':
+          description: Station identifiers keyed by provided names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStationIdMap'
+
+  /api/v1/station/stations/name/{stationIdForName}:
+    get:
+      tags:
+        - Station
+      summary: Retrieve station name by identifier
+      parameters:
+        - name: stationIdForName
+          in: path
+          required: true
+          description: Station identifier used for lookup.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Station name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseString'
+
+  /api/v1/station/stations/namelist:
+    post:
+      tags:
+        - Station
+      summary: Batch retrieve station names by identifiers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StationIdList'
+      responses:
+        '200':
+          description: Station names matching provided identifiers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStationNameList'
+
+  /api/v1/station/admin/stations:
+    post:
+      tags:
+        - AdminStation
+      summary: Create a station definition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StationDto'
+      responses:
+        '200':
+          description: Created station resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStationDto'
+    put:
+      tags:
+        - AdminStation
+      summary: Update a station definition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StationDto'
+      responses:
+        '200':
+          description: Updated station resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStationDto'
+
+  /api/v1/station/admin/stations/{stationId}:
+    delete:
+      tags:
+        - AdminStation
+      summary: Delete a station by identifier
+      parameters:
+        - name: stationId
+          in: path
+          required: true
+          description: Identifier of the station to delete.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted station resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseStationDto'
+
