@@ -1,6 +1,7 @@
 package train.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import edu.fudan.common.client.dto.train.TrainTypeDto;
 import edu.fudan.common.util.Response;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,18 +10,23 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import train.entity.TrainType;
+import train.mapper.TrainTypeMapper;
 import train.service.TrainService;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyList;
+import static org.mockito.Mockito.when;
 
 @RunWith(JUnit4.class)
 public class TrainControllerTest {
@@ -30,6 +36,10 @@ public class TrainControllerTest {
 
     @Mock
     private TrainService trainService;
+
+    @Mock
+    private TrainTypeMapper trainTypeMapper;
+
     private MockMvc mockMvc;
 
     @Before
@@ -40,111 +50,141 @@ public class TrainControllerTest {
 
     @Test
     public void testHome() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains/welcome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/welcome"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Welcome to [ Train Service ] !"));
     }
 
     @Test
-    public void testCreate1() throws Exception {
-        TrainType trainType = new TrainType();
-        Mockito.when(trainService.create(Mockito.any(TrainType.class), Mockito.any(HttpHeaders.class))).thenReturn(true);
-        String requestJson = JSONObject.toJSONString(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/train/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
+    public void testQuerySuccess() throws Exception {
+        List<TrainType> entities = Collections.singletonList(sampleEntity());
+        List<TrainTypeDto> dtos = Collections.singletonList(sampleDto());
+        when(trainService.query(any(HttpHeaders.class))).thenReturn(entities);
+        when(trainTypeMapper.toDtoList(entities)).thenReturn(dtos);
+
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trainTypes"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(new Response(1, "create success", null), JSONObject.parseObject(result, Response.class));
+
+        Response<?> response = JSONObject.parseObject(result, Response.class);
+        Assert.assertEquals(Integer.valueOf(1), response.getStatus());
+        Assert.assertEquals("success", response.getMsg());
     }
 
     @Test
-    public void testCreate2() throws Exception {
-        TrainType trainType = new TrainType();
-        Mockito.when(trainService.create(Mockito.any(TrainType.class), Mockito.any(HttpHeaders.class))).thenReturn(false);
-        String requestJson = JSONObject.toJSONString(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/train/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals("train type already exist", JSONObject.parseObject(result, Response.class).getMsg());
-    }
+    public void testQueryNoContent() throws Exception {
+        List<TrainType> entities = Collections.emptyList();
+        List<TrainTypeDto> dtos = Collections.emptyList();
+        when(trainService.query(any(HttpHeaders.class))).thenReturn(entities);
+        when(trainTypeMapper.toDtoList(entities)).thenReturn(dtos);
 
-    @Test
-    public void testRetrieve1() throws Exception {
-        Mockito.when(trainService.retrieve(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(null);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains/wrong_id"))
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trainTypes"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(new Response(0, "here is no TrainType with the trainType id: wrong_id", null), JSONObject.parseObject(result, Response.class));
-    }
 
-    @Test
-    public void testRetrieve2() throws Exception {
-        TrainType trainType = new TrainType();
-        Mockito.when(trainService.retrieve(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains/id"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals("success", JSONObject.parseObject(result, Response.class).getMsg());
-    }
-
-    @Test
-    public void testUpdate1() throws Exception {
-        TrainType trainType = new TrainType();
-        Mockito.when(trainService.update(Mockito.any(TrainType.class), Mockito.any(HttpHeaders.class))).thenReturn(true);
-        String requestJson = JSONObject.toJSONString(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/train/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(new Response(1, "update success", true), JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
-    public void testUpdate2() throws Exception {
-        TrainType trainType = new TrainType();
-        Mockito.when(trainService.update(Mockito.any(TrainType.class), Mockito.any(HttpHeaders.class))).thenReturn(false);
-        String requestJson = JSONObject.toJSONString(trainType);
-        String result = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/train/trains").contentType(MediaType.APPLICATION_JSON).content(requestJson))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(new Response(0, "there is no trainType with the trainType id", false), JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
-    public void testDelete1() throws Exception {
-        Mockito.when(trainService.delete(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(true);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/train/trains/id"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(new Response(1, "delete success", true), JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
-    public void testDelete2() throws Exception {
-        Mockito.when(trainService.delete(Mockito.anyString(), Mockito.any(HttpHeaders.class))).thenReturn(false);
-        String result = mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/train/trains/id"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals(new Response(0, "there is no train according to id", null), JSONObject.parseObject(result, Response.class));
-    }
-
-    @Test
-    public void testQuery1() throws Exception {
-        List<TrainType> trainTypes = new ArrayList<>();
-        trainTypes.add(new TrainType());
-        Mockito.when(trainService.query(Mockito.any(HttpHeaders.class))).thenReturn(trainTypes);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Assert.assertEquals("success", JSONObject.parseObject(result, Response.class).getMsg());
-    }
-
-    @Test
-    public void testQuery2() throws Exception {
-        List<TrainType> trainTypes = new ArrayList<>();
-        Mockito.when(trainService.query(Mockito.any(HttpHeaders.class))).thenReturn(trainTypes);
-        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trains"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
         Assert.assertEquals("no content", JSONObject.parseObject(result, Response.class).getMsg());
     }
 
+    @Test
+    public void testRetrieveNotFound() throws Exception {
+        when(trainService.retrieve(any(String.class), any(HttpHeaders.class))).thenReturn(null);
+
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trainTypes/wrong_id"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Response<?> response = JSONObject.parseObject(result, Response.class);
+        Assert.assertEquals(Integer.valueOf(0), response.getStatus());
+        Assert.assertEquals("here is no TrainType with the trainType id: wrong_id", response.getMsg());
+    }
+
+    @Test
+    public void testRetrieveSuccess() throws Exception {
+        TrainType entity = sampleEntity();
+        TrainTypeDto dto = sampleDto();
+        when(trainService.retrieve(any(String.class), any(HttpHeaders.class))).thenReturn(entity);
+        when(trainTypeMapper.toDto(entity)).thenReturn(dto);
+
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trainTypes/id"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Assert.assertEquals("success", JSONObject.parseObject(result, Response.class).getMsg());
+    }
+
+    @Test
+    public void testRetrieveByNameNotFound() throws Exception {
+        when(trainService.retrieveByName(any(String.class), any(HttpHeaders.class))).thenReturn(null);
+
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trainTypes/byName/G1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Response<?> response = JSONObject.parseObject(result, Response.class);
+        Assert.assertEquals(Integer.valueOf(0), response.getStatus());
+        Assert.assertEquals("here is no TrainType with the trainType name: G1", response.getMsg());
+    }
+
+    @Test
+    public void testRetrieveByNameSuccess() throws Exception {
+        TrainType entity = sampleEntity();
+        when(trainService.retrieveByName(any(String.class), any(HttpHeaders.class))).thenReturn(entity);
+        when(trainTypeMapper.toDto(entity)).thenReturn(sampleDto());
+
+        String result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/train/trainTypes/byName/G1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Assert.assertEquals("success", JSONObject.parseObject(result, Response.class).getMsg());
+    }
+
+    @Test
+    public void testRetrieveByNamesSuccess() throws Exception {
+        List<TrainType> entities = Collections.singletonList(sampleEntity());
+        List<TrainTypeDto> dtos = Collections.singletonList(sampleDto());
+        when(trainService.retrieveByNames(anyList(), any(HttpHeaders.class))).thenReturn(entities);
+        when(trainTypeMapper.toDtoList(entities)).thenReturn(dtos);
+
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/train/trains/byNames")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[\"G1\"]"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Assert.assertEquals("success", JSONObject.parseObject(result, Response.class).getMsg());
+    }
+
+    @Test
+    public void testRetrieveByNamesNotFound() throws Exception {
+        when(trainService.retrieveByNames(anyList(), any(HttpHeaders.class))).thenReturn(null);
+
+        String result = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/train/trains/byNames")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("[\"G1\"]"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Assert.assertEquals("here is no TrainTypes with the trainType names: [G1]",
+                JSONObject.parseObject(result, Response.class).getMsg());
+    }
+
+    private TrainType sampleEntity() {
+        TrainType type = new TrainType();
+        type.setId("id");
+        type.setName("G1");
+        type.setEconomyClass(100);
+        type.setConfortClass(50);
+        type.setAverageSpeed(300);
+        return type;
+    }
+
+    private TrainTypeDto sampleDto() {
+        TrainTypeDto dto = new TrainTypeDto();
+        dto.setId("id");
+        dto.setName("G1");
+        dto.setEconomyClass(100);
+        dto.setConfortClass(50);
+        dto.setAverageSpeed(300);
+        return dto;
+    }
 }

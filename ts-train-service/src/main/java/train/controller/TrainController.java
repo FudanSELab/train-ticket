@@ -1,116 +1,78 @@
 package train.controller;
 
+import edu.fudan.common.client.dto.train.TrainTypeDto;
 import edu.fudan.common.util.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import train.entity.TrainType;
+import train.mapper.TrainTypeMapper;
 import train.service.TrainService;
 
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.ok;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/train")
 public class TrainController {
 
-
     @Autowired
     private TrainService trainService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TrainController.class);
+    @Autowired
+    private TrainTypeMapper trainTypeMapper;
 
-    @GetMapping(path = "/trains/welcome")
+    @GetMapping(path = "/welcome")
     public String home(@RequestHeader HttpHeaders headers) {
         return "Welcome to [ Train Service ] !";
     }
 
-    @CrossOrigin(origins = "*")
-    @PostMapping(value = "/trains")
-    public HttpEntity create(@RequestBody TrainType trainType, @RequestHeader HttpHeaders headers) {
-        TrainController.LOGGER.info("[create][Create train][TrainTypeId: {}]",trainType.getId());
-        boolean isCreateSuccess = trainService.create(trainType, headers);
-        if (isCreateSuccess) {
-            return ok(new Response(1, "create success", null));
-        } else {
-            return ok(new Response(0, "train type already exist", trainType));
-        }
+    @GetMapping(value = "/trainTypes")
+    public HttpEntity<Response<List<TrainTypeDto>>> query(@RequestHeader HttpHeaders headers) {
+        log.info("[query][Query train]");
+        return ok(toListResponse(trainService.query(headers), "no content"));
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping(value = "/trains/{id}")
-    public HttpEntity retrieve(@PathVariable String id, @RequestHeader HttpHeaders headers) {
-        TrainController.LOGGER.info("[retrieve][Retrieve train][TrainTypeId: {}]",id);
-        TrainType trainType = trainService.retrieve(id, headers);
-        if (trainType == null) {
-            return ok(new Response(0, "here is no TrainType with the trainType id: " + id, null));
-        } else {
-            return ok(new Response(1, "success", trainType));
-        }
+    @GetMapping(value = "/trainTypes/{id}")
+    public HttpEntity<Response<TrainTypeDto>> retrieve(@PathVariable String id, @RequestHeader HttpHeaders headers) {
+        log.info("[retrieve][Retrieve train][TrainTypeId: {}]", id);
+        String msg = "here is no TrainType with the trainType id: " + id;
+        return ok(toSingleResponse(trainService.retrieve(id, headers), msg));
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping(value = "/trains/byName/{name}")
-    public HttpEntity retrieveByName(@PathVariable String name, @RequestHeader HttpHeaders headers) {
-        TrainController.LOGGER.info("[retrieveByName][Retrieve train][TrainTypeName: {}]", name);
-        TrainType trainType = trainService.retrieveByName(name, headers);
-        if (trainType == null) {
-            return ok(new Response(0, "here is no TrainType with the trainType name: " + name, null));
-        } else {
-            return ok(new Response(1, "success", trainType));
-        }
+    @GetMapping(value = "/trainTypes/byName/{name}")
+    public HttpEntity<Response<TrainTypeDto>> retrieveByName(@PathVariable String name, @RequestHeader HttpHeaders headers) {
+        log.info("[retrieveByName][Retrieve train][TrainTypeName: {}]", name);
+        String msg = "here is no TrainType with the trainType name: " + name;
+        return ok(toSingleResponse(trainService.retrieveByName(name, headers), msg));
     }
 
-    @CrossOrigin(origins = "*")
     @PostMapping(value = "/trains/byNames")
-    public HttpEntity retrieveByName(@RequestBody List<String> names, @RequestHeader HttpHeaders headers) {
-        TrainController.LOGGER.info("[retrieveByNames][Retrieve train][TrainTypeNames: {}]", names);
-        List<TrainType> trainTypes = trainService.retrieveByNames(names, headers);
-        if (trainTypes == null) {
-            return ok(new Response(0, "here is no TrainTypes with the trainType names: " + names, null));
-        } else {
-            return ok(new Response(1, "success", trainTypes));
-        }
+    public HttpEntity<Response<List<TrainTypeDto>>> retrieveByName(@RequestBody List<String> names, @RequestHeader HttpHeaders headers) {
+        log.info("[retrieveByNames][Retrieve train][TrainTypeNames: {}]", names);
+        String msg = "here is no TrainTypes with the trainType names: " + names;
+        return ok(toListResponse(trainService.retrieveByNames(names, headers), msg));
     }
 
-    @CrossOrigin(origins = "*")
-    @PutMapping(value = "/trains")
-    public HttpEntity update(@RequestBody TrainType trainType, @RequestHeader HttpHeaders headers) {
-        TrainController.LOGGER.info("[update][Update train][TrainTypeId: {}]",trainType.getId());
-        boolean isUpdateSuccess = trainService.update(trainType, headers);
-        if (isUpdateSuccess) {
-            return ok(new Response(1, "update success", isUpdateSuccess));
-        } else {
-            return ok(new Response(0, "there is no trainType with the trainType id", isUpdateSuccess));
-        }
+    private Response<List<TrainTypeDto>> toListResponse(List<TrainType> entities, String emptyMsg) {
+        List<TrainTypeDto> payload = entities == null ? null : trainTypeMapper.toDtoList(entities);
+        boolean hasData = payload != null && !payload.isEmpty();
+        return new Response<>(hasData ? 1 : 0, hasData ? "success" : emptyMsg, payload);
     }
 
-    @CrossOrigin(origins = "*")
-    @DeleteMapping(value = "/trains/{id}")
-    public HttpEntity delete(@PathVariable String id, @RequestHeader HttpHeaders headers) {
-        TrainController.LOGGER.info("[delete][Delete train][TrainTypeId: {}]",id);
-        boolean isDeleteSuccess = trainService.delete(id, headers);
-        if (isDeleteSuccess) {
-            return ok(new Response(1, "delete success", isDeleteSuccess));
-        } else {
-            return ok(new Response(0, "there is no train according to id", null));
-        }
-    }
-
-    @CrossOrigin(origins = "*")
-    @GetMapping(value = "/trains")
-    public HttpEntity query(@RequestHeader HttpHeaders headers) {
-        TrainController.LOGGER.info("[query][Query train]");
-        List<TrainType> trainTypes = trainService.query(headers);
-        if (trainTypes != null && !trainTypes.isEmpty()) {
-            return ok(new Response(1, "success", trainTypes));
-        } else {
-            return ok(new Response(0, "no content", trainTypes));
-        }
+    private Response<TrainTypeDto> toSingleResponse(TrainType entity, String notFoundMsg) {
+        TrainTypeDto payload = entity == null ? null : trainTypeMapper.toDto(entity);
+        boolean hasData = payload != null;
+        return new Response<>(hasData ? 1 : 0, hasData ? "success" : notFoundMsg, payload);
     }
 }

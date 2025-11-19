@@ -34,3 +34,7 @@ components:
     # --- User DTO Schema ---
     UserDto:
       $ref: 'user/schemas.yaml#/components/schemas/UserDto'
+
+    # --- Train DTO Schema ---
+    TrainTypeDto:
+      $ref: 'train/schemas.yaml#/components/schemas/TrainTypeDto'

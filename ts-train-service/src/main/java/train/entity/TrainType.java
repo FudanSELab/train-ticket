@@ -51,5 +51,4 @@ public class TrainType {
         this.confortClass = confortClass;
         this.averageSpeed = averageSpeed;
     }
-
 }

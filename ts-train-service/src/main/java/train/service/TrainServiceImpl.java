@@ -1,7 +1,6 @@
 package train.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -10,93 +9,74 @@ import train.entity.TrainType;
 import train.repository.TrainTypeRepository;
 
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class TrainServiceImpl implements TrainService {
 
     @Autowired
     private TrainTypeRepository repository;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TrainServiceImpl.class);
-
     @Override
     public boolean create(TrainType trainType, HttpHeaders headers) {
-        boolean result = false;
-        if(trainType.getName().isEmpty()){
-            TrainServiceImpl.LOGGER.error("[create][Create train error][Train Type name not specified]");
-            return result;
+        if (trainType.getName().isEmpty()) {
+            log.error("[create][Create train error][Train Type name not specified]");
+            return false;
         }
-        if (repository.findByName(trainType.getName()) == null) {
-            TrainType type = new TrainType(trainType.getName(), trainType.getEconomyClass(), trainType.getConfortClass());
-            type.setAverageSpeed(trainType.getAverageSpeed());
-            repository.save(type);
-            result = true;
+
+        if (repository.findByName(trainType.getName()) != null) {
+            log.error("[create][Create train error][Train already exists][TrainTypeId: {}]", trainType.getId());
+            return false;
         }
-        else {
-            TrainServiceImpl.LOGGER.error("[create][Create train error][Train already exists][TrainTypeId: {}]",trainType.getId());
-        }
-        return result;
+
+        TrainType type = new TrainType(trainType.getName(), trainType.getEconomyClass(), trainType.getConfortClass());
+        type.setAverageSpeed(trainType.getAverageSpeed());
+        repository.save(type);
+        return true;
     }
 
     @Override
     public TrainType retrieve(String id, HttpHeaders headers) {
-        if (!repository.findById(id).isPresent()) {
-            TrainServiceImpl.LOGGER.error("[retrieve][Retrieve train error][Train not found][TrainTypeId: {}]",id);
-            return null;
-        } else {
-            return repository.findById(id).get();
-        }
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public TrainType retrieveByName(String name, HttpHeaders headers) {
-        TrainType tt = repository.findByName(name);
-        if (tt == null) {
-            TrainServiceImpl.LOGGER.error("[retrieveByName][RetrieveByName error][Train not found][TrainTypeName: {}]", name);
-            return null;
-        } else {
-            return tt;
-        }
+        return repository.findByName(name);
     }
 
     @Override
     public List<TrainType> retrieveByNames(List<String> names, HttpHeaders headers) {
-        List<TrainType> tt = repository.findByNames(names);
-        if (tt == null || tt.isEmpty()) {
-            TrainServiceImpl.LOGGER.error("[retrieveByNames][RetrieveByNames error][Train not found][TrainTypeNames: {}]", names);
-            return null;
-        } else {
-            return tt;
-        }
+        return repository.findByNames(names);
     }
 
     @Override
     @Transactional
     public boolean update(TrainType trainType, HttpHeaders headers) {
-        boolean result = false;
-        if (repository.findById(trainType.getId()).isPresent()) {
-            TrainType type = new TrainType(trainType.getName(), trainType.getEconomyClass(), trainType.getConfortClass(), trainType.getAverageSpeed());
-            type.setId(trainType.getId());
-            repository.save(type);
-            result = true;
+        Optional<TrainType> found = repository.findById(trainType.getId());
+        if (!found.isPresent()) {
+            log.error("[update][Update train error][Train not found][TrainTypeId: {}]", trainType.getId());
+            return false;
         }
-        else {
-            TrainServiceImpl.LOGGER.error("[update][Update train error][Train not found][TrainTypeId: {}]",trainType.getId());
-        }
-        return result;
+
+        TrainType type = new TrainType(trainType.getName(), trainType.getEconomyClass(),
+                trainType.getConfortClass(),
+                trainType.getAverageSpeed());
+        type.setId(trainType.getId());
+        repository.save(type);
+        return true;
     }
 
     @Override
     public boolean delete(String id, HttpHeaders headers) {
-        boolean result = false;
-        if (repository.findById(id).isPresent()) {
-            repository.deleteById(id);
-            result = true;
+        Optional<TrainType> found = repository.findById(id);
+        if(!found.isPresent()) {
+            log.error("[delete][Delete train error][Train not found][TrainTypeId: {}]", id);
+            return false;
         }
-        else {
-            TrainServiceImpl.LOGGER.error("[delete][Delete train error][Train not found][TrainTypeId: {}]",id);
-        }
-        return result;
+        repository.deleteById(id);
+        return true;
     }
 
     @Override

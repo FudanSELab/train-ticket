@@ -1,0 +1,189 @@
+openapi: 3.0.1
+info:
+  title: Train Service API
+  description: Public and administrative endpoints for managing train type definitions.
+  version: 1.0.0
+servers:
+  - url: http://localhost:14567
+    description: Local server
+tags:
+  - name: Train
+    description: Public train query endpoints
+  - name: AdminTrain
+    description: Administrative train management endpoints
+components:
+  schemas:
+    Response:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/Response'
+    TrainTypeDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/TrainTypeDto'
+    TrainTypeDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/TrainTypeDto'
+    TrainTypeNameList:
+      type: array
+      description: Collection of train type names to retrieve in batch.
+      items:
+        type: string
+    ResponseTrainTypeDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/TrainTypeDto'
+    ResponseTrainTypeDtoList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/TrainTypeDtoList'
+    ResponseVoid:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: object
+              nullable: true
+paths:
+  /api/v1/train/welcome:
+    get:
+      tags:
+        - Train
+      summary: Welcome message
+      responses:
+        '200':
+          description: Welcome string
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /api/v1/train/trainTypes:
+    get:
+      tags:
+        - Train
+      summary: List all train types
+      responses:
+        '200':
+          description: List of train types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseTrainTypeDtoList'
+
+  /api/v1/train/trainTypes/{id}:
+    get:
+      tags:
+        - Train
+      summary: Retrieve train type by identifier
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Train type by id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseTrainTypeDto'
+
+  /api/v1/train/trainTypes/byName/{name}:
+    get:
+      tags:
+        - Train
+      summary: Retrieve train type by name
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Train type by name
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseTrainTypeDto'
+
+  /api/v1/train/trains/byNames:
+    post:
+      tags:
+        - Train
+      summary: Batch retrieve train types by names
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainTypeNameList'
+      responses:
+        '200':
+          description: Train types matching provided names
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseTrainTypeDtoList'
+
+  /api/v1/train/admin/trainTypes:
+    post:
+      tags:
+        - AdminTrain
+      summary: Create a train type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainTypeDto'
+      responses:
+        '201':
+          description: Creation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseVoid'
+    put:
+      tags:
+        - AdminTrain
+      summary: Update a train type
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainTypeDto'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseVoid'
+
+  /api/v1/train/admin/trainTypes/{trainTypeId}:
+    delete:
+      tags:
+        - AdminTrain
+      summary: Delete a train type by identifier
+      parameters:
+        - name: trainTypeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deletion result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseVoid'
+
