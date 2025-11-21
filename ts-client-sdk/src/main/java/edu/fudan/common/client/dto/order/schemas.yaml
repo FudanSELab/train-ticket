@@ -71,6 +71,38 @@ components:
         price:
           type: string
           description: Ticket price as string to preserve formatting.
+    OrderQueryDto:
+      type: object
+      description: Query payload used by the order-query service to filter orders.
+      properties:
+        loginId:
+          type: string
+          description: Account identifier issuing the query.
+        travelDateStart:
+          type: string
+          description: Inclusive travel date lower bound (yyyy-MM-dd).
+        travelDateEnd:
+          type: string
+          description: Exclusive travel date upper bound (yyyy-MM-dd).
+        boughtDateStart:
+          type: string
+          description: Inclusive purchase date lower bound (yyyy-MM-dd).
+        boughtDateEnd:
+          type: string
+          description: Exclusive purchase date upper bound (yyyy-MM-dd).
+        state:
+          type: integer
+          format: int32
+          description: Target order status when state filtering is enabled.
+        enableTravelDateQuery:
+          type: boolean
+          description: Enables travel date filtering when true.
+        enableBoughtDateQuery:
+          type: boolean
+          description: Enables purchase date filtering when true.
+        enableStateQuery:
+          type: boolean
+          description: Enables status filtering when true.
     OrderInfoDto:
       type: object
       description: Request payload for querying orders with optional filters.
@@ -277,22 +309,27 @@ components:
       required:
         - orderId
         - typeIndex
-    AssuranceDto:
+    AssuranceOrderDto:
       type: object
-      description: Assurance record with resolved type metadata.
+      description: Assurance order details enriched with assurance type metadata.
       properties:
         id:
           type: string
+          description: Assurance order identifier.
         orderId:
           type: string
+          description: Ticket order identifier that the assurance binds to.
         typeIndex:
           type: integer
           format: int32
+          description: Assurance type index.
         typeName:
           type: string
+          description: Human readable assurance type name.
         typePrice:
           type: number
           format: double
+          description: Price of the selected assurance type.
       required:
         - id
         - orderId
@@ -357,6 +394,49 @@ components:
           type: number
           format: double
           description: Calculated consign price (available in responses).
+    ConsignOrderDto:
+      type: object
+      description: Consign order record exposed by order-service and order-query-service.
+      properties:
+        id:
+          type: string
+          description: Consign order identifier.
+        orderId:
+          type: string
+          description: Ticket order identifier associated with the consign record.
+        userId:
+          type: string
+          description: Account identifier that submitted the consign request.
+        handleDate:
+          type: string
+          description: Date when the consign handling starts (yyyy-MM-dd).
+        targetDate:
+          type: string
+          description: Intended delivery date (yyyy-MM-dd).
+        from:
+          type: string
+          description: Consign origin location.
+        to:
+          type: string
+          description: Consign destination location.
+        consignee:
+          type: string
+          description: Recipient name.
+        phone:
+          type: string
+          description: Recipient phone number.
+        weight:
+          type: number
+          format: double
+          description: Package weight in kilograms.
+        within:
+          type: boolean
+          description: Whether the consign is handled within a region.
+        price:
+          type: number
+          format: double
+          nullable: true
+          description: Calculated consign price when available.
     GetConsignOrdersByUserIdDto:
       type: object
       description: Request payload body for querying consign orders by user id.

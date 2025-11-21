@@ -30,6 +30,8 @@ components:
     # --- Order DTO Schema ---
     OrderDto:
       $ref: 'order/schemas.yaml#/components/schemas/OrderDto'
+    OrderQueryDto:
+      $ref: 'order/schemas.yaml#/components/schemas/OrderQueryDto'
     FoodOrderDto:
       $ref: 'order/schemas.yaml#/components/schemas/FoodOrderDto'
     ModifyOrderStatusDto:
@@ -38,12 +40,14 @@ components:
       $ref: 'order/schemas.yaml#/components/schemas/UpdateAssuranceOrderTypeDto'
     CreateAssuranceOrderDto:
       $ref: 'order/schemas.yaml#/components/schemas/CreateAssuranceOrderDto'
-    AssuranceDto:
-      $ref: 'order/schemas.yaml#/components/schemas/AssuranceDto'
+    AssuranceOrderDto:
+      $ref: 'order/schemas.yaml#/components/schemas/AssuranceOrderDto'
     AssuranceTypeDto:
       $ref: 'order/schemas.yaml#/components/schemas/AssuranceTypeDto'
     ConsignDto:
       $ref: 'order/schemas.yaml#/components/schemas/ConsignDto'
+    ConsignOrderDto:
+      $ref: 'order/schemas.yaml#/components/schemas/ConsignOrderDto'
     ConsignPriceDto:
       $ref: 'order/schemas.yaml#/components/schemas/ConsignPriceDto'
     ConsignPriceQueryDto:
@@ -52,6 +56,12 @@ components:
       $ref: 'order/schemas.yaml#/components/schemas/GetConsignOrdersByUserIdDto'
     GetConsignOrdersByConsigneeDto:
       $ref: 'order/schemas.yaml#/components/schemas/GetConsignOrdersByConsigneeDto'
+    SoldOrderStatDto:
+      $ref: 'order/schemas.yaml#/components/schemas/SoldOrderStatDto'
+    TravelDateNumberDto:
+      $ref: 'order/schemas.yaml#/components/schemas/TravelDateNumberDto'
+    WaitListOrderDto:
+      $ref: 'order/schemas.yaml#/components/schemas/WaitListOrderDto'
 
     # --- User DTO Schema ---
     UserDto:

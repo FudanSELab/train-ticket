@@ -1,0 +1,506 @@
+openapi: 3.0.1
+info:
+  title: Order Query Service API
+  description: Read-only endpoints for querying orders, assurances, consignments, food orders, consign price configs, and wait-list records.
+  version: 1.0.0
+servers:
+  - url: http://localhost:12032
+    description: Local server
+tags:
+  - name: OrderQuery
+    description: Passenger order query endpoints
+  - name: AdminOrderQuery
+    description: Administrative read endpoints
+  - name: AssuranceOrderQuery
+    description: Assurance query endpoints
+  - name: ConsignOrderQuery
+    description: Consign query endpoints
+  - name: ConsignPriceQuery
+    description: Consign price configuration queries
+  - name: FoodOrderQuery
+    description: Food order query endpoints
+  - name: WaitListOrderQuery
+    description: Wait-list order query endpoints
+components:
+  schemas:
+    Response:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/Response'
+    AssuranceOrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/AssuranceOrderDto'
+    AssuranceTypeDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/AssuranceTypeDto'
+    ConsignOrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/ConsignOrderDto'
+    ConsignPriceDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/ConsignPriceDto'
+    FoodOrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/FoodOrderDto'
+    WaitListOrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/WaitListOrderDto'
+    GetConsignOrdersByUserIdDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/GetConsignOrdersByUserIdDto'
+    GetConsignOrdersByConsigneeDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/GetConsignOrdersByConsigneeDto'
+    OrderQueryDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/OrderQueryDto'
+    TravelDateNumberDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/TravelDateNumberDto'
+    SoldOrderStatDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/SoldOrderStatDto'
+    Order:
+      type: object
+      description: Order aggregate persisted by the query service.
+      properties:
+        id:
+          type: string
+        boughtDate:
+          type: string
+          format: date-time
+        travelDate:
+          type: string
+        travelTime:
+          type: string
+        userId:
+          type: string
+        contactsName:
+          type: string
+        documentType:
+          type: integer
+        contactsDocumentNumber:
+          type: string
+        trainNumber:
+          type: string
+        coachNumber:
+          type: integer
+        seatClass:
+          type: integer
+        seatNumber:
+          type: string
+        fromStationId:
+          type: string
+        toStationId:
+          type: string
+        status:
+          type: integer
+        price:
+          type: string
+    OrderList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Order'
+    AssuranceOrderDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/AssuranceOrderDto'
+    AssuranceTypeDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/AssuranceTypeDto'
+    ConsignOrderDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/ConsignOrderDto'
+    FoodOrderDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/FoodOrderDto'
+    WaitListOrderDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/WaitListOrderDto'
+    ResponseAssuranceOrderDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/AssuranceOrderDto'
+              nullable: true
+    ResponseAssuranceOrderDtoList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/AssuranceOrderDtoList'
+    ResponseAssuranceTypeDtoList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/AssuranceTypeDtoList'
+    ResponseConsignOrderDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ConsignOrderDto'
+    ResponseConsignOrderDtoList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ConsignOrderDtoList'
+    ResponseConsignPriceDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ConsignPriceDto'
+    ResponseFoodOrderDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/FoodOrderDto'
+    ResponseFoodOrderDtoList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/FoodOrderDtoList'
+    ResponseWaitListOrderDtoList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WaitListOrderDtoList'
+    ResponseOrder:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Order'
+    ResponseOrderList:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/OrderList'
+    ResponseSoldOrderStatDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/SoldOrderStatDto'
+    ResponseString:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: string
+    OrderSecurity:
+      type: object
+      properties:
+        orderNumInLastOneHour:
+          type: integer
+        orderNumOfValidOrder:
+          type: integer
+    ResponseOrderSecurity:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/OrderSecurity'
+paths:
+  /api/v1/order-query/admin/assurance-orders:
+    get:
+      tags:
+        - AdminOrderQuery
+      summary: List all assurance orders (admin)
+      responses:
+        '200':
+          description: Collection of assurance orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAssuranceOrderDtoList'
+
+  /api/v1/order/assurance-orders/types:
+    get:
+      tags:
+        - AssuranceOrderQuery
+      summary: List all assurance types
+      responses:
+        '200':
+          description: Collection of available assurance types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAssuranceTypeDtoList'
+
+  /api/v1/order/assurance-orders/{assuranceOrderId}:
+    get:
+      tags:
+        - AssuranceOrderQuery
+      summary: Retrieve an assurance order by identifier
+      parameters:
+        - name: assuranceOrderId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Assurance order (nullable if not found)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAssuranceOrderDto'
+
+  /api/v1/order/consign-orders/get-by-user-id:
+    post:
+      tags:
+        - ConsignOrderQuery
+      summary: Find consign orders for a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetConsignOrdersByUserIdDto'
+      responses:
+        '200':
+          description: Consign orders that match the user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseConsignOrderDtoList'
+
+  /api/v1/order/consign-orders/{id}:
+    get:
+      tags:
+        - ConsignOrderQuery
+      summary: Retrieve consign order by order identifier
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Consign order for given order id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseConsignOrderDto'
+
+  /api/v1/order/consign-orders/get-by-consignee:
+    post:
+      tags:
+        - ConsignOrderQuery
+      summary: Find consign orders by consignee name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetConsignOrdersByConsigneeDto'
+      responses:
+        '200':
+          description: Consign orders for consignee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseConsignOrderDtoList'
+
+  /api/v1/order/consigns/price-configs/info:
+    get:
+      tags:
+        - ConsignPriceQuery
+      summary: Retrieve consign price information
+      responses:
+        '200':
+          description: Human-readable price configuration summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseString'
+
+  /api/v1/order/consigns/price-configs/:
+    get:
+      tags:
+        - ConsignPriceQuery
+      summary: Retrieve the current consign price configuration
+      responses:
+        '200':
+          description: Consign price configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseConsignPriceDto'
+
+  /api/v1/order/food-orders/:
+    get:
+      tags:
+        - FoodOrderQuery
+      summary: List all food orders
+      responses:
+        '200':
+          description: Food orders collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseFoodOrderDtoList'
+
+  /api/v1/order/food-orders/{orderId}:
+    get:
+      tags:
+        - FoodOrderQuery
+      summary: Retrieve food order by order id
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Food order for the given order id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseFoodOrderDto'
+
+  /api/v1/order-query/orders/{orderId}:
+    get:
+      tags:
+        - OrderQuery
+      summary: Retrieve order by identifier
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Order matching identifier
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOrder'
+
+  /api/v1/order-query/orders/query:
+    post:
+      tags:
+        - OrderQuery
+      summary: Query orders with filters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderQueryDto'
+      responses:
+        '200':
+          description: Orders matching supplied filters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOrderList'
+
+  /api/v1/order-query/orders/get-by-travel-date-number:
+    post:
+      tags:
+        - OrderQuery
+      summary: Retrieve sold ticket statistics by travel date and train number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TravelDateNumberDto'
+      responses:
+        '200':
+          description: Sold order statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseSoldOrderStatDto'
+
+  /api/v1/order-query/orders/{orderId}/price:
+    get:
+      tags:
+        - OrderQuery
+      summary: Retrieve order price by identifier
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Order price as string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseString'
+
+  /api/v1/order-query/orders/security:
+    get:
+      tags:
+        - OrderQuery
+      summary: Retrieve order security summary by date and user
+      parameters:
+        - name: checkDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Order security metrics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOrderSecurity'
+
+  /api/v1/order/wait-list-orders/:
+    get:
+      tags:
+        - WaitListOrderQuery
+      summary: Retrieve all wait-list orders
+      responses:
+        '200':
+          description: Wait-list orders collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWaitListOrderDtoList'
+
+  /api/v1/order/wait-list-orders/active:
+    get:
+      tags:
+        - WaitListOrderQuery
+      summary: Retrieve active wait-list orders
+      responses:
+        '200':
+          description: Active wait-list orders collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWaitListOrderDtoList'
+

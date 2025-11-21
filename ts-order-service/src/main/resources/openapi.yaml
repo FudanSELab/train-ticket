@@ -1,0 +1,487 @@
+openapi: 3.0.1
+info:
+  title: Order Service API
+  description: Public and administrative endpoints for managing ticket orders, consignments, food orders, assurance add-ons, and wait-list requests.
+  version: 1.0.0
+servers:
+  - url: http://localhost:12031
+    description: Local server
+tags:
+  - name: Order
+    description: Passenger order lifecycle operations
+  - name: AdminOrder
+    description: Administrative order, consign, assurance, and food operations
+  - name: AssuranceOrder
+    description: Passenger-facing assurance order operations
+  - name: ConsignOrder
+    description: Passenger-facing consign order operations
+  - name: ConsignPrice
+    description: Consign pricing utilities
+  - name: FoodOrder
+    description: Passenger-facing food order operations
+  - name: WaitListOrder
+    description: Wait-list order submission operations
+components:
+  schemas:
+    Response:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/Response'
+    OrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/OrderDto'
+    ConsignOrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/ConsignOrderDto'
+    ConsignPriceDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/ConsignPriceDto'
+    ConsignPriceQueryDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/ConsignPriceQueryDto'
+    FoodOrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/FoodOrderDto'
+    FoodOrderDtoList:
+      type: array
+      items:
+        $ref: '#/components/schemas/FoodOrderDto'
+    WaitListOrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/WaitListOrderDto'
+    AssuranceOrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/AssuranceOrderDto'
+    CreateAssuranceOrderDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/CreateAssuranceOrderDto'
+    UpdateAssuranceOrderTypeDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/UpdateAssuranceOrderTypeDto'
+    ModifyOrderStatusDto:
+      $ref: '../../../../ts-client-sdk/src/main/java/edu/fudan/common/client/dto/schemas.yaml#/components/schemas/ModifyOrderStatusDto'
+    ResponseOrderDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/OrderDto'
+    ResponseConsignOrderDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ConsignOrderDto'
+    ResponseConsignPriceDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ConsignPriceDto'
+    ResponseFoodOrderDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/FoodOrderDto'
+    ResponseWaitListOrderDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WaitListOrderDto'
+    ResponseAssuranceOrderDto:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/AssuranceOrderDto'
+    ResponseDouble:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: number
+              format: double
+    ResponseUuid:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: string
+              format: uuid
+    ResponseVoid:
+      allOf:
+        - $ref: '#/components/schemas/Response'
+        - type: object
+          properties:
+            data:
+              type: object
+              nullable: true
+paths:
+  /api/v1/order/orders/{orderId}/pay:
+    post:
+      tags:
+        - Order
+      summary: Pay for an order
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Updated order after payment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOrderDto'
+
+  /api/v1/order/orders/{orderId}/status:
+    put:
+      tags:
+        - Order
+      summary: Update an order status
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModifyOrderStatusDto'
+      responses:
+        '200':
+          description: Updated order after status change
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOrderDto'
+
+  /api/v1/order/orders:
+    post:
+      tags:
+        - Order
+      summary: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+      responses:
+        '200':
+          description: Created order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOrderDto'
+    put:
+      tags:
+        - Order
+      summary: Update an existing order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDto'
+      responses:
+        '200':
+          description: Updated order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOrderDto'
+
+  /api/v1/order/admin/orders/{orderId}:
+    delete:
+      tags:
+        - AdminOrder
+      summary: Delete an order by identifier
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted order payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseOrderDto'
+
+  /api/v1/order/admin/assurance-orders/{assuranceId}:
+    delete:
+      tags:
+        - AdminOrder
+      summary: Delete an assurance order by identifier
+      parameters:
+        - name: assuranceId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Deletion status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseUuid'
+
+  /api/v1/order/admin/assurance-orders/orderid/{orderId}:
+    delete:
+      tags:
+        - AdminOrder
+      summary: Delete an assurance order by order identifier
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Deletion status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseUuid'
+
+  /api/v1/order/admin/consign-orders:
+    put:
+      tags:
+        - AdminOrder
+      summary: Update a consign order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsignOrderDto'
+      responses:
+        '200':
+          description: Updated consign order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseConsignOrderDto'
+
+  /api/v1/order/admin/consign-orders/price-configs:
+    post:
+      tags:
+        - AdminOrder
+      summary: Create consign price config
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsignPriceDto'
+      responses:
+        '200':
+          description: Created price config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseConsignPriceDto'
+    put:
+      tags:
+        - AdminOrder
+      summary: Update consign price config
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsignPriceDto'
+      responses:
+        '200':
+          description: Updated price config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseConsignPriceDto'
+
+  /api/v1/order/admin/food-orders/createOrderBatch:
+    post:
+      tags:
+        - AdminOrder
+      summary: Create food orders in batch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoodOrderDtoList'
+      responses:
+        '200':
+          description: Batch creation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseVoid'
+
+  /api/v1/order/admin/food-orders/{orderId}:
+    delete:
+      tags:
+        - AdminOrder
+      summary: Delete a food order by identifier
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '202':
+          description: Deletion request accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseVoid'
+
+  /api/v1/order/assurance-orders/{assuranceOrderId}/assurance-type:
+    patch:
+      tags:
+        - AssuranceOrder
+      summary: Change assurance type selection
+      parameters:
+        - name: assuranceOrderId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAssuranceOrderTypeDto'
+      responses:
+        '200':
+          description: Updated assurance order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAssuranceOrderDto'
+
+  /api/v1/order/assurance-orders:
+    post:
+      tags:
+        - AssuranceOrder
+      summary: Create a new assurance order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAssuranceOrderDto'
+      responses:
+        '200':
+          description: Created assurance order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseAssuranceOrderDto'
+
+  /api/v1/order/consign-orders:
+    post:
+      tags:
+        - ConsignOrder
+      summary: Submit a new consign order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsignOrderDto'
+      responses:
+        '200':
+          description: Created consign order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseConsignOrderDto'
+
+  /api/v1/order/consigns/price-configs/calculate:
+    post:
+      tags:
+        - ConsignPrice
+      summary: Calculate consign price by weight and region
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsignPriceQueryDto'
+      responses:
+        '200':
+          description: Calculated price
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDouble'
+
+  /api/v1/order/food-orders/:
+    post:
+      tags:
+        - FoodOrder
+      summary: Create a new food order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoodOrderDto'
+      responses:
+        '200':
+          description: Created food order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseFoodOrderDto'
+    put:
+      tags:
+        - FoodOrder
+      summary: Update an existing food order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FoodOrderDto'
+      responses:
+        '200':
+          description: Updated food order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseFoodOrderDto'
+
+  /api/v1/order/wait-list-orders/:
+    post:
+      tags:
+        - WaitListOrder
+      summary: Create a wait-list order request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WaitListOrderDto'
+      responses:
+        '200':
+          description: Created wait-list order
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseWaitListOrderDto'
+
