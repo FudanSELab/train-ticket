@@ -1,85 +1,71 @@
 package order.init;
 
-import edu.fudan.common.util.StringUtils;
-import order.entity.Order;
-import order.service.OrderService;
+import order.repository.ConsignRepository;
+import order.service.ConsignOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.UUID;
-
-/**
- * @author fdse
- */
 @Component
 public class InitData implements CommandLineRunner {
     @Autowired
-    OrderService service;
+    ConsignOrderService service;
 
-    String accountId = "4d2a46c7-71cb-4cf1-b5bb-b68406d9da6f";
-    String contactName = "Contacts_One";
-    String contactDocumentNumber = "DocumentNumber_One";
-    String firstClass = "FirstClass-30";
-    String price = "100.0";
+    @Autowired
+    ConsignRepository repository;
 
     @Override
-    public void run(String... args)throws Exception{
-        Order order = new Order();
-        order.setId("5ad7750b-a68b-49c0-a8c0-32776b067703");
-        order.setTravelDate("2022-10-01 00:00:00"); //NOSONAR
-        order.setTravelTime("2022-10-01 00:00:00"); //NOSONAR
-        order.setAccountId(accountId);
-        order.setContactsName(contactName);
-        order.setDocumentType(1);
-        order.setContactsDocumentNumber(contactDocumentNumber);
-        order.setTrainNumber("G1237");
-        order.setCoachNumber(5);
-        order.setSeatClass(2);
-        order.setSeatNumber(firstClass);
-        order.setFrom("nanjing");
-        order.setTo("shanghaihongqiao");
-        order.setStatus(0);
-        order.setPrice(price);
-        service.initOrder(order, null);
+    public void run(String... args) throws Exception {
+        //do nothing
+       /* Consign c_1 = new Consign();
+        String id_1 = "ff8080817b3e4c27017b3e4c3bee0000";
+        String orderID_1 = "ff8080817b3e4c27017b3e4order0000";
+        String accountID_1 = "ff8080817b3e4c27017b3e4c3acc0000";
+        String consignee_1 = "xxx1";
+        c_1.setId(id_1);
+        c_1.setUserId(accountID_1);
+        c_1.setOrderId(orderID_1);
+        c_1.setConsignee(consignee_1);
+        c_1.setFrom("from");
+        c_1.setTo("to");
+        c_1.setHandleDate("handle_date");
+        c_1.setTargetDate("target_date");
+        c_1.setPhone("12345");
+        c_1.setWeight(10);
+        repository.save(c_1);
+
+        Consign c_2 = new Consign();
+        String id_2 = "ff8080817b3e4c27017b3e4c3bee1111";
+        String orderID_2 = "ff8080817b3e4c27017b3e4order1111";
+        String accountID_2 = "ff8080817b3e4c27017b3e4c3acc0000";  //同一个account
+        String consignee_2 = "xxx2";
+        c_2.setId(id_2);
+        c_2.setUserId(accountID_2);
+        c_2.setOrderId(orderID_2);
+        c_2.setConsignee(consignee_2);
+        c_2.setFrom("from2");
+        c_2.setTo("to2");
+        c_2.setHandleDate("handle_date2");
+        c_2.setTargetDate("target_date2");
+        c_2.setPhone("12345");
+        c_2.setWeight(12);
+        repository.save(c_2);
+
+        Consign res1 = repository.findById(id_1).get();
+        System.out.println("id查找成功 ： " + res1.getId());
+        Consign res2 = repository.findByOrderId(orderID_1);
+        System.out.println("orderID查找成功 ： "+ res2.getId());
+        ArrayList<Consign> res3 = repository.findByAccountId(accountID_1);
+        System.out.println("accountID查找成功 ： " + res3.size());
+        ArrayList<Consign> res4 = repository.findByConsignee(consignee_1);
+        System.out.println("consignee查找成功 ： " + res4.size());
+*/
 
 
-        Order orderTwo = new Order();
-        orderTwo.setId("8177ac5a-61ac-42f4-83f4-bd7b394d0531");
-        orderTwo.setTravelDate("2022-10-01 00:00:00"); //NOSONAR
-        orderTwo.setTravelTime("2022-10-01 00:00:00"); //NOSONAR
-        orderTwo.setAccountId(accountId);
-        orderTwo.setContactsName(contactName);
-        orderTwo.setDocumentType(1);
-        orderTwo.setContactsDocumentNumber(contactDocumentNumber);
-        orderTwo.setTrainNumber("G1234");
-        orderTwo.setCoachNumber(5);
-        orderTwo.setSeatClass(2);
-        orderTwo.setSeatNumber(firstClass);
-        orderTwo.setFrom("shanghai");
-        orderTwo.setTo("beijing");
-        orderTwo.setStatus(0);
-        orderTwo.setPrice(price);
-        service.initOrder(orderTwo, null);
-
-        Order orderThree = new Order();
-        orderThree.setId("d3c91694-d5b8-424c-9974-e14c89226e49");
-        orderThree.setTravelDate("2022-10-01 00:00:00"); //NOSONAR
-        orderThree.setTravelTime("2022-10-01 00:00:00"); //NOSONAR
-        orderThree.setAccountId(accountId);
-        orderThree.setContactsName(contactName);
-        orderThree.setDocumentType(1);
-        orderThree.setContactsDocumentNumber(contactDocumentNumber);
-        orderThree.setTrainNumber("G1235");
-        orderThree.setCoachNumber(5);
-        orderThree.setSeatClass(2);
-        orderThree.setSeatNumber(firstClass);
-        orderThree.setFrom("shanghai");
-        orderThree.setTo("beijing");
-        orderThree.setStatus(0);
-        orderThree.setPrice(price);
-        service.initOrder(orderThree, null);
     }
+
+
+
+
 
 }

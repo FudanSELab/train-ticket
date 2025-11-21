@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.function.Function;
+
 /**
  * @author fdse
  */
@@ -21,4 +23,9 @@ public class Response<T> {
 
     String msg;
     T data;
+
+    public <R> Response<R> map(Function<? super T, ? extends R> mapper) {
+        R mapped = data == null ? null : mapper.apply(data);
+        return new Response<>(status, msg, mapped);
+    }
 }

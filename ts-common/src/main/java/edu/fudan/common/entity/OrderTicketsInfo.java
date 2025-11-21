@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 /**
  * @author fdse
  */
@@ -32,6 +30,7 @@ public class OrderTicketsInfo {
     private String to;
     private int assurance;
 
+    @Builder.Default
     private int foodType = 0;
 
     private String stationName;

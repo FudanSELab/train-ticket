@@ -1,7 +1,6 @@
 package edu.fudan.common.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 

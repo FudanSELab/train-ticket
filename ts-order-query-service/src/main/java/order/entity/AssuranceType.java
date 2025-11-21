@@ -1,11 +1,9 @@
 package order.entity;
 
-import java.io.Serializable;
-
 /**
  * Insurance type enumeration.
  */
-public enum AssuranceType implements Serializable {
+public enum AssuranceType {
     /**
      * Traffic Accident Assurance
      */

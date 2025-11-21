@@ -4,8 +4,6 @@ import edu.fudan.common.util.StringUtils;
 import lombok.Data;
 import lombok.ToString;
 
-import java.util.Date;
-
 /**
  * @author fdse
  */

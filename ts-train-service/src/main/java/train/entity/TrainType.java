@@ -1,7 +1,6 @@
 package train.entity;
 
 import lombok.Data;
-import lombok.NonNull;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;

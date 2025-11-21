@@ -2,8 +2,6 @@ package edu.fudan.common.entity;
 
 import lombok.Data;
 
-import java.util.UUID;
-
 /**
  * @author fdse
  */

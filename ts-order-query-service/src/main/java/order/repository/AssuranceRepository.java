@@ -1,6 +1,6 @@
 package order.repository;
 
-import order.entity.Assurance;
+import order.entity.AssuranceOrder;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-public interface AssuranceRepository extends CrudRepository<Assurance, String> {
+public interface AssuranceRepository extends CrudRepository<AssuranceOrder, String> {
 
-    Optional<Assurance> findById(String id);
+    Optional<AssuranceOrder> findById(String id);
 
-    Assurance findByOrderId(String orderId);
+    AssuranceOrder findByOrderId(String orderId);
 
     @Transactional
     void deleteById(String id);
@@ -22,5 +22,5 @@ public interface AssuranceRepository extends CrudRepository<Assurance, String> {
     void removeAssuranceByOrderId(String orderId);
 
     @Override
-    ArrayList<Assurance> findAll();
+    ArrayList<AssuranceOrder> findAll();
 }

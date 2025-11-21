@@ -11,8 +11,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
 
-import edu.fudan.common.entity.SeatClass;
-
 /**
  * @author fdse
  */
@@ -41,7 +39,7 @@ public class Order {
      * Which Account Bought it
      */
     @Column(length = 36)
-    private String accountId;
+    private String userId;
 
     /**
      * Tickets bought for whom....
@@ -60,11 +58,9 @@ public class Order {
 
     private String seatNumber;
 
-    @Column(name = "from_station")
-    private String from;
+    private String fromStationId;
 
-    @Column(name = "to_station")
-    private String to;
+    private String toStationId;
 
     private int status;
 
@@ -79,8 +75,8 @@ public class Order {
         coachNumber = 5;
         seatClass = SeatClass.FIRSTCLASS.getCode();
         seatNumber = "1";
-        from = "shanghai";
-        to = "taiyuan";
+        fromStationId = "shanghai";
+        toStationId = "taiyuan";
         status = OrderStatus.PAID.getCode();
         price = "0.0";
     }
@@ -100,7 +96,7 @@ public class Order {
         return getBoughtDate().equals(other.getBoughtDate())
                 && getBoughtDate().equals(other.getTravelDate())
                 && getTravelTime().equals(other.getTravelTime())
-                && accountId .equals( other.getAccountId() )
+                && userId .equals( other.getUserId() )
                 && contactsName.equals(other.getContactsName())
                 && contactsDocumentNumber.equals(other.getContactsDocumentNumber())
                 && documentType == other.getDocumentType()
@@ -108,8 +104,8 @@ public class Order {
                 && coachNumber == other.getCoachNumber()
                 && seatClass == other.getSeatClass()
                 && seatNumber .equals(other.getSeatNumber())
-                && from.equals(other.getFrom())
-                && to.equals(other.getTo())
+                && fromStationId.equals(other.getFromStationId())
+                && toStationId.equals(other.getToStationId())
                 && status == other.getStatus()
                 && price.equals(other.price);
     }

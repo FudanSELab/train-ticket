@@ -1,8 +1,6 @@
 package edu.fudan.common.entity;
 
 import lombok.Data;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author fdse

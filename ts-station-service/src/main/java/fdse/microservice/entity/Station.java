@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Locale;
-import java.util.UUID;
 
 @Data
 @Entity

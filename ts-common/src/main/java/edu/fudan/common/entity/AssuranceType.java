@@ -1,11 +1,10 @@
 package edu.fudan.common.entity;
 
-import java.io.Serializable;
 
 /**
  * @author fdse
  */
-public enum AssuranceType implements Serializable{
+public enum AssuranceType {
 
     /**
      * traffic accident assurance

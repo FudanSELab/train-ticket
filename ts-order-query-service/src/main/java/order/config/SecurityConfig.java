@@ -3,7 +3,6 @@ package order.config;
 import edu.fudan.common.security.jwt.JWTFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -72,14 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, order).hasAnyRole(admin, "USER")
-                .antMatchers(HttpMethod.PUT, order).hasAnyRole(admin, "USER")
-                .antMatchers(HttpMethod.DELETE, order).hasAnyRole(admin, "USER")
-                .antMatchers(HttpMethod.POST, "/api/v1/order/order/admin").hasAnyRole(admin)
-                .antMatchers(HttpMethod.PUT, "/api/v1/order/order/admin").hasAnyRole(admin)
-                .antMatchers("/api/v1/order/admin/**").hasRole(admin)
-                .antMatchers("/api/v1/order/order/**").permitAll()
-                .antMatchers("/api/v1/order/assurance/**").hasRole("USER")
+                .antMatchers("/api/v1/order-query/admin/**").hasRole(admin)
+                .antMatchers("/api/v1/order-query/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/images/**",
                         "/configuration/**", "/swagger-resources/**", "/v2/**").permitAll()
                 .anyRequest().authenticated()

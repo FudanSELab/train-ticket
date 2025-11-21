@@ -4,11 +4,6 @@ import edu.fudan.common.util.StringUtils;
 
 import lombok.Data;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.UUID;
-
 /**
  * @author fdse
  */

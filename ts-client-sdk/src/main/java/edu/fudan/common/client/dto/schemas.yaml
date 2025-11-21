@@ -28,8 +28,30 @@ components:
       $ref: 'ticket/schemas.yaml#/components/schemas/PriceDto'
 
     # --- Order DTO Schema ---
-    OrderSecurityDto:
-      $ref: 'order/schemas.yaml#/components/schemas/OrderSecurityDto'
+    OrderDto:
+      $ref: 'order/schemas.yaml#/components/schemas/OrderDto'
+    FoodOrderDto:
+      $ref: 'order/schemas.yaml#/components/schemas/FoodOrderDto'
+    ModifyOrderStatusDto:
+      $ref: 'order/schemas.yaml#/components/schemas/ModifyOrderStatusDto'
+    UpdateAssuranceOrderTypeDto:
+      $ref: 'order/schemas.yaml#/components/schemas/UpdateAssuranceOrderTypeDto'
+    CreateAssuranceOrderDto:
+      $ref: 'order/schemas.yaml#/components/schemas/CreateAssuranceOrderDto'
+    AssuranceDto:
+      $ref: 'order/schemas.yaml#/components/schemas/AssuranceDto'
+    AssuranceTypeDto:
+      $ref: 'order/schemas.yaml#/components/schemas/AssuranceTypeDto'
+    ConsignDto:
+      $ref: 'order/schemas.yaml#/components/schemas/ConsignDto'
+    ConsignPriceDto:
+      $ref: 'order/schemas.yaml#/components/schemas/ConsignPriceDto'
+    ConsignPriceQueryDto:
+      $ref: 'order/schemas.yaml#/components/schemas/ConsignPriceQueryDto'
+    GetConsignOrdersByUserIdDto:
+      $ref: 'order/schemas.yaml#/components/schemas/GetConsignOrdersByUserIdDto'
+    GetConsignOrdersByConsigneeDto:
+      $ref: 'order/schemas.yaml#/components/schemas/GetConsignOrdersByConsigneeDto'
 
     # --- User DTO Schema ---
     UserDto:

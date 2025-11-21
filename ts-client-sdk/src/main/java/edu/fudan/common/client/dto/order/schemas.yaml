@@ -15,3 +15,409 @@ components:
       required:
         - orderNumInLastOneHour
         - orderNumOfValidOrder
+    OrderDto:
+      type: object
+      description: Order details mirroring the ts-order-service Order entity.
+      properties:
+        id:
+          type: string
+          description: Globally unique order identifier.
+        boughtDate:
+          type: string
+          description: Date when the order was placed (yyyy-MM-dd).
+        travelDate:
+          type: string
+          description: Travel date for the referenced trip (yyyy-MM-dd).
+        travelTime:
+          type: string
+          description: Scheduled departure time (HH:mm).
+        accountId:
+          type: string
+          description: Account id that placed the order.
+        contactsName:
+          type: string
+          description: Passenger contact name.
+        documentType:
+          type: integer
+          format: int32
+          description: Passenger document type code.
+        contactsDocumentNumber:
+          type: string
+          description: Passenger document number.
+        trainNumber:
+          type: string
+          description: Train number associated with the order.
+        coachNumber:
+          type: integer
+          format: int32
+          description: Coach number inside the train.
+        seatClass:
+          type: integer
+          format: int32
+          description: Seat class code aligned with SeatClass enum.
+        seatNumber:
+          type: string
+          description: Seat number assigned to the passenger.
+        from:
+          type: string
+          description: Departure station name.
+        to:
+          type: string
+          description: Destination station name.
+        status:
+          type: integer
+          format: int32
+          description: Current order status code.
+        price:
+          type: string
+          description: Ticket price as string to preserve formatting.
+    OrderInfoDto:
+      type: object
+      description: Request payload for querying orders with optional filters.
+      properties:
+        loginId:
+          type: string
+          description: Account identifier performing the query.
+        travelDateStart:
+          type: string
+          description: Inclusive lower bound of desired travel date range.
+        travelDateEnd:
+          type: string
+          description: Exclusive upper bound of desired travel date range.
+        boughtDateStart:
+          type: string
+          description: Inclusive lower bound of purchase date range.
+        boughtDateEnd:
+          type: string
+          description: Exclusive upper bound of purchase date range.
+        state:
+          type: integer
+          format: int32
+          description: Target order status when state filtering is enabled.
+        enableTravelDateQuery:
+          type: boolean
+          description: Enables travel date based filtering when true.
+        enableBoughtDateQuery:
+          type: boolean
+          description: Enables purchase date based filtering when true.
+        enableStateQuery:
+          type: boolean
+          description: Enables state based filtering when true.
+    SoldOrderStatDto:
+      type: object
+      description: Aggregated seat statistics for a train on a specific date.
+      properties:
+        travelDate:
+          type: string
+          format: date
+          description: Travel date associated with the statistics.
+        trainNumber:
+          type: string
+          description: Train number for which statistics are calculated.
+        noSeat:
+          type: integer
+          format: int32
+          description: Count of sold standing tickets.
+        businessSeat:
+          type: integer
+          format: int32
+          description: Count of sold business class seats.
+        firstClassSeat:
+          type: integer
+          format: int32
+          description: Count of sold first class seats.
+        secondClassSeat:
+          type: integer
+          format: int32
+          description: Count of sold second class seats.
+        hardSeat:
+          type: integer
+          format: int32
+          description: Count of sold hard seats.
+        softSeat:
+          type: integer
+          format: int32
+          description: Count of sold soft seats.
+        hardBed:
+          type: integer
+          format: int32
+          description: Count of sold hard sleeper berths.
+        softBed:
+          type: integer
+          format: int32
+          description: Count of sold soft sleeper berths.
+        highSoftBed:
+          type: integer
+          format: int32
+          description: Count of sold deluxe soft sleeper berths.
+    TravelDateNumberDto:
+      type: object
+      description: Query payload for fetching sold ticket statistics by travel date and train number.
+      properties:
+        travelDate:
+          type: string
+          format: date
+          description: Travel date to query (yyyy-MM-dd).
+        travelNumber:
+          type: string
+          description: Train number to query.
+      required:
+        - travelDate
+        - travelNumber
+    FoodOrderDto:
+      type: object
+      description: Food order details managed by ts-order-service.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the food order record.
+        orderId:
+          type: string
+          description: Ticket order identifier associated with the food order.
+        foodType:
+          type: integer
+          format: int32
+          description: Food type flag (1 - train food, 2 - station store).
+        stationName:
+          type: string
+          description: Station name when the food is delivered from a station store.
+        storeName:
+          type: string
+          description: Store name when the food is delivered from a station store.
+        foodName:
+          type: string
+          description: Ordered food name displayed to passengers.
+        price:
+          type: number
+          format: double
+          description: Price of the ordered food.
+    WaitListOrderDto:
+      type: object
+      description: Wait list order record exposed by ts-order-service.
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the wait list order.
+        travelTime:
+          type: string
+          description: Planned departure time in ISO string format.
+        userId:
+          type: string
+          description: Account identifier tied to the wait list order.
+        contactsId:
+          type: string
+          description: Contacts identifier referenced by the wait list order.
+        contactsName:
+          type: string
+          description: Passenger contact name.
+        contactsDocumentType:
+          type: integer
+          format: int32
+          description: Passenger certificate type code.
+        contactsDocumentNumber:
+          type: string
+          description: Passenger certificate number.
+        trainNumber:
+          type: string
+          description: Requested train number.
+        seatType:
+          type: integer
+          format: int32
+          description: Preferred seat type code.
+        fromStation:
+          type: string
+          description: Departure station name.
+        toStation:
+          type: string
+          description: Destination station name.
+        price:
+          type: string
+          description: Expected ticket price.
+        waitUtilTime:
+          type: string
+          description: Deadline for the wait list entry.
+        createdTime:
+          type: string
+          description: Creation timestamp of the wait list order.
+        status:
+          type: integer
+          format: int32
+          description: Current wait list order status code.
+    ModifyOrderStatusDto:
+      type: object
+      description: Payload for modifying an existing order status.
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: Target order status code.
+      required:
+        - status
+    UpdateAssuranceOrderTypeDto:
+      type: object
+      description: Payload for updating the assurance type associated with an order.
+      properties:
+        typeIndex:
+          type: integer
+          format: int32
+          description: Target assurance type index.
+      required:
+        - typeIndex
+    CreateAssuranceOrderDto:
+      type: object
+      description: Payload for creating an assurance order for a ticket order.
+      properties:
+        orderId:
+          type: string
+          description: Ticket order identifier that the assurance binds to.
+        typeIndex:
+          type: integer
+          format: int32
+          description: Selected assurance type index.
+      required:
+        - orderId
+        - typeIndex
+    AssuranceDto:
+      type: object
+      description: Assurance record with resolved type metadata.
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        typeIndex:
+          type: integer
+          format: int32
+        typeName:
+          type: string
+        typePrice:
+          type: number
+          format: double
+      required:
+        - id
+        - orderId
+        - typeIndex
+        - typeName
+        - typePrice
+    AssuranceTypeDto:
+      type: object
+      description: Available assurance type metadata.
+      properties:
+        index:
+          type: integer
+          format: int32
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+      required:
+        - index
+        - name
+        - price
+    ConsignDto:
+      type: object
+      description: Consign payload used for create/update requests and query responses.
+      properties:
+        id:
+          type: string
+          description: Consign identifier.
+        orderId:
+          type: string
+          description: Order identifier associated with the consign request.
+        accountId:
+          type: string
+          description: Account submitting the consign request.
+        handleDate:
+          type: string
+          description: Date when consign handling starts (yyyy-MM-dd).
+        targetDate:
+          type: string
+          description: Intended delivery date (yyyy-MM-dd).
+        from:
+          type: string
+          description: Consign origin location.
+        to:
+          type: string
+          description: Consign destination location.
+        consignee:
+          type: string
+          description: Recipient name.
+        phone:
+          type: string
+          description: Recipient phone number.
+        weight:
+          type: number
+          format: double
+          description: Package weight in kilograms.
+        within:
+          type: boolean
+          description: Whether the consign is within a single region.
+        price:
+          type: number
+          format: double
+          description: Calculated consign price (available in responses).
+    GetConsignOrdersByUserIdDto:
+      type: object
+      description: Request payload body for querying consign orders by user id.
+      properties:
+        userId:
+          type: string
+          description: User identifier expressed as a UUID string.
+      required:
+        - userId
+    GetConsignOrdersByConsigneeDto:
+      type: object
+      description: Request payload body for querying consign orders by consignee.
+      properties:
+        consignee:
+          type: string
+          description: Consignee name used for lookup.
+      required:
+        - consignee
+    ConsignPriceDto:
+      type: object
+      description: Consign price configuration shared by order-service.
+      properties:
+        id:
+          type: string
+          description: Identifier of the configuration row.
+        index:
+          type: integer
+          format: int32
+          description: Unique configuration index (always 0).
+        initialWeight:
+          type: number
+          format: double
+          description: Weight threshold that uses the initial price (kg).
+        initialPrice:
+          type: number
+          format: double
+          description: Flat price applied for shipments within the initial weight.
+        withinPrice:
+          type: number
+          format: double
+          description: Price per kilogram for extra weight inside the region.
+        beyondPrice:
+          type: number
+          format: double
+          description: Price per kilogram for extra weight beyond the region.
+      required:
+        - initialWeight
+        - initialPrice
+        - withinPrice
+        - beyondPrice
+    ConsignPriceQueryDto:
+      type: object
+      description: Request payload specifying conditions for consign price calculation.
+      properties:
+        weight:
+          type: number
+          format: double
+          description: Package weight in kilograms.
+        withinRegion:
+          type: boolean
+          description: Whether the consign stays within the same region.
+      required:
+        - weight
+        - withinRegion
