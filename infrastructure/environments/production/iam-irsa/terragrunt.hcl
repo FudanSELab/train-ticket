@@ -1,16 +1,17 @@
 include "root" {
-  path = find_in_parent_folders()
+  path = find_in_parent_folders("root.hcl")
 }
 
 locals {
-  env = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  common  = read_terragrunt_config(find_in_parent_folders("_common.hcl"))
+  account = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+  name    = "${local.common.locals.project}-${local.account.locals.environment}"
 }
 
 terraform {
-  source = "${get_repo_root()}/infrastructure/terraform/modules/iam-irsa"
+  source = "${get_repo_root()}/infrastructure/_modules/iam-irsa"
 }
 
-# Needs the cluster OIDC provider from the eks unit.
 dependency "eks" {
   config_path = "../eks"
 
@@ -21,9 +22,8 @@ dependency "eks" {
 }
 
 inputs = {
-  cluster_name      = local.env.locals.cluster_name
+  cluster_name      = local.name
   oidc_provider_arn = dependency.eks.outputs.oidc_provider_arn
 
-  # Flip on once a Route53 hosted zone exists.
   enable_external_dns = false
 }
