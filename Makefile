@@ -1,7 +1,7 @@
 # Codewisdom Train-Ticket system
 
-Repo=codewisdom
-Tag=latest
+Repo=hdali00/train-ticket
+Tag=train-ticket
 Namespace="default"
 DeployArgs=""
 

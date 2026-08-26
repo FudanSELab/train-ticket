@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   #  rabbitmq:
   #    image: rabbitmq:management
@@ -26,7 +24,7 @@ services:
   #      - my-network
 
   redis:
-    image: redis
+    image: redis:7-alpine
     ports:
       - 6379:6379
     networks:
@@ -51,7 +49,7 @@ services:
       - my-network
 
   ts-auth-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -65,7 +63,7 @@ services:
       - my-network
 
   ts-user-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -79,7 +77,7 @@ services:
       - my-network
 
   ts-account-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -93,7 +91,7 @@ services:
       - my-network
 
   ts-route-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -107,7 +105,7 @@ services:
       - my-network
 
   ts-contacts-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -121,7 +119,7 @@ services:
       - my-network
 
   ts-order-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -135,7 +133,7 @@ services:
       - my-network
 
   ts-order-other-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -149,7 +147,7 @@ services:
       - my-network
 
   ts-config-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -163,7 +161,7 @@ services:
       - my-network
 
   ts-station-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -177,7 +175,7 @@ services:
       - my-network
 
   ts-train-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -191,7 +189,7 @@ services:
       - my-network
 
   ts-travel-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -205,7 +203,7 @@ services:
         - my-network
 
   ts-travel2-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -236,14 +234,14 @@ services:
       networks:
           - my-network
 
-  ts-ticketinfo-service:
-        build: ts-ticketinfo-service
-        image: ${IMG_REPO}/ts-ticketinfo-service:${IMG_TAG}
-        restart: always
-        ports:
-          - 15681:15681
-        networks:
-          - my-network
+  # ts-ticketinfo-service:
+  #       build: ts-ticketinfo-service
+  #       image: ${IMG_REPO}/ts-ticketinfo-service:${IMG_TAG}
+  #       restart: always
+  #       ports:
+  #         - 15681:15681
+  #       networks:
+  #         - my-network
 
   ts-price-service:
         build: ts-price-service
@@ -256,7 +254,7 @@ services:
 
 
   ts-price-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -279,7 +277,7 @@ services:
           - my-network
 
   ts-security-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -293,7 +291,7 @@ services:
           - my-network
 
   ts-inside-payment-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -316,7 +314,7 @@ services:
           - my-network
 
   ts-payment-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -330,7 +328,7 @@ services:
           - my-network
 
   ts-rebook-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -353,7 +351,7 @@ services:
           - my-network
 
   ts-assurance-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -385,7 +383,7 @@ services:
           - my-network
 
   ts-ticket-office-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -399,12 +397,12 @@ services:
       - my-network
 
   ts-news-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
   ts-voucher-mysql:
-    image: mysql
+    image: mysql:8.0
     expose:
       - "3306"
     environment:
@@ -425,17 +423,17 @@ services:
           networks:
             - my-network
 
-  ts-food-map-service:
-        build: ts-food-map-service
-        image: ${IMG_REPO}/ts-food-map-service:${IMG_TAG}
-        restart: always
-        ports:
-          - 18855:18855
-        networks:
-          - my-network
+  # ts-food-map-service:
+  #       build: ts-food-map-service
+  #       image: ${IMG_REPO}/ts-food-map-service:${IMG_TAG}
+  #       restart: always
+  #       ports:
+  #         - 18855:18855
+  #       networks:
+  #         - my-network
 
   ts-food-map-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -467,7 +465,7 @@ services:
               - my-network
 
   ts-consign-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -481,12 +479,12 @@ services:
               - my-network
 
   ts-consign-price-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
   ts-food-mongo:
-    image: mongo
+    image: mongo:6.0
     networks:
       - my-network
 
@@ -548,7 +546,7 @@ services:
       - my-network
 
   ts-avatar-service:
-    image: ${NAMESPACE}/ts-avatar-service:${TAG}
+    image: ${IMG_REPO}/ts-avatar-service:${IMG_TAG}
     restart: always
     ports:
       - 17001:17001
