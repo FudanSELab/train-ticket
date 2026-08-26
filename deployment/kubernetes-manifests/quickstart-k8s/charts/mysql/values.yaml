@@ -23,8 +23,8 @@ busybox:
   tag: 1.32
 
 mysql:
-  image: radondb/percona
-  tag: 5.7.34
+  image: percona
+  tag: "8.0"
 
   allowEmptyRootPassword: true
   # mysqlRootPassword:
