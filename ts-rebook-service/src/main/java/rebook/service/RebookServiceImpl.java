@@ -370,7 +370,7 @@ public class RebookServiceImpl implements RebookService {
         HttpEntity requestDeleteOrder = new HttpEntity(newHeaders);
         ResponseEntity<Response> reDeleteOrder = restTemplate.exchange(
                 requestUrl,
-                HttpMethod.POST,
+                HttpMethod.DELETE,
                 requestDeleteOrder,
                 Response.class);
 
